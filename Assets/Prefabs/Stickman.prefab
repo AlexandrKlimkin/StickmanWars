@@ -723,7 +723,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 664368252496868976}
-  m_LocalRotation: {x: 0, y: 0, z: -0.65774995, w: 0.7532364}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -30, y: -1.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -740,7 +740,7 @@ Transform:
   - {fileID: 664368251191137227}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -82.257}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &664368252496868981
 Rigidbody2D:
   serializedVersion: 4
@@ -837,68 +837,76 @@ MonoBehaviour:
     Rigidbody: {fileID: 664368251690384905}
     RestRotation: 0
     Force: 20
-    TargetRotation: {fileID: 664368252555110279}
+    TargetRotation: {fileID: 0}
     Disabled: 0
   - Name: LegUp2
     MuscleType: 3
     Rigidbody: {fileID: 664368251959159316}
     RestRotation: 0
     Force: 20
-    TargetRotation: {fileID: 664368252555110279}
+    TargetRotation: {fileID: 0}
     Disabled: 0
   - Name: LegDown1
     MuscleType: 4
     Rigidbody: {fileID: 664368252647110496}
     RestRotation: 5
-    Force: 10
+    Force: 20
     TargetRotation: {fileID: 0}
     Disabled: 0
   - Name: LegDown2
     MuscleType: 4
     Rigidbody: {fileID: 664368251357549092}
     RestRotation: -5
-    Force: 10
+    Force: 20
     TargetRotation: {fileID: 0}
     Disabled: 0
   - Name: ArmDown1
     MuscleType: 6
     Rigidbody: {fileID: 664368252995129645}
     RestRotation: 0
-    Force: 5
+    Force: 30
     TargetRotation: {fileID: 664368252769781501}
     Disabled: 0
   - Name: ArmDown2
     MuscleType: 6
     Rigidbody: {fileID: 664368251191137228}
     RestRotation: 0
-    Force: 5
+    Force: 30
     TargetRotation: {fileID: 664368252802860058}
     Disabled: 0
   - Name: ArmUp1
     MuscleType: 5
     Rigidbody: {fileID: 664368252769781502}
     RestRotation: -90
-    Force: 0.02
+    Force: 0.01
     TargetRotation: {fileID: 0}
-    Disabled: 1
+    Disabled: 0
   - Name: ArmUp2
     MuscleType: 5
     Rigidbody: {fileID: 664368252802860063}
     RestRotation: 90
-    Force: 0.02
+    Force: 0.01
     TargetRotation: {fileID: 0}
-    Disabled: 1
-  _LegUp: []
-  _LegDown: []
-  FirstWalkingPhaseTime: 1
-  SecondWalkingPhaseTime: 1
-  HipMoveForce: 0
-  LegUpMoveForce: 0
-  LegDownMoveForce: 0
-  hipRot: 30
-  LegUpAddForce: 0
-  LegDownAddForce: 0
-  _State: 0
+    Disabled: 0
+  _WalkAction:
+    FirstWalkingPhaseTime: 0.3
+    SecondWalkingPhaseTime: 0.2
+    HipMoveForce: 0
+    LegUpMoveForce: 0
+    LegDownMoveForce: 0
+    hipRot: 20
+    LegUpAddForce: 30
+    LegDownAddForce: 20
+    MoveSpeed: 10
+    FirstLegUpAngle: 90
+    FirstLegDownAngle: -10
+    SecondLegUpAngle: 90
+    SecondLegDownAngle: -10
+    _State: 0
+    _CurrentCycleTime: 0
+    _TimePassed: 0
+  _JumpAction:
+    JumpForce: 800
 --- !u!114 &1972258320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -906,12 +914,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 664368252496868976}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c05994e1241809b41821546ee55d314f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gravity: 0
+  Gravity: 1
 --- !u!1 &664368252555110276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,7 +1191,7 @@ HingeJoint2D:
   m_UseLimits: 0
   m_AngleLimits:
     m_LowerAngle: 0
-    m_UpperAngle: 360
+    m_UpperAngle: 120
 --- !u!70 &664368252647110497
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

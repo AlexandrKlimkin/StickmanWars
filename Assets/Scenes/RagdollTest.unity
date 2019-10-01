@@ -331,7 +331,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 891f960b29d2fd14c826180d0ae59ea7, type: 3}
   m_Name: 
@@ -724,85 +724,6 @@ PrefabInstance:
     - target: {fileID: 664368252496868979, guid: 52471a5d10c145444b65865d10d7219e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: LegUpAddForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: LegDownAddForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: MoveSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: _State
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: FirstWalkingPhaseTime
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: SecondWalkingPhaseTime
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: _Muscles.Array.data[7].Force
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: _Muscles.Array.data[8].Force
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: _Muscles.Array.data[3].TargetRotation
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: _Muscles.Array.data[4].TargetRotation
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252647110511, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368251357549090, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: m_UseLimits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252647110510, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: m_UseLimits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252647110510, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: m_AngleLimits.m_UpperAngle
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 664368252647110510, guid: 52471a5d10c145444b65865d10d7219e,
-        type: 3}
-      propertyPath: m_AngleLimits.m_LowerAngle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1972258320, guid: 52471a5d10c145444b65865d10d7219e, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
