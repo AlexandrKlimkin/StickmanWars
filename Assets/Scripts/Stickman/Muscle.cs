@@ -39,6 +39,10 @@ namespace MuscleSystem {
             Rigidbody.AddForce(force);
         }
 
+        public void AddForce(Vector2 force, Vector2 pos) {
+            Rigidbody.AddForceAtPosition(force, pos);
+        }
+
         public void Move(Vector2 moveVector) {
             Rigidbody.position += moveVector;
         }

@@ -1,0 +1,597 @@
+fileFormatVersion: 2
+guid: 0137e5119424e814097d97f43806e694
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 397049480413819277
+    second: ragdoll_0
+  - first:
+      213: 7884757414825989843
+    second: ragdoll_1
+  - first:
+      213: 4496093980587956775
+    second: ragdoll_2
+  - first:
+      213: -7946919035785568782
+    second: ragdoll_3
+  - first:
+      213: 457715301533448594
+    second: ragdoll_4
+  - first:
+      213: -4880853717671237597
+    second: ragdoll_5
+  - first:
+      213: 5342408030077941417
+    second: ragdoll_6
+  - first:
+      213: 1524539773472286454
+    second: ragdoll_7
+  - first:
+      213: 7998719764969897904
+    second: ragdoll_8
+  - first:
+      213: -7224160052476508474
+    second: ragdoll_9
+  - first:
+      213: -8779648024626227451
+    second: ragdoll_10
+  - first:
+      213: -8573649315096073097
+    second: ragdoll_11
+  - first:
+      213: 8336663513508412867
+    second: ragdoll_12
+  - first:
+      213: -473825917789248955
+    second: ragdoll_13
+  - first:
+      213: 8728988586232273702
+    second: ragdoll_14
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: 0
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ragdoll_0
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 401
+        width: 17
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d35c81fbcc606f45b8e9198aba42b81
+      internalID: 397049480413819277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_1
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 396
+        width: 17
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e43a85582127734fa3da97f8e6274d4
+      internalID: 7884757414825989843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_2
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 358
+        width: 98
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5eeb1d1ef8e28a40b28d2e1beb4329e
+      internalID: 4496093980587956775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_3
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 347
+        width: 77
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a52686f6df0ee240913b0612b7cd460
+      internalID: -7946919035785568782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_4
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 301
+        width: 14
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e647080fa55eaf04a8b09830753030d6
+      internalID: 457715301533448594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_5
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 305
+        width: 14
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f27018fac6932d4c805a71487eb0e9c
+      internalID: -4880853717671237597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_6
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 180
+        width: 72
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39c05d8e056df824893beca6e6ca3de6
+      internalID: 5342408030077941417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_7
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 180
+        width: 34
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 521d1350c7a51604abc8baca0bd916bc
+      internalID: 1524539773472286454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_8
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 183
+        width: 34
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3eeb71db3c0b3984a97d282a4cc27159
+      internalID: 7998719764969897904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_9
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 229
+        width: 24
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec4a68defbe66624090038439ef55653
+      internalID: -7224160052476508474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_10
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 229
+        width: 24
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cbe56e83b8215e459125ce302082372
+      internalID: -8779648024626227451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_11
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 51
+        width: 81
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1815b11b7afd96446a0adb388bd7e758
+      internalID: -8573649315096073097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_12
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 51
+        width: 80
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65d9b8b93fe557347b6ea8409c6fff3e
+      internalID: 8336663513508412867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_13
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 117
+        width: 18
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e2a4df41ab8ee348a027f68fe35516a
+      internalID: -473825917789248955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ragdoll_14
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 117
+        width: 17
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37204c80fc41bc247bdffa367c020e18
+      internalID: 8728988586232273702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape:
+    - - {x: -81, y: -96}
+      - {x: -128, y: -96}
+      - {x: -128, y: -133}
+      - {x: -115, y: -206}
+      - {x: -50, y: -206}
+      - {x: -47, y: -203}
+      - {x: -45, y: -199}
+      - {x: -45, y: -187}
+    - - {x: 30, y: -96}
+      - {x: -14, y: -96}
+      - {x: -14, y: -116}
+      - {x: -2, y: -196}
+      - {x: -1, y: -202}
+      - {x: 2, y: -206}
+      - {x: 64, y: -206}
+      - {x: 67, y: -205}
+      - {x: 68, y: -199}
+      - {x: 68, y: -192}
+    - - {x: 105, y: -36}
+      - {x: 92, y: -36}
+      - {x: 88, y: -46}
+      - {x: 88, y: -138}
+      - {x: 93, y: -141}
+      - {x: 99, y: -141}
+      - {x: 103, y: -135}
+      - {x: 108, y: -64}
+      - {x: 108, y: -38}
+    - - {x: 159, y: -36}
+      - {x: 154, y: -40}
+      - {x: 154, y: -141}
+      - {x: 171, y: -141}
+      - {x: 174, y: -123}
+      - {x: 174, y: -36}
+    - - {x: 25, y: 73}
+      - {x: -21, y: 73}
+      - {x: -33, y: 54}
+      - {x: -33, y: -69}
+      - {x: -14, y: -78}
+      - {x: 25, y: -78}
+      - {x: 39, y: -70}
+      - {x: 42, y: -33}
+      - {x: 42, y: 46}
+    - - {x: -189, y: 19}
+      - {x: -189, y: -73}
+      - {x: -180, y: -77}
+      - {x: -159, y: -77}
+      - {x: -153, y: -57}
+      - {x: -153, y: -5}
+      - {x: -157, y: 19}
+    - - {x: -75, y: 22}
+      - {x: -105, y: 22}
+      - {x: -106, y: -31}
+      - {x: -106, y: -52}
+      - {x: -103, y: -68}
+      - {x: -91, y: -74}
+      - {x: -77, y: -74}
+      - {x: -70, y: -60}
+      - {x: -70, y: -1}
+      - {x: -71, y: 3}
+    - - {x: 84, y: 49}
+      - {x: 82, y: 48}
+      - {x: 82, y: 6}
+      - {x: 92, y: -29}
+      - {x: 103, y: -29}
+      - {x: 108, y: -24}
+      - {x: 108, y: 0}
+      - {x: 105, y: 36}
+      - {x: 103, y: 44}
+      - {x: 100, y: 49}
+    - - {x: 148, y: 25}
+      - {x: 156, y: -25}
+      - {x: 160, y: -29}
+      - {x: 169, y: -29}
+      - {x: 174, y: -27}
+      - {x: 174, y: 2}
+      - {x: 171, y: 45}
+      - {x: 165, y: 49}
+      - {x: 154, y: 49}
+      - {x: 148, y: 43}
+    - - {x: -175, y: 118}
+      - {x: -179, y: 114}
+      - {x: -179, y: 43}
+      - {x: -163, y: 43}
+      - {x: -162, y: 50}
+      - {x: -162, y: 118}
+    - - {x: -96, y: 121}
+      - {x: -96, y: 48}
+      - {x: -95, y: 47}
+      - {x: -80, y: 47}
+      - {x: -80, y: 120}
+      - {x: -82, y: 121}
+    - - {x: 121, y: 222}
+      - {x: 102, y: 221}
+      - {x: 102, y: 98}
+      - {x: 131, y: 90}
+      - {x: 180, y: 90}
+      - {x: 181, y: 205}
+      - {x: 181, y: 220}
+      - {x: 180, y: 222}
+    - - {x: -40, y: 205}
+      - {x: -49, y: 171}
+      - {x: -49, y: 100}
+      - {x: 39, y: 100}
+      - {x: 46, y: 103}
+      - {x: 51, y: 109}
+      - {x: 51, y: 186}
+      - {x: 40, y: 205}
+    - - {x: -94, y: 231}
+      - {x: -98, y: 226}
+      - {x: -98, y: 185}
+      - {x: -96, y: 142}
+      - {x: -92, y: 138}
+      - {x: -84, y: 138}
+      - {x: -78, y: 141}
+      - {x: -78, y: 228}
+      - {x: -84, y: 231}
+    - - {x: -181, y: 146}
+      - {x: -177, y: 143}
+      - {x: -161, y: 143}
+      - {x: -161, y: 237}
+      - {x: -177, y: 237}
+      - {x: -181, y: 230}
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

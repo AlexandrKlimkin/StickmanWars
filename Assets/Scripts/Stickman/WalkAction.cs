@@ -25,10 +25,15 @@ namespace MuscleSystem {
         public float LegDownAddForce;
         public float MoveSpeed;
         [Header("FirstState")]
-        public float FirstLegUpAngle = 90f;
-        public float FirstLegDownAngle = -10f;
-        public float SecondLegUpAngle = 90;
-        public float SecondLegDownAngle = -10f;
+        public float FirstLegUpAngle1 = 90f;
+        public float FirstLegDownAngle1 = 10f;
+        public float SecondLegUpAngle1 = 90;
+        public float SecondLegDownAngle1 = -10f;
+        [Header("SecondState")]
+        public float FirstLegUpAngle2 = 90f;
+        public float FirstLegDownAngle2 = 10f;
+        public float SecondLegUpAngle2 = 90;
+        public float SecondLegDownAngle2 = -10f;
 
         [Header("Debug")]
         [SerializeField]
@@ -62,27 +67,20 @@ namespace MuscleSystem {
                 case 2:
                 case 0:
                 _CurrentCycleTime = FirstWalkingPhaseTime;
-                _LegUp[fl].AddMuscleRot(FirstLegUpAngle * horizontal);
-                //_LegUp[fl].AddForce(new Vector2(_Horizontal * LegUpMoveForce, 0));
-                //_LegUp[fl].AddMuscleForce(LegUpAddForce);
-                //_LegUp[sl].AddMuscleRot(0);
-                //_LegDown[fl].AddMuscleRot(0);
-                _LegDown[fl].AddMuscleRot(-FirstLegDownAngle * horizontal);
-                //_LegDown[fl].AddForce(new Vector2(_Horizontal * LegDownMoveForce, 0));
-                //_LegDown[fl].AddMuscleForce(LegDownAddForce);
+                _LegUp[fl].AddMuscleRot(FirstLegUpAngle1 * horizontal);
+                _LegDown[fl].AddMuscleRot(FirstLegDownAngle1 * horizontal);
+                _LegUp[sl].AddMuscleRot(SecondLegUpAngle1 * horizontal);
+                _LegDown[sl].AddMuscleRot(SecondLegDownAngle1 * horizontal);
+
                 break;
 
                 case 3:
                 case 1:
                 _CurrentCycleTime = SecondWalkingPhaseTime;
-                //_LegUp[fl].AddMuscleRot(0);
-                _LegUp[sl].AddMuscleRot(SecondLegUpAngle * horizontal);
-                //_LegUp[sl].AddForce(new Vector2(_Horizontal * LegUpMoveForce, 0));
-                //_LegUp[sl].AddMuscleForce(LegUpAddForce);
-                //_LegDown[fl].AddMuscleRot(0);
-                _LegDown[sl].AddMuscleRot(-SecondLegDownAngle * horizontal);
-                //_LegDown[sl].AddForce(new Vector2(_Horizontal * LegDownMoveForce, 0));
-                //_LegDown[sl].AddMuscleForce(LegDownAddForce);
+                _LegUp[fl].AddMuscleRot(FirstLegUpAngle2 * horizontal);
+                _LegDown[fl].AddMuscleRot(FirstLegDownAngle2 * horizontal);
+                _LegUp[sl].AddMuscleRot(SecondLegUpAngle2 * horizontal);
+                _LegDown[sl].AddMuscleRot(SecondLegDownAngle2 * horizontal);
                 break;
             }
             _TimePassed += Time.fixedDeltaTime;

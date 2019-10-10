@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace MuscleSystem {
     [Serializable]
-    public class AttackAction : MuscleAction {
+    public class AttackLegAction : MuscleAction {
 
-        private List<Muscle> _ArmUp;
-        private List<Muscle> _ArmDown;
+        private List<Muscle> _LegUp;
+        private List<Muscle> _LegDown;
         private Muscle _Chest;
 
         [Header("Settings")]
@@ -17,23 +17,23 @@ namespace MuscleSystem {
 
         public override void Initialize(List<Muscle> muscles) {
             base.Initialize(muscles);
-            _ArmDown = muscles.Where(_ => _.MuscleType == MuscleType.ArmDown).ToList();
-            _ArmUp = muscles.Where(_=> _.MuscleType == MuscleType.ArmUp).ToList();
+            _LegDown = muscles.Where(_ => _.MuscleType == MuscleType.LegDown).ToList();
+            _LegUp = muscles.Where(_=> _.MuscleType == MuscleType.LegUp).ToList();
             _Chest = muscles.FirstOrDefault(_ => _.MuscleType == MuscleType.Chest);
         }
 
         [Header("Debug")]
         [SerializeField]
-        private int _Arm = 0;
+        private int _Leg = 0;
         
         public override void UpdateAction(params float[] parameters) {
             var direction = parameters[0];
-            var arm = _ArmDown[_Arm];
+            var arm = _LegDown[_Leg];
             var point = _Chest.Rigidbody.position + Vector2.right;
             var dir = point - _Chest.Rigidbody.position;
             var force = dir * direction * Force;
             arm.AddForce(force);
-            _Arm = _Arm == 0 ? 1 : 0;
+            _Leg = _Leg == 0 ? 1 : 0;
         }
 
     }
