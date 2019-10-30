@@ -31,9 +31,14 @@ namespace MuscleSystem {
         private void Start() {
             //_LegUp = _Muscles.Where(_ => _.MuscleType == MuscleType.LegUp).ToList();
             //_LegDown = _Muscles.Where(_ => _.MuscleType == MuscleType.LegDown).ToList();
-            //_Hip = _Muscles.First(_ => _.MuscleType == MuscleType.Hip);
+            _Hip = _Muscles.First(_ => _.MuscleType == MuscleType.Hip);
             _Camera = Camera.main;
+            RegisterMuscles();
             RegisterActions();
+        }
+
+        private void RegisterMuscles() {
+            _Muscles.ForEach(_ => _.Initialize());
         }
 
         private void RegisterActions() {
@@ -64,6 +69,9 @@ namespace MuscleSystem {
         private void FixedUpdate() {
             if (_Horizontal != 0) {
                 _WalkAction.UpdateAction(_Horizontal);
+            }
+            else {
+                _WalkAction.ResetState();
             }
             _Muscles.ForEach(_ => _.ActivateMuscle());
         }

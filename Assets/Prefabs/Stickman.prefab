@@ -814,6 +814,7 @@ MonoBehaviour:
   - Name: Chest
     MuscleType: 2
     Rigidbody: {fileID: 664368252452100004}
+    Collider: {fileID: 0}
     RestRotation: 0
     Force: 40
     TargetRotation: {fileID: 664368252555110279}
@@ -821,6 +822,7 @@ MonoBehaviour:
   - Name: Hip
     MuscleType: 1
     Rigidbody: {fileID: 664368252555110296}
+    Collider: {fileID: 0}
     RestRotation: 0
     Force: 40
     TargetRotation: {fileID: 0}
@@ -828,6 +830,7 @@ MonoBehaviour:
   - Name: Head
     MuscleType: 0
     Rigidbody: {fileID: 664368253001377202}
+    Collider: {fileID: 0}
     RestRotation: 0
     Force: 5
     TargetRotation: {fileID: 664368252452100025}
@@ -835,6 +838,7 @@ MonoBehaviour:
   - Name: LegUp1
     MuscleType: 3
     Rigidbody: {fileID: 664368251690384905}
+    Collider: {fileID: 0}
     RestRotation: 0
     Force: 30
     TargetRotation: {fileID: 0}
@@ -842,6 +846,7 @@ MonoBehaviour:
   - Name: LegUp2
     MuscleType: 3
     Rigidbody: {fileID: 664368251959159316}
+    Collider: {fileID: 0}
     RestRotation: 0
     Force: 30
     TargetRotation: {fileID: 0}
@@ -849,6 +854,7 @@ MonoBehaviour:
   - Name: LegDown1
     MuscleType: 4
     Rigidbody: {fileID: 664368252647110496}
+    Collider: {fileID: 0}
     RestRotation: 5
     Force: 30
     TargetRotation: {fileID: 0}
@@ -856,6 +862,7 @@ MonoBehaviour:
   - Name: LegDown2
     MuscleType: 4
     Rigidbody: {fileID: 664368251357549092}
+    Collider: {fileID: 0}
     RestRotation: -5
     Force: 30
     TargetRotation: {fileID: 0}
@@ -863,6 +870,7 @@ MonoBehaviour:
   - Name: ArmDown1
     MuscleType: 6
     Rigidbody: {fileID: 664368252995129645}
+    Collider: {fileID: 0}
     RestRotation: 0
     Force: 3
     TargetRotation: {fileID: 664368252769781501}
@@ -870,6 +878,7 @@ MonoBehaviour:
   - Name: ArmDown2
     MuscleType: 6
     Rigidbody: {fileID: 664368251191137228}
+    Collider: {fileID: 0}
     RestRotation: 0
     Force: 3
     TargetRotation: {fileID: 664368252802860058}
@@ -877,6 +886,7 @@ MonoBehaviour:
   - Name: ArmUp1
     MuscleType: 5
     Rigidbody: {fileID: 664368252769781502}
+    Collider: {fileID: 0}
     RestRotation: -90
     Force: 0.01
     TargetRotation: {fileID: 0}
@@ -884,28 +894,33 @@ MonoBehaviour:
   - Name: ArmUp2
     MuscleType: 5
     Rigidbody: {fileID: 664368252802860063}
+    Collider: {fileID: 0}
     RestRotation: 90
     Force: 0.01
     TargetRotation: {fileID: 0}
     Disabled: 0
   _WalkAction:
-    FirstWalkingPhaseTime: 0.2
-    SecondWalkingPhaseTime: 0.2
+    FirstWalkingPhaseTime: 1
+    SecondWalkingPhaseTime: 1
+    ThirdWalkingPhaseTime: 1
     HipMoveForce: 0
-    LegUpMoveForce: 0
-    LegDownMoveForce: 0
+    MaxMoveSpeed: 8
+    DownForce: 0
     hipRot: 5
-    LegUpAddForce: 30
-    LegDownAddForce: 20
-    MoveSpeed: 0
-    FirstLegUpAngle1: 40
-    FirstLegDownAngle1: -10
-    SecondLegUpAngle1: -40
-    SecondLegDownAngle1: -10
-    FirstLegUpAngle2: 60
-    FirstLegDownAngle2: -30
-    SecondLegUpAngle2: -60
-    SecondLegDownAngle2: -30
+    LegUpAddMuscleForce: 30
+    LegDownAddMuscleForce: 5
+    FirstLegUpAngle1: 20
+    FirstLegDownAngle1: -5
+    SecondLegUpAngle1: -10
+    SecondLegDownAngle1: -15
+    FirstLegUpAngle2: 70
+    FirstLegDownAngle2: 0
+    SecondLegUpAngle2: -20
+    SecondLegDownAngle2: -35
+    FirstLegUpAngle3: 20
+    FirstLegDownAngle3: -5
+    SecondLegUpAngle3: -10
+    SecondLegDownAngle3: -15
     _State: 0
     _CurrentCycleTime: 0
     _TimePassed: 0
@@ -929,7 +944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05994e1241809b41821546ee55d314f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gravity: 1
+  Gravity: 0
 --- !u!1 &664368252555110276
 GameObject:
   m_ObjectHideFlags: 0

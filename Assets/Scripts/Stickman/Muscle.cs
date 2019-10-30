@@ -9,6 +9,7 @@ namespace MuscleSystem {
         public string Name;
         public MuscleType MuscleType;
         public Rigidbody2D Rigidbody;
+        public Collider2D Collider;
         public float RestRotation;
         public float Force;
         public Transform TargetRotation;
@@ -16,6 +17,10 @@ namespace MuscleSystem {
 
         private float _AddRotation;
         private float _AddForce;
+
+        public void Initialize() {
+            Collider = Rigidbody.GetComponent<Collider2D>();
+        }
 
         public void ActivateMuscle() {
             if (Disabled)

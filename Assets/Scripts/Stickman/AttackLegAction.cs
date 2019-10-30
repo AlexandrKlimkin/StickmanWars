@@ -28,11 +28,11 @@ namespace MuscleSystem {
         
         public override void UpdateAction(params float[] parameters) {
             var direction = parameters[0];
-            var arm = _LegDown[_Leg];
-            var point = _Chest.Rigidbody.position + Vector2.right;
+            var leg = _LegDown[_Leg];
+            var point = _Chest.Rigidbody.position + Vector2.right + Vector2.up * 0.5f;
             var dir = point - _Chest.Rigidbody.position;
-            var force = dir * direction * Force;
-            arm.AddForce(force);
+            var force = new Vector2(dir.x * direction, dir.y) * Force;
+            leg.AddForce(force);
             _Leg = _Leg == 0 ? 1 : 0;
         }
 
