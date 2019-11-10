@@ -25,6 +25,8 @@ namespace MuscleSystem {
         private AttackAction _AttackAction;
         [SerializeField]
         private AttackLegAction _AttackLegAction;
+        [SerializeField]
+        private InertionStopAction _InertionStopAction;
 
         private Camera _Camera;
 
@@ -46,6 +48,7 @@ namespace MuscleSystem {
             _JumpAction.Initialize(_Muscles);
             _AttackAction.Initialize(_Muscles);
             _AttackLegAction.Initialize(_Muscles);
+            _InertionStopAction.Initialize(_Muscles);
         }
 
         private void Update() {
@@ -58,12 +61,13 @@ namespace MuscleSystem {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button1)) {
                 _JumpAction.UpdateAction(1f);
             }
-            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Joystick1Button0)) {
-                _AttackAction.UpdateAction(dir);
-            }
-            if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Joystick1Button2)) {
-                _AttackLegAction.UpdateAction(dir);
-            }
+            //if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Joystick1Button0)) {
+            //    _AttackAction.UpdateAction(dir);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Joystick1Button2)) {
+            //    _AttackLegAction.UpdateAction(dir);
+            //}
+            _InertionStopAction.UpdateAction();
         }
 
         private void FixedUpdate() {

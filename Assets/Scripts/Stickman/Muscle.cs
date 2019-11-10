@@ -14,12 +14,14 @@ namespace MuscleSystem {
         public float Force;
         public Transform TargetRotation;
         public bool Disabled = false;
+        public BoneCollider BoneCollider;
 
         private float _AddRotation;
         private float _AddForce;
 
         public void Initialize() {
             Collider = Rigidbody.GetComponent<Collider2D>();
+            BoneCollider = Rigidbody.GetComponent<BoneCollider>();
         }
 
         public void ActivateMuscle() {
@@ -61,5 +63,5 @@ namespace MuscleSystem {
         }
     }
 
-    public enum MuscleType { Head, Hip, Chest, LegUp, LegDown, ArmUp, ArmDown }
+    public enum MuscleType { Head, Hip, Chest, LegUp, LegDown, ArmUp, ArmDown, Neck }
 }
