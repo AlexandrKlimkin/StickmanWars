@@ -11,12 +11,14 @@ namespace MuscleSystem {
     public class JumpAction : MuscleAction {
         [Header("Settings")]
         public float JumpForce;
+        public float GroundedDist = 0.5f;
+
         [Interval(0f, 20f)]
         public Vector2 PoseHeightRanges;
 
         [Header("FirstState")]
         public float FirstLegUpAngle1 = 90f;
-        public float FirstLegDownAngle1 = 10f;
+        public float FirstLegDownAngle1 = -10f;
         public float SecondLegUpAngle1 = 90;
         public float SecondLegDownAngle1 = -10f;
 
@@ -32,19 +34,20 @@ namespace MuscleSystem {
         }
 
         public override void UpdateAction(params float[] parameters) {
-            var jumpForce = parameters[0];
-            _Muscles.ForEach(muscle => muscle.AddForce(new Vector2(0, jumpForce * JumpForce)));
-
-            var horizontal = 1f;
+            var distance = parameters[0];
+            var dir = parameters[1];
+            var cof = Mathf.InverseLerp(PoseHeightRanges.x, PoseHeightRanges.y, distance);
 
             int fl = 0;
             int sl = 1;
+            _LegUp[fl].AddMuscleRot(FirstLegUpAngle1 * dir * cof);
+            _LegDown[fl].AddMuscleRot(FirstLegDownAngle1 * dir * cof);
+            _LegUp[sl].AddMuscleRot(SecondLegUpAngle1 * dir * cof);
+            _LegDown[sl].AddMuscleRot(SecondLegDownAngle1 * dir * cof);
+        }
 
-            _LegUp[fl].AddMuscleRot(FirstLegUpAngle1 * horizontal);
-            _LegDown[fl].AddMuscleRot(FirstLegDownAngle1 * horizontal);
-            _LegUp[sl].AddMuscleRot(SecondLegUpAngle1 * horizontal);
-            _LegDown[sl].AddMuscleRot(SecondLegDownAngle1 * horizontal);
-
+        public void Jump() {
+            _Muscles.ForEach(muscle => muscle.AddForce(new Vector2(0, JumpForce)));
         }
     }
 }

@@ -131,7 +131,8 @@ GameObject:
   - component: {fileID: 79113335}
   - component: {fileID: 79113334}
   - component: {fileID: 79113333}
-  m_Layer: 0
+  - component: {fileID: 79113336}
+  m_Layer: 8
   m_Name: New Sprite
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -227,6 +228,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &79113336
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79113332}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!4 &366510298 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 664368252647110511, guid: 52471a5d10c145444b65865d10d7219e,
+    type: 3}
+  m_PrefabInstance: {fileID: 664368252686361449}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +476,7 @@ GameObject:
   - component: {fileID: 865304637}
   - component: {fileID: 865304636}
   - component: {fileID: 865304635}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: New Sprite (1)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -544,6 +572,72 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &971361394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 971361395}
+  m_Layer: 0
+  m_Name: GroundSensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &971361395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971361394}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.005, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 366510298}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1041763329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1041763330}
+  m_Layer: 0
+  m_Name: GroundSensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1041763330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041763329}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.005, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1096886338}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1096886338 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 664368251357549091, guid: 52471a5d10c145444b65865d10d7219e,
+    type: 3}
+  m_PrefabInstance: {fileID: 664368252686361449}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1352087417
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +1081,7 @@ GameObject:
   - component: {fileID: 2133734416}
   - component: {fileID: 2133734415}
   - component: {fileID: 2133734414}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: New Sprite (2)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -1236,33 +1330,83 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
         type: 3}
+      propertyPath: _JumpAction.LegPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
+        type: 3}
+      propertyPath: LegPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
+        type: 3}
       propertyPath: _JumpAction.PoseHeightRanges.x
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
         type: 3}
-      propertyPath: _WalkAction.FirstLegUpAngle4
-      value: 40
+      propertyPath: _JumpAction.PoseHeightRanges.y
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
         type: 3}
-      propertyPath: _WalkAction.FirstLegDownAngle4
-      value: 40
+      propertyPath: _JumpAction.FirstLegDownAngle1
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
         type: 3}
-      propertyPath: _WalkAction.SecondLegUpAngle4
-      value: 40
+      propertyPath: _JumpAction.LegPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 971361395}
+    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
+        type: 3}
+      propertyPath: _JumpAction.LegPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1041763330}
+    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
+        type: 3}
+      propertyPath: _JumpAction.GroundedDist
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
         type: 3}
-      propertyPath: _WalkAction.SecondLegDownAngle4
-      value: 40
+      propertyPath: LegPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 971361395}
+    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
+        type: 3}
+      propertyPath: LegPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1041763330}
+    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
+        type: 3}
+      propertyPath: _GroundedDist
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
         type: 3}
-      propertyPath: _WalkAction.HipAngle4
-      value: 40
+      propertyPath: _Muscles.Array.data[0].Force
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 664368252496868983, guid: 52471a5d10c145444b65865d10d7219e,
+        type: 3}
+      propertyPath: _AttackLegAction.Force
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813687369154719170, guid: 52471a5d10c145444b65865d10d7219e,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.9716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813687369154719170, guid: 52471a5d10c145444b65865d10d7219e,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.53626734
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813687369154719170, guid: 52471a5d10c145444b65865d10d7219e,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.53626734
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52471a5d10c145444b65865d10d7219e, type: 3}

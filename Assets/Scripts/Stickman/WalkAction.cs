@@ -75,10 +75,9 @@ namespace MuscleSystem {
             _TimePassed = 0;
         }
 
-        private void ApplyForces(float horizontal) {
+        public void Push(float horizontal) {
             _Hip.AddMuscleRot(hipRot * -horizontal);
             _Hip.AddForce(new Vector2(0, -DownForce));
-
             if (horizontal > 0) {
                 if (_Hip.Rigidbody.velocity.x < MaxMoveSpeed) {
                     _Hip.AddForce(new Vector2(horizontal * HipMoveForce * Time.fixedDeltaTime, 0));
@@ -89,17 +88,12 @@ namespace MuscleSystem {
                     _Hip.AddForce(new Vector2(horizontal * HipMoveForce * Time.fixedDeltaTime, 0));
                 }
             }
-            _Muscles.Where(_ => _.MuscleType == MuscleType.LegUp).ToList().ForEach(_ => _.AddMuscleForce(LegUpAddMuscleForce));
-            _Muscles.Where(_ => _.MuscleType == MuscleType.LegDown).ToList().ForEach(_ => _.AddMuscleForce(LegDownAddMuscleForce));
         }
 
         public override void UpdateAction(params float[] parameters) {
             var horizontal = parameters[0];
-            ApplyForces(horizontal);
-            //_Muscles.Where(_ => _.MuscleType != MuscleType.ArmUp && _.MuscleType != MuscleType.ArmDown).ToList().ForEach(_ => _.Move(new Vector2(horizontal * MaxMoveSpeed * Time.fixedDeltaTime, 0)));
-            //_Muscles.Where(_ => _.MuscleType == MuscleType.Hip).ToList().ForEach(_ => _.AddForce(new Vector2(0, DownForce)));
-            //_Muscles.Where(_ => _.MuscleType == MuscleType.LegUp).ToList()[fl].Move(new Vector2(horizontal * MoveSpeed * Time.fixedDeltaTime, 0));
-            //_Muscles.Where(_ => _.MuscleType == MuscleType.LegDown).ToList()[fl].Move(new Vector2(horizontal * MoveSpeed * Time.fixedDeltaTime, 0));
+            _Muscles.Where(_ => _.MuscleType == MuscleType.LegUp).ToList().ForEach(_ => _.AddMuscleForce(LegUpAddMuscleForce));
+            _Muscles.Where(_ => _.MuscleType == MuscleType.LegDown).ToList().ForEach(_ => _.AddMuscleForce(LegDownAddMuscleForce));
 
             int fl = _State > 2 ? 0 : 1;
             int sl = _State > 2 ? 1 : 0;
