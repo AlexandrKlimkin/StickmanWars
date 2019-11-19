@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 
-namespace MuscleSystem {
+namespace Stickman.MuscleSystem {
     public class MuscleController : MonoBehaviour {
         [SerializeField]
         private List<Muscle> _Muscles;
@@ -35,13 +35,10 @@ namespace MuscleSystem {
         private bool _IsGrounded;
         private float _DistanceToGround;
 
-        private Camera _Camera;
-
         private void Start() {
             //_LegUp = _Muscles.Where(_ => _.MuscleType == MuscleType.LegUp).ToList();
             //_LegDown = _Muscles.Where(_ => _.MuscleType == MuscleType.LegDown).ToList();
             _Hip = _Muscles.First(_ => _.MuscleType == MuscleType.Hip);
-            _Camera = Camera.main;
             RegisterMuscles();
             RegisterActions();
         }
@@ -58,16 +55,29 @@ namespace MuscleSystem {
             _InertionStopAction.Initialize(_Muscles);
         }
 
+        public void SetHorizontal(float horizontal) {
+            _Horizontal = horizontal;
+            Mathf.Clamp(_Horizontal, -1f, 1f);
+        }
+
+        public void AttackHand() {
+            _AttackAction.UpdateAction(_Direction);
+        }
+
+        public void AttackLeg() {
+            _AttackLegAction.UpdateAction(_Direction);
+        }
+
+        public void Jump() {
+            if (_IsGrounded)
+                _JumpAction.Jump();
+        }
+
         private void Update() {
             _IsGrounded = false;
-            var mousePos = _Camera.ScreenToWorldPoint(Input.mousePosition);
-            var dir = mousePos.x > transform.position.x ? 1 : -1;
-            _Horizontal = Input.GetAxis("Horizontal");
+            //_Horizontal = Input.GetAxis("Horizontal");
             if (_Horizontal != 0)
                 _Direction = _Horizontal > 0 ? 1 : -1;
-            //if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Joystick1Button2)) {
-            //    _AttackLegAction.UpdateAction(dir);
-            //}
             _DistanceToGround = float.PositiveInfinity;
             foreach (var legPoint in LegPoints) {
                 var hit = Physics2D.Linecast(legPoint.position, legPoint.position - new Vector3(0,1f,0) * 1000f, Layers.Masks.Walkable);
@@ -80,25 +90,11 @@ namespace MuscleSystem {
             }
             if (_DistanceToGround < _GroundedDist)
                 _IsGrounded = true;
-            if (_IsGrounded && Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button1)) {
-                _JumpAction.Jump();
-            }
-            if (Input.GetKeyDown(KeyCode.E)) {
-                if (_IsGrounded)
-                    _AttackAction.UpdateAction(1f);
-                else
-                    _AttackLegAction.UpdateAction(1f);
-            }
-            if (Input.GetKeyDown(KeyCode.Q)) {
-                if (_IsGrounded)
-                    _AttackAction.UpdateAction(-1f);
-                else
-                    _AttackLegAction.UpdateAction(-1f);
-            }
-            Debug.Log(_DistanceToGround);
         }
 
         private void FixedUpdate() {
+            //_IsGrounded = true;
+            _Muscles.ForEach(_ => _.ActivateMuscle());
             if (!_IsGrounded) {
                 _JumpAction.UpdateAction(_DistanceToGround, _Direction);
             }
@@ -111,7 +107,6 @@ namespace MuscleSystem {
                 }
             }
             _WalkAction.Push(_Horizontal);
-            _Muscles.ForEach(_ => _.ActivateMuscle());
             _InertionStopAction.UpdateAction();
         }
     }

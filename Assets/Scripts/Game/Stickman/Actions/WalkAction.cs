@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace MuscleSystem {
-
+namespace Stickman.MuscleSystem {
     [Serializable]
     public class WalkAction : MuscleAction {
 
@@ -95,8 +94,8 @@ namespace MuscleSystem {
             _Muscles.Where(_ => _.MuscleType == MuscleType.LegUp).ToList().ForEach(_ => _.AddMuscleForce(LegUpAddMuscleForce));
             _Muscles.Where(_ => _.MuscleType == MuscleType.LegDown).ToList().ForEach(_ => _.AddMuscleForce(LegDownAddMuscleForce));
 
-            int fl = _State > 2 ? 0 : 1;
-            int sl = _State > 2 ? 1 : 0;
+            int fl = _State > 1 ? 0 : 1;
+            int sl = _State > 1 ? 1 : 0;
 
             if (horizontal * _Hip.Rigidbody.velocity.x <= 0 || Mathf.Abs(_PreviousHorizontal) > Mathf.Abs(horizontal)) {
                 var xVelocity = Mathf.Abs(_Hip.Rigidbody.velocity.x);
@@ -112,10 +111,9 @@ namespace MuscleSystem {
             }
             else {
                 _LegDown.ForEach(_ => _.BoneCollider.GroundCollisionStay -= SwitchState);
-
                 switch (_State) {
                     case 0:
-                    case 3:
+                    case 2:
                     _CurrentCycleTime = FirstWalkingPhaseTime;
                     _LegUp[fl].AddMuscleRot(FirstLegUpAngle1 * horizontal);
                     _LegDown[fl].AddMuscleRot(FirstLegDownAngle1 * horizontal);
@@ -127,27 +125,26 @@ namespace MuscleSystem {
                     break;
 
                     case 1:
-                    case 4:
+                    case 3:
                     _CurrentCycleTime = SecondWalkingPhaseTime;
                     _LegUp[fl].AddMuscleRot(FirstLegUpAngle2 * horizontal);
                     _LegDown[fl].AddMuscleRot(FirstLegDownAngle2 * horizontal);
                     _LegUp[sl].AddMuscleRot(SecondLegUpAngle2 * horizontal);
                     _LegDown[sl].AddMuscleRot(SecondLegDownAngle2 * horizontal);
-
                     _LegDown[fl].BoneCollider.GroundCollisionStay += SwitchState;
                     break;
 
-                    case 2:
-                    case 5:
-                    _CurrentCycleTime = ThirdWalkingPhaseTime;
-                    _LegUp[fl].AddMuscleRot(FirstLegUpAngle3 * horizontal);
-                    _LegDown[fl].AddMuscleRot(FirstLegDownAngle3 * horizontal);
-                    _LegUp[sl].AddMuscleRot(SecondLegUpAngle3 * horizontal);
-                    _LegDown[sl].AddMuscleRot(SecondLegDownAngle3 * horizontal);
+                    //case 2:
+                    //case 5:
+                    //_CurrentCycleTime = ThirdWalkingPhaseTime;
+                    //_LegUp[fl].AddMuscleRot(FirstLegUpAngle3 * horizontal);
+                    //_LegDown[fl].AddMuscleRot(FirstLegDownAngle3 * horizontal);
+                    //_LegUp[sl].AddMuscleRot(SecondLegUpAngle3 * horizontal);
+                    //_LegDown[sl].AddMuscleRot(SecondLegDownAngle3 * horizontal);
 
-                    //_LegDown[fl].BoneCollider.GroundCollisionStay += SwitchState;
-                    SwitchState();
-                    break;
+                    ////_LegDown[fl].BoneCollider.GroundCollisionStay += SwitchState;
+                    //SwitchState();
+                    //break;
                 }
                 _TimePassed += Time.fixedDeltaTime;
                 //SwitchState();
@@ -159,7 +156,7 @@ namespace MuscleSystem {
             if (_TimePassed > _CurrentCycleTime) {
                 _TimePassed = 0;
                 _State++;
-                if (_State > 5)
+                if (_State > 3)
                     _State = 0;
             }
         }

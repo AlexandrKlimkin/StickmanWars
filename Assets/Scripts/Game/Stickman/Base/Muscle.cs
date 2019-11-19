@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MuscleSystem {
+namespace Stickman.MuscleSystem {
     [Serializable]
     public class Muscle {
         public string Name;
