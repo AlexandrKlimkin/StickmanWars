@@ -3,17 +3,19 @@
 public static class Layers {
 
     private static class Names {
-        public const string Default = "Bone";
+        public const string Bone = "Bone";
         public const string Ground = "Ground";
     }
 
     public static class Masks {
 
-        public static int Default { get; private set; }
+        public static int Bone { get; private set; }
         public static int Walkable { get; private set; }
+        public static int Damageable { get; private set; }
 
         static Masks() {
-            Default = LayerMask.GetMask(Names.Default);
+            Bone = LayerMask.GetMask(Names.Bone);
+            Damageable = LayerMask.GetMask(Names.Bone);
             Walkable = LayerMask.GetMask(Names.Ground);
         }
 
