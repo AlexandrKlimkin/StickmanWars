@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Tools.Unity;
 using UnityEngine;
 
 namespace Stickman.MuscleSystem {
@@ -18,17 +19,21 @@ namespace Stickman.MuscleSystem {
 
         private float _AddRotation;
         private float _AddForce;
+        private float _CurrentForce;
+
+        private Coroutine _DisableForTimeCoroutine;
 
         public void Initialize() {
             Collider = Rigidbody.GetComponent<Collider2D>();
             BoneCollider = Rigidbody.GetComponent<BoneCollider>();
+            _CurrentForce = Force;
         }
 
         public void ActivateMuscle() {
             if (Disabled)
                 return;
             var rotation = TargetRotation ? TargetRotation.rotation.eulerAngles.z : RestRotation;
-            RotateSmooth(rotation + _AddRotation, Force + _AddForce);
+            RotateSmooth(rotation + _AddRotation, _CurrentForce + _AddForce);
 
             _AddRotation = 0;
             _AddForce = 0;
@@ -52,6 +57,22 @@ namespace Stickman.MuscleSystem {
 
         public void Move(Vector2 moveVector) {
             Rigidbody.position += moveVector;
+        }
+
+        public void DisableForTime(float time, AnimationCurve curve) {
+            if (_DisableForTimeCoroutine != null)
+                UnityEventProvider.Instance.StopCoroutine(_DisableForTimeCoroutine);
+            _DisableForTimeCoroutine = UnityEventProvider.Instance.StartCoroutine(DisableForTimeRoutine(time, curve));
+        }
+
+        private IEnumerator DisableForTimeRoutine(float time, AnimationCurve curve) {
+            var endTime = Time.time + time;
+            while (Time.time < endTime) {
+                var progress = Mathf.Clamp((endTime - Time.time) / time, 0, float.MaxValue);
+                _CurrentForce = Force * curve.Evaluate(progress);
+                yield return null;
+            }
+            _CurrentForce = Force;
         }
 
         private void RotateSmooth(float rotation, float force) {

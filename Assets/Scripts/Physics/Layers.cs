@@ -5,6 +5,7 @@ public static class Layers {
     private static class Names {
         public const string Bone = "Bone";
         public const string Ground = "Ground";
+        public const string Damageable = "Damageable";
     }
 
     public static class Masks {
@@ -15,7 +16,7 @@ public static class Layers {
 
         static Masks() {
             Bone = LayerMask.GetMask(Names.Bone);
-            Damageable = LayerMask.GetMask(Names.Bone);
+            Damageable = LayerMask.GetMask(Names.Bone, Names.Damageable);
             Walkable = LayerMask.GetMask(Names.Ground);
         }
 

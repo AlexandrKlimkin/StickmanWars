@@ -73,6 +73,10 @@ namespace Stickman.MuscleSystem {
                 _JumpAction.Jump();
         }
 
+        public void DisableMuscleForce(float time, AnimationCurve curve) {
+            _Muscles.ForEach(_ => _.DisableForTime(time, curve));
+        }
+
         private void Update() {
             _IsGrounded = false;
             //_Horizontal = Input.GetAxis("Horizontal");

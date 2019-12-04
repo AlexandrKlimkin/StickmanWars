@@ -837,7 +837,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.00388889}
-  m_ConnectedAnchor: {x: 0, y: 0.003874588}
+  m_ConnectedAnchor: {x: 0, y: 0.0038746016}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1118,10 +1118,37 @@ MonoBehaviour:
   _AttackAction:
     HandForce: 4000
     HitForce: 10000
+    CdTime: 0.2
     _Arm: 1
   _AttackLegAction:
     LegForce: 4500
-    HitForce: 12000
+    HitForce: 10000
+    CdTime: 0.2
+    DisableHitMusclesTime: 0.5
+    DisableHitMusclesCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     _Leg: 0
   _InertionStopAction:
     InertiaStopForce: 1000
