@@ -147,7 +147,7 @@ namespace Stickman.MuscleSystem {
                     //break;
                 }
                 _TimePassed += Time.fixedDeltaTime;
-                //SwitchState();
+                SwitchState();
             }
             _PreviousHorizontal = horizontal;
         }

@@ -120,8 +120,8 @@ namespace Stickman.MuscleSystem {
             _WalkAction.Push(_Horizontal);
             _InertionStopAction.UpdateAction();
             _Muscles.ForEach(_ => _.ActivateMuscle());
-            _Hip.Rigidbody.AddForce(-Physics2D.gravity * _Hip.Rigidbody.mass * 0.5f);
-            _Chest.Rigidbody.AddForce(-Physics2D.gravity * _Hip.Rigidbody.mass * 0.5f);
+            //_Hip.Rigidbody.AddForce(-Physics2D.gravity * _Hip.Rigidbody.mass * 0.5f);
+            //_Chest.Rigidbody.AddForce(-Physics2D.gravity * _Hip.Rigidbody.mass * 0.5f);
         }
 
         //private void LateUpdate() {
