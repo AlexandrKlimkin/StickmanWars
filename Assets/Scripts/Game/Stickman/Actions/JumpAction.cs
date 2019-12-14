@@ -10,7 +10,6 @@ namespace Stickman.MuscleSystem {
     public class JumpAction : MuscleAction {
         [Header("Settings")]
         public float JumpForce;
-        public float GroundedDist = 0.5f;
 
         [Interval(0f, 20f)]
         public Vector2 PoseHeightRanges;

@@ -29,8 +29,10 @@ namespace Stickman.MuscleSystem {
         private List<Muscle> _LegUp;
         private List<Muscle> _LegDown;
         private Muscle _Hip;
+        private Muscle _Chest;
 
         private float _Horizontal;
+        private float _LastDirection;
         private float _Direction;
         private bool _IsGrounded;
         private float _DistanceToGround;
@@ -39,8 +41,10 @@ namespace Stickman.MuscleSystem {
             //_LegUp = _Muscles.Where(_ => _.MuscleType == MuscleType.LegUp).ToList();
             //_LegDown = _Muscles.Where(_ => _.MuscleType == MuscleType.LegDown).ToList();
             _Hip = _Muscles.First(_ => _.MuscleType == MuscleType.Hip);
+            _Chest = _Muscles.First(_ => _.MuscleType == MuscleType.Chest);
             RegisterMuscles();
             RegisterActions();
+            _Direction = 1f;
         }
 
         private void RegisterMuscles() {
@@ -79,26 +83,29 @@ namespace Stickman.MuscleSystem {
 
         private void Update() {
             _IsGrounded = false;
-            //_Horizontal = Input.GetAxis("Horizontal");
-            if (_Horizontal != 0)
-                _Direction = _Horizontal > 0 ? 1 : -1;
+            if (_Horizontal != 0) {
+                var newDir = _Horizontal > 0 ? 1 : -1;
+                if (_Direction != newDir)
+                    _Muscles.ForEach(_ => _.ViewTransform.localScale = new Vector3(-_.ViewTransform.localScale.x, _.ViewTransform.localScale.y, _.ViewTransform.localScale.z));
+                _Direction = newDir;
+            }
             _DistanceToGround = float.PositiveInfinity;
             foreach (var legPoint in LegPoints) {
                 var hit = Physics2D.Linecast(legPoint.position, legPoint.position - new Vector3(0,1f,0) * 1000f, Layers.Masks.Walkable);
                 if (hit.collider != null) {
-                    Debug.DrawLine(hit.point - new Vector2(0.5f, 0), hit.point + new Vector2(0.5f, 0), Color.red);
-                    Debug.DrawLine(hit.point - new Vector2(0, 0.5f), hit.point + new Vector2(0, 0.5f), Color.red);
                     if (_DistanceToGround > hit.distance)
                         _DistanceToGround = hit.distance;
+                    if (_DistanceToGround < _GroundedDist)
+                        _IsGrounded = true;
+                    Debug.DrawLine(hit.point - new Vector2(0.5f, 0), hit.point + new Vector2(0.5f, 0), _IsGrounded ? Color.green : Color.red);
+                    Debug.DrawLine(hit.point - new Vector2(0, 0.5f), hit.point + new Vector2(0, 0.5f), _IsGrounded ? Color.green : Color.red);
+                    Debug.DrawLine(hit.point, legPoint.position, _IsGrounded ? Color.green : Color.red);
                 }
             }
-            if (_DistanceToGround < _GroundedDist)
-                _IsGrounded = true;
         }
 
         private void FixedUpdate() {
             //_IsGrounded = true;
-            _Muscles.ForEach(_ => _.ActivateMuscle());
             if (!_IsGrounded) {
                 _JumpAction.UpdateAction(_DistanceToGround, _Direction);
             }
@@ -112,6 +119,13 @@ namespace Stickman.MuscleSystem {
             }
             _WalkAction.Push(_Horizontal);
             _InertionStopAction.UpdateAction();
+            _Muscles.ForEach(_ => _.ActivateMuscle());
+            _Hip.Rigidbody.AddForce(-Physics2D.gravity * _Hip.Rigidbody.mass * 0.5f);
+            _Chest.Rigidbody.AddForce(-Physics2D.gravity * _Hip.Rigidbody.mass * 0.5f);
         }
+
+        //private void LateUpdate() {
+        //    _Muscles.ForEach(_ => _.ImposeAxis());
+        //}
     }
 }
