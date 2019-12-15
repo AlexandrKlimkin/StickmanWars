@@ -27,7 +27,6 @@ namespace Stickman.MuscleSystem {
         private float _CurrentForce;
 
         private Coroutine _DisableForTimeCoroutine;
-
         private Vector3 _DeltaAxis;
         //private JointMotor2D _StartMotor;
 
@@ -81,6 +80,10 @@ namespace Stickman.MuscleSystem {
             _DisableForTimeCoroutine = UnityEventProvider.Instance.StartCoroutine(DisableForTimeRoutine(time, curve));
         }
 
+        public void ChangeDirection() {
+
+        }
+
         private IEnumerator DisableForTimeRoutine(float time, AnimationCurve curve) {
             var endTime = Time.time + time;
             while (Time.time < endTime) {
@@ -122,5 +125,5 @@ namespace Stickman.MuscleSystem {
         //}
     }
 
-    public enum MuscleType { Head, Hip, Chest, LegUp, LegDown, ArmUp, ArmDown, Neck }
+    public enum MuscleType { Head, Hip, Chest, LegUp, LegDown, ArmUp, ArmDown, Neck, Fist }
 }
