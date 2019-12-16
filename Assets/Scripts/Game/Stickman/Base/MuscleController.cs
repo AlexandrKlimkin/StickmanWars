@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
-namespace Stickman.MuscleSystem {
+namespace Character.MuscleSystem {
     public class MuscleController : MonoBehaviour {
         [SerializeField]
         private List<Muscle> _Muscles;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Stickman.MuscleSystem {
+namespace Character.MuscleSystem {
 
     [Serializable]
     class InertionStopAction : MuscleAction {

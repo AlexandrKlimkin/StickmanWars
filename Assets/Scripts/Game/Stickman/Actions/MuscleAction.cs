@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Stickman.MuscleSystem {
+namespace Character.MuscleSystem {
     public abstract class MuscleAction {
 
         protected List<Muscle> _Muscles;

@@ -1,6 +1,6 @@
-﻿using Stickman.MuscleSystem;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Character.MuscleSystem;
 using UnityEngine;
 using InputSystem;
 

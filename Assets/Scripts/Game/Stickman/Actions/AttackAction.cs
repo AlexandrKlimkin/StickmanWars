@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 using Tools.Unity;
 
-namespace Stickman.MuscleSystem {
+namespace Character.MuscleSystem {
     [Serializable]
     public class AttackAction : MuscleAction {
 

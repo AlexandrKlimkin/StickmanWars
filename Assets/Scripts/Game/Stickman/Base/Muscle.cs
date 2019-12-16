@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Tools.Unity;
 using UnityEngine;
 
-namespace Stickman.MuscleSystem {
+namespace Character.MuscleSystem {
     [Serializable]
     public class Muscle {
         public string Name;

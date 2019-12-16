@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Stickman.MuscleSystem {
+namespace Character.MuscleSystem {
     public class BoneCollider : MonoBehaviour {
         public event Action GroundCollisionEnter;
         public event Action GroundCollisionStay;
