@@ -110,8 +110,11 @@ namespace CharacterConstruction
             var prefab = Resources.Load<Bone>($"Characters/{unitId}/Bones/{name}");
             var bone = Object.Instantiate(prefab, root);
 
-            bone.SpriteRenderer.drawMode = SpriteDrawMode.Sliced;
-            bone.SpriteRenderer.size = size;
+            foreach (var spriteRenderer in bone.SpriteRenderers)
+            {
+                spriteRenderer.drawMode = SpriteDrawMode.Sliced;
+                spriteRenderer.size = size;
+            }
             bone.CapsuleCollider.size = size;
             if (bone.DownAxis != null)
                 bone.DownAxis.localPosition = new Vector3(0, -size.y / 2 + downAxisOffset, 0);

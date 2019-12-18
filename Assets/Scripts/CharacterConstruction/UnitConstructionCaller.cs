@@ -10,6 +10,8 @@ namespace CharacterConstruction
         [Button] public bool Clear;
         public int Count;
 
+        public List<Color> RandomColors;
+
         public void OnCreate()
         {
             for (var i = 0; i < Count; i++)
@@ -18,7 +20,14 @@ namespace CharacterConstruction
                 var unit = constructor.ConstructUnit("White_Punk", out var offset);
                 unit.transform.position = new Vector3(i * 6, 0, 0) - offset;
                 unit.transform.SetParent(transform);
+
+                var randIndex = Random.Range(0, RandomColors.Count);
+                var color = RandomColors[randIndex];
+                unit.Head.SpriteRenderers[1].color = color;
+                unit.Head.SpriteRenderers[2].color = color;
             }
+
+                
         }
 
         public void OnClear()

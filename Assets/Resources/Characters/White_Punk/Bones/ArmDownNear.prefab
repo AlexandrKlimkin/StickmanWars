@@ -70,8 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: 5680673976619871293, guid: 1b05497f57074724187e3301db9123bc,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 87b30a91384f06240abd135332ed2cce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -168,13 +167,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: -983156657889264743, guid: 1b05497f57074724187e3301db9123bc,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76dce29c9b32c2a4693c30b7f55b1b0e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.78, y: 2.75}
+  m_DrawMode: 1
+  m_Size: {x: 0.8, y: 2.75}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -194,7 +192,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.00000047683716}
-  m_Size: {x: 0.7799999, y: 2.7499998}
+  m_Size: {x: 0.8, y: 2.7499998}
   m_Direction: 0
 --- !u!1 &3875581734869568610
 GameObject:
@@ -242,10 +240,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74758bedc0e9dc84b9f073285927ab8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Type: 6
   UpAxis: {fileID: 6884094455930686976}
   DownAxis: {fileID: 0}
   MidleAxis: {fileID: 0}
-  SpriteRenderer: {fileID: 8688498371964236773}
+  SpriteRenderers:
+  - {fileID: 8688498371964236773}
   CapsuleCollider: {fileID: 3405666848557030640}
 --- !u!1 &5895334922446452586
 GameObject:

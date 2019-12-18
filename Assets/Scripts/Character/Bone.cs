@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Character.MuscleSystem;
 using UnityEngine;
 
 public class Bone : MonoBehaviour
 {
+    public MuscleType Type;
     public Transform UpAxis;
     public Transform DownAxis;
     public Transform MidleAxis;
-    public SpriteRenderer SpriteRenderer;
+    public List<SpriteRenderer> SpriteRenderers;
     public CapsuleCollider2D CapsuleCollider;
 
     private void Awake()
     {
-        SpriteRenderer = GetComponent<SpriteRenderer>();
+        GetComponents(SpriteRenderers);
         CapsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 }
