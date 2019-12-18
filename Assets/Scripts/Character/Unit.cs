@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour {
     public MuscleController Controller { get; private set; }
     public List<Bone> Bones => GetComponentsInChildren<Bone>().ToList();
     public Bone Head => Bones.FirstOrDefault(_ => _.Type == MuscleType.Head);
-    //public Bone
+    public List<Bone> Boots => Bones.Where(_ => _.Type == MuscleType.Boot).ToList();
 
     private void Awake()
     {

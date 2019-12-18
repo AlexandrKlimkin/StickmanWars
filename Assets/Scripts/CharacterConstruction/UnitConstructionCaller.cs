@@ -17,8 +17,9 @@ namespace CharacterConstruction
             for (var i = 0; i < Count; i++)
             {
                 var constructor = new HumanoidConstructor();
-                var unit = constructor.ConstructUnit("White_Punk", out var offset);
-                unit.transform.position = new Vector3(i * 6, 0, 0) - offset;
+                var unit = constructor.ConstructUnit("White_Punk");
+                var bootDownAxis =
+                    unit.transform.position = new Vector3(i * 10, 0, 0) + unit.transform.position - unit.Boots[0].DownAxis.position;
                 unit.transform.SetParent(transform);
 
                 var randIndex = Random.Range(0, RandomColors.Count);

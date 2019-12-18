@@ -125,5 +125,5 @@ namespace Character.MuscleSystem {
         //}
     }
 
-    public enum MuscleType { Head, Hip, Chest, LegUp, LegDown, ArmUp, ArmDown, Neck, Fist }
+    public enum MuscleType { Head, Hip, Chest, LegUp, LegDown, ArmUp, ArmDown, Neck, Fist, Boot }
 }
