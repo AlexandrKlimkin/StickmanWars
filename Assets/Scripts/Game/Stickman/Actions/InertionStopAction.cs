@@ -15,7 +15,7 @@ namespace Character.MuscleSystem {
         public float InertiaStopForce;
 
         public override void Initialize(List<Muscle> muscles) {
-            _Hip = muscles.FirstOrDefault(_ => _.MuscleType == MuscleType.Hip);
+            _Hip = muscles.FirstOrDefault(_ => _.MuscleType == MuscleType.HipUp);
         }
 
         public override void UpdateAction(params float[] parameters) {

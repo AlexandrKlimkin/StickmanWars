@@ -63,7 +63,7 @@ namespace Character.MuscleSystem {
 
         public override void Initialize(List<Muscle> muscles) {
             base.Initialize(muscles);
-            _Hip = muscles.FirstOrDefault(_=>_.MuscleType == MuscleType.Hip);
+            _Hip = muscles.FirstOrDefault(_=>_.MuscleType == MuscleType.HipUp);
             _Chest = muscles.FirstOrDefault(_ => _.MuscleType == MuscleType.Chest);
             _LegUp = muscles.Where(_=>_.MuscleType == MuscleType.LegUp).ToList();
             _LegDown = muscles.Where(_=>_.MuscleType == MuscleType.LegDown).ToList();

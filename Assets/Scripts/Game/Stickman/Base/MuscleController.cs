@@ -39,7 +39,7 @@ namespace Character.MuscleSystem {
         private void Start() {
             //_LegUp = _Muscles.Where(_ => _.MuscleType == MuscleType.LegUp).ToList();
             //_LegDown = _Muscles.Where(_ => _.MuscleType == MuscleType.LegDown).ToList();
-            _Hip = _Muscles.First(_ => _.MuscleType == MuscleType.Hip);
+            _Hip = _Muscles.First(_ => _.MuscleType == MuscleType.HipUp);
             _Chest = _Muscles.First(_ => _.MuscleType == MuscleType.Chest);
             RegisterMuscles();
             RegisterActions();

@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _GenerationData:
   - MuscleType: 2
-    WidthRandom: {x: 1.5, y: 5}
-    HeightRandom: {x: 3, y: 9}
+    WidthRandom: {x: 1.5, y: 7}
+    HeightRandom: {x: 3, y: 6}
     ScaleXRandom: {x: 1, y: 1}
     ScaleYRandom: {x: 1, y: 1}
   - MuscleType: 1
-    WidthRandom: {x: 1.5, y: 5}
-    HeightRandom: {x: 1.5, y: 6}
+    WidthRandom: {x: 3, y: 3}
+    HeightRandom: {x: 3, y: 4}
     ScaleXRandom: {x: 1, y: 1}
     ScaleYRandom: {x: 1, y: 1}
   - MuscleType: 7
     WidthRandom: {x: 0.6, y: 1.4}
-    HeightRandom: {x: 1.5, y: 3.5}
+    HeightRandom: {x: 2, y: 3.6}
     ScaleXRandom: {x: 1, y: 1}
     ScaleYRandom: {x: 1, y: 1}
   - MuscleType: 0
@@ -34,13 +34,13 @@ MonoBehaviour:
     ScaleXRandom: {x: 1.1, y: 1.7}
     ScaleYRandom: {x: 0, y: 0}
   - MuscleType: 3
-    WidthRandom: {x: 1, y: 1.8}
-    HeightRandom: {x: 1.8, y: 4}
+    WidthRandom: {x: 1, y: 3}
+    HeightRandom: {x: 1.5, y: 3}
     ScaleXRandom: {x: 1, y: 1}
     ScaleYRandom: {x: 1, y: 1}
   - MuscleType: 4
-    WidthRandom: {x: 0.6, y: 1.3}
-    HeightRandom: {x: 1.8, y: 4}
+    WidthRandom: {x: 0.6, y: 3}
+    HeightRandom: {x: 2.5, y: 3}
     ScaleXRandom: {x: 1, y: 1}
     ScaleYRandom: {x: 1, y: 1}
   - MuscleType: 5
@@ -63,3 +63,13 @@ MonoBehaviour:
     HeightRandom: {x: 0, y: 0}
     ScaleXRandom: {x: 0.8, y: 1.5}
     ScaleYRandom: {x: 0, y: 0}
+  - MuscleType: 10
+    WidthRandom: {x: 1.5, y: 5}
+    HeightRandom: {x: 2, y: 3}
+    ScaleXRandom: {x: 1, y: 1}
+    ScaleYRandom: {x: 1, y: 1}
+  - MuscleType: 11
+    WidthRandom: {x: 0.8, y: 3}
+    HeightRandom: {x: 1.5, y: 3}
+    ScaleXRandom: {x: 1, y: 1}
+    ScaleYRandom: {x: 1, y: 1}

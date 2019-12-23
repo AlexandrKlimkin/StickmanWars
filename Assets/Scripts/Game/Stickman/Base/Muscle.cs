@@ -45,7 +45,7 @@ namespace Character.MuscleSystem {
                 return;
             var rotation = TargetRotation ? TargetRotation.rotation.eulerAngles.z : RestRotation;
             RotateSmooth(rotation + _AddRotation, _CurrentForce + _AddForce);
-            //if(MuscleType == MuscleType.Hip)
+            //if(MuscleType == MuscleType.HipUp)
             //    RotateSmooth(rotation + _AddRotation, _CurrentForce + _AddForce);
             //else
             //    RotateJoints(rotation + _AddRotation, _CurrentForce + _AddForce);
@@ -125,5 +125,5 @@ namespace Character.MuscleSystem {
         //}
     }
 
-    public enum MuscleType { Head, Hip, Chest, LegUp, LegDown, ArmUp, ArmDown, Neck, Fist, Boot }
+    public enum MuscleType { Head, HipUp, Chest, LegUp, LegDown, ArmUp, ArmDown, Neck, Fist, Boot, HipDown, LegMiddle } // ToDo:Bone type/muscle type
 }

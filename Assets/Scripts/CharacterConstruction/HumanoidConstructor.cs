@@ -15,23 +15,29 @@ namespace CharacterConstruction
             var root = new GameObject(unitId).transform;
             var sizeData = GenerateSizeData(unitId);
 
-            var chest = CreateBone(unitId, "Chest", sizeData.ChestSize, root, null, AxisType.Up, 0.4f, 0.5f);
+            var chest = CreateBone(unitId, "Chest", sizeData.ChestSize, root, null, AxisType.Up, 1f, 0.5f);
             var neck = CreateBone(unitId, "Neck", sizeData.NeckSize, root, chest.UpAxis, AxisType.Down, 0.4f, 0.4f);
             var head = CreateScaledBone(unitId, "Head", sizeData.HeadScale, root, neck.UpAxis, AxisType.Down);
-            var hip = CreateBone(unitId, "Hip", sizeData.HipSize, root, chest.DownAxis, AxisType.Up, 0.8f, 0.5f);
-            var legUpNear = CreateBone(unitId, "LegUpNear", sizeData.LegUpSize, root, hip.DownAxis, AxisType.Up, 0.4f, 0.4f);
-            var legUpBack = CreateBone(unitId, "LegUpBack", sizeData.LegUpSize, root, hip.DownAxis, AxisType.Up, 0.4f, 0.4f);
-            var legDownNear = CreateBone(unitId, "LegDownNear", sizeData.LegDownSize, root, legUpNear.DownAxis, AxisType.Up, 0.4f, 0.4f);
-            var legDownBack = CreateBone(unitId, "LegDownBack", sizeData.LegDownSize, root, legUpBack.DownAxis, AxisType.Up, 0.4f, 0.4f);
+
+            var hipUp = CreateBone(unitId, "HipUp", sizeData.HipUpSize, root, chest.DownAxis, AxisType.Up, 0.8f, 1f);
+            var hipDown = CreateBone(unitId, "HipDown", sizeData.HipDownSize, root, hipUp.DownAxis, AxisType.Up, sizeData.LegMiddleSize.x / 2, 0.4f);
+
+            var legUpNear = CreateBone(unitId, "LegUpNear", sizeData.LegUpSize, root, hipDown.DownAxis, AxisType.Up, sizeData.LegMiddleSize.x / 2, 0.4f);
+            //var legUpBack = CreateBone(unitId, "LegUpBack", sizeData.LegUpSize, root, hipDown.DownAxis, AxisType.Up, 0.4f, 0.4f);
+            var legMiddleNear = CreateBone(unitId, "LegMiddleNear", sizeData.LegMiddleSize, root, legUpNear.DownAxis, AxisType.Up, sizeData.LegDownSize.x / 2, 0.4f);
+            //var legMiddleBack = CreateBone(unitId, "LegMiddleBack", sizeData.LegMiddleSize, root, legUpBack.DownAxis, AxisType.Up, 0.4f, 0.4f);
+            var legDownNear = CreateBone(unitId, "LegDownNear", sizeData.LegDownSize, root, legMiddleNear.DownAxis, AxisType.Up, 0.4f, 0.4f);
+            //var legDownBack = CreateBone(unitId, "LegDownBack", sizeData.LegDownSize, root, legMiddleBack.DownAxis, AxisType.Up, 0.4f, 0.4f);
             var bootNear = CreateScaledBone(unitId, "BootNear", sizeData.BootScale, root, legDownNear.DownAxis, AxisType.Up);
-            var bootBack = CreateScaledBone(unitId, "BootBack", sizeData.BootScale, root, legDownBack.DownAxis, AxisType.Up);
+            //var bootBack = CreateScaledBone(unitId, "BootBack", sizeData.BootScale, root, legDownBack.DownAxis, AxisType.Up);
             var armUpNear = CreateBone(unitId, "ArmUpNear", sizeData.ArmUpSize, root, chest.MidleAxis, AxisType.Up, 0.4f, 0.4f);
-            var armUpBack = CreateBone(unitId, "ArmUpBack", sizeData.ArmUpSize, root, chest.MidleAxis, AxisType.Up, 0.4f, 0.4f);
+            //var armUpBack = CreateBone(unitId, "ArmUpBack", sizeData.ArmUpSize, root, chest.MidleAxis, AxisType.Up, 0.4f, 0.4f);
             var armDownNear = CreateBone(unitId, "ArmDownNear", sizeData.ArmDownSize, root, armUpNear.DownAxis, AxisType.Up, 0.4f, 0.4f);
-            var armDownBack = CreateBone(unitId, "ArmDownBack", sizeData.ArmDownSize, root, armUpBack.DownAxis, AxisType.Up, 0.4f, 0.4f);
+            //var armDownBack = CreateBone(unitId, "ArmDownBack", sizeData.ArmDownSize, root, armUpBack.DownAxis, AxisType.Up, 0.4f, 0.4f);
             var fistNear = CreateScaledBone(unitId, "FistNear", sizeData.FistScale, root, armDownNear.DownAxis, AxisType.Up);
-            var fistBack = CreateScaledBone(unitId, "FistBack", sizeData.FistScale, root, armDownBack.DownAxis, AxisType.Up);
+            //var fistBack = CreateScaledBone(unitId, "FistBack", sizeData.FistScale, root, armDownBack.DownAxis, AxisType.Up);
             return root.gameObject.AddComponent<Unit>();
+
         }
 
 
@@ -43,9 +49,13 @@ namespace CharacterConstruction
             var chestData = config.GetGenerationData(MuscleType.Chest);
             var chestSize = IntervalsToSize(chestData.WidthRandom, chestData.HeightRandom);
 
-            var hipData = config.GetGenerationData(MuscleType.Hip);
-            var hipSize = IntervalsToSize(hipData.WidthRandom, hipData.HeightRandom);
-            hipSize = new Vector2(Mathf.Clamp(hipSize.x, 0, chestSize.x - 0.2f), hipSize.y);
+            var hipUpData = config.GetGenerationData(MuscleType.HipUp);
+            var hipUpSize = IntervalsToSize(hipUpData.WidthRandom, hipUpData.HeightRandom);
+            hipUpSize = new Vector2(chestSize.x, hipUpSize.y);
+
+            var hipDownData = config.GetGenerationData(MuscleType.HipDown);
+            var hipDownSize = IntervalsToSize(hipDownData.WidthRandom, hipDownData.HeightRandom);
+            hipDownSize = new Vector2(Mathf.Clamp(hipDownSize.x, hipUpSize.x / 3 * 2, hipUpSize.x / 10 * 9), hipDownSize.y);
 
             var neckData = config.GetGenerationData(MuscleType.Neck);
             var neckSize = IntervalsToSize(neckData.WidthRandom, neckData.HeightRandom);
@@ -54,10 +64,16 @@ namespace CharacterConstruction
             var headScale = Random.Range(headData.ScaleXRandom.x, headData.ScaleXRandom.y);
 
             var legUpData = config.GetGenerationData(MuscleType.LegUp);
-            var legUpSize = IntervalsToSize(legUpData.WidthRandom, legUpData.HeightRandom);     
+            var legUpSize = IntervalsToSize(legUpData.WidthRandom, legUpData.HeightRandom);
+            legUpSize = new Vector2(Mathf.Clamp(legUpSize.x, 0, hipDownSize.x / 4 * 3), legUpSize.y);
+
+            var legMiddleData = config.GetGenerationData(MuscleType.LegMiddle);
+            var legMiddleSize = IntervalsToSize(legMiddleData.WidthRandom, legMiddleData.HeightRandom);
+            legMiddleSize = new Vector2(Mathf.Clamp(legMiddleSize.x, 0, legUpSize.x / 4 * 3), legMiddleSize.y);
 
             var legDownData = config.GetGenerationData(MuscleType.LegDown);
             var legDownSize = IntervalsToSize(legDownData.WidthRandom, legDownData.HeightRandom);
+            legDownSize = new Vector2(Mathf.Clamp(legDownSize.x, 0, legMiddleSize.x / 4 * 3), legDownSize.y);
 
             var bootData = config.GetGenerationData(MuscleType.Boot);
             var bootScale = Random.Range(bootData.ScaleXRandom.x, bootData.ScaleXRandom.y);
@@ -74,10 +90,12 @@ namespace CharacterConstruction
             return new HumanoidSizeData()
             {
                 ChestSize = chestSize,
-                HipSize = hipSize,
+                HipUpSize = hipUpSize,
+                HipDownSize = hipDownSize,
                 NeckSize = neckSize,
                 HeadScale = headScale,
                 LegUpSize = legUpSize,
+                LegMiddleSize = legMiddleSize,
                 LegDownSize = legDownSize,
                 ArmUpSize = armUpSize,
                 ArmDownSize = armDownSize,
