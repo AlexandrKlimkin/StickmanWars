@@ -11,6 +11,7 @@ public class Bone : MonoBehaviour
     public Transform MidleAxis;
     public List<SpriteRenderer> SpriteRenderers;
     public CapsuleCollider2D CapsuleCollider;
+    public Rigidbody2D Rigidbody;
 
     private void Awake()
     {

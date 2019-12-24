@@ -21,29 +21,54 @@ namespace CharacterConstruction
 
             var hipUp = CreateBone(unitId, "HipUp", sizeData.HipUpSize, root, chest.DownAxis, AxisType.Up, 0.8f, 1f);
             var hipDown = CreateBone(unitId, "HipDown", sizeData.HipDownSize, root, hipUp.DownAxis, AxisType.Up, sizeData.LegMiddleSize.x / 2, 0.4f);
+            var hip = new GameObject("Hip");
+            hip.transform.position = hipUp.transform.position;
+            hip.transform.SetParent(root);
+            hipUp.transform.SetParent(hip.transform);
+            hipDown.transform.SetParent(hip.transform);
 
             var legUpNear = CreateBone(unitId, "LegUpNear", sizeData.LegUpSize, root, hipDown.DownAxis, AxisType.Up, sizeData.LegMiddleSize.x / 2, 0.4f);
-            //var legUpBack = CreateBone(unitId, "LegUpBack", sizeData.LegUpSize, root, hipDown.DownAxis, AxisType.Up, 0.4f, 0.4f);
-            var legMiddleNear = CreateBone(unitId, "LegMiddleNear", sizeData.LegMiddleSize, root, legUpNear.DownAxis, AxisType.Up, sizeData.LegDownSize.x / 2, 0.4f);
-            //var legMiddleBack = CreateBone(unitId, "LegMiddleBack", sizeData.LegMiddleSize, root, legUpBack.DownAxis, AxisType.Up, 0.4f, 0.4f);
-            var legDownNear = CreateBone(unitId, "LegDownNear", sizeData.LegDownSize, root, legMiddleNear.DownAxis, AxisType.Up, 0.4f, 0.4f);
-            //var legDownBack = CreateBone(unitId, "LegDownBack", sizeData.LegDownSize, root, legMiddleBack.DownAxis, AxisType.Up, 0.4f, 0.4f);
-            var bootNear = CreateScaledBone(unitId, "BootNear", sizeData.BootScale, root, legDownNear.DownAxis, AxisType.Up);
-            //var bootBack = CreateScaledBone(unitId, "BootBack", sizeData.BootScale, root, legDownBack.DownAxis, AxisType.Up);
-            var armUpNear = CreateBone(unitId, "ArmUpNear", sizeData.ArmUpSize, root, chest.MidleAxis, AxisType.Up, 0.4f, 0.4f);
-            //var armUpBack = CreateBone(unitId, "ArmUpBack", sizeData.ArmUpSize, root, chest.MidleAxis, AxisType.Up, 0.4f, 0.4f);
-            var armDownNear = CreateBone(unitId, "ArmDownNear", sizeData.ArmDownSize, root, armUpNear.DownAxis, AxisType.Up, 0.4f, 0.4f);
-            //var armDownBack = CreateBone(unitId, "ArmDownBack", sizeData.ArmDownSize, root, armUpBack.DownAxis, AxisType.Up, 0.4f, 0.4f);
-            var fistNear = CreateScaledBone(unitId, "FistNear", sizeData.FistScale, root, armDownNear.DownAxis, AxisType.Up);
-            //var fistBack = CreateScaledBone(unitId, "FistBack", sizeData.FistScale, root, armDownBack.DownAxis, AxisType.Up);
-            return root.gameObject.AddComponent<Unit>();
+            var legUpBack = CreateBone(unitId, "LegUpBack", sizeData.LegUpSize, root, hipDown.DownAxis, AxisType.Up, sizeData.LegMiddleSize.x / 2, 0.4f);
 
+            var legMiddleNear = CreateBone(unitId, "LegMiddleNear", sizeData.LegMiddleSize, root, legUpNear.DownAxis, AxisType.Up, sizeData.LegDownSize.x / 2, 0.4f);
+            var legMiddleBack = CreateBone(unitId, "LegMiddleBack", sizeData.LegMiddleSize, root, legUpBack.DownAxis, AxisType.Up, sizeData.LegDownSize.x / 2, 0.4f);
+
+            var legDownNear = CreateBone(unitId, "LegDownNear", sizeData.LegDownSize, root, legMiddleNear.DownAxis, AxisType.Up, 0.4f, 0.4f);
+            var legDownBack = CreateBone(unitId, "LegDownBack", sizeData.LegDownSize, root, legMiddleBack.DownAxis, AxisType.Up, 0.4f, 0.4f);
+
+            var bootNear = CreateScaledBone(unitId, "BootNear", sizeData.BootScale, root, legDownNear.DownAxis, AxisType.Up);
+            var bootBack = CreateScaledBone(unitId, "BootBack", sizeData.BootScale, root, legDownBack.DownAxis, AxisType.Up);
+
+            var armUpNear = CreateBone(unitId, "ArmUpNear", sizeData.ArmUpSize, root, chest.MidleAxis, AxisType.Up, 0.4f, 0.4f);
+            var armUpBack = CreateBone(unitId, "ArmUpBack", sizeData.ArmUpSize, root, chest.MidleAxis, AxisType.Up, 0.4f, 0.4f);
+
+            var armDownNear = CreateBone(unitId, "ArmDownNear", sizeData.ArmDownSize, root, armUpNear.DownAxis, AxisType.Up, 0.4f, 0.4f);
+            var armDownBack = CreateBone(unitId, "ArmDownBack", sizeData.ArmDownSize, root, armUpBack.DownAxis, AxisType.Up, 0.4f, 0.4f);
+
+            var fistNear = CreateScaledBone(unitId, "FistNear", sizeData.FistScale, root, armDownNear.DownAxis, AxisType.Up);
+            var fistBack = CreateScaledBone(unitId, "FistBack", sizeData.FistScale, root, armDownBack.DownAxis, AxisType.Up);
+
+            //Joints
+            var hipJoint = hipUp.gameObject.AddComponent<HingeJoint2D>();
+            hipJoint.connectedBody = chest.Rigidbody;
+            hipJoint.anchor = hipUp.DownAxis.localPosition;
+
+            var neckJoint = neck.gameObject.AddComponent<HingeJoint2D>();
+            neckJoint.connectedBody = chest.Rigidbody;
+            neckJoint.anchor = neck.DownAxis.localPosition;
+
+            var headJoint = head.gameObject.AddComponent<HingeJoint2D>();
+            headJoint.connectedBody = neck.Rigidbody;
+            headJoint.anchor = head.DownAxis.localPosition;
+
+            var unit = root.gameObject.AddComponent<Unit>();
+            unit.gameObject.AddComponent<Removecollision>();
+            return unit;
         }
 
 
         private HumanoidSizeData GenerateSizeData(string unitId)
         {
-
             var config = Resources.Load<HumanoidConfig>($"Characters/{unitId}/HumanoidConfig");
 
             var chestData = config.GetGenerationData(MuscleType.Chest);
@@ -130,6 +155,9 @@ namespace CharacterConstruction
                 }
                 bone.transform.position = connectedAxis.position - axis.localPosition * bone.transform.localScale.x;
             }
+
+            bone.Rigidbody = bone.gameObject.AddComponent<Rigidbody2D>();
+
             return bone;
         }
 
@@ -169,7 +197,12 @@ namespace CharacterConstruction
 
                 bone.transform.position = connectedAxis.position - axis.localPosition;
             }
+
+            bone.Rigidbody = bone.gameObject.AddComponent<Rigidbody2D>();
+
             return bone;
         }
+
+
     }
 }
