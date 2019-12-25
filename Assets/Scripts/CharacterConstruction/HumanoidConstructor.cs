@@ -29,15 +29,33 @@ namespace CharacterConstruction
 
             var legUpNear = CreateBone(unitId, "LegUpNear", sizeData.LegUpSize, root, hipDown.DownAxis, AxisType.Up, sizeData.LegMiddleSize.x / 2, 0.4f);
             var legUpBack = CreateBone(unitId, "LegUpBack", sizeData.LegUpSize, root, hipDown.DownAxis, AxisType.Up, sizeData.LegMiddleSize.x / 2, 0.4f);
-
             var legMiddleNear = CreateBone(unitId, "LegMiddleNear", sizeData.LegMiddleSize, root, legUpNear.DownAxis, AxisType.Up, sizeData.LegDownSize.x / 2, 0.4f);
             var legMiddleBack = CreateBone(unitId, "LegMiddleBack", sizeData.LegMiddleSize, root, legUpBack.DownAxis, AxisType.Up, sizeData.LegDownSize.x / 2, 0.4f);
+            var legUp1 = new GameObject("LegUpNear");
+            legUp1.transform.position = legUpNear.transform.position;
+            legUp1.transform.SetParent(root);
+            legUpNear.transform.SetParent(legUp1.transform);
+            legMiddleNear.transform.SetParent(legUp1.transform);
+            var legUp2 = new GameObject("LegUpBack");
+            legUp2.transform.position = legUpBack.transform.position;
+            legUp2.transform.SetParent(root);
+            legUpBack.transform.SetParent(legUp2.transform);
+            legMiddleBack.transform.SetParent(legUp2.transform);
 
             var legDownNear = CreateBone(unitId, "LegDownNear", sizeData.LegDownSize, root, legMiddleNear.DownAxis, AxisType.Up, 0.4f, 0.4f);
             var legDownBack = CreateBone(unitId, "LegDownBack", sizeData.LegDownSize, root, legMiddleBack.DownAxis, AxisType.Up, 0.4f, 0.4f);
-
             var bootNear = CreateScaledBone(unitId, "BootNear", sizeData.BootScale, root, legDownNear.DownAxis, AxisType.Up);
             var bootBack = CreateScaledBone(unitId, "BootBack", sizeData.BootScale, root, legDownBack.DownAxis, AxisType.Up);
+            var legDown1 = new GameObject("LegDownNear");
+            legDown1.transform.position = legDownNear.transform.position;
+            legDown1.transform.SetParent(root);
+            legDownNear.transform.SetParent(legDown1.transform);
+            bootNear.transform.SetParent(legDown1.transform);
+            var legDown2 = new GameObject("LegDownBack");
+            legDown2.transform.position = legDownBack.transform.position;
+            legDown2.transform.SetParent(root);
+            legDownBack.transform.SetParent(legDown2.transform);
+            bootBack.transform.SetParent(legDown2.transform);
 
             var armUpNear = CreateBone(unitId, "ArmUpNear", sizeData.ArmUpSize, root, chest.MidleAxis, AxisType.Up, 0.4f, 0.4f);
             var armUpBack = CreateBone(unitId, "ArmUpBack", sizeData.ArmUpSize, root, chest.MidleAxis, AxisType.Up, 0.4f, 0.4f);
@@ -48,18 +66,89 @@ namespace CharacterConstruction
             var fistNear = CreateScaledBone(unitId, "FistNear", sizeData.FistScale, root, armDownNear.DownAxis, AxisType.Up);
             var fistBack = CreateScaledBone(unitId, "FistBack", sizeData.FistScale, root, armDownBack.DownAxis, AxisType.Up);
 
+            //Rigidbodies
+            chest.Rigidbody = chest.gameObject.AddComponent<Rigidbody2D>();
+            neck.Rigidbody = neck.gameObject.AddComponent<Rigidbody2D>();
+            head.Rigidbody = head.gameObject.AddComponent<Rigidbody2D>();
+            var hipRb = hip.AddComponent<Rigidbody2D>();
+            armUpNear.Rigidbody = armUpNear.gameObject.AddComponent<Rigidbody2D>();
+            armUpBack.Rigidbody = armUpBack.gameObject.AddComponent<Rigidbody2D>();
+            armDownNear.Rigidbody = armDownNear.gameObject.AddComponent<Rigidbody2D>();
+            armDownBack.Rigidbody = armDownBack.gameObject.AddComponent<Rigidbody2D>();
+            var legUpNearRb = legUp1.AddComponent<Rigidbody2D>();
+            var legUpBackRb = legUp2.AddComponent<Rigidbody2D>();
+            var legDownNearRb = legDown1.AddComponent<Rigidbody2D>();
+            var legDownBackRb = legDown2.AddComponent<Rigidbody2D>();
+
             //Joints
-            var hipJoint = hipUp.gameObject.AddComponent<HingeJoint2D>();
+            var hipJoint = hip.AddComponent<HingeJoint2D>();
             hipJoint.connectedBody = chest.Rigidbody;
-            hipJoint.anchor = hipUp.DownAxis.localPosition;
+            hipJoint.anchor = hipUp.UpAxis.localPosition;
+            hipJoint.useLimits = true;
+            hipJoint.limits = new JointAngleLimits2D { min = -120f, max = 25f };
 
             var neckJoint = neck.gameObject.AddComponent<HingeJoint2D>();
             neckJoint.connectedBody = chest.Rigidbody;
             neckJoint.anchor = neck.DownAxis.localPosition;
+            neckJoint.useLimits = true;
+            neckJoint.limits = new JointAngleLimits2D { min = -30f, max = 30f };
 
             var headJoint = head.gameObject.AddComponent<HingeJoint2D>();
             headJoint.connectedBody = neck.Rigidbody;
             headJoint.anchor = head.DownAxis.localPosition;
+            headJoint.useLimits = true;
+            headJoint.limits = new JointAngleLimits2D{ min = -30f, max = 30f};
+
+            var armUpNearJoint = armUpNear.gameObject.AddComponent<HingeJoint2D>();
+            armUpNearJoint.connectedBody = chest.Rigidbody;
+            armUpNearJoint.anchor = armUpNear.UpAxis.localPosition;
+            var armUpBackJoint = armUpBack.gameObject.AddComponent<HingeJoint2D>();
+            armUpBackJoint.connectedBody = chest.Rigidbody;
+            armUpBackJoint.anchor = armUpBack.UpAxis.localPosition;
+
+            var armDownNearJoint = armDownNear.gameObject.AddComponent<HingeJoint2D>();
+            armDownNearJoint.connectedBody = armUpNear.Rigidbody;
+            armDownNearJoint.anchor = armDownNear.UpAxis.localPosition;
+            armDownNearJoint.useLimits = true;
+            armDownNearJoint.limits = new JointAngleLimits2D { min = -170f, max = 5f };
+            var armDownBackJoint = armDownBack.gameObject.AddComponent<HingeJoint2D>();
+            armDownBackJoint.connectedBody = armUpBack.Rigidbody;
+            armDownBackJoint.anchor = armDownBack.UpAxis.localPosition;
+            armDownBackJoint.useLimits = true;
+            armDownBackJoint.limits = new JointAngleLimits2D { min = -170f, max = 5f };
+
+            var fistNearJoint = fistNear.gameObject.AddComponent<HingeJoint2D>();
+            fistNearJoint.connectedBody = armDownNear.Rigidbody;
+            fistNearJoint.anchor = fistNear.UpAxis.localPosition;
+            fistNearJoint.useLimits = true;
+            fistNearJoint.limits = new JointAngleLimits2D { min = -20f, max = 20f };
+            var fistBackJoint = fistBack.gameObject.AddComponent<HingeJoint2D>();
+            fistBackJoint.connectedBody = armDownBack.Rigidbody;
+            fistBackJoint.anchor = fistBack.UpAxis.localPosition;
+            fistBackJoint.useLimits = true;
+            fistBackJoint.limits = new JointAngleLimits2D { min = -20f, max = 20f };
+
+            var legUpNearJoint = legUp1.AddComponent<HingeJoint2D>();
+            legUpNearJoint.connectedBody = hipRb;
+            legUpNearJoint.anchor = legUpNear.UpAxis.localPosition;
+            legUpNearJoint.useLimits = true;
+            legUpNearJoint.limits = new JointAngleLimits2D { min = -130f, max = 90f };
+            var legUpBackJoint = legUp2.AddComponent<HingeJoint2D>();
+            legUpBackJoint.connectedBody = hipRb;
+            legUpBackJoint.anchor = legUpBack.UpAxis.localPosition;
+            legUpBackJoint.useLimits = true;
+            legUpBackJoint.limits = new JointAngleLimits2D { min = -130f, max = 90f };
+
+            var legDownNearJoint = legDown1.AddComponent<HingeJoint2D>();
+            legDownNearJoint.connectedBody = legUpNearRb;
+            legDownNearJoint.anchor = legDownNear.UpAxis.localPosition;
+            legDownNearJoint.useLimits = true;
+            legDownNearJoint.limits = new JointAngleLimits2D { min = -5f, max = 150f };
+            var legDownBackJoint = legDown2.AddComponent<HingeJoint2D>();
+            legDownBackJoint.connectedBody = legUpBackRb;
+            legDownBackJoint.anchor = legDownBack.UpAxis.localPosition;
+            legDownBackJoint.useLimits = true;
+            legDownBackJoint.limits = new JointAngleLimits2D { min = -5f, max = 150f };
 
             var unit = root.gameObject.AddComponent<Unit>();
             unit.gameObject.AddComponent<Removecollision>();
@@ -156,7 +245,7 @@ namespace CharacterConstruction
                 bone.transform.position = connectedAxis.position - axis.localPosition * bone.transform.localScale.x;
             }
 
-            bone.Rigidbody = bone.gameObject.AddComponent<Rigidbody2D>();
+            //bone.Rigidbody = bone.gameObject.AddComponent<Rigidbody2D>();
 
             return bone;
         }
@@ -198,7 +287,7 @@ namespace CharacterConstruction
                 bone.transform.position = connectedAxis.position - axis.localPosition;
             }
 
-            bone.Rigidbody = bone.gameObject.AddComponent<Rigidbody2D>();
+            //bone.Rigidbody = bone.gameObject.AddComponent<Rigidbody2D>();
 
             return bone;
         }
