@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Tools.Unity;
 using UnityEngine;
 
@@ -13,8 +14,6 @@ namespace Character.MuscleSystem {
         public Rigidbody2D Rigidbody;
         public HingeJoint2D Joint;
         public Collider2D Collider;
-        public Transform ConnectedAxis;
-        public Transform Axis;
         public float RestRotation;
         public float Force;
         public Transform TargetRotation;
@@ -31,10 +30,10 @@ namespace Character.MuscleSystem {
         //private JointMotor2D _StartMotor;
 
         public void Initialize() {
-            Collider = Rigidbody.GetComponent<Collider2D>();
-            BoneCollider = Rigidbody.GetComponent<BoneCollider>();
-            Joint = Rigidbody.GetComponent<HingeJoint2D>();
-            ViewTransform = Rigidbody.GetComponentInChildren<SpriteRenderer>(false).transform;
+            Collider = Rigidbody.GetComponentInChildren<Collider2D>();
+            BoneCollider = Rigidbody.GetComponentInChildren<BoneCollider>();
+            Joint = Rigidbody.GetComponentInChildren<HingeJoint2D>();
+            ViewTransform = Rigidbody.transform;
             _CurrentForce = Force;
             //if(Joint)
             //    _StartMotor = Joint.motor;
