@@ -18,7 +18,11 @@ public class SimpleCCDEditor
 
 		foreach (var target in targets)
 		{
-			foreach (var node in target.Nodes)
+#if UNITY_EDITOR
+            if(!target.DrawAnglesGizmos)
+                continue;
+#endif
+            foreach (var node in target.Nodes)
 			{
 				if (node.Transform == null)
 					continue;
