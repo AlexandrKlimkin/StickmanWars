@@ -18,7 +18,11 @@ public class SimpleCCDEditor
 
 		foreach (var target in targets)
 		{
-			foreach (var node in target.angleLimits)
+#if UNITY_EDITOR
+            if(!target.DrawAnglesGizmos)
+                continue;
+#endif
+            foreach (var node in target.Nodes)
 			{
 				if (node.Transform == null)
 					continue;
@@ -31,18 +35,18 @@ public class SimpleCCDEditor
 
 
 				float parentRotation = transform.parent ? transform.parent.eulerAngles.z : 0;
-				Vector3 min = Quaternion.Euler(0, 0, node.min + parentRotation)*Vector3.down;
-				Vector3 max = Quaternion.Euler(0, 0, node.max + parentRotation)*Vector3.down;
-
+				Vector3 min = Quaternion.Euler(0, 0, node.Min + parentRotation)*Vector3.down;
+				Vector3 max = Quaternion.Euler(0, 0, node.Max + parentRotation)*Vector3.down;
+  
 				Handles.color = new Color(0, 1, 0, 0.1f);
 				Handles.DrawWireDisc(position, Vector3.back, discSize);
-				Handles.DrawSolidArc(position, Vector3.forward, min, node.max - node.min, discSize);
+				Handles.DrawSolidArc(position, Vector3.forward, min, node.Max - node.Min, discSize);
 
 				Handles.color = Color.green;
 				Handles.DrawLine(position, position + min * discSize);
 				Handles.DrawLine(position, position + max*discSize);
 
-				Vector3 toChild = FindChildNode(transform, target.endTransform).position - position;
+				Vector3 toChild = FindChildNode(transform, target.EndTransform).position - position;
 				Handles.DrawLine(position, position + toChild);
 			}
 		}
