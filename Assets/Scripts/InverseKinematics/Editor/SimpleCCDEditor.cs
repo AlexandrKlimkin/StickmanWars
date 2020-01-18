@@ -37,7 +37,7 @@ public class SimpleCCDEditor
 				float parentRotation = transform.parent ? transform.parent.eulerAngles.z : 0;
 				Vector3 min = Quaternion.Euler(0, 0, node.Min + parentRotation)*Vector3.down;
 				Vector3 max = Quaternion.Euler(0, 0, node.Max + parentRotation)*Vector3.down;
-
+  
 				Handles.color = new Color(0, 1, 0, 0.1f);
 				Handles.DrawWireDisc(position, Vector3.back, discSize);
 				Handles.DrawSolidArc(position, Vector3.forward, min, node.Max - node.Min, discSize);

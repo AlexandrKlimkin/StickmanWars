@@ -27,6 +27,19 @@ public class SimpleCCD : MonoBehaviour
         public float Max = 360f;
     }
 
+    public void ReflectNodes()
+    {
+        foreach (var node in Nodes)
+        {
+            if(node.Min == 0 && node.Max == 360)
+                continue;
+            var min = node.Min;
+            var max = node.Max;
+            node.Max = 360 - min;
+            node.Min = 360 - max;
+        }
+    }
+
     private void OnValidate() {
         foreach (var node in Nodes)
         {

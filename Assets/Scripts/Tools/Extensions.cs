@@ -10,5 +10,9 @@ namespace Assets.Scripts.Tools {
         public static Vector2 ToVector2(this Vector3 vector) {
             return new Vector2(vector.x, vector.y);
         }
+
+        public static Vector3 TransformPointUnscaled(Transform t, Vector3 point) {
+            return t.position + t.rotation * point;
+        }
     }
 }

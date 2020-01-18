@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Tools;
 using UnityEngine;
 
 public class IKMuscle : MonoBehaviour
@@ -15,7 +16,7 @@ public class IKMuscle : MonoBehaviour
         _Rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         ActivateMuscle();
     }
@@ -24,7 +25,8 @@ public class IKMuscle : MonoBehaviour
     {
         if (!Enabled)
             return;
-        RotateSmooth(Target.rotation.eulerAngles.z, Force);
+        //RotateSmooth(Target.rotation.eulerAngles.z, Force);
+        Pin();
     }
 
     private void RotateSmooth(float rotation, float force) {
@@ -33,5 +35,13 @@ public class IKMuscle : MonoBehaviour
         ratio *= ratio;
         _Rigidbody.MoveRotation(Mathf.LerpAngle(_Rigidbody.rotation, rotation, force * ratio * Time.fixedDeltaTime));
         _Rigidbody.AddTorque(angle * force * (1 - ratio) * .1f);
+    }
+
+    private void Pin()
+    {
+        var tam = MathExtensions.TransformPointUnscaled(Target, _Rigidbody.centerOfMass);
+        var posOffset = (Vector2)tam - _Rigidbody.worldCenterOfMass;
+        posOffset /= Time.fixedDeltaTime;
+        _Rigidbody.velocity = posOffset / 2;
     }
 }
