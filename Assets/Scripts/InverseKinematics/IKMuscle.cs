@@ -42,6 +42,6 @@ public class IKMuscle : MonoBehaviour
         var tam = MathExtensions.TransformPointUnscaled(Target, _Rigidbody.centerOfMass);
         var posOffset = (Vector2)tam - _Rigidbody.worldCenterOfMass;
         posOffset /= Time.fixedDeltaTime;
-        _Rigidbody.velocity = posOffset / 2;
+        _Rigidbody.velocity = posOffset;
     }
 }

@@ -14,15 +14,20 @@ namespace Stickman.Movement {
 
         private List<SimpleCCD> _SimpleCcds = new List<SimpleCCD>();
         private float _Horizontal;
+        private float _LastY;
+        private bool _FallingDown = false;
 
         private void Awake() {
             Rigidbody = GetComponent<Rigidbody2D>();
             GroundSensor = GetComponentInChildren<IGroundSensor>();
             GetComponentsInChildren(_SimpleCcds);
+            _LastY = transform.position.y;
         }
 
         private void Update() {
-            Animator.SetFloat("Horizontal", Mathf.Abs(_Horizontal));
+            _FallingDown = transform.position.y < _LastY && !GroundSensor.IsGrounded;
+            _LastY = transform.position.y;
+            UpdateAnimator();
         }
 
         private void FixedUpdate() {
@@ -34,6 +39,14 @@ namespace Stickman.Movement {
                 var delta = Speed * Direction * Time.fixedDeltaTime;
                 Rigidbody.position += new Vector2(delta, 0);
             }
+        }
+
+        private void UpdateAnimator()
+        {
+            Animator.SetFloat("Horizontal", Mathf.Abs(_Horizontal));
+            Animator.SetBool("Grounded", GroundSensor.IsGrounded);
+            Animator.SetFloat("DistanseToGround", GroundSensor.DistanseToGround);
+            Animator.SetBool("FallingDown", _FallingDown);
         }
 
         public void SetHorizontal(float hor) {
