@@ -2,19 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour
+namespace Stickman.Shooting
 {
-    public Transform NearArmTransform;
-
-    private Camera _Camera;
-
-    private void Start()
+    public class WeaponController : MonoBehaviour
     {
-        _Camera = Camera.main;
-    }
+        public Transform NearArmTransform;
+        public List<Weapon> Weapons;
 
-    private void Update()
-    {
-        NearArmTransform.position = _Camera.ScreenToWorldPoint(Input.mousePosition);
+        private Camera _Camera;
+
+        private void Start()
+        {
+            _Camera = Camera.main;
+        }
+
+        private void LateUpdate()
+        {
+            NearArmTransform.position = _Camera.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+        public void Fire()
+        {
+            Weapons.ForEach(_=>_.PerformShot());
+        }
     }
 }

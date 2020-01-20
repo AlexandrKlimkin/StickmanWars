@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IWeapon
+namespace Stickman.Shooting
 {
-    WeaponConfig Stats { get; }
-    void Fire();
-}
+    public abstract class Weapon : MonoBehaviour
+    {
+        public WeaponConfig Stats => _Stats;
+        public abstract void PerformShot();
 
-public abstract class Weapon : MonoBehaviour, IWeapon
-{
-    public WeaponConfig Stats => _Stats;
-    public abstract void Fire();
-
-    [SerializeField]
-    private WeaponConfig _Stats;
+        [SerializeField] private WeaponConfig _Stats;
+    }
 }
