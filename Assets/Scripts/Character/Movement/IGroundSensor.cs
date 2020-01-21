@@ -1,4 +1,4 @@
-﻿namespace Stickman.Movement
+﻿namespace Character.Movement
 {
     public interface IGroundSensor
     {

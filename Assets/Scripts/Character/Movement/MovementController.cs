@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Stickman.Movement {
+namespace Character.Movement {
     public class MovementController : MonoBehaviour {
         public Animator Animator;
         public float Speed = 1f;
