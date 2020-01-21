@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Stickman.Shooting
+namespace Character.Shooting
 {
-    public abstract class LongRangeWeapon<P, D> : Weapon where P : Projectile<D> where D : ProjectileData
+    public abstract class LongRangeWeapon<P, D> : Weapon where P : Projectile<D> where D : ProjectileData, new()
     {
         public P ProjectilePrefab;
 
@@ -13,7 +13,14 @@ namespace Stickman.Shooting
             return Instantiate(ProjectilePrefab);
         }
 
-        public abstract D GetProjectileData();
+        public virtual D GetProjectileData()
+        {
+            var data = new D
+            {
+                Damage = GetDamage()
+            };
+            return data;
+        }
 
         public override void PerformShot()
         {

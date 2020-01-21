@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Character.Movement;
 using Character.MuscleSystem;
+using Character.Shooting;
 using UnityEngine;
 using InputSystem;
-using Stickman.Movement;
-using Stickman.Shooting;
 
-namespace Stickman.Controllers {
+namespace Character.Controllers {
     public class PlayerController : MonoBehaviour {
 
         public int Id;
         private WeaponController _WeaponController;
         private MovementController _MovementController;
         private InputKit _InputKit;
+
+        private Camera _Camera;
 
         private void Awake() {
             _MovementController = GetComponent<MovementController>();
@@ -21,6 +23,7 @@ namespace Stickman.Controllers {
 
         private void Start() {
             _InputKit = InputConfig.Instance.GetSettings(Id);
+            _Camera = Camera.main;
         }
 
         public void Update() {
@@ -38,6 +41,12 @@ namespace Stickman.Controllers {
             {
                 _MovementController.Jump();
             }
+        }
+
+        public void LateUpdate()
+        {
+            if(_InputKit.Id == 1)
+                _WeaponController.SetWeaponedHandPosition(_Camera.ScreenToWorldPoint(Input.mousePosition));
         }
     }
 }

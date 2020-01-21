@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Character.Health;
 using UnityEngine;
 
-namespace Stickman.Shooting
+namespace Character.Shooting
 {
     public class ProjectileData
     {
@@ -11,5 +12,6 @@ namespace Stickman.Shooting
         public float LifeTime;
         public float BirthTime;
         public float Speed;
+        public Damage Damage;
     }
 }

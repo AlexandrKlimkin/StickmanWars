@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Stickman.Movement
+namespace Character.Movement
 {
     public class GroundSensor : MonoBehaviour, IGroundSensor
     {

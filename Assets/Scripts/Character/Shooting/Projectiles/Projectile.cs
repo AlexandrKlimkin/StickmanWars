@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Character.Health;
 using UnityEngine;
 
-namespace Stickman.Shooting
+namespace Character.Shooting
 {
     public abstract class Projectile<D> : MonoBehaviour where D : ProjectileData
     {
@@ -43,9 +44,10 @@ namespace Stickman.Shooting
             Initialized = false;
         }
 
-        protected virtual void PerformHit()
+        protected virtual void PerformHit(IDamageable damageable)
         {
             KillProjectile();
+            damageable?.ApplyDamage(Data.Damage);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Stickman.Shooting
+namespace Character.Shooting
 {
     public class BulletWeapon : LongRangeWeapon<BulletProjectile, ProjectileData>
     {
@@ -10,14 +10,13 @@ namespace Stickman.Shooting
 
         public override ProjectileData GetProjectileData()
         {
-            return new ProjectileData
-            {
-                BirthTime = Time.time,
-                LifeTime = Stats.Range / Stats.ProjectileSpeed,
-                Position = ShootTransform.position,
-                Rotation = ShootTransform.rotation,
-                Speed = Stats.ProjectileSpeed,
-            };
+            var data = base.GetProjectileData();
+            data.BirthTime = Time.time;
+            data.LifeTime = Stats.Range / Stats.ProjectileSpeed;
+            data.Position = ShootTransform.position;
+            data.Rotation = ShootTransform.rotation;
+            data.Speed = Stats.ProjectileSpeed;
+            return data;
         }
     }
 }
