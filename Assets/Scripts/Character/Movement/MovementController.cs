@@ -4,12 +4,18 @@ using UnityEngine;
 namespace Character.Movement {
     public class MovementController : MonoBehaviour {
         public Animator Animator;
+        public Transform IkTransform;
         public float Speed = 1f;
+        public float GroundAcceleration = 1f;
+        public float AirAcceleration = 1f;
         public float JumpForce = 1000f;
+        public float TestForce = 1000f;
+
+        public Sensor GroundSensor;
+        public Sensor RightSensor;
+        public Sensor LeftSensor;
 
         public Rigidbody2D Rigidbody { get; private set; }
-        public IGroundSensor GroundSensor { get; private set; }
-
         public int Direction { get; private set; } = 1;
 
         private List<SimpleCCD> _SimpleCcds = new List<SimpleCCD>();
@@ -17,36 +23,46 @@ namespace Character.Movement {
         private float _LastY;
         private bool _FallingDown = false;
 
+        private bool WallSliding => !GroundSensor.IsTouching && (RightSensor.IsTouching || LeftSensor.IsTouching);
+
         private void Awake() {
             Rigidbody = GetComponent<Rigidbody2D>();
-            GroundSensor = GetComponentInChildren<IGroundSensor>();
             GetComponentsInChildren(_SimpleCcds);
             _LastY = transform.position.y;
         }
 
         private void Update() {
-            _FallingDown = transform.position.y < _LastY && !GroundSensor.IsGrounded;
+            _FallingDown = transform.position.y < _LastY && !GroundSensor.IsTouching;
             _LastY = transform.position.y;
             UpdateAnimator();
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                Rigidbody.AddForce(new Vector2(TestForce, 0));
+            }
         }
 
-        private void FixedUpdate() {
-            if (_Horizontal != 0)
-            {
-                var newDir = _Horizontal > 0 ? 1 : -1;
-                if (Direction != newDir)
-                    ChangeDirection(newDir);
-                var delta = Speed * Direction * Time.fixedDeltaTime;
-                Rigidbody.position += new Vector2(delta, 0);
-            }
+        private void FixedUpdate()
+        {
+            SetDirection();
+            var targetXVelocity = 0f;
+            var xVelocity = Rigidbody.velocity.x;
+            if (_Horizontal > 0)
+                targetXVelocity = Speed;
+            if (_Horizontal < 0)
+                targetXVelocity = -Speed;
+            var acceleration = GroundSensor.IsTouching ? GroundAcceleration : AirAcceleration;
+            xVelocity = Mathf.Lerp(xVelocity, targetXVelocity, Time.fixedDeltaTime * acceleration);
+            Rigidbody.velocity = new Vector2(xVelocity, Rigidbody.velocity.y);
         }
 
         private void UpdateAnimator()
         {
             Animator.SetFloat("Horizontal", Mathf.Abs(_Horizontal));
-            Animator.SetBool("Grounded", GroundSensor.IsGrounded);
-            Animator.SetFloat("DistanseToGround", GroundSensor.DistanseToGround);
+            Animator.SetBool("Grounded", GroundSensor.IsTouching);
+            Animator.SetFloat("Distanse", GroundSensor.Distanse);
             Animator.SetBool("FallingDown", _FallingDown);
+            Animator.SetBool("WallSliding", WallSliding);
         }
 
         public void SetHorizontal(float hor) {
@@ -54,18 +70,47 @@ namespace Character.Movement {
             Mathf.Clamp(_Horizontal, -1f, 1f);
         }
 
+        private void SetDirection()
+        {
+            if (_Horizontal != 0)
+            {
+                var newDir = _Horizontal > 0 ? 1 : -1;
+                if (LeftSensor.IsTouching)
+                    newDir = -1;
+                else if (RightSensor.IsTouching)
+                    newDir = 1;
+                if (Direction != newDir)
+                    ChangeDirection(newDir);
+            }
+        }
+
         private void ChangeDirection(int newDir) {
             Direction = newDir;
             var localScale = transform.localScale;
-            transform.localScale = new Vector3(newDir * Mathf.Abs(localScale.x), localScale.y, localScale.z);
+            IkTransform.localScale = new Vector3(newDir * Mathf.Abs(localScale.x), localScale.y, localScale.z);
             _SimpleCcds.ForEach(_ => _.ReflectNodes());
         }
 
         public void Jump() {
-            if (!GroundSensor.IsGrounded)
+            if (GroundSensor.IsTouching)
+            {
+                Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, JumpForce);
                 return;
-            Rigidbody.AddForce(new Vector2(0, JumpForce));
+            }
+            if (RightSensor.IsTouching)
+            {
+                var vector = new Vector2(-1, 1).normalized;
+                Rigidbody.velocity = vector * JumpForce;
+                Debug.DrawLine(Rigidbody.position, Rigidbody.position + vector, Color.yellow, 2f);
+            }
+            if (LeftSensor.IsTouching)
+            {
+                var vector = new Vector2(1, 1).normalized;
+                Rigidbody.velocity = vector * JumpForce;
+                Debug.DrawLine(Rigidbody.position, Rigidbody.position + vector, Color.yellow, 2f);
+            }
         }
 
+        public void JumpOffTheWall() { }
     }
 }
