@@ -9,7 +9,9 @@ namespace Character.Movement {
         public float GroundAcceleration = 1f;
         public float AirAcceleration = 1f;
         public float JumpForce = 1000f;
-        public float TestForce = 1000f;
+        public float WallJumpForce = 1000f;
+        public float WallSlideSpeed;
+        //public float TestForce = 1000f;
 
         public Sensor GroundSensor;
         public Sensor RightSensor;
@@ -36,10 +38,10 @@ namespace Character.Movement {
             _LastY = transform.position.y;
             UpdateAnimator();
 
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                Rigidbody.AddForce(new Vector2(TestForce, 0));
-            }
+            //if (Input.GetKeyDown(KeyCode.F))
+            //{
+            //    Rigidbody.AddForce(new Vector2(TestForce, 0));
+            //}
         }
 
         private void FixedUpdate()
@@ -54,13 +56,19 @@ namespace Character.Movement {
             var acceleration = GroundSensor.IsTouching ? GroundAcceleration : AirAcceleration;
             xVelocity = Mathf.Lerp(xVelocity, targetXVelocity, Time.fixedDeltaTime * acceleration);
             Rigidbody.velocity = new Vector2(xVelocity, Rigidbody.velocity.y);
+
+            if (WallSliding)
+            {
+                if(Rigidbody.velocity.y < -WallSlideSpeed)
+                    Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, -WallSlideSpeed);
+            }
         }
 
         private void UpdateAnimator()
         {
             Animator.SetFloat("Horizontal", Mathf.Abs(_Horizontal));
             Animator.SetBool("Grounded", GroundSensor.IsTouching);
-            Animator.SetFloat("Distanse", GroundSensor.Distanse);
+            Animator.SetFloat("DistanseToGround", GroundSensor.Distanse);
             Animator.SetBool("FallingDown", _FallingDown);
             Animator.SetBool("WallSliding", WallSliding);
         }
@@ -100,14 +108,12 @@ namespace Character.Movement {
             if (RightSensor.IsTouching)
             {
                 var vector = new Vector2(-1, 1).normalized;
-                Rigidbody.velocity = vector * JumpForce;
-                Debug.DrawLine(Rigidbody.position, Rigidbody.position + vector, Color.yellow, 2f);
+                Rigidbody.velocity = vector * WallJumpForce;
             }
             if (LeftSensor.IsTouching)
             {
                 var vector = new Vector2(1, 1).normalized;
-                Rigidbody.velocity = vector * JumpForce;
-                Debug.DrawLine(Rigidbody.position, Rigidbody.position + vector, Color.yellow, 2f);
+                Rigidbody.velocity = vector * WallJumpForce;
             }
         }
 
