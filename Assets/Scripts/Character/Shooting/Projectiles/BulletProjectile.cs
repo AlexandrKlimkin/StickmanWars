@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Character.Health;
+using Tools.VisualEffects;
 using UnityEngine;
 
 namespace Character.Shooting
 {
     public class BulletProjectile : Projectile<ProjectileData>
     {
-        public GameObject HitEffect;
+        public string HitEffectName;
+        public string TrailName;
+
+        protected TrailEffect _Trail;
 
         public override void Simulate(float time)
         {
@@ -20,13 +24,47 @@ namespace Character.Shooting
             }
         }
 
+        protected override void Initialize()
+        {
+            base.Initialize();
+            AttachTrail();
+        }
+
         protected override void PerformHit(IDamageable damageable)
         {
             base.PerformHit(damageable);
-            if (HitEffect == null)
+            PlayHitEffect();
+        }
+
+        protected virtual void AttachTrail()
+        {
+            if (TrailName == null)
                 return;
-            var effect = Instantiate(HitEffect);
-            effect.transform.position = transform.position;
+            _Trail = VisualEffect.GetEffect<TrailEffect>(TrailName);
+            _Trail.Attach(this.transform);
+            _Trail.Play();
+        }
+
+        protected virtual void DetachTrail()
+        {
+            _Trail.Detach();
+            _Trail = null;
+        }
+
+        protected virtual void PlayHitEffect()
+        {
+            if (HitEffectName != null)
+            {
+                var effect = VisualEffect.GetEffect<ParticleEffect>(HitEffectName);
+                effect.transform.position = transform.position;
+                effect.Play();
+            }
+        }
+
+        protected override void KillProjectile()
+        {
+            base.KillProjectile();
+            DetachTrail();
         }
     }
 }

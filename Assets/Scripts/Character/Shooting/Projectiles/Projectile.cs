@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Character.Health;
+using Tools.VisualEffects;
 using UnityEngine;
 
 namespace Character.Shooting
 {
-    public abstract class Projectile<D> : MonoBehaviour where D : ProjectileData
+    public abstract class Projectile<D> : VisualEffect where D : ProjectileData
     {
         public D Data { get; private set; }
         public bool Initialized { get; private set; }
@@ -13,34 +14,37 @@ namespace Character.Shooting
 
         public abstract void Simulate(float time);
 
-        public virtual void PerformShot(D data)
+        public virtual void Setup(D data)
         {
             Data = data;
-            Initialized = true;
-            Setup(data);
-        }
-
-        protected virtual void Setup(D data)
-        {
             transform.position = data.Position;
             transform.rotation = data.Rotation;
+            Initialize();
         }
 
-        protected virtual void Update()
+        protected virtual void Initialize()
+        {
+            Initialized = true;
+        }
+        
+        protected override IEnumerator PlayTask()
         {
             if (!Initialized)
-                return;
-            Simulate(Time.deltaTime);
-            if (NormalizedLifeTime >= 1)
+                yield break;
+            while (true)
             {
-                KillProjectile();
-                return;
+                Simulate(Time.deltaTime);
+                if (NormalizedLifeTime >= 1)
+                {
+                    KillProjectile();
+                }
+                yield return null;
             }
         }
 
         protected virtual void KillProjectile()
         {
-            Destroy(this.gameObject); //ToDo: Pooling
+            this.gameObject.SetActive(false);
             Initialized = false;
         }
 

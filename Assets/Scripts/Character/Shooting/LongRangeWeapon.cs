@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Tools.VisualEffects;
 using UnityEngine;
 
 namespace Character.Shooting
 {
     public abstract class LongRangeWeapon<P, D> : Weapon where P : Projectile<D> where D : ProjectileData, new()
     {
-        public P ProjectilePrefab;
+        public string ProjectileName;
 
         public virtual P GetProjectile()
         {
-            return Instantiate(ProjectilePrefab);
+            //return Instantiate(ProjectilePrefab);
+            return VisualEffect.GetEffect<P>(ProjectileName);
         }
 
         public virtual D GetProjectileData()
@@ -26,7 +28,8 @@ namespace Character.Shooting
         {
             var projectile = GetProjectile();
             var data = GetProjectileData();
-            projectile.PerformShot(data);
+            projectile.Setup(data);
+            projectile.Play();
         }
     }
 }

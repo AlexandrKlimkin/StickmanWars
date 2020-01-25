@@ -7,7 +7,7 @@ public abstract class MonoBehaviourPool<PoolType, ObjectType> : SingletonBehavio
 
     protected ObjectType _ObjectPrefab;
     protected List<ObjectType> _Objects;
-    protected abstract string _PrefabPath { get; }
+    public abstract string _PrefabPath { get; }
 
     protected override void Awake() {
         base.Awake();
@@ -25,7 +25,7 @@ public abstract class MonoBehaviourPool<PoolType, ObjectType> : SingletonBehavio
         {
             freeObj = AddObject();
         }
-        //freeObj.gameObject.SetActive(true);
+        freeObj.gameObject.SetActive(true);
         return freeObj;
     }
 
