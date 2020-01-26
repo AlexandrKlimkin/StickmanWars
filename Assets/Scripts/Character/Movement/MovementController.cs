@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Character.Movement {
@@ -14,8 +15,8 @@ namespace Character.Movement {
         //public float TestForce = 1000f;
 
         public Sensor GroundSensor;
-        public Sensor RightSensor;
-        public Sensor LeftSensor;
+        public List<Sensor> RightSensors;
+        public List<Sensor> LeftSensors;
 
         public Rigidbody2D Rigidbody { get; private set; }
         public int Direction { get; private set; } = 1;
@@ -25,7 +26,9 @@ namespace Character.Movement {
         private float _LastY;
         private bool _FallingDown = false;
 
-        private bool WallSliding => !GroundSensor.IsTouching && (RightSensor.IsTouching || LeftSensor.IsTouching);
+        private bool WallSliding => !GroundSensor.IsTouching && (LeftSensors.Any(_=>_.IsTouching) || RightSensors.Any(_ => _.IsTouching));
+        private bool LefTouch => LeftSensors.Any(_ => _.IsTouching);
+        private bool RightTouch => RightSensors.Any(_ => _.IsTouching);
 
         private void Awake() {
             Rigidbody = GetComponent<Rigidbody2D>();
@@ -83,9 +86,9 @@ namespace Character.Movement {
             if (_Horizontal != 0)
             {
                 var newDir = _Horizontal > 0 ? 1 : -1;
-                if (LeftSensor.IsTouching)
+                if (LefTouch)
                     newDir = -1;
-                else if (RightSensor.IsTouching)
+                else if (RightTouch)
                     newDir = 1;
                 if (Direction != newDir)
                     ChangeDirection(newDir);
@@ -105,12 +108,12 @@ namespace Character.Movement {
                 Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, JumpForce);
                 return;
             }
-            if (RightSensor.IsTouching)
+            if (RightTouch)
             {
                 var vector = new Vector2(-1, 1).normalized;
                 Rigidbody.velocity = vector * WallJumpForce;
             }
-            if (LeftSensor.IsTouching)
+            if (LefTouch)
             {
                 var vector = new Vector2(1, 1).normalized;
                 Rigidbody.velocity = vector * WallJumpForce;
