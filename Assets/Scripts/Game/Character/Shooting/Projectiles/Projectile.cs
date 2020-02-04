@@ -51,6 +51,7 @@ namespace Character.Shooting
         protected virtual void PerformHit(IDamageable damageable)
         {
             KillProjectile();
+            Data.Damage.Force = transform.right;
             damageable?.ApplyDamage(Data.Damage);
         }
     }

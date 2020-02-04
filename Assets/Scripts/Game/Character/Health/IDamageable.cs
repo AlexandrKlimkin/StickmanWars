@@ -6,6 +6,7 @@ namespace Character.Health
 {
     public interface IDamageable
     {
+        Collider2D Collider { get; set; }
         void ApplyDamage(Damage damage);
     }
 }

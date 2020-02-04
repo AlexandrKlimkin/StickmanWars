@@ -11,5 +11,6 @@ namespace Character.Shooting
         public float ReloadingTime;
         public float ProjectileSpeed;
         public float Damage;
+        public float Force;
     }
 }

@@ -15,9 +15,8 @@ public class SimpleCCD : MonoBehaviour
 
     private Dictionary<Transform, Node> _NodeCache;
     private float[] _Angles;
-#if UNITY_EDITOR
+
     public bool DrawAnglesGizmos;
-#endif
 
     [System.Serializable]
     public class Node
@@ -60,7 +59,7 @@ public class SimpleCCD : MonoBehaviour
         }
     }
 
-    private void Update() {
+    public void UpdateRemotely() {
         if (!Application.isPlaying)
             Start();
         if (Target == null || EndTransform == null)

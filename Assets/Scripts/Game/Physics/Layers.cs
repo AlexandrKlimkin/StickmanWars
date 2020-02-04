@@ -4,6 +4,7 @@ public static class Layers {
 
     private static class Names {
         public const string Bone = "Bone";
+        public const string Box = "Box";
         public const string Ground = "Ground";
         public const string Platform = "Platform";
         public const string Damageable = "Damageable";
@@ -16,12 +17,14 @@ public static class Layers {
         public static int Walkable { get; private set; }
         public static int Damageable { get; private set; }
         public static int NoCharacter { get; private set; }
+        public static int Character { get; private set; }
 
         static Masks() {
             Bone = LayerMask.GetMask(Names.Bone);
             Damageable = LayerMask.GetMask(Names.Bone, Names.Damageable);
-            Walkable = LayerMask.GetMask(Names.Ground, Names.Platform);
+            Walkable = LayerMask.GetMask(Names.Ground, Names.Platform, Names.Box);
             NoCharacter = CreateLayerMask(true, LayerMask.NameToLayer(Names.Character));
+            Character = LayerMask.GetMask(Names.Character);
         }
 
         public static int CreateLayerMask(bool aExclude, params int[] aLayers) {

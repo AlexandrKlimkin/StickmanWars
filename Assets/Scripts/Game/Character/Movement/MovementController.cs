@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -9,10 +10,14 @@ namespace Character.Movement {
         public float Speed = 1f;
         public float GroundAcceleration = 1f;
         public float AirAcceleration = 1f;
-        public float JumpForce = 1000f;
-        public float WallJumpForce = 1000f;
+        public float NormalGravityScale = 1f;
+        public float FallGravityScale = 5f;
         public float WallSlideSpeed;
-        //public float TestForce = 1000f;
+        [Header("Jumping")]
+        public float JumpSpeed = 1000f;
+        public float WallJumpSpeed = 1000f;
+        public float LowJumpTime = 0.5f;
+        public float HighJumpAddTime = 0.5f;
 
         public Sensor GroundSensor;
         public List<Sensor> RightSensors;
@@ -30,6 +35,8 @@ namespace Character.Movement {
         private bool LefTouch => LeftSensors.Any(_ => _.IsTouching);
         private bool RightTouch => RightSensors.Any(_ => _.IsTouching);
 
+        private float _JumpTimer;
+
         private void Awake() {
             Rigidbody = GetComponent<Rigidbody2D>();
             GetComponentsInChildren(_SimpleCcds);
@@ -40,11 +47,7 @@ namespace Character.Movement {
             _FallingDown = transform.position.y < _LastY && !GroundSensor.IsTouching;
             _LastY = transform.position.y;
             UpdateAnimator();
-
-            //if (Input.GetKeyDown(KeyCode.F))
-            //{
-            //    Rigidbody.AddForce(new Vector2(TestForce, 0));
-            //}
+            Rigidbody.gravityScale = Rigidbody.velocity.y < 0 ? FallGravityScale : NormalGravityScale;
         }
 
         private void FixedUpdate()
@@ -74,6 +77,7 @@ namespace Character.Movement {
             Animator.SetFloat("DistanseToGround", GroundSensor.Distanse);
             Animator.SetBool("FallingDown", _FallingDown);
             Animator.SetBool("WallSliding", WallSliding);
+            Animator.SetFloat("Speed", Mathf.Abs(Rigidbody.velocity.x / 50f));
         }
 
         public void SetHorizontal(float hor) {
@@ -102,24 +106,69 @@ namespace Character.Movement {
             _SimpleCcds.ForEach(_ => _.ReflectNodes());
         }
 
-        public void Jump() {
+        public bool Jump() {
             if (GroundSensor.IsTouching)
             {
-                Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, JumpForce);
-                return;
+                _JumpTimer = LowJumpTime;
+                StopCoroutine(JumpRoutine());
+                StartCoroutine(JumpRoutine());
+                return true;
             }
+            return false;
+        }
+
+        public void ContinueJump()
+        {
+            if(_JumpTimer != 0)
+                _JumpTimer += HighJumpAddTime;
+        }
+
+        public bool WallJump()
+        {
             if (RightTouch)
             {
                 var vector = new Vector2(-1, 1).normalized;
-                Rigidbody.velocity = vector * WallJumpForce;
+                Rigidbody.velocity = vector * WallJumpSpeed;
+                return true;
             }
             if (LefTouch)
             {
                 var vector = new Vector2(1, 1).normalized;
-                Rigidbody.velocity = vector * WallJumpForce;
+                Rigidbody.velocity = vector * WallJumpSpeed;
+                return true;
             }
+            return false;
         }
 
-        public void JumpOffTheWall() { }
+        public void ContinueWallJump()
+        {
+            _JumpTimer = HighJumpAddTime;
+            StopCoroutine(JumpRoutine());
+            StartCoroutine(JumpRoutine());
+        }
+
+        private IEnumerator JumpRoutine()
+        {
+            while (_JumpTimer > 0)
+            {
+                Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, JumpSpeed);
+                _JumpTimer -= Time.deltaTime;
+                yield return null;
+            }
+            _JumpTimer = 0;
+        }
+
+        //private Vector2 WallJumpVector = new Vector2(1, 1).normalized;
+        //private IEnumerator JumpWallRoutine(bool left) {
+        //    while (_JumpTimer > 0)
+        //    {
+        //        var vector = left ? new Vector2(-1 * WallJumpVector.x, WallJumpVector.y) : WallJumpVector;
+        //        Rigidbody.velocity = vector * WallJumpSpeed;
+        //        _JumpTimer -= Time.deltaTime;
+        //        yield return null;
+        //    }
+        //    _JumpTimer = 0;
+        //}
+
     }
 }

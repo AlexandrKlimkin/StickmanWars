@@ -13,5 +13,6 @@ namespace Character.Shooting
         public float BirthTime;
         public float Speed;
         public Damage Damage;
+        public float Force;
     }
 }

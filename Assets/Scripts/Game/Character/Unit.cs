@@ -21,6 +21,7 @@ public class Unit : MonoBehaviour, IDamageable {
         PlayerController = GetComponent<PlayerController>();
         MovementController = GetComponent<MovementController>();
         WeaponController = GetComponent<WeaponController>();
+        Collider = GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -28,6 +29,8 @@ public class Unit : MonoBehaviour, IDamageable {
         MaxHealth = 100f;//Todo: Config
         Health = MaxHealth;
     }
+
+    public Collider2D Collider { get; set; }
 
     public void ApplyDamage(Damage damage)
     {

@@ -8,6 +8,7 @@ namespace Character.Health
     {
         public float Amount;
         public Unit Instigator; //Todo: Id
+        public Vector2 Force;
 
         public Damage(Unit instigator, float amount)
         {

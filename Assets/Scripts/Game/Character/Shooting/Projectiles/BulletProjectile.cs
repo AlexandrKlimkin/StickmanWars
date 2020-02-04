@@ -34,6 +34,7 @@ namespace Character.Shooting
         {
             base.PerformHit(damageable);
             PlayHitEffect();
+            damageable?.Collider?.attachedRigidbody?.AddForce(new Vector2(transform.forward.x, transform.forward.y) * Data.Force);
         }
 
         protected virtual void AttachTrail()

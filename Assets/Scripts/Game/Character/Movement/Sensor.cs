@@ -36,10 +36,12 @@ namespace Character.Movement
 
         private void OnDrawGizmos()
         {
+#if UNITY_EDITOR
             Handles.color = IsTouching ? Color.green : Color.red;
             Handles.DrawWireDisc(transform.position, Vector3.forward, _Radius);
-            Handles.color = Distanse > 25f ? Color.green : Color.red;
-            Handles.DrawLine(transform.position, transform.position + _Direction * Distanse);
+            //Handles.color = Distanse > 25f ? Color.green : Color.red;
+            //Handles.DrawLine(transform.position, transform.position + _Direction * Distanse);
+#endif
         }
     }
 }
