@@ -72,9 +72,8 @@ namespace Character.Controllers {
             }
         }
 
-        public void LateUpdate()
-        {
-            if(_InputKit.Id == 1)
+        public void LateUpdate() {
+            if (_InputKit.Id == 1)
                 _WeaponController.SetWeaponedHandPosition(_Camera.ScreenToWorldPoint(Input.mousePosition));
         }
     }

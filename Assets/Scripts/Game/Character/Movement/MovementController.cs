@@ -50,6 +50,7 @@ namespace Character.Movement {
         }
 
         private void Update() {
+            SetDirection();
             _LastY = transform.position.y;
             UpdateAnimator();
             Rigidbody.gravityScale = Rigidbody.velocity.y < 0 ? FallGravityScale : NormalGravityScale;
@@ -61,7 +62,6 @@ namespace Character.Movement {
 
         private void FixedUpdate()
         {
-            SetDirection();
             var targetXVelocity = 0f;
             var xVelocity = Rigidbody.velocity.x;
             if (_Horizontal > 0)
@@ -116,6 +116,7 @@ namespace Character.Movement {
             IkTransform.localScale = newLocalScale;
             PuppetTransform.localScale = newLocalScale;
             _SimpleCcds.ForEach(_ => _.ReflectNodes());
+            //_SimpleCcds.ForEach(_=> _.UpdateRemotely());
         }
 
         public bool Jump() {
