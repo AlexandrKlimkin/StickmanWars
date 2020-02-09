@@ -7,6 +7,7 @@ namespace Character.Movement {
     public class MovementController : MonoBehaviour {
         public Animator Animator;
         public Transform IkTransform;
+        public Transform PuppetTransform;
         public float Speed = 1f;
         public float GroundAcceleration = 1f;
         public float AirAcceleration = 1f;
@@ -19,7 +20,8 @@ namespace Character.Movement {
         public float LowJumpTime = 0.5f;
         public float HighJumpAddTime = 0.5f;
 
-        public Sensor GroundSensor;
+        public List<Sensor> GroundSensors;
+        public Sensor MainGroundSensor;
         public List<Sensor> RightSensors;
         public List<Sensor> LeftSensors;
 
@@ -29,11 +31,15 @@ namespace Character.Movement {
         private List<SimpleCCD> _SimpleCcds = new List<SimpleCCD>();
         private float _Horizontal;
         private float _LastY;
-        private bool _FallingDown = false;
 
-        private bool WallSliding => !GroundSensor.IsTouching && (LeftSensors.Any(_=>_.IsTouching) || RightSensors.Any(_ => _.IsTouching));
+        private bool FallingDown => transform.position.y < _LastY && !IsMainGrounded;
+        private bool WallSliding => !IsMainGrounded && (LeftSensors.Any(_=>_.IsTouching) || RightSensors.Any(_ => _.IsTouching));
         private bool LefTouch => LeftSensors.Any(_ => _.IsTouching);
         private bool RightTouch => RightSensors.Any(_ => _.IsTouching);
+        private bool IsGrounded => GroundSensors.Any(_ => _.IsTouching) && !WallSliding;
+        private bool IsMainGrounded => MainGroundSensor.IsTouching && MainGroundSensor.Distanse < 1f;
+        private float _TimeSinceMainGrounded;
+        private float MinDistanceToGround => GroundSensors.Min(_ => _.Distanse);
 
         private float _JumpTimer;
 
@@ -44,10 +50,13 @@ namespace Character.Movement {
         }
 
         private void Update() {
-            _FallingDown = transform.position.y < _LastY && !GroundSensor.IsTouching;
             _LastY = transform.position.y;
             UpdateAnimator();
             Rigidbody.gravityScale = Rigidbody.velocity.y < 0 ? FallGravityScale : NormalGravityScale;
+            if (IsMainGrounded)
+                _TimeSinceMainGrounded = 0f;
+            else
+                _TimeSinceMainGrounded += Time.deltaTime;
         }
 
         private void FixedUpdate()
@@ -59,7 +68,7 @@ namespace Character.Movement {
                 targetXVelocity = Speed;
             if (_Horizontal < 0)
                 targetXVelocity = -Speed;
-            var acceleration = GroundSensor.IsTouching ? GroundAcceleration : AirAcceleration;
+            var acceleration = IsMainGrounded ? GroundAcceleration : AirAcceleration;
             xVelocity = Mathf.Lerp(xVelocity, targetXVelocity, Time.fixedDeltaTime * acceleration);
             Rigidbody.velocity = new Vector2(xVelocity, Rigidbody.velocity.y);
 
@@ -73,9 +82,9 @@ namespace Character.Movement {
         private void UpdateAnimator()
         {
             Animator.SetFloat("Horizontal", Mathf.Abs(_Horizontal));
-            Animator.SetBool("Grounded", GroundSensor.IsTouching);
-            Animator.SetFloat("DistanseToGround", GroundSensor.Distanse);
-            Animator.SetBool("FallingDown", _FallingDown);
+            Animator.SetBool("Grounded", IsGrounded);
+            Animator.SetFloat("DistanseToGround", MinDistanceToGround);
+            Animator.SetBool("FallingDown", FallingDown);
             Animator.SetBool("WallSliding", WallSliding);
             Animator.SetFloat("Speed", Mathf.Abs(Rigidbody.velocity.x / 50f));
         }
@@ -102,12 +111,15 @@ namespace Character.Movement {
         private void ChangeDirection(int newDir) {
             Direction = newDir;
             var localScale = transform.localScale;
-            IkTransform.localScale = new Vector3(newDir * Mathf.Abs(localScale.x), localScale.y, localScale.z);
+            var newLocalScale = new Vector3(newDir * Mathf.Abs(localScale.x), localScale.y, localScale.z);
+            //transform.localScale = newLocalScale;
+            IkTransform.localScale = newLocalScale;
+            PuppetTransform.localScale = newLocalScale;
             _SimpleCcds.ForEach(_ => _.ReflectNodes());
         }
 
         public bool Jump() {
-            if (GroundSensor.IsTouching)
+            if (IsGrounded && _TimeSinceMainGrounded < 0.3f)
             {
                 _JumpTimer = LowJumpTime;
                 StopCoroutine(JumpRoutine());
@@ -142,9 +154,8 @@ namespace Character.Movement {
 
         public void ContinueWallJump()
         {
-            _JumpTimer = HighJumpAddTime;
-            StopCoroutine(JumpRoutine());
-            StartCoroutine(JumpRoutine());
+            if(_JumpTimer != 0)
+                _JumpTimer += HighJumpAddTime;
         }
 
         private IEnumerator JumpRoutine()
@@ -157,18 +168,5 @@ namespace Character.Movement {
             }
             _JumpTimer = 0;
         }
-
-        //private Vector2 WallJumpVector = new Vector2(1, 1).normalized;
-        //private IEnumerator JumpWallRoutine(bool left) {
-        //    while (_JumpTimer > 0)
-        //    {
-        //        var vector = left ? new Vector2(-1 * WallJumpVector.x, WallJumpVector.y) : WallJumpVector;
-        //        Rigidbody.velocity = vector * WallJumpSpeed;
-        //        _JumpTimer -= Time.deltaTime;
-        //        yield return null;
-        //    }
-        //    _JumpTimer = 0;
-        //}
-
     }
 }

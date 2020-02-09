@@ -6,7 +6,8 @@ using UnityEngine;
 public class IKMuscle : MonoBehaviour
 {
     public Transform Target;
-    public float Force;
+    [Range(0,1f)]
+    public float Weight;
     public bool Enabled;
 
     private Rigidbody2D _Rigidbody;
@@ -25,23 +26,17 @@ public class IKMuscle : MonoBehaviour
     {
         if (!Enabled)
             return;
-        //RotateSmooth(Target.rotation.eulerAngles.z, Force);
         Pin();
-    }
-
-    private void RotateSmooth(float rotation, float force) {
-        var angle = Mathf.DeltaAngle(_Rigidbody.rotation, rotation);
-        var ratio = angle / 180;
-        ratio *= ratio;
-        _Rigidbody.MoveRotation(Mathf.LerpAngle(_Rigidbody.rotation, rotation, force * ratio * Time.fixedDeltaTime));
-        _Rigidbody.AddTorque(angle * force * (1 - ratio) * .1f);
     }
 
     private void Pin()
     {
+        Weight = Mathf.Clamp01(Weight);
+        if(Weight == 0)
+            return;
         var tam = MathExtensions.TransformPointUnscaled(Target, _Rigidbody.centerOfMass);
         var posOffset = (Vector2)tam - _Rigidbody.worldCenterOfMass;
         posOffset /= Time.fixedDeltaTime;
-        _Rigidbody.velocity = posOffset;
+        _Rigidbody.velocity = posOffset * Weight;
     }
 }

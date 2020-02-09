@@ -39,32 +39,8 @@ namespace Character.Controllers {
             {
                 _WeaponController.Fire();
             }
-            //if (Input.GetKeyDown(_InputKit.Jump))
-            //{
-            //    _IsJumping = _MovementController.Jump();
-            //    if (_IsJumping)
-            //        _JumpTimer = HighJumpTime;
-            //    else
-            //        _MovementController.WallJump();
-            //}
-            //if (Input.GetKey(_InputKit.Jump))
-            //{
-            //    if (_IsJumping && _JumpTimer > 0)
-            //    {
-            //        _MovementController.ContinueJump();
-            //        _JumpTimer -= Time.deltaTime;
-            //    }
-            //    else
-            //    {
-            //        _IsJumping = false;
-            //    }
-            //}
-            //if (Input.GetKeyUp(_InputKit.Jump))
-            //{
-            //    _IsJumping = false;
-            //}
             if (Input.GetKeyDown(_InputKit.Jump))
-            {
+             {
                 _IsJumping = _MovementController.Jump();
                 if (!_IsJumping)
                 {
@@ -81,9 +57,6 @@ namespace Character.Controllers {
                     _JumpTimer += Time.deltaTime;
                     if (_JumpTimer > PressTime2HighJump)
                     {
-                        //if(_WallJump)
-                        //    _MovementController.ContinueWallJump();
-                        //else
                         _MovementController.ContinueJump();
                         _IsJumping = false;
                         _WallJump = false;

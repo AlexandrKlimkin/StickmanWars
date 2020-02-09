@@ -15,6 +15,5 @@ public class SimpleDamageable : MonoBehaviour, IDamageable
     private void Awake()
     {
         Collider = gameObject.GetComponent<Collider2D>();
-
     }
 }
