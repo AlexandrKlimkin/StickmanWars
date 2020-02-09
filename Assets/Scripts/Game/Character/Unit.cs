@@ -7,7 +7,7 @@ using Character.Movement;
 using Character.Shooting;
 using UnityEngine;
 
-public class Unit : MonoBehaviour, IDamageable {
+public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
     public PlayerController PlayerController { get; private set; }
     public MovementController MovementController { get; private set; }
     public WeaponController WeaponController { get; private set; }
@@ -31,6 +31,10 @@ public class Unit : MonoBehaviour, IDamageable {
     }
 
     public Collider2D Collider { get; set; }
+
+    public Vector3 Position => transform.position;
+    public Vector3 Velocity => MovementController.Velocity;
+    public float Direction => MovementController.Direction;
 
     public void ApplyDamage(Damage damage)
     {

@@ -26,6 +26,7 @@ namespace Character.Movement {
         public List<Sensor> LeftSensors;
 
         public Rigidbody2D Rigidbody { get; private set; }
+        public Vector2 Velocity => Rigidbody.velocity;
         public int Direction { get; private set; } = 1;
 
         private List<SimpleCCD> _SimpleCcds = new List<SimpleCCD>();
