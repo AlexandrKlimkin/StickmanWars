@@ -43,6 +43,7 @@ namespace Character.Movement {
         private float MinDistanceToGround => GroundSensors.Min(_ => _.Distanse);
 
         private float _JumpTimer;
+        private float _TargetXVelocity = 0f;
 
         private void Awake() {
             Rigidbody = GetComponent<Rigidbody2D>();
@@ -53,6 +54,21 @@ namespace Character.Movement {
         private void Update() {
             SetDirection();
             _LastY = transform.position.y;
+
+            _TargetXVelocity = 0f;
+            if (_Horizontal > 0.5f)
+                _TargetXVelocity = Speed;
+            else if (_Horizontal < -0.5f)
+                _TargetXVelocity = -Speed;
+            else
+                _Horizontal = 0;
+
+            if (WallSliding)
+            {
+                if (Rigidbody.velocity.y < -WallSlideSpeed)
+                    Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, -WallSlideSpeed);
+            }
+
             UpdateAnimator();
             Rigidbody.gravityScale = Rigidbody.velocity.y < 0 ? FallGravityScale : NormalGravityScale;
             if (IsMainGrounded)
@@ -63,21 +79,10 @@ namespace Character.Movement {
 
         private void FixedUpdate()
         {
-            var targetXVelocity = 0f;
             var xVelocity = Rigidbody.velocity.x;
-            if (_Horizontal > 0)
-                targetXVelocity = Speed;
-            if (_Horizontal < 0)
-                targetXVelocity = -Speed;
             var acceleration = IsMainGrounded ? GroundAcceleration : AirAcceleration;
-            xVelocity = Mathf.Lerp(xVelocity, targetXVelocity, Time.fixedDeltaTime * acceleration);
+            xVelocity = Mathf.Lerp(xVelocity, _TargetXVelocity, Time.fixedDeltaTime * acceleration);
             Rigidbody.velocity = new Vector2(xVelocity, Rigidbody.velocity.y);
-
-            if (WallSliding)
-            {
-                if(Rigidbody.velocity.y < -WallSlideSpeed)
-                    Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, -WallSlideSpeed);
-            }
         }
 
         private void UpdateAnimator()

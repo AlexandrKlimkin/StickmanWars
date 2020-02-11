@@ -6,7 +6,7 @@ using Character.Shooting;
 using UnityEngine;
 using InputSystem;
 
-namespace Character.Controllers {
+namespace Character.Control {
     public class PlayerController : MonoBehaviour {
 
         public int Id;
@@ -14,6 +14,7 @@ namespace Character.Controllers {
         private WeaponController _WeaponController;
         private MovementController _MovementController;
         private InputKit _InputKit;
+        private IAimProvider _AimProvider;
 
         private Camera _Camera;
         private bool _IsJumping;
@@ -29,12 +30,16 @@ namespace Character.Controllers {
         private void Start() {
             _InputKit = InputConfig.Instance.GetSettings(Id);
             _Camera = Camera.main;
+            _AimProvider = _InputKit.Id == 1 ? (IAimProvider) new MouseAim(_Camera)
+                : new JoystickAim(_WeaponController.NearArmShoulder, _MovementController, _InputKit.Horizontal, _InputKit.Vertical);
         }
 
         public void Update() {
             var hor = Input.GetAxis(_InputKit.Horizontal);
             var vert = Input.GetAxis(_InputKit.Vertical);
             _MovementController.SetHorizontal(hor);
+            //if(_InputKit.Id == 2)
+            //    Debug.LogError(hor);
             if (Input.GetKeyDown(_InputKit.Attack1))
             {
                 _WeaponController.Fire();
@@ -73,8 +78,8 @@ namespace Character.Controllers {
         }
 
         public void LateUpdate() {
-            if (_InputKit.Id == 1)
-                _WeaponController.SetWeaponedHandPosition(_Camera.ScreenToWorldPoint(Input.mousePosition));
+            //if (_InputKit.Id == 1)
+                _WeaponController.SetWeaponedHandPosition(_AimProvider.AimPoint);
         }
     }
 }

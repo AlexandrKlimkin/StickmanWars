@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Character.Controllers;
+using Character.Control;
 using Character.Health;
 using Character.Movement;
 using Character.Shooting;
+using Rendering;
 using UnityEngine;
 
 public class Unit : MonoBehaviour, IDamageable, ICameraTarget {

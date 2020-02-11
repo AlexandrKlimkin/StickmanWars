@@ -7,6 +7,7 @@ namespace Character.Shooting
     public class WeaponController : MonoBehaviour
     {
         public Transform NearArmTransform;
+        public Transform NearArmShoulder;
         public List<Weapon> Weapons;
 
         public Unit Owner { get; private set; }

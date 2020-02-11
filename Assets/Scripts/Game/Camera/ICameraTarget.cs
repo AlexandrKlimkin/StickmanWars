@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICameraTarget
+namespace Rendering
 {
-    Vector3 Position { get; }
-    Vector3 Velocity { get; }
-    float Direction { get; }
+    public interface ICameraTarget
+    {
+        Vector3 Position { get; }
+        Vector3 Velocity { get; }
+        float Direction { get; }
+    }
 }
