@@ -29,10 +29,22 @@ namespace Rendering
         {
             if (Targets == null || Targets.Count == 0)
                 return;
+            ClearTargets();
             _ResultRect = TargetsRect();
             _ResultRect = RectWithOffsets(_ResultRect);
             CalculateSize();
             CalculatePosition();
+        }
+
+        private void ClearTargets()
+        {
+            for (var i = 0; i < Targets.Count; i++)
+            {
+                var target = Targets[i];
+                if (target) continue;
+                Targets.Remove(target);
+                i--;
+            }
         }
 
         private void CalculatePosition()
