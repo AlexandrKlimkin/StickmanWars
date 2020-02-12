@@ -18,8 +18,6 @@ namespace Rendering
         public CameraBounds CameraBounds;
 
         private Camera _Camera;
-        //private Rect _TargetsRect;
-        //private Rect _OffsetsRect;
         private Rect _ResultRect;
 
         private void Awake()
@@ -33,15 +31,31 @@ namespace Rendering
                 return;
             _ResultRect = TargetsRect();
             _ResultRect = RectWithOffsets(_ResultRect);
-            //_ResultRect = LimitWithBounds(_ResultRect);
-            CalculatePosition();
             CalculateSize();
-            LimitWithBounds(CameraBounds.Rect);
+            CalculatePosition();
         }
 
         private void CalculatePosition()
         {
             var targetpos = new Vector3(_ResultRect.center.x, _ResultRect.center.y, -10f);
+
+            var left = CameraBounds.Rect.xMin;
+            var right = CameraBounds.Rect.xMax;
+            var up = CameraBounds.Rect.yMin;
+            var down = CameraBounds.Rect.yMax;
+            var width = _Camera.orthographicSize * _Camera.aspect;
+            var x = targetpos.x;
+            var y = targetpos.y;
+            if (x - width < left)
+                x = left + width;
+            if (x + width > right)
+                x = right - width;
+            if (y + _Camera.orthographicSize > down)
+                y = down - _Camera.orthographicSize;
+            if (y - _Camera.orthographicSize < up)
+                y = up + _Camera.orthographicSize;
+
+            targetpos = new Vector3(x, y, -10f);
             transform.position = Vector3.Lerp(transform.position, targetpos, Time.deltaTime * PositionDamping);
         }
 
@@ -52,8 +66,11 @@ namespace Rendering
             var height = _ResultRect.height;
             var targetSize = width / height > aspect ? width / _Camera.aspect : height;
             targetSize *= 0.5f;
-            if (targetSize < MinSize)
-                targetSize = MinSize;
+            var maxSizeHor = CameraBounds.Rect.size.x / (2f * _Camera.aspect);
+            var maxSizeVert = CameraBounds.Rect.size.y / 2f;
+            var maxSize = Mathf.Min(maxSizeHor, maxSizeVert);
+
+            targetSize = Mathf.Clamp(targetSize, MinSize, maxSize);
             _Camera.orthographicSize = Mathf.Lerp(_Camera.orthographicSize, targetSize, Time.deltaTime * SizeDamping);
         }
 
@@ -80,28 +97,6 @@ namespace Rendering
             var size = rect.size + RigthDownOffset - LeftUpOffstet;
             var newRect = new Rect(pos, size);
             return newRect;
-        }
-
-        private void LimitWithBounds(Rect rect)
-        {
-            var left = rect.xMin;
-            var right = rect.xMax;
-            var up = rect.yMin;
-            var down = rect.yMax;
-
-            var x = _Camera.transform.position.x;
-            var y = _Camera.transform.position.y;
-            var width = _Camera.orthographicSize * _Camera.aspect;
-            if (x - width < left)
-                x = left + width;
-            if (x + width > right)
-                x = right - width;
-            if (y + _Camera.orthographicSize > down)
-                y = down - _Camera.orthographicSize;
-            if (y - _Camera.orthographicSize < up)
-                y = up + _Camera.orthographicSize;
-
-            transform.position = new Vector3(x, y, transform.position.z);
         }
 
         private void OnDrawGizmos()
