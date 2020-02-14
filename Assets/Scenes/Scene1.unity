@@ -5512,6 +5512,16 @@ PrefabInstance:
       propertyPath: m_Frequency
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7743609938203175548, guid: e2cc951734444114e8b65dcc1fc6a13c,
+        type: 3}
+      propertyPath: m_Positions.Array.data[1].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7743609938203175548, guid: e2cc951734444114e8b65dcc1fc6a13c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a0291fd4e170b847afd0ebfb3189295, type: 2}
     - target: {fileID: 7743609938485797492, guid: e2cc951734444114e8b65dcc1fc6a13c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5572,5 +5582,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpringPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 7743609939092990822, guid: e2cc951734444114e8b65dcc1fc6a13c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a0291fd4e170b847afd0ebfb3189295, type: 2}
+    - target: {fileID: 7743609939543907045, guid: e2cc951734444114e8b65dcc1fc6a13c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a0291fd4e170b847afd0ebfb3189295, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2cc951734444114e8b65dcc1fc6a13c, type: 3}
