@@ -116,11 +116,11 @@ namespace Character.Movement {
 
         private void ChangeDirection(int newDir) {
             Direction = newDir;
-            var localScale = transform.localScale;
+            var localScale = IkTransform.localScale;
             var newLocalScale = new Vector3(newDir * Mathf.Abs(localScale.x), localScale.y, localScale.z);
             //transform.localScale = newLocalScale;
             IkTransform.localScale = newLocalScale;
-            PuppetTransform.localScale = newLocalScale;
+            //PuppetTransform.localScale = newLocalScale;
             _SimpleCcds.ForEach(_ => _.ReflectNodes());
             //_SimpleCcds.ForEach(_=> _.UpdateRemotely());
         }
