@@ -5,20 +5,18 @@ using UnityEngine;
 
 namespace Character.Movement {
     public class MovementController : MonoBehaviour {
-        public Animator Animator;
         public Transform IkTransform;
         public Transform PuppetTransform;
         public float Speed = 1f;
         public float GroundAcceleration = 1f;
         public float AirAcceleration = 1f;
-        public float NormalGravityScale = 1f;
-        public float FallGravityScale = 5f;
         public float WallSlideSpeed;
         [Header("Jumping")]
         public float JumpSpeed = 1000f;
         public float WallJumpSpeed = 1000f;
         public float LowJumpTime = 0.5f;
         public float HighJumpAddTime = 0.5f;
+        public float JumpHeight;
 
         public List<Sensor> GroundSensors;
         public Sensor MainGroundSensor;
@@ -33,14 +31,16 @@ namespace Character.Movement {
         private float _Horizontal;
         private float _LastY;
 
-        private bool FallingDown => transform.position.y < _LastY && !IsMainGrounded;
-        private bool WallSliding => !IsMainGrounded && (LeftSensors.Any(_=>_.IsTouching) || RightSensors.Any(_ => _.IsTouching));
+        public float Horizontal => _Horizontal;
+
+        public bool FallingDown => transform.position.y < _LastY && !IsMainGrounded;
+        public bool WallSliding => !IsMainGrounded && (LeftSensors.Any(_=>_.IsTouching) || RightSensors.Any(_ => _.IsTouching));
         private bool LefTouch => LeftSensors.Any(_ => _.IsTouching);
         private bool RightTouch => RightSensors.Any(_ => _.IsTouching);
-        private bool IsGrounded => GroundSensors.Any(_ => _.IsTouching) && !WallSliding;
+        public bool IsGrounded => GroundSensors.Any(_ => _.IsTouching) && !WallSliding;
         private bool IsMainGrounded => MainGroundSensor.IsTouching && MainGroundSensor.Distanse < 1f;
         private float _TimeSinceMainGrounded;
-        private float MinDistanceToGround => GroundSensors.Min(_ => _.Distanse);
+        public float MinDistanceToGround => GroundSensors.Min(_ => _.Distanse);
 
         private float _JumpTimer;
         private float _TargetXVelocity = 0f;
@@ -68,9 +68,6 @@ namespace Character.Movement {
                 if (Rigidbody.velocity.y < -WallSlideSpeed)
                     Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, -WallSlideSpeed);
             }
-
-            UpdateAnimator();
-            Rigidbody.gravityScale = Rigidbody.velocity.y < 0 ? FallGravityScale : NormalGravityScale;
             if (IsMainGrounded)
                 _TimeSinceMainGrounded = 0f;
             else
@@ -83,16 +80,6 @@ namespace Character.Movement {
             var acceleration = IsMainGrounded ? GroundAcceleration : AirAcceleration;
             xVelocity = Mathf.Lerp(xVelocity, _TargetXVelocity, Time.fixedDeltaTime * acceleration);
             Rigidbody.velocity = new Vector2(xVelocity, Rigidbody.velocity.y);
-        }
-
-        private void UpdateAnimator()
-        {
-            Animator.SetFloat("Horizontal", Mathf.Abs(_Horizontal));
-            Animator.SetBool("Grounded", IsGrounded);
-            Animator.SetFloat("DistanseToGround", MinDistanceToGround);
-            Animator.SetBool("FallingDown", FallingDown);
-            Animator.SetBool("WallSliding", WallSliding);
-            Animator.SetFloat("Speed", Mathf.Abs(Rigidbody.velocity.x / 50f));
         }
 
         public void SetHorizontal(float hor) {
@@ -118,11 +105,9 @@ namespace Character.Movement {
             Direction = newDir;
             var localScale = IkTransform.localScale;
             var newLocalScale = new Vector3(newDir * Mathf.Abs(localScale.x), localScale.y, localScale.z);
-            //transform.localScale = newLocalScale;
             IkTransform.localScale = newLocalScale;
             //PuppetTransform.localScale = newLocalScale;
             _SimpleCcds.ForEach(_ => _.ReflectNodes());
-            //_SimpleCcds.ForEach(_=> _.UpdateRemotely());
         }
 
         public bool Jump() {
@@ -136,9 +121,22 @@ namespace Character.Movement {
             return false;
         }
 
-        public void ContinueJump()
+        private IEnumerator JumpRoutine()
         {
-            if(_JumpTimer != 0)
+            var gravityScale = Rigidbody.gravityScale;
+            while (_JumpTimer > 0)
+            {
+                Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, JumpSpeed);
+                Rigidbody.gravityScale = 0;
+                _JumpTimer -= Time.deltaTime;
+                yield return null;
+            }
+            Rigidbody.gravityScale = gravityScale;
+            _JumpTimer = 0;
+        }
+
+        public void ContinueJump() {
+            if (_JumpTimer != 0)
                 _JumpTimer += HighJumpAddTime;
         }
 
@@ -163,17 +161,6 @@ namespace Character.Movement {
         {
             if(_JumpTimer != 0)
                 _JumpTimer += HighJumpAddTime;
-        }
-
-        private IEnumerator JumpRoutine()
-        {
-            while (_JumpTimer > 0)
-            {
-                Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, JumpSpeed);
-                _JumpTimer -= Time.deltaTime;
-                yield return null;
-            }
-            _JumpTimer = 0;
         }
     }
 }

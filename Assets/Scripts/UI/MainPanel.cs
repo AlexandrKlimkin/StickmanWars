@@ -27,8 +27,8 @@ public class MainPanel : UIPanel
         moveController.AirAcceleration = 7f;
         moveController.JumpSpeed = 170f;
         moveController.WallJumpSpeed = 250f;
-        moveController.NormalGravityScale = 7f;
-        moveController.FallGravityScale = 9f;
+        //moveController.NormalGravityScale = 7f;
+        //moveController.FallGravityScale = 9f;
         moveController.WallSlideSpeed = 100f;
     }
 
@@ -43,8 +43,8 @@ public class MainPanel : UIPanel
         moveController.AirAcceleration = 7f;
         moveController.JumpSpeed = 145f;
         moveController.WallJumpSpeed = 180f;
-        moveController.NormalGravityScale = 5f;
-        moveController.FallGravityScale = 7f;
+        //moveController.NormalGravityScale = 5f;
+        //moveController.FallGravityScale = 7f;
         moveController.WallSlideSpeed = 60f;
     }
 }
