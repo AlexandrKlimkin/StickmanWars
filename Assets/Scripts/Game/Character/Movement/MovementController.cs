@@ -1,166 +1,101 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Character.Movement.Modules;
 using UnityEngine;
 
 namespace Character.Movement {
-    public class MovementController : MonoBehaviour {
-        public Transform IkTransform;
-        public Transform PuppetTransform;
-        public float Speed = 1f;
-        public float GroundAcceleration = 1f;
-        public float AirAcceleration = 1f;
-        public float WallSlideSpeed;
-        [Header("Jumping")]
-        public float JumpSpeed = 1000f;
-        public float WallJumpSpeed = 1000f;
-        public float LowJumpTime = 0.5f;
-        public float HighJumpAddTime = 0.5f;
-        public float JumpHeight;
+    public class MovementController : MonoBehaviour
+    {
+        [SerializeField]
+        private WalkParameters WalkParameters;
+        [SerializeField]
+        private GroundCheckParameters GroundCheckParameters;
+        [SerializeField]
+        private WallCheckParameters WallCheckParameters;
+        [SerializeField]
+        private WallsSlideParameters WallSlideParameters;
+        [SerializeField]
+        private JumpParameters JumpParameters;
 
-        public List<Sensor> GroundSensors;
-        public Sensor MainGroundSensor;
-        public List<Sensor> RightSensors;
-        public List<Sensor> LeftSensors;
+        private List<MovementModule> _MovementModules;
+        private WalkModule _WalkModule;
+        private GroundCheckModule _GroundCheckModule;
+        private WallsCheckModule _WallsCheckModule;
+        private WallsSlideModule _WallsSlideModule;
+        private JumpModule _JumpModule;
+        private Blackboard _Blackboard;
 
         public Rigidbody2D Rigidbody { get; private set; }
         public Vector2 Velocity => Rigidbody.velocity;
-        public int Direction { get; private set; } = 1;
-
-        private List<SimpleCCD> _SimpleCcds = new List<SimpleCCD>();
-        private float _Horizontal;
-        private float _LastY;
-
-        public float Horizontal => _Horizontal;
-
-        public bool FallingDown => transform.position.y < _LastY && !IsMainGrounded;
-        public bool WallSliding => !IsMainGrounded && (LeftSensors.Any(_=>_.IsTouching) || RightSensors.Any(_ => _.IsTouching));
-        private bool LefTouch => LeftSensors.Any(_ => _.IsTouching);
-        private bool RightTouch => RightSensors.Any(_ => _.IsTouching);
-        public bool IsGrounded => GroundSensors.Any(_ => _.IsTouching) && !WallSliding;
-        private bool IsMainGrounded => MainGroundSensor.IsTouching && MainGroundSensor.Distanse < 1f;
-        private float _TimeSinceMainGrounded;
-        public float MinDistanceToGround => GroundSensors.Min(_ => _.Distanse);
-
-        private float _JumpTimer;
-        private float _TargetXVelocity = 0f;
+        public float Horizontal => _WalkModule.Horizontal;
+        public bool IsGrounded => _GroundCheckModule.IsGrounded;
+        public float MinDistanceToGround => _GroundCheckModule.MinDistanceToGround;
+        public bool FallingDown => _GroundCheckModule.FallingDown;
+        public bool WallSliding => _WallsSlideModule.WallSliding;
+        public float Direction => _WalkModule.Direction;
 
         private void Awake() {
             Rigidbody = GetComponent<Rigidbody2D>();
-            GetComponentsInChildren(_SimpleCcds);
-            _LastY = transform.position.y;
+        }
+
+        private void Start()
+        {
+            InitializeModules();
+            SetupBlackboard();
+            _MovementModules.ForEach(_ => _.Start());
+        }
+
+        private void InitializeModules()
+        {
+            _MovementModules = new List<MovementModule>();
+            _WalkModule = new WalkModule(WalkParameters);
+            _GroundCheckModule = new GroundCheckModule(GroundCheckParameters);
+            _WallsCheckModule = new WallsCheckModule(WallCheckParameters);
+            _WallsSlideModule = new WallsSlideModule(WallSlideParameters);
+            _JumpModule = new JumpModule(JumpParameters);
+
+            _MovementModules.Add(_GroundCheckModule);
+            _MovementModules.Add(_WallsCheckModule);
+            _MovementModules.Add(_WalkModule);
+            _MovementModules.Add(_WallsSlideModule);
+        }
+
+        private void SetupBlackboard()
+        {
+            _Blackboard = new Blackboard();
+            _MovementModules.ForEach(_=>_.Initialize(_Blackboard));
         }
 
         private void Update() {
-            SetDirection();
-            _LastY = transform.position.y;
-
-            _TargetXVelocity = 0f;
-            if (_Horizontal > 0.5f)
-                _TargetXVelocity = Speed;
-            else if (_Horizontal < -0.5f)
-                _TargetXVelocity = -Speed;
-            else
-                _Horizontal = 0;
-
-            if (WallSliding)
-            {
-                if (Rigidbody.velocity.y < -WallSlideSpeed)
-                    Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, -WallSlideSpeed);
-            }
-            if (IsMainGrounded)
-                _TimeSinceMainGrounded = 0f;
-            else
-                _TimeSinceMainGrounded += Time.deltaTime;
+            _MovementModules.ForEach(_ => _.Update());
         }
 
         private void FixedUpdate()
         {
-            var xVelocity = Rigidbody.velocity.x;
-            var acceleration = IsMainGrounded ? GroundAcceleration : AirAcceleration;
-            xVelocity = Mathf.Lerp(xVelocity, _TargetXVelocity, Time.fixedDeltaTime * acceleration);
-            Rigidbody.velocity = new Vector2(xVelocity, Rigidbody.velocity.y);
+            _MovementModules.ForEach(_ => _.FixedUpdate());
         }
 
         public void SetHorizontal(float hor) {
-            _Horizontal = hor;
-            Mathf.Clamp(_Horizontal, -1f, 1f);
+            _WalkModule.SetHorizontal(hor);
         }
 
-        private void SetDirection()
+        public bool Jump()
         {
-            if (_Horizontal != 0)
-            {
-                var newDir = _Horizontal > 0 ? 1 : -1;
-                if (LefTouch)
-                    newDir = -1;
-                else if (RightTouch)
-                    newDir = 1;
-                if (Direction != newDir)
-                    ChangeDirection(newDir);
-            }
-        }
-
-        private void ChangeDirection(int newDir) {
-            Direction = newDir;
-            var localScale = IkTransform.localScale;
-            var newLocalScale = new Vector3(newDir * Mathf.Abs(localScale.x), localScale.y, localScale.z);
-            IkTransform.localScale = newLocalScale;
-            //PuppetTransform.localScale = newLocalScale;
-            _SimpleCcds.ForEach(_ => _.ReflectNodes());
-        }
-
-        public bool Jump() {
-            if (IsGrounded && _TimeSinceMainGrounded < 0.3f)
-            {
-                _JumpTimer = LowJumpTime;
-                StopCoroutine(JumpRoutine());
-                StartCoroutine(JumpRoutine());
-                return true;
-            }
-            return false;
-        }
-
-        private IEnumerator JumpRoutine()
-        {
-            var gravityScale = Rigidbody.gravityScale;
-            while (_JumpTimer > 0)
-            {
-                Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, JumpSpeed);
-                Rigidbody.gravityScale = 0;
-                _JumpTimer -= Time.deltaTime;
-                yield return null;
-            }
-            Rigidbody.gravityScale = gravityScale;
-            _JumpTimer = 0;
+            return _JumpModule.Jump(this);
         }
 
         public void ContinueJump() {
-            if (_JumpTimer != 0)
-                _JumpTimer += HighJumpAddTime;
+            _JumpModule.ContinueJump();
         }
 
         public bool WallJump()
         {
-            if (RightTouch)
-            {
-                var vector = new Vector2(-1, 1).normalized;
-                Rigidbody.velocity = vector * WallJumpSpeed;
-                return true;
-            }
-            if (LefTouch)
-            {
-                var vector = new Vector2(1, 1).normalized;
-                Rigidbody.velocity = vector * WallJumpSpeed;
-                return true;
-            }
-            return false;
+            return _JumpModule.WallJump();
         }
 
-        public void ContinueWallJump()
-        {
-            if(_JumpTimer != 0)
-                _JumpTimer += HighJumpAddTime;
+        public void ContinueWallJump() {
+            _JumpModule.ContinueWallJump();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Character.Control;
@@ -17,6 +18,8 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
     public float MaxHealth { get; private set; }
     public bool Dead { get; private set; }
 
+    public event Action OnApplyDamage;
+
     private void Awake()
     {
         PlayerController = GetComponent<PlayerController>();
@@ -27,7 +30,7 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
 
     private void Start()
     {
-        MaxHealth = 100f;//Todo: Config
+        MaxHealth = 1000000f;//Todo: Config
         Health = MaxHealth;
     }
 
@@ -47,6 +50,7 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
         Health = Mathf.Clamp(Health, 0, MaxHealth);
         if(Health <=0)
             Kill();
+        OnApplyDamage?.Invoke();
     }
 
     private void Kill()

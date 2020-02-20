@@ -7,11 +7,22 @@ public class CharacterAnimationController : MonoBehaviour
 {
     private Animator Animator;
     private MovementController _MovementController;
+    private Unit _Unit;
 
     private void Awake()
     {
         Animator = GetComponent<Animator>();
         _MovementController = GetComponentInParent<MovementController>();
+        _Unit = GetComponentInParent<Unit>();
+    }
+
+    private void Start()
+    {
+        _Unit.OnApplyDamage += this.OnApplyDamage;
+    }
+
+    private void OnApplyDamage() {
+        //Animator.SetTrigger("BodyHit");
     }
 
     private void Update()

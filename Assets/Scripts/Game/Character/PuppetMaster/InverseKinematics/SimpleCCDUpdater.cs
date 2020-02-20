@@ -9,6 +9,6 @@ public class SimpleCCDUpdater : MonoBehaviour
 
     public void LateUpdate()
     {
-        CCDs.ForEach(_=>_.UpdateRemotely());
+        CCDs?.ForEach(_=>_.UpdateRemotely());
     }
 }
