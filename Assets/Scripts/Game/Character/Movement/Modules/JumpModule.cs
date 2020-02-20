@@ -24,8 +24,6 @@ namespace Character.Movement.Modules
             _WallSlideData = BB.Get<WallSlideData>();
             _GroundedData = BB.Get<GroundedData>();
         }
-        public override void Update(){ }
-        public override void FixedUpdate(){ }
 
         public bool Jump(MonoBehaviour behaviour) {
             if (_GroundedData.Grounded && _GroundedData.TimeSinceMainGrounded < 0.3f) {

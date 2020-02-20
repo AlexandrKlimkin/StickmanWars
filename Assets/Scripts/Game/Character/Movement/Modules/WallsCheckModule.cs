@@ -21,12 +21,7 @@ namespace Character.Movement.Modules
         public override void Update()
         {
             _WallSlideData.LeftTouch = _Parameters.LeftSensors.Any(_ => _.IsTouching);
-            _WallSlideData.RightTouch = _Parameters.LeftSensors.Any(_ => _.IsTouching);
-        }
-
-        public override void FixedUpdate()
-        {
-
+            _WallSlideData.RightTouch = _Parameters.RightSensors.Any(_ => _.IsTouching);
         }
     }
 

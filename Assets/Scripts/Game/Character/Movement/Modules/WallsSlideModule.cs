@@ -31,10 +31,6 @@ namespace Character.Movement.Modules
                     CommonData.ObjRigidbody.velocity = new Vector2(CommonData.ObjRigidbody.velocity.x, -_Parameters.WallSlideSpeed);
             }
         }
-
-        public override void FixedUpdate()
-        {
-        }
     }
 }
 

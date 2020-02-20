@@ -43,12 +43,14 @@ namespace Character.Movement {
         {
             InitializeModules();
             SetupBlackboard();
+            SetupCommon();
             _MovementModules.ForEach(_ => _.Start());
         }
 
         private void InitializeModules()
         {
             _MovementModules = new List<MovementModule>();
+
             _WalkModule = new WalkModule(WalkParameters);
             _GroundCheckModule = new GroundCheckModule(GroundCheckParameters);
             _WallsCheckModule = new WallsCheckModule(WallCheckParameters);
@@ -59,12 +61,20 @@ namespace Character.Movement {
             _MovementModules.Add(_WallsCheckModule);
             _MovementModules.Add(_WalkModule);
             _MovementModules.Add(_WallsSlideModule);
+            _MovementModules.Add(_JumpModule);
         }
 
         private void SetupBlackboard()
         {
             _Blackboard = new Blackboard();
             _MovementModules.ForEach(_=>_.Initialize(_Blackboard));
+        }
+
+        private void SetupCommon()
+        {
+            var commonData = _Blackboard.Get<CommonData>();
+            commonData.ObjRigidbody = Rigidbody;
+            commonData.ObjTransform = this.transform;
         }
 
         private void Update() {

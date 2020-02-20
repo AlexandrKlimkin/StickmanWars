@@ -17,7 +17,7 @@ namespace Character.Movement.Modules
         private GroundCheckParameters _Parameters;
         private float _LastY;
 
-        public GroundCheckModule(GroundCheckParameters parameters) : base()
+        public GroundCheckModule(GroundCheckParameters parameters)
         {
             _Parameters = parameters;
         }
@@ -39,11 +39,6 @@ namespace Character.Movement.Modules
                 _GroundedData.TimeSinceMainGrounded = 0f;
             else
                 _GroundedData.TimeSinceMainGrounded += Time.deltaTime;
-        }
-
-        public override void FixedUpdate()
-        {
-
         }
     }
 
