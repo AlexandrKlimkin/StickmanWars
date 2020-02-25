@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Character.Movement.Modules;
+using UnityEditor;
 using UnityEngine;
 
 namespace Character.Movement {
@@ -16,6 +17,8 @@ namespace Character.Movement {
         [SerializeField]
         private WallsSlideParameters WallSlideParameters;
         [SerializeField]
+        private LedgeHangParameters LedgeHangParameters;
+        [SerializeField]
         private JumpParameters JumpParameters;
 
         private List<MovementModule> _MovementModules;
@@ -24,19 +27,26 @@ namespace Character.Movement {
         private WallsCheckModule _WallsCheckModule;
         private WallsSlideModule _WallsSlideModule;
         private JumpModule _JumpModule;
+        private LedgeHangModule _LedgeHangModule;
         private Blackboard _Blackboard;
 
         public Rigidbody2D Rigidbody { get; private set; }
+        public Collider2D Collider { get; private set; }
+
         public Vector2 Velocity => Rigidbody.velocity;
         public float Horizontal => _WalkModule.Horizontal;
         public bool IsGrounded => _GroundCheckModule.IsGrounded;
+        public bool IsMainGrounded => _GroundCheckModule.IsMainGrounded;
         public float MinDistanceToGround => _GroundCheckModule.MinDistanceToGround;
         public bool FallingDown => _GroundCheckModule.FallingDown;
         public bool WallSliding => _WallsSlideModule.WallSliding;
         public float Direction => _WalkModule.Direction;
+        public bool WallRun => _JumpModule.WallRun;
+        public bool LedgeHang => _LedgeHangModule.LedgeHang;
 
         private void Awake() {
             Rigidbody = GetComponent<Rigidbody2D>();
+            Collider = GetComponent<Collider2D>();
         }
 
         private void Start()
@@ -56,10 +66,12 @@ namespace Character.Movement {
             _WallsCheckModule = new WallsCheckModule(WallCheckParameters);
             _WallsSlideModule = new WallsSlideModule(WallSlideParameters);
             _JumpModule = new JumpModule(JumpParameters);
+            _LedgeHangModule = new LedgeHangModule(LedgeHangParameters);
 
             _MovementModules.Add(_GroundCheckModule);
             _MovementModules.Add(_WallsCheckModule);
             _MovementModules.Add(_WalkModule);
+            _MovementModules.Add(_LedgeHangModule);
             _MovementModules.Add(_WallsSlideModule);
             _MovementModules.Add(_JumpModule);
         }
@@ -75,10 +87,16 @@ namespace Character.Movement {
             var commonData = _Blackboard.Get<CommonData>();
             commonData.ObjRigidbody = Rigidbody;
             commonData.ObjTransform = this.transform;
+            commonData.Collider = Collider;
         }
 
         private void Update() {
             _MovementModules.ForEach(_ => _.Update());
+        }
+
+        private void LateUpdate()
+        {
+            _MovementModules.ForEach(_=>_.LateUpdate());
         }
 
         private void FixedUpdate()
@@ -107,5 +125,11 @@ namespace Character.Movement {
         public void ContinueWallJump() {
             _JumpModule.ContinueWallJump();
         }
+
+        private void OnDrawGizmos()
+        {
+
+        }
+
     }
 }

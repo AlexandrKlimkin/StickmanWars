@@ -24,7 +24,8 @@ namespace Character.Movement.Modules
 
         public override void Update()
         {
-            _WallSlideData.WallSliding = !_GroundedData.MainGrounded && (_WallSlideData.LeftTouch || _WallSlideData.RightTouch);
+            _WallSlideData.WallRun = !_GroundedData.MainGrounded && (_WallSlideData.LeftTouch || _WallSlideData.RightTouch) && !_GroundedData.FallingDown && !_WallSlideData.LedgeHanging;
+            _WallSlideData.WallSliding = !_GroundedData.MainGrounded && (_WallSlideData.LeftTouch || _WallSlideData.RightTouch) && _GroundedData.FallingDown && !_WallSlideData.WallRun && !_WallSlideData.LedgeHanging;
             if (_WallSlideData.WallSliding)
             {
                 if (CommonData.ObjRigidbody.velocity.y < -_Parameters.WallSlideSpeed)

@@ -11,27 +11,33 @@ namespace Character.Movement
         [SerializeField]
         private float _Radius;
         [SerializeField]
+        private bool _Raycast;
+        [SerializeField]
         private Vector3 _Direction;
+        [SerializeField]
+        private LayerMask _LayerMask;
 
         public float Radius => _Radius;
         public  bool IsTouching { get; private set; }
         public float Distanse { get; private set; }
+        public List<Collider2D> TouchedColliders;
 
         private ContactFilter2D _Filter;
-        private readonly List<Collider2D> _Intersections = new List<Collider2D>();
 
         private void Awake()
         {
-            _Filter = new ContactFilter2D { useLayerMask = true, layerMask = Layers.Masks.Walkable };
+            _Filter = new ContactFilter2D { useLayerMask = true, layerMask = _LayerMask, useTriggers = true};
         }
 
         private void Update()
         {
-            Physics2D.OverlapCircle(transform.position, _Radius, _Filter, _Intersections);
-            IsTouching = _Intersections.Any();
-
-            var hit = Physics2D.Raycast(transform.position, _Direction, 1000, Layers.Masks.NoCharacter);
-            Distanse = hit.transform == null ? float.MaxValue : Vector2.Distance(hit.point, transform.position);
+            Physics2D.OverlapCircle(transform.position, _Radius, _Filter, TouchedColliders);
+            IsTouching = TouchedColliders.Any();
+            if (_Raycast)
+            {
+                var hit = Physics2D.Raycast(transform.position, _Direction, 1000, _LayerMask);
+                Distanse = hit.transform == null ? float.MaxValue : Vector2.Distance(hit.point, transform.position);
+            }
         }
 
         private void OnDrawGizmos()

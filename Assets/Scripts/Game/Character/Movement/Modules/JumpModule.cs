@@ -7,10 +7,13 @@ namespace Character.Movement.Modules
 {
     public class JumpModule : MovementModule
     {
+        public bool WallRun => _WallSlideData.WallRun;
+
         private JumpParameters _Parameters;
 
         private WallSlideData _WallSlideData;
         private GroundedData _GroundedData;
+        private JumpData _JumpData;
 
         private float _JumpTimer;
 
@@ -23,7 +26,19 @@ namespace Character.Movement.Modules
         {
             _WallSlideData = BB.Get<WallSlideData>();
             _GroundedData = BB.Get<GroundedData>();
+            _JumpData = BB.Get<JumpData>();
         }
+
+        public override void LateUpdate()
+        {
+            _JumpData.Jump = false;
+        }
+
+        //public override void Update()
+        //{
+        //    if()
+        //    _JumpData.JumpTimer += Time.deltaTime;
+        //}
 
         public bool Jump(MonoBehaviour behaviour) {
             if (_GroundedData.Grounded && _GroundedData.TimeSinceMainGrounded < 0.3f) {
@@ -39,7 +54,8 @@ namespace Character.Movement.Modules
             var gravityScale = CommonData.ObjRigidbody.gravityScale;
             while (_JumpTimer > 0) {
                 CommonData.ObjRigidbody.velocity = new Vector2(CommonData.ObjRigidbody.velocity.x, _Parameters.JumpSpeed);
-                CommonData.ObjRigidbody.gravityScale = 0;
+                //CommonData.ObjRigidbody.gravityScale = 0;
+                _JumpData.LastJumpTime = Time.time;
                 _JumpTimer -= Time.deltaTime;
                 yield return null;
             }
@@ -56,11 +72,13 @@ namespace Character.Movement.Modules
             if (_WallSlideData.RightTouch) {
                 var vector = new Vector2(-1, 1).normalized;
                 CommonData.ObjRigidbody.velocity = vector * _Parameters.WallJumpSpeed;
+                _JumpData.LastWallJumpTime = Time.time;
                 return true;
             }
             if (_WallSlideData.LeftTouch) {
                 var vector = new Vector2(1, 1).normalized;
                 CommonData.ObjRigidbody.velocity = vector * _Parameters.WallJumpSpeed;
+                _JumpData.LastWallJumpTime = Time.time;
                 return true;
             }
             return false;

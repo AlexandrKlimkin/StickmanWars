@@ -7,5 +7,6 @@ public interface IMovementModule
     void Initialize(Blackboard bb);
     void Start();
     void Update();
+    void LateUpdate();
     void FixedUpdate();
 }
