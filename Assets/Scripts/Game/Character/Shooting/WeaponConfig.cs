@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Character.Shooting
 {
-    [CreateAssetMenu(fileName = "WeaponConfig", menuName = "Weapons/WeaponConfig", order = 0)]
+    [CreateAssetMenu(fileName = "WeaponConfig", menuName = "EquipedWeapons/WeaponConfig", order = 0)]
     public class WeaponConfig : ScriptableObject
     {
         public float Range;

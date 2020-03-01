@@ -12,5 +12,6 @@ namespace InputSystem {
         public KeyCode Attack1;
         public KeyCode Attack2;
         public KeyCode Jump;
+        public KeyCode ThrowOutWeapon;
     }
 }

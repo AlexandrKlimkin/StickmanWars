@@ -75,10 +75,14 @@ namespace Character.Control {
                 _WallJump = false;
                 _JumpTimer = 0;
             }
+            if (Input.GetKeyDown(_InputKit.ThrowOutWeapon))
+            {
+                _WeaponController.ThrowOutWeapon();
+            }
         }
 
         public void LateUpdate() {
-            //if (_InputKit.Id == 1)
+            if(_WeaponController.HasWeapon)
                 _WeaponController.SetWeaponedHandPosition(_AimProvider.AimPoint);
         }
     }
