@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Tools;
 using UnityEditor;
 using UnityEngine;
 
 namespace Rendering
 {
-    public class GameCameraBehaviour : MonoBehaviour
+    public class GameCameraBehaviour : SingletonBehaviour<GameCameraBehaviour>
     {
         public List<Unit> Targets;
         public float PositionDamping;
@@ -16,6 +17,8 @@ namespace Rendering
         public float MinSize = 50f;
         public float VelocityOffsetMultiplier;
         public CameraBounds CameraBounds;
+
+        public float Zoom => _Camera.orthographicSize;
 
         private Camera _Camera;
         private Rect _ResultRect;

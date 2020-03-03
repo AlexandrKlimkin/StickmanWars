@@ -8,4 +8,6 @@ public class ParallaxObject : MonoBehaviour
     public float SpeedX;
     [Range(0, 1f)]
     public float SpeedY;
+    [Range(0, 1f)]
+    public float ScaleMult;
 }
