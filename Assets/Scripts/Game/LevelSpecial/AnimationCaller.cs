@@ -9,6 +9,9 @@ namespace Game.LevelSpecial
         public Animation Animation;
         public Vector2 RandomDelay;
         public bool AnimateOnStart;
+        public bool PingPong;
+
+        private bool _Forward;
 
         private void Start()
         {
@@ -23,6 +26,9 @@ namespace Game.LevelSpecial
             {
                 var delay = Random.Range(RandomDelay.x, RandomDelay.y);
                 yield return new WaitForSeconds(delay);
+                if (PingPong) {
+
+                }
                 Animation.Play();
             }
         }

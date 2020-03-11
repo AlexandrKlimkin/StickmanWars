@@ -9,6 +9,7 @@ namespace Game.LevelSpecial
     {
         public List<FollowPointData> FollowPoints;
         public float Speed;
+        public bool AutoMovement = true;
 
         private Rigidbody2D _Rigidbody;
         public int CurrentFollowPointIndex { get; private set; }
@@ -24,7 +25,15 @@ namespace Game.LevelSpecial
         {
             CurrentFollowPointIndex = 0;
             _CurrentFollowPoint = FollowPoints[CurrentFollowPointIndex];
-            StartCoroutine(MoveRoutine());
+            if(AutoMovement)
+                StartCoroutine(MoveRoutine());
+        }
+
+        public void MoveToNextPoint()
+        {
+            SwitchFollowPoint();
+            StopAllCoroutines();
+            StartCoroutine(MoveToPointRoutine());
         }
 
         private IEnumerator MoveRoutine()
@@ -59,11 +68,11 @@ namespace Game.LevelSpecial
                 _Rigidbody.position = _Rigidbody.position + moveVector;
                 yield return null;
             }
+            IsMoving = false;
         }
 
         private IEnumerator WaitRoutine()
         {
-            IsMoving = false;
             yield return new WaitForSeconds(_CurrentFollowPoint.WaitTime);
         }
 

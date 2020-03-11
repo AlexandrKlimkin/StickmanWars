@@ -9,7 +9,7 @@ namespace Game.LevelSpecial
         public Transform Target;
         public float AngleSpeed;
 
-        public bool IsRotating { get; private set; } = true;
+        public bool IsRotating { get; private set; }
         public bool Clockwise { get; private set; }
 
         private void Update()
