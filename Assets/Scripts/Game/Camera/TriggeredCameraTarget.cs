@@ -10,10 +10,13 @@ namespace Rendering
     public class TriggeredCameraTarget : MonoBehaviour, ICameraTarget
     {
         public List<UnitTrigger> Triggers;
+        public float TriggerOutTime;
 
         public Vector3 Position => transform.position;
         public Vector3 Velocity => Vector3.zero;
         public float Direction => 0f;
+
+        private float _TriggerOutTimer = 0f;
 
         private void Update()
         {
@@ -22,12 +25,15 @@ namespace Rendering
                 if (!GameCameraBehaviour.Instance.Targets.Contains(this)) {
                     GameCameraBehaviour.Instance.Targets.Add(this);
                 }
+                _TriggerOutTimer = 0f;
             }
             else
             {
                 if (GameCameraBehaviour.Instance.Targets.Contains(this)) {
-                    GameCameraBehaviour.Instance.Targets.Remove(this);
+
                 }
+                _TriggerOutTimer += Time.deltaTime;
+                GameCameraBehaviour.Instance.Targets.Remove(this);
             }
         }
     }
