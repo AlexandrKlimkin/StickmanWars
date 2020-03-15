@@ -9,7 +9,7 @@ namespace Rendering
 {
     public class GameCameraBehaviour : SingletonBehaviour<GameCameraBehaviour>
     {
-        public List<Unit> Targets;
+        public List<ICameraTarget> Targets { get; private set; }
         public float PositionDamping;
         public float SizeDamping;
         public Vector2 RigthDownOffset;
@@ -23,32 +23,34 @@ namespace Rendering
         private Camera _Camera;
         private Rect _ResultRect;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _Camera = GetComponent<Camera>();
+            Targets = new List<ICameraTarget>();
         }
 
         private void Update()
         {
             if (Targets == null || Targets.Count == 0)
                 return;
-            ClearTargets();
+            //ClearTargets();
             _ResultRect = TargetsRect();
             _ResultRect = RectWithOffsets(_ResultRect);
             CalculateSize();
             CalculatePosition();
         }
 
-        private void ClearTargets()
-        {
-            for (var i = 0; i < Targets.Count; i++)
-            {
-                var target = Targets[i];
-                if (target) continue;
-                Targets.Remove(target);
-                i--;
-            }
-        }
+        //private void ClearTargets()
+        //{
+        //    for (var i = 0; i < Targets.Count; i++)
+        //    {
+        //        var target = Targets[i];
+        //        if (target as MonoBehaviour) continue;
+        //        Targets.Remove(target);
+        //        i--;
+        //    }
+        //}
 
         private void CalculatePosition()
         {

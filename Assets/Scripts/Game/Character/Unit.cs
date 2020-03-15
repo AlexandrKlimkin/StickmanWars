@@ -14,6 +14,8 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
     public MovementController MovementController { get; private set; }
     public WeaponController WeaponController { get; private set; }
 
+    public static List<Unit> Units = new List<Unit>();
+
     public float Health { get; private set; }
     public float MaxHealth { get; private set; }
     public bool Dead { get; private set; }
@@ -32,6 +34,8 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
     {
         MaxHealth = 1000000f;//Todo: Config
         Health = MaxHealth;
+        GameCameraBehaviour.Instance.Targets.Add(this);
+        Units.Add(this);
     }
 
     public Collider2D Collider { get; set; }
@@ -57,5 +61,11 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
     {
         Dead = true;
         Destroy(gameObject); //ToDo: something different
+    }
+
+    private void OnDestroy()
+    {
+        GameCameraBehaviour.Instance?.Targets.Remove(this);
+        Units.Remove(this);
     }
 }

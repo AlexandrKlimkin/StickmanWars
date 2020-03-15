@@ -5,15 +5,7 @@ using System;
 namespace Tools {
     public abstract class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour {
 
-        public static T Instance {
-            get {
-                return _Instance;
-            }
-            private set {
-                _Instance = value;
-            }
-        }
-        private static T _Instance;
+        public static T Instance { get; private set; }
 
         protected virtual void Awake() {
             RegisterSingleton();
