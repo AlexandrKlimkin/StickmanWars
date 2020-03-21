@@ -18,7 +18,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     private void Start()
     {
         DeactivateAll();
-        SetActivePanel<MainPanel>();
+        //SetActivePanel<MainPanel>();
     }
 
     public void DeactivateAll()

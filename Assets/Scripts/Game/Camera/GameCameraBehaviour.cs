@@ -54,7 +54,7 @@ namespace Rendering
 
         private void CalculatePosition()
         {
-            var targetpos = new Vector3(_ResultRect.center.x, _ResultRect.center.y, -10f);
+            var targetpos = new Vector3(_ResultRect.center.x, _ResultRect.center.y, -100f);
 
             var left = CameraBounds.Rect.xMin;
             var right = CameraBounds.Rect.xMax;
@@ -72,7 +72,7 @@ namespace Rendering
             if (y - _Camera.orthographicSize < up)
                 y = up + _Camera.orthographicSize;
 
-            targetpos = new Vector3(x, y, -10f);
+            targetpos = new Vector3(x, y, -100f);
             transform.position = Vector3.Lerp(transform.position, targetpos, Time.deltaTime * PositionDamping);
         }
 

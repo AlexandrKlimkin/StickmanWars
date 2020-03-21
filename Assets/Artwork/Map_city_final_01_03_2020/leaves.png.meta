@@ -1,31 +1,16 @@
 fileFormatVersion: 2
-guid: fa90b077f72f3134880289ea7a930845
+guid: e6232e01c0b5d1140ace8174f2ba15f4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8788733818925418927
-    second: crane_man_0
+      213: 7267689239274680278
+    second: leaves_0
   - first:
-      213: 4151949487629941351
-    second: crane_man_1
+      213: -6413231621353547766
+    second: leaves_1
   - first:
-      213: 6998834598002646743
-    second: crane_man_2
-  - first:
-      213: 170289634210815256
-    second: crane_man_3
-  - first:
-      213: 1360673503215167448
-    second: crane_man_4
-  - first:
-      213: -5558267614871358769
-    second: crane_man_5
-  - first:
-      213: -8103827090102409375
-    second: crane_man_6
-  - first:
-      213: 3662891435821142046
-    second: crane_man_7
+      213: 2952524636495823158
+    second: leaves_2
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -122,13 +107,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: crane_man_0
+      name: leaves_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 222
-        width: 380
-        height: 508
+        x: 12
+        y: 62
+        width: 34
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c96b92de8c9ec841bb3ef224278d82c
-      internalID: -8788733818925418927
+      spriteID: 06fd559f414c15548b36df5f17cdf5cc
+      internalID: 7267689239274680278
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crane_man_1
+      name: leaves_1
       rect:
         serializedVersion: 2
-        x: 465
-        y: 45
-        width: 642
-        height: 767
+        x: 77
+        y: 77
+        width: 24
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,20 +142,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51204090f52460f41918b8cbecba7a17
-      internalID: 4151949487629941351
+      spriteID: f6a3cfc1c9137744f8bd0566769440a4
+      internalID: -6413231621353547766
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crane_man_2
+      name: leaves_2
       rect:
         serializedVersion: 2
-        x: 1272
-        y: 472
-        width: 199
-        height: 370
+        x: 9
+        y: 2
+        width: 38
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,113 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24f29f1878e6def4fb0910480026684a
-      internalID: 6998834598002646743
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: crane_man_3
-      rect:
-        serializedVersion: 2
-        x: 1563
-        y: 466
-        width: 201
-        height: 368
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1b861d12574a9b649b47e9b61c340ff2
-      internalID: 170289634210815256
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: crane_man_4
-      rect:
-        serializedVersion: 2
-        x: 1290
-        y: 3
-        width: 132
-        height: 396
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc295495113ce7140bcc6d80f05891f2
-      internalID: 1360673503215167448
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: crane_man_5
-      rect:
-        serializedVersion: 2
-        x: 1588
-        y: 0
-        width: 134
-        height: 395
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0cb45844e408130479b99c3ae2fe8e7b
-      internalID: -5558267614871358769
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: crane_man_6
-      rect:
-        serializedVersion: 2
-        x: 1764
-        y: 13
-        width: 68
-        height: 286
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4f5a5d18e9e10b84e8f92701addc0b87
-      internalID: -8103827090102409375
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: crane_man_7
-      rect:
-        serializedVersion: 2
-        x: 1904
-        y: 15
-        width: 68
-        height: 286
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 96254e36530636943a7a30a533482861
-      internalID: 3662891435821142046
+      spriteID: 5ea37163214dea3438b22de1ce1f940d
+      internalID: 2952524636495823158
       vertices: []
       indices: 
       edges: []

@@ -30,10 +30,15 @@ namespace Rendering
             else
             {
                 if (GameCameraBehaviour.Instance.Targets.Contains(this)) {
-
+                    if (_TriggerOutTimer >= TriggerOutTime)
+                    {
+                        GameCameraBehaviour.Instance.Targets.Remove(this);
+                    }
+                    else
+                    {
+                        _TriggerOutTimer += Time.deltaTime;
+                    }
                 }
-                _TriggerOutTimer += Time.deltaTime;
-                GameCameraBehaviour.Instance.Targets.Remove(this);
             }
         }
     }

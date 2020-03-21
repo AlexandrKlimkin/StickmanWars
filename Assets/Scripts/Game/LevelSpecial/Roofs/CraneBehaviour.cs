@@ -22,6 +22,11 @@ namespace Game.LevelSpecial.Roofs
             StartCoroutine(CraneRoutine());
         }
 
+        private void Update()
+        {
+
+        }
+
         private IEnumerator CraneRoutine()
         {
             while (true)
