@@ -11,7 +11,7 @@ namespace Character.Shooting
         public WeaponView WeaponView { get; protected set; }
 
 
-        [SerializeField] private WeaponConfig _Stats;
+        [SerializeField] protected WeaponConfig _Stats;
         public WeaponConfig Stats => _Stats;
         public abstract void PerformShot();
 
@@ -25,10 +25,10 @@ namespace Character.Shooting
             return new Damage(Owner, _Stats.Damage);
         }
 
-        public virtual void ThrowOut(Unit thrower)
+        public virtual void ThrowOut()
         {
+            WeaponView.ThrowOut(Owner.WeaponController.WeaponPicker.PickCollider);
             Owner = null;
-            WeaponView.ThrowOut(thrower.Collider);
         }
 
         public virtual void PickUp(Unit pickuper) {
@@ -43,16 +43,6 @@ namespace Character.Shooting
 
         protected virtual void OnDisable() {
             WeaponsInfoContainer.RemoveWeapon(this);
-        }
-
-        private void OnCollisionEnter2D(Collision2D col)
-        {
-            //ToDo: Remove from here
-            var weaponController = col.gameObject.GetComponent<WeaponController>();
-            if (weaponController != null)
-            {
-                weaponController.TryPickUpWeapon(this);
-            }
         }
     }
 }

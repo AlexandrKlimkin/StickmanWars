@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Character.Shooting
 {
-    public class BulletWeapon : LongRangeWeapon<BulletProjectile, ProjectileData>
+    public class BulletWeapon : LongRangeWeapon<BulletProjectile, BulletProjectileData>
     {
-        public override ProjectileData GetProjectileData()
+        public override BulletProjectileData GetProjectileData()
         {
             var data = base.GetProjectileData();
             data.BirthTime = Time.time;
@@ -15,7 +13,7 @@ namespace Character.Shooting
             data.Rotation = WeaponView.ShootTransform.rotation;
             Debug.DrawLine(WeaponView.ShootTransform.position, WeaponView.ShootTransform.position + WeaponView.ShootTransform.forward * 10f, Color.green, 3f);
             data.Speed = Stats.ProjectileSpeed;
-            data.Force = Stats.Force;
+            data.Force = Stats.HitForce;
             return data;
         }
     }

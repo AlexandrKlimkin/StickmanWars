@@ -1,18 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Character.Health;
+﻿using Character.Health;
 using UnityEngine;
 
 namespace Character.Shooting
 {
-    public class ProjectileData
+    public class BulletProjectileData : ProjectileDataBase
     {
-        public Vector3 Position;
-        public Quaternion Rotation;
-        public float LifeTime;
-        public float BirthTime;
         public float Speed;
-        public Damage Damage;
         public float Force;
     }
 }

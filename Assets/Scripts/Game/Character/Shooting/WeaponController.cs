@@ -11,15 +11,18 @@ namespace Character.Shooting
         public Transform NearArmShoulder;
         public Transform NearArmFist;
         public float ThrowOutForce;
-        public List<Weapon> EquipedWeapons;
+        public List<Weapon> EquipedWeapons = new List<Weapon>();
 
         public bool HasWeapon => EquipedWeapons.Count > 0;
 
         public Unit Owner { get; private set; }
 
+        public WeaponPicker WeaponPicker { get; private set; }
+
         private void Awake()
         {
             Owner = GetComponent<Unit>();
+            WeaponPicker = GetComponentInChildren<WeaponPicker>();
         }
 
         private void Start()
@@ -34,26 +37,23 @@ namespace Character.Shooting
 
         public void Fire()
         {
-            EquipedWeapons.ForEach(_=>_.PerformShot());
+            for(int i = 0; i < EquipedWeapons.Count; i++) {
+                var weapon = EquipedWeapons[i];
+                weapon.PerformShot();
+            }
         }
 
         public void ThrowOutWeapon()
         {
-            //var first = EquipedWeapons.FirstOrDefault();
-            //if(first == null)
-            //    return;
-            //first.ThrowOut(Owner);
-            //var f = first.WeaponView.ShootTransform.forward;
-            //var vector = new Vector2(f.z, f.y);
-            //first.WeaponView.Rigidbody.AddForce(f * ThrowOutForce);
-            //EquipedWeapons.Remove(first);
+            EquipedWeapons.ForEach(_ => _.ThrowOut());
+            EquipedWeapons.Clear();
         }
 
         public void TryPickUpWeapon(Weapon weapon)
         {
             if(EquipedWeapons.Count > 0)
                 return;
-            EquipedWeapons = new List<Weapon>{ weapon };
+            EquipedWeapons.Add(weapon);
             weapon.PickUp(Owner);
         }
     }

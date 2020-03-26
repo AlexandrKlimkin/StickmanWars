@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 107208225}
   - component: {fileID: 107208226}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: GameObject (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 109383359}
   - component: {fileID: 109383360}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 250275500}
   - component: {fileID: 250275501}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: GameObject (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009914420}
   - component: {fileID: 1009914421}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: GameObject (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1404592993}
   - component: {fileID: 1404592994}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1827399128}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -577,7 +577,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Stats: {fileID: 11400000, guid: 23792389bd988354b986f10e4181d8ba, type: 2}
   ProjectileName: Projectile
-  ShootTransform: {fileID: 2082481628266163460}
 --- !u!114 &1802286954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,6 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4478ec024eabe074ba566c25a6ab8e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShootTransform: {fileID: 0}
   CollidersContainer: {fileID: 1827399127}
 --- !u!1 &4108579417601912059
 GameObject:

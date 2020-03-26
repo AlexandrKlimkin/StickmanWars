@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Character.Shooting
 {
-    public abstract class LongRangeWeapon<P, D> : Weapon where P : Projectile<D> where D : ProjectileData, new()
+    public abstract class LongRangeWeapon<P, D> : Weapon where P : Projectile<D> where D : ProjectileDataBase, new()
     {
         public string ProjectileName;
 

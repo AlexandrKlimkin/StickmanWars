@@ -9,7 +9,6 @@ namespace Game.LevelSpecial
     {
         public List<FollowPointData> FollowPoints;
         public float Speed;
-        public bool AutoMovement = true;
 
         private Rigidbody2D _Rigidbody;
         public int CurrentFollowPointIndex { get; private set; }
@@ -25,25 +24,26 @@ namespace Game.LevelSpecial
         {
             CurrentFollowPointIndex = 0;
             _CurrentFollowPoint = FollowPoints[CurrentFollowPointIndex];
-            if(AutoMovement)
-                StartCoroutine(MoveRoutine());
+        }
+
+        private void FixedUpdate() {
+            if (IsMoving) {
+                var delta = (Vector2)(_CurrentFollowPoint.Transform.position - transform.position);
+                var distance = delta.magnitude;
+                var normilizedVelocity = delta.normalized;
+                var moveVector = normilizedVelocity * Speed;
+                moveVector = Vector2.ClampMagnitude(moveVector, distance);
+                _Rigidbody.position += moveVector;
+            }
+            if (_TargetPointReached) {
+                IsMoving = false;
+            }
         }
 
         public void MoveToNextPoint()
         {
             SwitchFollowPoint();
-            StopAllCoroutines();
-            StartCoroutine(MoveToPointRoutine());
-        }
-
-        private IEnumerator MoveRoutine()
-        {
-            while (true)
-            {
-                yield return MoveToPointRoutine();
-                yield return WaitRoutine();
-                SwitchFollowPoint();
-            }
+            IsMoving = true;
         }
 
         private bool _TargetPointReached
@@ -53,27 +53,6 @@ namespace Game.LevelSpecial
                 var distance = Vector2.Distance(_CurrentFollowPoint.Transform.position, transform.position);
                 return distance < 0.1f;
             }
-        }
-
-        private IEnumerator MoveToPointRoutine()
-        {
-            IsMoving = true;
-            while (!_TargetPointReached)
-            {
-                var delta = (Vector2) (_CurrentFollowPoint.Transform.position - transform.position);
-                var distance = delta.magnitude;
-                var normilizedVelocity = delta.normalized;
-                var moveVector = normilizedVelocity * Speed;
-                moveVector = Vector2.ClampMagnitude(moveVector, distance);
-                _Rigidbody.position = _Rigidbody.position + moveVector;
-                yield return null;
-            }
-            IsMoving = false;
-        }
-
-        private IEnumerator WaitRoutine()
-        {
-            yield return new WaitForSeconds(_CurrentFollowPoint.WaitTime);
         }
 
         private void SwitchFollowPoint()

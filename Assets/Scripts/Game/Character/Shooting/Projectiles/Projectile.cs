@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Character.Shooting
 {
-    public abstract class Projectile<D> : VisualEffect where D : ProjectileData
+    public abstract class Projectile<D> : VisualEffect where D : ProjectileDataBase
     {
         public D Data { get; private set; }
         public bool Initialized { get; private set; }
@@ -14,11 +14,14 @@ namespace Character.Shooting
 
         public abstract void Simulate(float time);
 
+        protected bool _Hit;
+
         public virtual void Setup(D data)
         {
             Data = data;
             transform.position = data.Position;
             transform.rotation = data.Rotation;
+            _Hit = false;
             Initialize();
         }
 
@@ -48,10 +51,11 @@ namespace Character.Shooting
             Initialized = false;
         }
 
-        protected virtual void PerformHit(IDamageable damageable)
+        protected virtual void PerformHit(IDamageable damageable, bool killProjectile = true)
         {
-            KillProjectile();
-            Data.Damage.Force = transform.right;
+            if(killProjectile)
+                KillProjectile();
+            _Hit = true;
             damageable?.ApplyDamage(Data.Damage);
         }
     }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1e5faba1661464db9a8ff2a8982e6d, type: 3}
   m_Name: WeaponConfig
   m_EditorClassIdentifier: 
-  Range: 1000
-  ReloadingTime: 1
-  ProjectileSpeed: 450
-  Damage: 30
-  HitForce: 8000
-  StartForce: 0
+  Range: 300
+  ReloadingTime: 2
+  ProjectileSpeed: 0
+  Damage: 10
+  HitForce: 10
+  StartForce: 10000
