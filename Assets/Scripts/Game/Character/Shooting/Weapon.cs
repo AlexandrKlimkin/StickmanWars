@@ -27,7 +27,7 @@ namespace Character.Shooting
 
         public virtual void ThrowOut()
         {
-            WeaponView.ThrowOut(Owner.WeaponController.WeaponPicker.PickCollider);
+            WeaponView.ThrowOut(Owner.WeaponController.gameObject);
             Owner = null;
         }
 

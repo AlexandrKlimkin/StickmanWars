@@ -23,6 +23,7 @@ namespace Character.Shooting
         public override void Setup(ThrowingProjectileData data)
         {
             base.Setup(data);
+            Debug.DrawRay(data.Position, data.StartDirection * 30f, Color.magenta, 2f);
             _RB.AddForce(data.StartDirection * data.StartForce);
             _RB.angularVelocity = -720f;
         }

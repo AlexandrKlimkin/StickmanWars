@@ -35,7 +35,7 @@ public class WeaponView : MonoBehaviour
         StopAllCoroutines();
     }
 
-    public void ThrowOut(Collider2D thrower)
+    public void ThrowOut(GameObject thrower)
     {
         Rigidbody.simulated = true;
         CollidersContainer.SetActive(true);
@@ -44,15 +44,20 @@ public class WeaponView : MonoBehaviour
         StartCoroutine(IgnorThrowerCollisionRoutine(thrower));
     }
 
-    private IEnumerator IgnorThrowerCollisionRoutine(Collider2D thrower)
+    private IEnumerator IgnorThrowerCollisionRoutine(GameObject thrower)
     {
+        var throwerColliders = thrower.GetComponentsInChildren<Collider2D>();
         foreach (var col in _Colliders)
         {
-            Physics2D.IgnoreCollision(thrower, col);
+            foreach (var throwerCol in throwerColliders) {
+                Physics2D.IgnoreCollision(throwerCol, col);
+            }
         }
         yield return new WaitForSeconds(1f);
         foreach (var col in _Colliders) {
-            Physics2D.IgnoreCollision(thrower, col, false);
+            foreach (var throwerCol in throwerColliders) {
+                Physics2D.IgnoreCollision(throwerCol, col, false);
+            }
         }
     }
 }

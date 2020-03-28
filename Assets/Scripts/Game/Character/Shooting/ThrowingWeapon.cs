@@ -13,7 +13,7 @@ namespace Character.Shooting
             data.LifeTime = Stats.Range / Stats.ProjectileSpeed;
             data.Position = transform.position;
             data.Rotation = transform.rotation;
-            data.StartDirection = WeaponView.ShootTransform.right;
+            data.StartDirection = WeaponView.ShootTransform.forward;
             data.StartForce = _Stats.StartForce;
             return data;
         }

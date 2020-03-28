@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7078119407775760338}
   - component: {fileID: 7078119407775760340}
   - component: {fileID: 7078119407775760339}
+  - component: {fileID: 1100391048617597874}
   m_Layer: 0
   m_Name: rasporka (6)
   m_TagString: Untagged
@@ -103,7 +104,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 3edebe7cab671b448bf6cb59f7f12195, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!255 &7078119407775760340
 FixedJoint2D:
@@ -141,6 +142,18 @@ FixedJoint2D:
   m_ConnectedAnchor: {x: -36.79053, y: -80.790474}
   m_DampingRatio: 0
   m_Frequency: 0
+--- !u!114 &1100391048617597874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078119407775760335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946ad52d3c4638f4c9173d7b9aa8c691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7078119408209489946
 GameObject:
   m_ObjectHideFlags: 0
