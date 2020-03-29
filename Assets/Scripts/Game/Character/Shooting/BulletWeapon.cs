@@ -4,6 +4,14 @@ namespace Character.Shooting
 {
     public class BulletWeapon : LongRangeWeapon<BulletProjectile, BulletProjectileData>
     {
+        public override WeaponInputProcessor InputProcessor => throw new System.NotImplementedException();
+
+        protected override void Start()
+        {
+            base.Start();
+            InputProcessor = new SingleShotProcessor();
+        }
+
         public override BulletProjectileData GetProjectileData()
         {
             var data = base.GetProjectileData();

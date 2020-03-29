@@ -38,12 +38,7 @@ namespace Character.Control {
             var hor = Input.GetAxis(_InputKit.Horizontal);
             var vert = Input.GetAxis(_InputKit.Vertical);
             _MovementController.SetHorizontal(hor);
-            //if(_InputKit.Id == 2)
-            //    Debug.LogError(hor);
-            if (Input.GetKeyDown(_InputKit.Attack1))
-            {
-                _WeaponController.Fire();
-            }
+            _WeaponController.Process(_InputKit);
             if (Input.GetKeyDown(_InputKit.Jump))
              {
                 _IsJumping = _MovementController.Jump();

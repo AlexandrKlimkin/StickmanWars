@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using InputSystem;
 using UnityEngine;
 
 namespace Character.Shooting
@@ -35,11 +36,16 @@ namespace Character.Shooting
             NearArmTransform.position = position;
         }
 
-        public void Fire()
+        public void Process(InputKit input)
         {
-            if(HasWeapon)
-                Weapon.PerformShot();
+            Weapon?.InputProcessor.Process(input);
         }
+
+        //public void Fire()
+        //{
+        //    if(HasWeapon)
+        //        Weapon.PerformShot();
+        //}
 
         public void ThrowOutWeapon()
         {
