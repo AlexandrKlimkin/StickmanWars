@@ -12,6 +12,13 @@ namespace Character.Shooting
         public float ProjectileSpeed;
         public float Damage;
         public float HitForce;
-        public float StartForce;
+
+        public float RateOfFire;
+        public float ReloadTime;
+        public float DispersionAngle;
+
+        public float MinForce;
+        public float MaxForce;
+        public float MaxForceTime;
     }
 }

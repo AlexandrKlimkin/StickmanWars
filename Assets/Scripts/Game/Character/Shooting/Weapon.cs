@@ -10,7 +10,7 @@ namespace Character.Shooting
         public Unit Owner { get; protected set; }
         public WeaponView WeaponView { get; protected set; }
 
-        public abstract WeaponInputProcessor InputProcessor { get; protected set; }
+        public abstract WeaponInputProcessor InputProcessor { get; }
 
         [SerializeField] protected WeaponConfig _Stats;
         public WeaponConfig Stats => _Stats;
@@ -21,7 +21,9 @@ namespace Character.Shooting
             WeaponView = GetComponent<WeaponView>();
         }
 
-        protected virtual void Start();
+        protected virtual void Start() {
+
+        }
 
         protected virtual Damage GetDamage()
         {

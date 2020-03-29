@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using Character.Shooting.Character.Shooting;
+using UnityEngine;
 
 namespace Character.Shooting
 {
     public class ThrowingWeapon : LongRangeWeapon<ThrowingProjectile, ThrowingProjectileData>
     {
+        public override WeaponInputProcessor InputProcessor => _FireForceProcessor ?? (_FireForceProcessor = new FireForceProcessor(this));
+        private FireForceProcessor _FireForceProcessor;
+
         public bool CanBePicked { get; private set; }
 
         public override ThrowingProjectileData GetProjectileData()
@@ -14,7 +18,7 @@ namespace Character.Shooting
             data.Position = transform.position;
             data.Rotation = transform.rotation;
             data.StartDirection = WeaponView.ShootTransform.forward;
-            data.StartForce = _Stats.StartForce;
+            data.StartForce = Mathf.Lerp(_Stats.MinForce, _Stats.MaxForce, _FireForceProcessor.NormilizedForce);
             return data;
         }
 

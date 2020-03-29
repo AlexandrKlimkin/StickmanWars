@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 2888260986880051131}
   - component: {fileID: 1802286954}
   - component: {fileID: 3689497979007992750}
-  - component: {fileID: 4795353201214904644}
+  - component: {fileID: 6208632951896573471}
   m_Layer: 13
   m_Name: Gun
   m_TagString: Untagged
@@ -554,7 +554,7 @@ SpriteRenderer:
   m_SortingOrder: 7
   m_Sprite: {fileID: 5988482747087616493, guid: 05a53919b6341e143b5b8675c0650b88,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -576,7 +576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4478ec024eabe074ba566c25a6ab8e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootTransform: {fileID: 0}
+  ShootTransform: {fileID: 2082481628266163460}
   CollidersContainer: {fileID: 1827399127}
 --- !u!114 &3689497979007992750
 MonoBehaviour:
@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946ad52d3c4638f4c9173d7b9aa8c691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4795353201214904644
+--- !u!114 &6208632951896573471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -599,10 +599,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2888260986880051133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d8e4be541b1fa468977a116efdbcb6, type: 3}
+  m_Script: {fileID: 11500000, guid: ce60157ecd052c0428e577672bf8489b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Stats: {fileID: 11400000, guid: 23792389bd988354b986f10e4181d8ba, type: 2}
+  _Stats: {fileID: 11400000, guid: b0f83fbaf246838478734824645dfd59, type: 2}
   ProjectileName: Projectile
 --- !u!1 &4108579417601912059
 GameObject:
