@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 1000
   ReloadingTime: 1
-  ProjectileSpeed: 450
-  Damage: 30
+  ProjectileSpeed: 500
+  Damage: 15
   HitForce: 8000
-  StartForce: 0
+  RateOfFire: 0
+  ReloadTime: 0
+  DispersionAngle: 0
+  MinForce: 0
+  MaxForce: 0
+  MaxForceTime: 0

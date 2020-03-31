@@ -32,7 +32,7 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
 
     private void Start()
     {
-        MaxHealth = 1000000f;//Todo: Config
+        MaxHealth = 100f;//Todo: Config
         Health = MaxHealth;
         GameCameraBehaviour.Instance.Targets.Add(this);
         Units.Add(this);
