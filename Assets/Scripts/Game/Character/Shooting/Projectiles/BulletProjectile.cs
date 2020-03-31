@@ -45,7 +45,7 @@ namespace Character.Shooting
 
         protected virtual void AttachTrail()
         {
-            if (TrailName == null)
+            if (string.IsNullOrEmpty(TrailName))
                 return;
             _Trail = VisualEffect.GetEffect<TrailEffect>(TrailName);
             _Trail.Attach(this.transform);
@@ -54,6 +54,8 @@ namespace Character.Shooting
 
         protected virtual void DetachTrail()
         {
+            if(_Trail == null)
+                return;
             _Trail.Detach();
             _Trail = null;
         }
