@@ -2,8 +2,19 @@
 
 namespace Character.Shooting
 {
-    public abstract class BulletWeapon : LongRangeWeapon<BulletProjectile, BulletProjectileData>
-    {
+    public abstract class BulletWeapon : LongRangeWeapon<BulletProjectile, BulletProjectileData> {
+
+        private float RandomDispersionAngle => UnityEngine.Random.Range(-_Stats.DispersionAngle / 2, _Stats.DispersionAngle / 2);
+
+        [SerializeField]
+        private ParticleSystem _ShellEffect;
+        private ParticleSystem.EmitParams _ShellEffectEmitParams;
+
+        protected override void Start() {
+            base.Start();
+            _ShellEffectEmitParams = new ParticleSystem.EmitParams();
+        }
+
         public override BulletProjectileData GetProjectileData()
         {
             var data = base.GetProjectileData();
@@ -25,6 +36,11 @@ namespace Character.Shooting
             return data;
         }
 
-        private float RandomDispersionAngle => Random.Range(-_Stats.DispersionAngle / 2, _Stats.DispersionAngle / 2);
+        public override void PerformShot() {
+            base.PerformShot();
+            if(_ShellEffect == null)
+                return;
+            _ShellEffect.Emit(_ShellEffectEmitParams, 1);
+        }
     }
 }
