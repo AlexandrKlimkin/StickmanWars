@@ -27,7 +27,8 @@ namespace Tools.VisualEffects {
         }
 
         protected virtual void OnDestroy() {
-            _EffectsCache[this.name].Remove(this);
+            if(_EffectsCache.ContainsKey(this.name))
+                _EffectsCache[this.name].Remove(this);
         }
 
         public virtual void Play() {

@@ -3,7 +3,11 @@ using UnityEngine;
 
 namespace Character.Shooting {
     public class AutoFireProcessor : WeaponInputProcessor {
-        public AutoFireProcessor(Weapon weapon) : base(weapon) { }
+        public AutoFireProcessor(BulletWeapon weapon) : base(weapon) {
+            CurrentMagazine = weapon.Stats.Magazine;
+        }
+
+        public int CurrentMagazine { get; private set; }
 
         private float _ShotTimer;
         private float _ReloadTimer;
@@ -12,14 +16,13 @@ namespace Character.Shooting {
 
         public override void Process(InputKit inputKit) {
             if (Input.GetKey(inputKit.Attack1)) {
-                if (_ShotTimer >= TimeBetweenShots) {
+                if (CurrentMagazine > 0 && _ShotTimer >= TimeBetweenShots) {
                     Weapon.PerformShot();
+                    CurrentMagazine--;
                     _ShotTimer = 0;
                 }
-                else {
-                    _ShotTimer += Time.deltaTime;
-                }
             }
+            _ShotTimer += Time.deltaTime;
         }
     }
 }

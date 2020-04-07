@@ -1,19 +1,16 @@
-﻿using UnityEngine;
+﻿using Tools.VisualEffects;
+using UnityEngine;
 
 namespace Character.Shooting
 {
     public abstract class BulletWeapon : LongRangeWeapon<BulletProjectile, BulletProjectileData> {
 
-        private float RandomDispersionAngle => UnityEngine.Random.Range(-_Stats.DispersionAngle / 2, _Stats.DispersionAngle / 2);
+        private float RandomDispersionAngle => Random.Range(-_Stats.DispersionAngle / 2, _Stats.DispersionAngle / 2);
 
         [SerializeField]
-        private ParticleSystem _ShellEffect;
-        private ParticleSystem.EmitParams _ShellEffectEmitParams;
-
-        protected override void Start() {
-            base.Start();
-            _ShellEffectEmitParams = new ParticleSystem.EmitParams();
-        }
+        private Transform _ShellEffectPoint;
+        [SerializeField]
+        private string _ShellEffectName;
 
         public override BulletProjectileData GetProjectileData()
         {
@@ -38,9 +35,14 @@ namespace Character.Shooting
 
         public override void PerformShot() {
             base.PerformShot();
-            if(_ShellEffect == null)
+            if(_ShellEffectPoint == null)
                 return;
-            _ShellEffect.Emit(_ShellEffectEmitParams, 1);
+            if(string.IsNullOrEmpty(_ShellEffectName))
+                return;
+            var effect = VisualEffect.GetEffect<ParticleEffect>(_ShellEffectName);
+            effect.transform.position = _ShellEffectPoint.position;
+            effect.transform.rotation = _ShellEffectPoint.rotation;
+            effect.Play();
         }
     }
 }
