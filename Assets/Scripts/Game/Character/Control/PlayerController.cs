@@ -48,16 +48,16 @@ namespace Character.Control {
         }
 
         private void Jump() {
-            //if (Input.GetKeyDown(_InputKit.Jump)) {
-            //    _IsJumping = _MovementController.Jump();
-            //    if (!_IsJumping) {
-            //        _IsJumping = _MovementController.WallJump();
-            //        _WallJump = _IsJumping;
-            //    }
+            if (Input.GetKeyDown(_InputKit.Jump)) {
+                _IsJumping = _MovementController.Jump();
+                if (!_IsJumping) {
+                    _IsJumping = _MovementController.WallJump();
+                    _WallJump = _IsJumping;
+                }
 
-            //    if (_IsJumping)
-            //        _JumpTimer = 0;
-            //}
+                if (_IsJumping)
+                    _JumpTimer = 0;
+            }
 
             if (Input.GetKey(_InputKit.Jump)) {
                 if (_IsJumping) {
@@ -69,15 +69,15 @@ namespace Character.Control {
                         _JumpTimer = 0;
                     }
                 }
-                else {
-                    _IsJumping = _MovementController.Jump();
-                    if (!_IsJumping) {
-                        _IsJumping = _MovementController.WallJump();
-                        _WallJump = _IsJumping;
-                    }
-                    if (_IsJumping)
-                        _JumpTimer = 0;
-                }
+                //else {
+                //    _IsJumping = _MovementController.Jump();
+                //    if (!_IsJumping) {
+                //        _IsJumping = _MovementController.WallJump();
+                //        _WallJump = _IsJumping;
+                //    }
+                //    if (_IsJumping)
+                //        _JumpTimer = 0;
+                //}
             }
 
             if (Input.GetKeyUp(_InputKit.Jump)) {

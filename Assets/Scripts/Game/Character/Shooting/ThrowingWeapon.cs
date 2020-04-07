@@ -10,6 +10,8 @@ namespace Character.Shooting
 
         public bool CanBePicked { get; private set; }
 
+        protected override bool UseThrowForce => false;
+
         public override ThrowingProjectileData GetProjectileData()
         {
             var data = base.GetProjectileData();
@@ -18,7 +20,7 @@ namespace Character.Shooting
             data.Position = transform.position;
             data.Rotation = transform.rotation;
             data.StartDirection = WeaponView.ShootTransform.forward;
-            data.StartForce = Mathf.Lerp(_Stats.MinForce, _Stats.MaxForce, _FireForceProcessor.NormilizedForce);
+            data.StartForce = Mathf.Lerp(_Stats.MinThrowForce, _Stats.MaxThrowForce, _FireForceProcessor.NormilizedForce);
             return data;
         }
 

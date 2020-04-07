@@ -16,10 +16,11 @@ MonoBehaviour:
   ReloadingTime: 1
   ProjectileSpeed: 500
   Damage: 15
-  HitForce: 8000
+  HitForce: 15000
+  Magazine: 0
   RateOfFire: 0
   ReloadTime: 0
   DispersionAngle: 0
-  MinForce: 0
-  MaxForce: 0
+  MinThrowForce: 0
+  MaxThrowForce: 20000
   MaxForceTime: 0

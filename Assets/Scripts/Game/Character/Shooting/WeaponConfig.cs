@@ -18,8 +18,8 @@ namespace Character.Shooting
         public float ReloadTime;
         public float DispersionAngle;
 
-        public float MinForce;
-        public float MaxForce;
+        public float MinThrowForce;
+        public float MaxThrowForce;
         public float MaxForceTime;
     }
 }

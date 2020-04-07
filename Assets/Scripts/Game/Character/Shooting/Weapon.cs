@@ -16,6 +16,8 @@ namespace Character.Shooting
         public WeaponConfig Stats => _Stats;
         public abstract void PerformShot();
 
+        protected virtual bool UseThrowForce => true;
+
         protected virtual void Awake()
         {
             WeaponView = GetComponent<WeaponView>();
@@ -33,6 +35,10 @@ namespace Character.Shooting
         public virtual void ThrowOut()
         {
             WeaponView.ThrowOut(Owner.WeaponController.gameObject);
+            if (UseThrowForce) {
+                WeaponView.Rigidbody.AddForce(WeaponView.ShootTransform.forward * Stats.MaxThrowForce);
+                WeaponView.Rigidbody.angularVelocity = -720f;
+            }
             Owner = null;
         }
 

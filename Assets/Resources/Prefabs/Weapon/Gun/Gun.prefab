@@ -505,7 +505,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -604,6 +604,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Stats: {fileID: 11400000, guid: 23792389bd988354b986f10e4181d8ba, type: 2}
   ProjectileName: Projectile
+  _ShellEffectPoint: {fileID: 0}
+  _ShellEffectName: 
 --- !u!1 &4108579417601912059
 GameObject:
   m_ObjectHideFlags: 0
