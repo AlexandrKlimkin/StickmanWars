@@ -43,9 +43,9 @@ namespace Character.MuscleSystem {
             var dir = point - _Chest.Rigidbody.position;
             var force = dir * direction * HandForce;
             arm.AddForce(force);
-            if(_HitCoroutine != null)
-                UnityEventProvider.Instance.StopCoroutine(_HitCoroutine);
-            _HitCoroutine = UnityEventProvider.Instance.StartCoroutine(ApplyForceRoutine(_Arm));
+            //if(_HitCoroutine != null)
+            //    UnityEventProvider.Instance.StopCoroutine(_HitCoroutine);
+            //_HitCoroutine = UnityEventProvider.Instance.StartCoroutine(ApplyForceRoutine(_Arm));
             _CdTime = Time.time + CdTime;
         }
 
@@ -57,8 +57,8 @@ namespace Character.MuscleSystem {
 
         private void OnHitDamageable(Collision2D collision) {
             _ArmDown[_Arm].BoneCollider.DamageableCollisionEnter -= OnHitDamageable;
-            if(_HitCoroutine != null)
-                UnityEventProvider.Instance.StopCoroutine(_HitCoroutine);
+            //if(_HitCoroutine != null)
+            //    UnityEventProvider.Instance.StopCoroutine(_HitCoroutine);
             var contact = collision.contacts[0]; //ToDo
             collision.rigidbody.AddForceAtPosition(-contact.normal * HitForce, contact.point);
         }

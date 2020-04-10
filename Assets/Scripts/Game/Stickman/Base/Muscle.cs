@@ -74,9 +74,9 @@ namespace Character.MuscleSystem {
         }
 
         public void DisableForTime(float time, AnimationCurve curve) {
-            if (_DisableForTimeCoroutine != null)
-                UnityEventProvider.Instance.StopCoroutine(_DisableForTimeCoroutine);
-            _DisableForTimeCoroutine = UnityEventProvider.Instance.StartCoroutine(DisableForTimeRoutine(time, curve));
+            //if (_DisableForTimeCoroutine != null)
+            //    UnityEventProvider.Instance.StopCoroutine(_DisableForTimeCoroutine);
+            //_DisableForTimeCoroutine = UnityEventProvider.Instance.StartCoroutine(DisableForTimeRoutine(time, curve));
         }
 
         public void ChangeDirection() {

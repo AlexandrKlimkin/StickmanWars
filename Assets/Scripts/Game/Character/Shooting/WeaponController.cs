@@ -11,7 +11,6 @@ namespace Character.Shooting
         public Transform NearArmTransform;
         public Transform NearArmShoulder;
         public Transform NearArmFist;
-        public float ThrowOutForce;
         public Weapon Weapon;
 
         public bool HasWeapon => Weapon != null;

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public static class Path
 {
-    public static class Resources
-    {
+    public static class Resources {
+        public static string GameCamera => "Prefabs/Cameras/GameCamera";
 
         public static string Bone(string unitId, MuscleType type)
         {

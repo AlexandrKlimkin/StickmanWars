@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Rendering
+namespace Game.CameraTools
 {
     public interface ICameraTarget
     {

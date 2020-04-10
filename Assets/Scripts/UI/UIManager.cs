@@ -10,8 +10,9 @@ public class UIManager : SingletonBehaviour<UIManager>
     private Dictionary<Type, IUIPanel> _PanelDict = new Dictionary<Type, IUIPanel>();
     private List<IUIPanel> _Panels = new List<IUIPanel>();
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         CollectPanels();
     }
 

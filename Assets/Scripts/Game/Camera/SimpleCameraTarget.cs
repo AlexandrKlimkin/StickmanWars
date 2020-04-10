@@ -1,21 +1,32 @@
-﻿using UnityEngine;
+﻿using KlimLib.SignalBus;
+using UnityDI;
+using UnityEngine;
 
-namespace Rendering
+namespace Game.CameraTools
 {
-    public class SimpleCameraTarget : MonoBehaviour, ICameraTarget
-    {
+    public class SimpleCameraTarget : MonoBehaviour, ICameraTarget {
+        [Dependency]
+        private readonly SignalBus _SignalBus;
+
         public Vector3 Position => transform.position;
         public Vector3 Velocity => Vector3.zero;
         public float Direction => 0f;
 
         private void Start()
         {
-            GameCameraBehaviour.Instance.Targets.Add(this);
+            ContainerHolder.Container.BuildUp(this);
+            _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, true));
+            _SignalBus.Subscribe<GameCameraSpawnedSignal>(OnGameCameraSpawn, this);
         }
 
         private void OnDestroy()
         {
-            GameCameraBehaviour.Instance?.Targets.Remove(this);
+            _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, false));
         }
+
+        private void OnGameCameraSpawn(GameCameraSpawnedSignal signal) {
+            _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, true));
+        }
+
     }
 }

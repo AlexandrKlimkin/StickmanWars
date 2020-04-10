@@ -6,10 +6,15 @@ using Character.Control;
 using Character.Health;
 using Character.Movement;
 using Character.Shooting;
-using Rendering;
+using Game.CameraTools;
+using KlimLib.SignalBus;
 using UnityEngine;
+using UnityDI;
 
 public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
+    [Dependency]
+    private readonly SignalBus _SignalBus;
+
     public PlayerController PlayerController { get; private set; }
     public MovementController MovementController { get; private set; }
     public WeaponController WeaponController { get; private set; }
@@ -32,9 +37,10 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
 
     private void Start()
     {
+        ContainerHolder.Container.BuildUp(this); //Todo: Move to player spawn service
         MaxHealth = 100f;//Todo: Config
         Health = MaxHealth;
-        GameCameraBehaviour.Instance.Targets.Add(this);
+        _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, true)); //Todo: Move to player spawn service
         Units.Add(this);
     }
 
@@ -65,7 +71,8 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
 
     private void OnDestroy()
     {
-        GameCameraBehaviour.Instance?.Targets.Remove(this);
+        _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, false));
+        _SignalBus.UnSubscribeFromAll(this);
         Units.Remove(this);
     }
 }

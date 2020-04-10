@@ -3,7 +3,7 @@ using UnityEngine;
 using Tools;
 
 namespace Tools.Unity {
-    public class UnityEventProvider : SingletonBehaviour<UnityEventProvider> {
+    public class UnityEventProvider : MonoBehaviour {
         public event Action OnUpdate = () => { };
         public event Action OnFixedUpdate = () => { };
         public event Action<bool> OnAppPause = _ => { };

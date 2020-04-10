@@ -1,15 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using KlimLib.SignalBus;
 using Tools;
+using UnityDI;
 using UnityEditor;
 using UnityEngine;
 
-namespace Rendering
+namespace Game.CameraTools
 {
-    public class GameCameraBehaviour : SingletonBehaviour<GameCameraBehaviour>
-    {
-        public List<ICameraTarget> Targets { get; private set; }
+    public class GameCameraBehaviour : MonoBehaviour {
+        [Dependency]
+        private readonly SignalBus _SignalBus;
+
+        public IReadOnlyList<ICameraTarget> Targets => _Targets;
+        private List<ICameraTarget> _Targets;
         public float PositionDamping;
         public float SizeDamping;
         public Vector2 RigthDownOffset;
@@ -23,34 +28,25 @@ namespace Rendering
         private Camera _Camera;
         private Rect _ResultRect;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
             _Camera = GetComponent<Camera>();
-            Targets = new List<ICameraTarget>();
+            _Targets = new List<ICameraTarget>();
+        }
+
+        protected void Start() {
+            _SignalBus.Subscribe<GameCameraTargetsChangeSignal>(OnCameraTargetsChange, this);
         }
 
         private void Update()
         {
             if (Targets == null || Targets.Count == 0)
                 return;
-            //ClearTargets();
             _ResultRect = TargetsRect();
             _ResultRect = RectWithOffsets(_ResultRect);
             CalculateSize();
             CalculatePosition();
         }
-
-        //private void ClearTargets()
-        //{
-        //    for (var i = 0; i < Targets.Count; i++)
-        //    {
-        //        var target = Targets[i];
-        //        if (target as MonoBehaviour) continue;
-        //        Targets.Remove(target);
-        //        i--;
-        //    }
-        //}
 
         private void CalculatePosition()
         {
@@ -116,10 +112,26 @@ namespace Rendering
             return newRect;
         }
 
+        private void OnCameraTargetsChange(GameCameraTargetsChangeSignal signal) {
+            foreach (var pair in signal.Pairs) {
+                if(pair.Item2)
+                    _Targets.Add(pair.Item1);
+                else {
+                    if (_Targets.Contains(pair.Item1))
+                        _Targets.Remove(pair.Item1);
+                }
+            }
+        }
+
         private void OnDrawGizmos()
         {
             MyGizmos.DrawRect(_ResultRect);
             Gizmos.color = Color.gray;
+        }
+
+        private void OnDestroy() {
+            _SignalBus.UnSubscribeFromAll(this);
+            ContainerHolder.Container.Unregister<GameCameraBehaviour>();
         }
     }
 }

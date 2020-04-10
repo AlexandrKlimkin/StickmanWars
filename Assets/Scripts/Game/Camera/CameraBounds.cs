@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Rendering
-{
+namespace Game.CameraTools {
     public class CameraBounds : MonoBehaviour
     {
         [SerializeField] private Vector2 _Position;

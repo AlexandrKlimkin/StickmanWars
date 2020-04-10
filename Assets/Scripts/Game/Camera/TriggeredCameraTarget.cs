@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Tools;
+using Game.CameraTools;
 using Game.LevelSpecial;
+using KlimLib.SignalBus;
+using UnityDI;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,28 +15,38 @@ namespace Rendering
     {
         public List<UnitTrigger> Triggers;
         public float TriggerOutTime;
-
         public Vector3 Position => transform.position;
         public Vector3 Velocity => Vector3.zero;
         public float Direction => 0f;
-
         private float _TriggerOutTimer = 0f;
+
+        [Dependency]
+        private GameCameraBehaviour _CameraBehaviour;
+        [Dependency]
+        private readonly SignalBus _SignalBus;
+
+        private void Start() {
+            ContainerHolder.Container.BuildUp(this);
+            _SignalBus.Subscribe<GameCameraSpawnedSignal>(OnCameraSpawned, this);
+        }
 
         private void Update()
         {
+            if(_CameraBehaviour == null)
+                return;
             if (Triggers.Any(_ => _.ContainsUnit()))
             {
-                if (!GameCameraBehaviour.Instance.Targets.Contains(this)) {
-                    GameCameraBehaviour.Instance.Targets.Add(this);
+                if (!_CameraBehaviour.Targets.Contains(this)) {
+                    _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, true));
                 }
                 _TriggerOutTimer = 0f;
             }
             else
             {
-                if (GameCameraBehaviour.Instance.Targets.Contains(this)) {
+                if (_CameraBehaviour.Targets.Contains(this)) {
                     if (_TriggerOutTimer >= TriggerOutTime)
                     {
-                        GameCameraBehaviour.Instance.Targets.Remove(this);
+                        _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, false));
                     }
                     else
                     {
@@ -40,6 +54,10 @@ namespace Rendering
                     }
                 }
             }
+        }
+
+        private void OnCameraSpawned(GameCameraSpawnedSignal signal) {
+            _CameraBehaviour = signal.Camera;
         }
     }
 }
