@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Initialization.Base;
 using Core.Initialization.Game;
+using Core.Services.Game;
 using KlimLib.ResourceLoader;
 using KlimLib.SignalBus;
 using KlimLib.TaskQueueLib;
@@ -16,6 +17,8 @@ namespace Core.Initialization {
             };
 
         public static List<Task> GameTasks => new List<Task> {
+            new RegisterAndLoadServiceTask<CharacterSpawnService>(),
+
             new WaitForAwakesTask(),
             new GameCameraSpawnTask(),
         };
