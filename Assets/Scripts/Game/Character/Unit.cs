@@ -15,7 +15,6 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
     [Dependency]
     private readonly SignalBus _SignalBus;
 
-    public PlayerController PlayerController { get; private set; }
     public MovementController MovementController { get; private set; }
     public WeaponController WeaponController { get; private set; }
 
@@ -29,7 +28,6 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
 
     private void Awake()
     {
-        PlayerController = GetComponent<PlayerController>();
         MovementController = GetComponent<MovementController>();
         WeaponController = GetComponent<WeaponController>();
         Collider = GetComponent<Collider2D>();

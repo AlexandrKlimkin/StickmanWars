@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,19 @@ namespace Assets.Scripts.Tools {
 
         public static Vector3 TransformPointUnscaled(Transform t, Vector3 point) {
             return t.position + t.rotation * point;
+        }
+    }
+
+    public static class IEnumerableExtentions {
+        public static string ToStringInternal(this IEnumerable collection) {
+            var str = "";
+            var count = 0;
+            foreach (var element in collection) {
+                str += $" {element}";
+                count++;
+            }
+            str += $". Total elements: {count}";
+            return str;
         }
     }
 }

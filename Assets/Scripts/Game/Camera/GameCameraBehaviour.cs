@@ -21,7 +21,7 @@ namespace Game.CameraTools
         public Vector2 LeftUpOffstet;
         public float MinSize = 50f;
         public float VelocityOffsetMultiplier;
-        public CameraBounds CameraBounds;
+        private CameraBounds _CameraBounds;
 
         public float Zoom => _Camera.orthographicSize;
 
@@ -48,14 +48,18 @@ namespace Game.CameraTools
             CalculatePosition();
         }
 
+        public void SetBounds(CameraBounds bounds) {
+            _CameraBounds = bounds;
+        }
+
         private void CalculatePosition()
         {
             var targetpos = new Vector3(_ResultRect.center.x, _ResultRect.center.y, -100f);
 
-            var left = CameraBounds.Rect.xMin;
-            var right = CameraBounds.Rect.xMax;
-            var up = CameraBounds.Rect.yMin;
-            var down = CameraBounds.Rect.yMax;
+            var left = _CameraBounds.Rect.xMin;
+            var right = _CameraBounds.Rect.xMax;
+            var up = _CameraBounds.Rect.yMin;
+            var down = _CameraBounds.Rect.yMax;
             var width = _Camera.orthographicSize * _Camera.aspect;
             var x = targetpos.x;
             var y = targetpos.y;
@@ -79,8 +83,8 @@ namespace Game.CameraTools
             var height = _ResultRect.height;
             var targetSize = width / height > aspect ? width / _Camera.aspect : height;
             targetSize *= 0.5f;
-            var maxSizeHor = CameraBounds.Rect.size.x / (2f * _Camera.aspect);
-            var maxSizeVert = CameraBounds.Rect.size.y / 2f;
+            var maxSizeHor = _CameraBounds.Rect.size.x / (2f * _Camera.aspect);
+            var maxSizeVert = _CameraBounds.Rect.size.y / 2f;
             var maxSize = Mathf.Min(maxSizeHor, maxSizeVert);
 
             targetSize = Mathf.Clamp(targetSize, MinSize, maxSize);

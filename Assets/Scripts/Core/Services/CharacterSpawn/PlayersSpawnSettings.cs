@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityDI;
+using UnityEngine;
+
+namespace Core.Services.Game {
+    public class PlayersSpawnSettings : MonoBehaviour {
+
+        public List<PlayerSpawnPointData> PlayerSpawnPoints;
+
+        private void Awake() {
+            ContainerHolder.Container.RegisterInstance(this);
+        }
+    }
+
+    [Serializable]
+    public class PlayerSpawnPointData {
+        public int Id;
+        public Transform Point;
+    }
+}
