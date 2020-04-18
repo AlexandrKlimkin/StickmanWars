@@ -27,9 +27,8 @@ namespace Core.Initialization {
             }.Concat(GameTasks).ToList();
 
         public static List<Task> GameTasks => new List<Task> {
-            new RegisterAndLoadServiceTask<CharacterSpawnService>(),
-
             new WaitForAwakesTask(),
+            new RegisterAndLoadServiceTask<CharacterSpawnService>(),
             new GameCameraSpawnTask(),
         };
     }

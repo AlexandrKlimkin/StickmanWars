@@ -14,16 +14,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _InputKits:
   - Id: 0
-    Horizontal: Horizontal1
-    Vertical: Vertical1
+    Horizontal: Horizontal0
+    Vertical: Vertical0
     Attack1: 323
     Attack2: 324
     Jump: 32
     ThrowOutWeapon: 99
   - Id: 1
+    Horizontal: Horizontal1
+    Vertical: Vertical1
+    Attack1: 352
+    Attack2: 351
+    Jump: 350
+    ThrowOutWeapon: 353
+  - Id: 2
     Horizontal: Horizontal2
     Vertical: Vertical2
-    Attack1: 332
-    Attack2: 331
-    Jump: 330
-    ThrowOutWeapon: 333
+    Attack1: 372
+    Attack2: 371
+    Jump: 370
+    ThrowOutWeapon: 373
+  - Id: 3
+    Horizontal: Horizontal3
+    Vertical: Vertical3
+    Attack1: 392
+    Attack2: 391
+    Jump: 390
+    ThrowOutWeapon: 393
+  - Id: 4
+    Horizontal: Horizontal4
+    Vertical: Vertical4
+    Attack1: 412
+    Attack2: 411
+    Jump: 410
+    ThrowOutWeapon: 413
