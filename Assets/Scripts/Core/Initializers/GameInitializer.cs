@@ -6,6 +6,6 @@ using UnityEngine;
 
 namespace Core.Initialization {
     public class GameInitializer : InitializerBase {
-        protected override List<Task> SpecialTasks => InitializationParameters.GameTasks;
+        protected override List<Task> SpecialTasks => InitializationParameters.BaseGameTasks;
     }
 }

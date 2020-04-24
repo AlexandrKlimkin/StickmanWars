@@ -24,7 +24,7 @@ namespace Game.Match {
         }
 
         public void AddPlayer(PlayerData player) {
-
+            _MatchData.Players.Add(player);
         }
     }
 }

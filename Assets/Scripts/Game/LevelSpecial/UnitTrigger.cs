@@ -7,6 +7,7 @@ namespace Game.LevelSpecial
     public class UnitTrigger : MonoBehaviour
     {
         private readonly List<Unit> _UnitsInscide = new List<Unit>();
+        public IReadOnlyList<Unit> UnitsInside => _UnitsInscide;
 
         public bool ContainsUnit()
         {
@@ -18,21 +19,28 @@ namespace Game.LevelSpecial
             return _UnitsInscide.Contains(unit);
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+        protected virtual void OnTriggerEnter2D(Collider2D col)
         {
             var unit = col.gameObject.GetComponent<Unit>();
-            if (unit && !_UnitsInscide.Contains(unit))
-            {
-                _UnitsInscide.Add(unit);
-            }
+            if (!unit || _UnitsInscide.Contains(unit))
+                return;
+            OnUnitEnterTheTrigger(unit);
         }
 
-        private void OnTriggerExit2D(Collider2D col)
+        protected virtual void OnTriggerExit2D(Collider2D col)
         {
             var unit = col.gameObject.GetComponent<Unit>();
-            if (unit && _UnitsInscide.Contains(unit)) {
-                _UnitsInscide.Remove(unit);
-            }
+            if (!unit || !_UnitsInscide.Contains(unit))
+                return;
+            OnUnitExitTheTrigger(unit);
+        }
+
+        public virtual void OnUnitEnterTheTrigger(Unit unit) {
+            _UnitsInscide.Add(unit);
+        }
+
+        public virtual void OnUnitExitTheTrigger(Unit unit) {
+            _UnitsInscide.Remove(unit);
         }
     }
 }
