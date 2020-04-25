@@ -12,9 +12,6 @@ namespace MapSelection {
         [SerializeField]
         private SceneType _SceneType;
 
-        [Dependency]
-        private readonly SignalBus _SignalBus;
-
         protected override LoadLvlTriggerInteractionSignal CreateSignal(Unit unit, bool enter) {
             return new LoadLvlTriggerInteractionSignal(unit, enter, UnitsInside.Count, _SceneType);
         }

@@ -12,7 +12,12 @@ namespace Core.Initialization {
 
         protected abstract List<Task> SpecialTasks { get; }
 
+        protected static bool _InitializationRequested;
+
         private void Awake() {
+            if(_InitializationRequested)
+                return;
+            _InitializationRequested = true;
             InitializationParameters.BaseTasks
                 .Concat(SpecialTasks)
                 .ToList()

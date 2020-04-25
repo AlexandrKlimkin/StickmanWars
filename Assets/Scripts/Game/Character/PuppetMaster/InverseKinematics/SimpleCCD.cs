@@ -62,6 +62,8 @@ public class SimpleCCD : MonoBehaviour
     public void UpdateRemotely() {
         if (!Application.isPlaying)
             Start();
+        if (_NodeCache == null)
+            return;
         if (Target == null || EndTransform == null)
             return;
         for (var i = 0; i < Iterations; i++)

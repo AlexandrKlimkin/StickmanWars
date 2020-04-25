@@ -25,24 +25,34 @@ namespace Core.Initialization {
                 new RegisterAndLoadServiceTask<ControllersStatusService>(),
             };
 
-        public static List<Task> MapSelectionTasks =>
+        public static List<Task> MapSelectionLoadTasks =>
+            BaseGameTasks
+                .Concat(
+                    new List<Task> {
+                        new RegisterAndLoadServiceTask<PlayersConnectionService>(),
+                        new MapSelectionUISpawnTask(),
+                        new RegisterAndLoadServiceTask<GameLevelLoadService>(),
+                        new GameCameraSpawnTask(),
+                    })
+                .ToList();
+
+        public static List<Task> MapSelectionUnloadTasks => new List<Task>() {
+
+            new UnregisterAndUnloadServiceTask<GameLevelLoadService>(),
+            //new UnregisterAndUnloadServiceTask<PlayersConnectionService>(),
+        };
+
+        public static List<Task> BaseGameTasks =>
             new List<Task> {
-                new RegisterAndLoadServiceTask<MatchService>(),
-                new RegisterAndLoadServiceTask<PlayersConnectionService>(),
-                new MapSelectionUISpawnTask(),
-
                 new WaitForAwakesTask(),
-
-                new RegisterAndLoadServiceTask<GameLevelLoadService>(),
-                new RegisterAndLoadServiceTask<CharacterSpawnService>(),
-                new GameCameraSpawnTask(),
+                new RegisterAndLoadServiceTask<MatchService>(),
+                new RegisterAndLoadServiceTask<CharacterCreationService>(),
             };
 
-        public static List<Task> BaseGameTasks => new List<Task> {
+        public static List<Task> GameLoadTasks => new List<Task> {
             new WaitForAwakesTask(),
-
-            new RegisterAndLoadServiceTask<CharacterSpawnService>(),
             new GameCameraSpawnTask(),
+            new RegisterAndLoadServiceTask<CharacterSpawnService>(),
         };
     }
 }

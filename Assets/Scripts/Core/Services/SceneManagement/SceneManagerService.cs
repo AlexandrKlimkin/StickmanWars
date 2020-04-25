@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Core.Services;
 using KlimLib.TaskQueueLib;
+using Tools.Unity;
+using UnityDI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Core.Services.SceneManagement {
     public class SceneManagerService : ILoadableService {
+
+        [Dependency]
+        private readonly UnityEventProvider _EventProvider;
 
         private Dictionary<SceneType, SceneLoadingParameters> _SceneLoadingParametersMap = new Dictionary<SceneType, SceneLoadingParameters>() {
             { SceneType.MapSelection, new MapSelectionLoadingParameters() },
@@ -26,30 +32,36 @@ namespace Core.Services.SceneManagement {
 
         public void LoadScene(SceneType scene) {
             var activeScene = ActiveScene;
-            if(activeScene == scene)
+            if (activeScene == scene)
                 return;
-            var oldSceneParameters = _SceneLoadingParametersMap[activeScene];
-            var newParameters = _SceneLoadingParametersMap[scene];
+            _EventProvider.StartCoroutine(LoadSceneRoutine(scene, activeScene));
+        }
+
+        private IEnumerator LoadSceneRoutine(SceneType newScene, SceneType currentScene) {
+            var oldSceneParameters = _SceneLoadingParametersMap[currentScene];
+            var newParameters = _SceneLoadingParametersMap[newScene];
             oldSceneParameters.BeforeUnload();
             oldSceneParameters.UnloadingTasks.RunTasksListAsQueue(
                 () => {
-                    OnSceneUnloadSuccess(activeScene);
-                    oldSceneParameters.AfterUnload(); 
+                    OnSceneUnloadSuccess(currentScene);
+                    oldSceneParameters.AfterUnload();
                 },
                 (task, e) => {
-                    OnSceneUnloadFail(scene);
+                    OnSceneUnloadFail(newScene);
                     Debug.LogError($"{task} task failed with {e}");
                 },
                 null);
             newParameters.BeforeLoad();
-            SceneManager.LoadScene(scene.ToString());
+            SceneManager.LoadScene(newScene.ToString());
+            yield return null;
+            yield return null;
             newParameters.LoadingTasks.RunTasksListAsQueue(
                 () => {
-                    OnSceneLoadSuccess(scene);
+                    OnSceneLoadSuccess(newScene);
                     newParameters.AfterLoad();
                 },
                 (task, e) => {
-                    OnSceneLoadFail(scene);
+                    OnSceneLoadFail(newScene);
                     Debug.LogError($"{task} task failed with {e}");
                 },
                 null);

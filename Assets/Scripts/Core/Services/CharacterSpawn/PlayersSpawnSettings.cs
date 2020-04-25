@@ -11,6 +11,10 @@ namespace Core.Services.Game {
         private void Awake() {
             ContainerHolder.Container.RegisterInstance(this);
         }
+
+        private void OnDestroy() {
+            ContainerHolder.Container.Unregister(GetType());
+        }
     }
 
     [Serializable]

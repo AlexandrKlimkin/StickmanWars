@@ -3,6 +3,6 @@ using KlimLib.TaskQueueLib;
 
 namespace Core.Initialization {
     public class MapSelectionInitializer : InitializerBase {
-        protected override List<Task> SpecialTasks => InitializationParameters.MapSelectionTasks;
+        protected override List<Task> SpecialTasks => InitializationParameters.MapSelectionLoadTasks;
     }
 }

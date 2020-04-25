@@ -21,6 +21,7 @@ namespace Core.Initialization.Game {
             var camera = _ResourceLoader.LoadResourceOnScene<GameCameraBehaviour>(Path.Resources.GameCamera, _CameraSettings.SpawnTransform.position, _CameraSettings.SpawnTransform.rotation);
             ContainerHolder.Container.RegisterInstance(camera);
             ContainerHolder.Container.BuildUp(camera);
+            camera.Initialize();
             camera.SetBounds(_CameraSettings.CameraBounds);
             _SignalBus.FireSignal(new GameCameraSpawnedSignal(camera));
         }

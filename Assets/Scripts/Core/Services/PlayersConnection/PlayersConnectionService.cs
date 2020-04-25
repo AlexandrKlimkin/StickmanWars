@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Services;
 using Core.Services.Controllers;
 using Game.Match;
@@ -21,6 +22,10 @@ namespace Core.Services.Game {
         private readonly ControllersStatusService _ControllersStatusService;
         [Dependency]
         private readonly SignalBus _SignalBus;
+        [Dependency]
+        private readonly PlayersSpawnSettings _PlayersSpawnSettings;
+        [Dependency]
+        private readonly CharacterCreationService _CharacterCreationService;
 
         private byte _AllocatedId;
 
@@ -38,6 +43,10 @@ namespace Core.Services.Game {
         public void Unload() {
             _EventProvider.OnUpdate -= ProcessPlayersConnect;
             _SignalBus.UnSubscribeFromAll(this);
+        }
+
+        public int GetDeviceIndex(byte playerId) {
+            return _DeviceLocalPlayerDict.First(_ => _.Value.PlayerId == playerId).Key;
         }
 
         private void OnGamepadStatusChanged(GamepadStatusChangedSignal signal) { }
@@ -64,6 +73,8 @@ namespace Core.Services.Game {
             _DeviceLocalPlayerDict.Add(deviceId, player);
             _MatchService.AddPlayer(player);
             _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, deviceId));
+            var spawnPoint = _PlayersSpawnSettings.PlayerSpawnPoints[player.PlayerId].Point;
+            _CharacterCreationService.CreateCharacter(player.CharacterId, true, deviceId, spawnPoint.position);
             Debug.LogError($"player {player.Nickname} spawned");
         }
 

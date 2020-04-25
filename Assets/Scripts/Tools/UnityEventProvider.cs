@@ -9,6 +9,10 @@ namespace Tools.Unity {
         public event Action<bool> OnAppPause = _ => { };
         public event Action OnAppQuit = () => { };
 
+        private void Awake() {
+            DontDestroyOnLoad(this);
+        }
+
         private void Update() {
             OnUpdate.Invoke();
         }

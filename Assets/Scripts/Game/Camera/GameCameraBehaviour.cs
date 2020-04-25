@@ -34,10 +34,6 @@ namespace Game.CameraTools
             _Targets = new List<ICameraTarget>();
         }
 
-        protected void Start() {
-            _SignalBus.Subscribe<GameCameraTargetsChangeSignal>(OnCameraTargetsChange, this);
-        }
-
         private void Update()
         {
             if (Targets == null || Targets.Count == 0)
@@ -46,6 +42,10 @@ namespace Game.CameraTools
             _ResultRect = RectWithOffsets(_ResultRect);
             CalculateSize();
             CalculatePosition();
+        }
+
+        public void Initialize() {
+            _SignalBus.Subscribe<GameCameraTargetsChangeSignal>(OnCameraTargetsChange, this);
         }
 
         public void SetBounds(CameraBounds bounds) {
