@@ -2,6 +2,7 @@
 using System.Linq;
 using Core.Initialization.Base;
 using Core.Initialization.Game;
+using Core.Initialization.MapSelection;
 using Core.Services;
 using Core.Services.Controllers;
 using Core.Services.Game;
@@ -10,6 +11,7 @@ using Game.Match;
 using KlimLib.ResourceLoader;
 using KlimLib.SignalBus;
 using KlimLib.TaskQueueLib;
+using MapSelection;
 
 namespace Core.Initialization {
     public static class InitializationParameters {
@@ -24,13 +26,21 @@ namespace Core.Initialization {
             };
 
         public static List<Task> MapSelectionTasks =>
-            new List<Task>() {
+            new List<Task> {
                 new RegisterAndLoadServiceTask<MatchService>(),
                 new RegisterAndLoadServiceTask<PlayersConnectionService>(),
-            }.Concat(BaseGameTasks).ToList();
+                new MapSelectionUISpawnTask(),
+
+                new WaitForAwakesTask(),
+
+                new RegisterAndLoadServiceTask<GameLevelLoadService>(),
+                new RegisterAndLoadServiceTask<CharacterSpawnService>(),
+                new GameCameraSpawnTask(),
+            };
 
         public static List<Task> BaseGameTasks => new List<Task> {
             new WaitForAwakesTask(),
+
             new RegisterAndLoadServiceTask<CharacterSpawnService>(),
             new GameCameraSpawnTask(),
         };

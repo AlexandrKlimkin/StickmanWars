@@ -3,35 +3,34 @@ using System.Collections.Generic;
 using Core.Services.SceneManagement;
 using Game.LevelSpecial;
 using Game.Match;
+using KlimLib.SignalBus;
 using UnityDI;
 using UnityEngine;
 
 namespace MapSelection {
-    public class LoadLvlTrigger : UnitTrigger {
-
-        public SceneType SceneToLoad;
+    public class LoadLvlTrigger : UnitTriggerSignalBroadcaster<LoadLvlTriggerInteractionSignal> {
+        [SerializeField]
+        private SceneType _SceneType;
 
         [Dependency]
-        private readonly SceneManagerService _SceneManager;
-        [Dependency]
-        private readonly MatchData _MatchData;
+        private readonly SignalBus _SignalBus;
 
-        private void Start() {
-            ContainerHolder.Container.BuildUp(GetType(), this);
+        protected override LoadLvlTriggerInteractionSignal CreateSignal(Unit unit, bool enter) {
+            return new LoadLvlTriggerInteractionSignal(unit, enter, UnitsInside.Count, _SceneType);
         }
+    }
 
-        public override void OnUnitEnterTheTrigger(Unit unit) {
-            base.OnUnitEnterTheTrigger(unit);
-            if(!AllSpawnedUnitsInTrigger)
-                return;
-            _SceneManager.LoadScene(SceneToLoad);
+    public struct LoadLvlTriggerInteractionSignal {
+        public Unit Unit;
+        public bool Enter;
+        public int TotalUnitsInsde;
+        public SceneType SceneType;
+
+        public LoadLvlTriggerInteractionSignal(Unit unit, bool enter, int unitsInside, SceneType sceneType) {
+            this.Unit = unit;
+            this.Enter = enter;
+            this.TotalUnitsInsde = unitsInside;
+            this.SceneType = sceneType;
         }
-
-        public override void OnUnitExitTheTrigger(Unit unit) {
-            base.OnUnitExitTheTrigger(unit);
-        }
-
-        private bool AllSpawnedUnitsInTrigger => UnitsInside.Count >= _MatchData.Players.Count;
-
     }
 }
