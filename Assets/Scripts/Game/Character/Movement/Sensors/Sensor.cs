@@ -16,6 +16,8 @@ namespace Character.Movement
         private Vector3 _Direction;
         [SerializeField]
         private LayerMask _LayerMask;
+        [SerializeField]
+        private bool _InteractTriggers;
 
         public float Radius => _Radius;
         public  bool IsTouching { get; private set; }
@@ -26,7 +28,7 @@ namespace Character.Movement
 
         private void Awake()
         {
-            _Filter = new ContactFilter2D { useLayerMask = true, layerMask = _LayerMask, useTriggers = true};
+            _Filter = new ContactFilter2D { useLayerMask = true, layerMask = _LayerMask, useTriggers = _InteractTriggers };
         }
 
         private void Update()

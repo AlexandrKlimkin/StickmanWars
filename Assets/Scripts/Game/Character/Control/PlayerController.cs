@@ -30,7 +30,7 @@ namespace Character.Control {
         private void Start() {
             _InputKit = InputConfig.Instance.GetSettings(Id);
             _Camera = Camera.main;
-            _AimProvider = _InputKit.Id == 1
+            _AimProvider = _InputKit.Id == 0
                 ? (IAimProvider) new MouseAim(_Camera)
                 : new JoystickAim(_WeaponController.NearArmShoulder, _MovementController, _InputKit.Horizontal, _InputKit.Vertical);
         }

@@ -43,9 +43,9 @@ namespace Character.Movement.Modules
         {
             SetDirection();
             _TargetXVelocity = 0f;
-            if (_WalkData.Horizontal > 0.99f)
+            if (_WalkData.Horizontal > 0.15f)
                 _TargetXVelocity = _Parameters.Speed;
-            else if (_WalkData.Horizontal < -0.99f)
+            else if (_WalkData.Horizontal < -0.15f)
                 _TargetXVelocity = -_Parameters.Speed;
             else
                 _WalkData.Horizontal = 0;
