@@ -7,10 +7,10 @@ namespace Character.Health
     public class Damage
     {
         public float Amount;
-        public Unit Instigator; //Todo: Id
+        public CharacterUnit Instigator; //Todo: Id
         public Vector2 Force;
 
-        public Damage(Unit instigator, float amount)
+        public Damage(CharacterUnit instigator, float amount)
         {
             this.Instigator = instigator;
             this.Amount = amount;

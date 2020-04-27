@@ -18,8 +18,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public void EndGame()
     {
-        UIManager.Instance.SetActivePanel<GameEndPanel>();
-        Time.timeScale = 0;
+        //UIManager.Instance.SetActivePanel<GameEndPanel>();
+        //Time.timeScale = 0;
     }
 
 }

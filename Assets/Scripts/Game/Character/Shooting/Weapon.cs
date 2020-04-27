@@ -7,7 +7,7 @@ namespace Character.Shooting
 {
     public abstract class Weapon : MonoBehaviour
     {
-        public Unit Owner { get; protected set; }
+        public CharacterUnit Owner { get; protected set; }
         public WeaponView WeaponView { get; protected set; }
 
         public abstract WeaponInputProcessor InputProcessor { get; }
@@ -42,7 +42,7 @@ namespace Character.Shooting
             Owner = null;
         }
 
-        public virtual void PickUp(Unit pickuper) {
+        public virtual void PickUp(CharacterUnit pickuper) {
             Owner = pickuper;
             WeaponView.PickUp(pickuper.WeaponController.NearArmFist);
         }

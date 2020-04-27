@@ -10,7 +10,7 @@ namespace CharacterConstruction
     {
         private enum AxisType { Up, Down, Middle }
 
-        public override Unit ConstructUnit(string unitId)
+        public override CharacterUnit ConstructUnit(string unitId)
         {
             var root = new GameObject(unitId).transform;
             var sizeData = GenerateSizeData(unitId);
@@ -150,7 +150,7 @@ namespace CharacterConstruction
             legDownBackJoint.useLimits = true;
             legDownBackJoint.limits = new JointAngleLimits2D { min = -5f, max = 150f };
 
-            var unit = root.gameObject.AddComponent<Unit>();
+            var unit = root.gameObject.AddComponent<CharacterUnit>();
             unit.gameObject.AddComponent<Removecollision>();
             return unit;
         }

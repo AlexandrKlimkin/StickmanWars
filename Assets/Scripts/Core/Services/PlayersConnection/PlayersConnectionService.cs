@@ -74,7 +74,7 @@ namespace Core.Services.Game {
             _MatchService.AddPlayer(player);
             _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, deviceId));
             var spawnPoint = _PlayersSpawnSettings.PlayerSpawnPoints[player.PlayerId].Point;
-            _CharacterCreationService.CreateCharacter(player.CharacterId, true, deviceId, spawnPoint.position);
+            _CharacterCreationService.CreateCharacter(player.CharacterId, player.PlayerId, true, deviceId, spawnPoint.position);
             Debug.LogError($"player {player.Nickname} spawned");
         }
 

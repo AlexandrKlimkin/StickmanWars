@@ -20,18 +20,19 @@ namespace Core.Services.Game {
             _SignalBus.UnSubscribeFromAll(this);
         }
 
-        public Unit CreateCharacter(string characterId, bool isLocalPlayer, int deviceId, Vector3 pos) {
+        public CharacterUnit CreateCharacter(string characterId, byte playerId, bool isLocalPlayer, int deviceId, Vector3 pos) {
             var path = Path.Resources.CharacterPath(characterId);
-            var unit = _ResourceLoader.LoadResourceOnScene<Unit>(path, pos, Quaternion.identity);
+            var unit = _ResourceLoader.LoadResourceOnScene<CharacterUnit>(path, pos, Quaternion.identity);
             ContainerHolder.Container.BuildUp(unit);
             if (isLocalPlayer) {
                 SetupLocalPlayerComponents(unit, deviceId);
             }
+            unit.Initialize(playerId, characterId);
             _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(unit, true));
             return unit;
         }
 
-        private void SetupLocalPlayerComponents(Unit character, int deviceId) {
+        private void SetupLocalPlayerComponents(CharacterUnit character, int deviceId) {
             var playerController = character.GetComponent<PlayerController>();
             playerController.Id = deviceId;
         }

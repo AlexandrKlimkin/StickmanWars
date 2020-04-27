@@ -7,18 +7,18 @@ public class CharacterAnimationController : MonoBehaviour
 {
     private Animator Animator;
     private MovementController _MovementController;
-    private Unit _Unit;
+    private CharacterUnit _CharacterUnit;
 
     private void Awake()
     {
         Animator = GetComponent<Animator>();
         _MovementController = GetComponentInParent<MovementController>();
-        _Unit = GetComponentInParent<Unit>();
+        _CharacterUnit = GetComponentInParent<CharacterUnit>();
     }
 
     private void Start()
     {
-        _Unit.OnApplyDamage += this.OnApplyDamage;
+        _CharacterUnit.OnApplyDamage += this.OnApplyDamage;
     }
 
     private void OnApplyDamage() {

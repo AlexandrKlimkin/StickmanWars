@@ -15,13 +15,13 @@ namespace Character.Shooting
 
         public bool HasWeapon => Weapon != null;
 
-        public Unit Owner { get; private set; }
+        public CharacterUnit Owner { get; private set; }
 
         public WeaponPicker WeaponPicker { get; private set; }
 
         private void Awake()
         {
-            Owner = GetComponent<Unit>();
+            Owner = GetComponent<CharacterUnit>();
             WeaponPicker = GetComponentInChildren<WeaponPicker>();
         }
 

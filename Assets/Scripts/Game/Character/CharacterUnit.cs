@@ -11,18 +11,21 @@ using KlimLib.SignalBus;
 using UnityEngine;
 using UnityDI;
 
-public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
+public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     [Dependency]
     private readonly SignalBus _SignalBus;
 
     public MovementController MovementController { get; private set; }
     public WeaponController WeaponController { get; private set; }
 
-    public static List<Unit> Units = new List<Unit>();
+    public static List<CharacterUnit> Characters = new List<CharacterUnit>();
 
     public float Health { get; private set; }
     public float MaxHealth { get; private set; }
     public bool Dead { get; private set; }
+
+    public byte OwnerId { get; private set; }
+    public string CharacterId { get; private set; }
 
     public event Action OnApplyDamage;
 
@@ -35,7 +38,7 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
     private void Start() {
         MaxHealth = 100f; //Todo: Config
         Health = MaxHealth;
-        Units.Add(this);
+        Characters.Add(this);
     }
 
     public Collider2D Collider { get; set; }
@@ -56,14 +59,20 @@ public class Unit : MonoBehaviour, IDamageable, ICameraTarget {
         OnApplyDamage?.Invoke();
     }
 
+    public void Initialize(byte ownerId, string characterId) {
+        OwnerId = ownerId;
+        CharacterId = characterId;
+    }
+
     private void Kill() {
         Dead = true;
+        _SignalBus.FireSignal(new CharacterDeathSignal(OwnerId, CharacterId));
         Destroy(gameObject); //ToDo: something different
     }
 
     private void OnDestroy() {
         _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, false));
         _SignalBus.UnSubscribeFromAll(this);
-        Units.Remove(this);
+        Characters.Remove(this);
     }
 }

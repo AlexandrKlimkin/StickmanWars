@@ -12,19 +12,19 @@ namespace MapSelection {
         [SerializeField]
         private SceneType _SceneType;
 
-        protected override LoadLvlTriggerInteractionSignal CreateSignal(Unit unit, bool enter) {
-            return new LoadLvlTriggerInteractionSignal(unit, enter, UnitsInside.Count, _SceneType);
+        protected override LoadLvlTriggerInteractionSignal CreateSignal(CharacterUnit characterUnit, bool enter) {
+            return new LoadLvlTriggerInteractionSignal(characterUnit, enter, UnitsInside.Count, _SceneType);
         }
     }
 
     public struct LoadLvlTriggerInteractionSignal {
-        public Unit Unit;
+        public CharacterUnit CharacterUnit;
         public bool Enter;
         public int TotalUnitsInsde;
         public SceneType SceneType;
 
-        public LoadLvlTriggerInteractionSignal(Unit unit, bool enter, int unitsInside, SceneType sceneType) {
-            this.Unit = unit;
+        public LoadLvlTriggerInteractionSignal(CharacterUnit characterUnit, bool enter, int unitsInside, SceneType sceneType) {
+            this.CharacterUnit = characterUnit;
             this.Enter = enter;
             this.TotalUnitsInsde = unitsInside;
             this.SceneType = sceneType;

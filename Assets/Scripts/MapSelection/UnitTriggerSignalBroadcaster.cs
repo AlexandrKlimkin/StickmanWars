@@ -10,16 +10,16 @@ namespace Game.LevelSpecial {
             ContainerHolder.Container.BuildUp(GetType(), this);
         }
 
-        protected override void OnUnitEnterTheTrigger(Unit unit) {
-            base.OnUnitEnterTheTrigger(unit);
-            _SignalBus.FireSignal(CreateSignal(unit, true));
+        protected override void OnUnitEnterTheTrigger(CharacterUnit characterUnit) {
+            base.OnUnitEnterTheTrigger(characterUnit);
+            _SignalBus.FireSignal(CreateSignal(characterUnit, true));
         }
 
-        protected override void OnUnitExitTheTrigger(Unit unit) {
-            base.OnUnitExitTheTrigger(unit);
-            _SignalBus.FireSignal(CreateSignal(unit, false));
+        protected override void OnUnitExitTheTrigger(CharacterUnit characterUnit) {
+            base.OnUnitExitTheTrigger(characterUnit);
+            _SignalBus.FireSignal(CreateSignal(characterUnit, false));
         }
 
-        protected abstract T CreateSignal(Unit unit, bool enter);
+        protected abstract T CreateSignal(CharacterUnit characterUnit, bool enter);
     }
 }

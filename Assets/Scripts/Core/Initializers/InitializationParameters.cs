@@ -52,7 +52,7 @@ namespace Core.Initialization {
         public static List<Task> GameLoadTasks => new List<Task> {
             new WaitForAwakesTask(),
             new GameCameraSpawnTask(),
-            new RegisterAndLoadServiceTask<CharacterSpawnService>(),
+            new RegisterAndLoadServiceTask<RespawnModeService>(),
         };
     }
 }

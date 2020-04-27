@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Tools;
+using UnityDI;
 using UnityEngine;
 
-public class UIManager : SingletonBehaviour<UIManager>
+public class UIManager : MonoBehaviour
 {
     private Dictionary<Type, IUIPanel> _PanelDict = new Dictionary<Type, IUIPanel>();
     private List<IUIPanel> _Panels = new List<IUIPanel>();
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         CollectPanels();
     }
 
@@ -42,5 +42,9 @@ public class UIManager : SingletonBehaviour<UIManager>
         DeactivateAll();
         panel.Activate();
         return panel;
+    }
+
+    private void OnDestroy() {
+        ContainerHolder.Container.Unregister<UIManager>();
     }
 }
