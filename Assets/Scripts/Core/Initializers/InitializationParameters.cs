@@ -32,7 +32,7 @@ namespace Core.Initialization {
                         new RegisterAndLoadServiceTask<PlayersConnectionService>(),
                         new MapSelectionUISpawnTask(),
                         new RegisterAndLoadServiceTask<GameLevelLoadService>(),
-                        new GameCameraSpawnTask(),
+                        //new GameCameraSpawnTask(),
                     })
                 .ToList();
 
