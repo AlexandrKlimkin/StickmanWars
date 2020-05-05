@@ -9,7 +9,7 @@ public class WeaponView : MonoBehaviour
     public GameObject CollidersContainer;
 
     private List<Collider2D> _Colliders = new List<Collider2D>();
-    private Vector3 _StartlocalScale;
+    private float _StartXScaleSign;
 
     public Rigidbody2D Rigidbody { get; private set; }
 
@@ -21,7 +21,7 @@ public class WeaponView : MonoBehaviour
 
     private void Start()
     {
-        _StartlocalScale = transform.localScale;
+        _StartXScaleSign = Mathf.Sign(transform.lossyScale.x);
     }
 
     public void PickUp(Transform place)
@@ -29,7 +29,7 @@ public class WeaponView : MonoBehaviour
         Rigidbody.simulated = false;
         CollidersContainer.SetActive(false);
         transform.SetParent(place);
-        transform.localScale = _StartlocalScale;
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * _StartXScaleSign, transform.localScale.y, transform.localScale.z);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         StopAllCoroutines();

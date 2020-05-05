@@ -70,13 +70,13 @@ namespace Character.Movement.Modules
 
         public bool WallJump() {
             if (_WallSlideData.RightTouch) {
-                var vector = new Vector2(-1, 1).normalized;
+                var vector = new Vector2(-1, 1.15f).normalized;
                 CommonData.ObjRigidbody.velocity = vector * _Parameters.WallJumpSpeed;
                 _JumpData.LastWallJumpTime = Time.time;
                 return true;
             }
             if (_WallSlideData.LeftTouch) {
-                var vector = new Vector2(1, 1).normalized;
+                var vector = new Vector2(1, 1.15f).normalized;
                 CommonData.ObjRigidbody.velocity = vector * _Parameters.WallJumpSpeed;
                 _JumpData.LastWallJumpTime = Time.time;
                 return true;
