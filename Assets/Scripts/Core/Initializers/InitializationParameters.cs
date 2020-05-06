@@ -37,7 +37,6 @@ namespace Core.Initialization {
                 .ToList();
 
         public static List<Task> MapSelectionUnloadTasks => new List<Task>() {
-
             new UnregisterAndUnloadServiceTask<GameLevelLoadService>(),
             //new UnregisterAndUnloadServiceTask<PlayersConnectionService>(),
         };
@@ -51,8 +50,19 @@ namespace Core.Initialization {
 
         public static List<Task> GameLoadTasks => new List<Task> {
             new WaitForAwakesTask(),
+            new GameUISpawnTask(),
+            new RegisterAndLoadServiceTask<GameManagerService>(),
             new GameCameraSpawnTask(),
             new RegisterAndLoadServiceTask<RespawnModeService>(),
+            new RegisterAndLoadServiceTask<ObjectsSpawnService>(),
+        };
+
+        public static List<Task> GameUnloadTasks => new List<Task>() {
+            new UnregisterAndUnloadServiceTask<ObjectsSpawnService>(),
+            new UnregisterAndUnloadServiceTask<RespawnModeService>(),
+            new UnregisterAndUnloadServiceTask<GameManagerService>(),
+            new UnregisterAndUnloadServiceTask<MatchService>(),
+            new UnregisterAndUnloadServiceTask<PlayersConnectionService>(),
         };
     }
 }

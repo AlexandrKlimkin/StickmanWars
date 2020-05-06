@@ -14,7 +14,7 @@ namespace Core.Services.SceneManagement {
         [Dependency]
         private readonly UnityEventProvider _EventProvider;
 
-        private Dictionary<SceneType, SceneLoadingParameters> _SceneLoadingParametersMap = new Dictionary<SceneType, SceneLoadingParameters>() {
+        private readonly Dictionary<SceneType, SceneLoadingParameters> _SceneLoadingParametersMap = new Dictionary<SceneType, SceneLoadingParameters>() {
             { SceneType.MapSelection, new MapSelectionLoadingParameters() },
             { SceneType.CityCrane, new GameLoadingParameters() },
         };
@@ -34,34 +34,28 @@ namespace Core.Services.SceneManagement {
             var activeScene = ActiveScene;
             if (activeScene == scene)
                 return;
-            _EventProvider.StartCoroutine(LoadSceneRoutine(scene, activeScene));
-        }
-
-        private IEnumerator LoadSceneRoutine(SceneType newScene, SceneType currentScene) {
-            var oldSceneParameters = _SceneLoadingParametersMap[currentScene];
-            var newParameters = _SceneLoadingParametersMap[newScene];
+            var oldSceneParameters = _SceneLoadingParametersMap[activeScene];
+            var newParameters = _SceneLoadingParametersMap[scene];
             oldSceneParameters.BeforeUnload();
             oldSceneParameters.UnloadingTasks.RunTasksListAsQueue(
                 () => {
-                    OnSceneUnloadSuccess(currentScene);
+                    OnSceneUnloadSuccess(activeScene);
                     oldSceneParameters.AfterUnload();
+                    newParameters.BeforeLoad();
+                    SceneManager.LoadScene(scene.ToString());
+                    newParameters.LoadingTasks.RunTasksListAsQueue(
+                        () => {
+                            OnSceneLoadSuccess(scene);
+                            newParameters.AfterLoad();
+                        },
+                        (task, e) => {
+                            OnSceneLoadFail(scene);
+                            Debug.LogError($"{task} task failed with {e}");
+                        },
+                        null);
                 },
                 (task, e) => {
-                    OnSceneUnloadFail(newScene);
-                    Debug.LogError($"{task} task failed with {e}");
-                },
-                null);
-            newParameters.BeforeLoad();
-            SceneManager.LoadScene(newScene.ToString());
-            yield return null;
-            yield return null;
-            newParameters.LoadingTasks.RunTasksListAsQueue(
-                () => {
-                    OnSceneLoadSuccess(newScene);
-                    newParameters.AfterLoad();
-                },
-                (task, e) => {
-                    OnSceneLoadFail(newScene);
+                    OnSceneUnloadFail(scene);
                     Debug.LogError($"{task} task failed with {e}");
                 },
                 null);

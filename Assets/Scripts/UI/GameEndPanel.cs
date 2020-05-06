@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Core.Services.Game;
+using UnityDI;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Game
 {
-    public class GameEndPanel : UIPanel
-    {
+    public class GameEndPanel : UIPanel {
+        [Dependency]
+        private readonly GameManagerService _GameManagerService;
+
         public Button RestartPanel;
 
         private void Start()
@@ -16,8 +20,8 @@ namespace UI.Game
 
         private void Restart()
         {
-            GameManager.Instance.RestartLevel();
+            ContainerHolder.Container.BuildUp(this);
+            _GameManagerService.RestartGame();
         }
-
     }
 }

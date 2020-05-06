@@ -17,7 +17,7 @@ namespace Game.Match {
         }
 
         public void Unload() {
-
+            ContainerHolder.Container.Unregister<MatchData>();
         }
 
         public void AddPlayer(PlayerData player) {

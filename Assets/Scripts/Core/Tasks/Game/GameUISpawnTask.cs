@@ -5,6 +5,7 @@ using UnityDI;
 
 namespace Core.Initialization.Game {
     public class GameUISpawnTask : AutoCompletedTask {
+        [Dependency]
         private readonly IResourceLoaderService _ResourceLoader;
 
         protected override void AutoCompletedRun() {

@@ -21,24 +21,32 @@ namespace Core.Services.Game {
         private readonly MatchService _MatchService;
         [Dependency]
         private readonly SignalBus _SignalBus;
+        [Dependency]
+        private readonly GameManagerService _GameManager;
 
         private Dictionary<byte, int> _PlayersLifesDict;
 
-        public const int PlayerLifes = 3;
+        private int PlayersAlive => AlivePlayers.Count;
+
+        private List<byte> AlivePlayers => _PlayersLifesDict.Where(_ => _.Value > 0).Select(_=>_.Key).ToList();
+
+        public const int PlayerLifes = 2;
 
         public void Load() {
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
+            InitializeNewMatch();
             SpawnAllAtTheBegining();
         }
 
         public void Unload() {
-            _SignalBus.UnSubscribeFromAll(this);
+            _SignalBus.UnSubscribe<CharacterDeathSignal>(this);
         }
 
         public void InitializeNewMatch() {
             _PlayersLifesDict = new Dictionary<byte, int>();
             foreach (var player in _MatchData.Players) {
                 _PlayersLifesDict.Add(player.PlayerId, PlayerLifes);
+                Debug.LogError(this.GetHashCode());
             }
         }
 
@@ -64,9 +72,9 @@ namespace Core.Services.Game {
         }
 
         private void OnCharacterDeath(CharacterDeathSignal signal) {
-            var lifesLeft = _PlayersLifesDict[signal.PlayerId];
-            lifesLeft--;
-            if (lifesLeft > 0) {
+            Debug.LogError(this.GetHashCode());
+            _PlayersLifesDict[signal.PlayerId]--;
+            if (_PlayersLifesDict[signal.PlayerId] > 0) {
                 var respawnPoint = GetRandomCheckpointIndex();
                 SpawnPlayerCharacter(signal.PlayerId, respawnPoint);
             }
@@ -76,7 +84,16 @@ namespace Core.Services.Game {
         }
 
         private void PlayerDefeated(byte playerId) {
+            Debug.LogError($"Player {playerId} defeated.");
+            if (PlayersAlive <= 1) {
+                EndMatch();
+            }
+        }
 
+        private void EndMatch() {
+            _SignalBus.FireSignal(new MatchEndSignal());
+            _GameManager.EndGame();
+            Debug.LogError(PlayersAlive > 0 ? $"Match end. Player {AlivePlayers.First()} win!" : $"Match end.");
         }
 
         private int GetRandomCheckpointIndex() {
