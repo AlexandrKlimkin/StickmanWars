@@ -69,7 +69,7 @@ namespace Core.Services.Game {
             if (_PlayersLimitReached)
                 return;
             var id = AllocateId();
-            var player = new PlayerData(id, id.ToString(), false, id, "Robot");
+            var player = new PlayerData(id, id.ToString(), false, id, "Yuri");
             _DeviceLocalPlayerDict.Add(deviceId, player);
             _MatchService.AddPlayer(player);
             _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, deviceId));
