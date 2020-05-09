@@ -23,8 +23,6 @@ namespace Core.Services.Game {
         [Dependency]
         private readonly SignalBus _SignalBus;
         [Dependency]
-        private readonly PlayersSpawnSettings _PlayersSpawnSettings;
-        [Dependency]
         private readonly CharacterCreationService _CharacterCreationService;
 
         private byte _AllocatedId;
@@ -68,17 +66,14 @@ namespace Core.Services.Game {
                 return;
             if (_PlayersLimitReached)
                 return;
-            var id = AllocateId();
-            var player = new PlayerData(id, id.ToString(), false, id, "Yuri");
+            var id = AllocatePlayerId();
+            var player = new PlayerData(id, id.ToString(), false, id, null);
             _DeviceLocalPlayerDict.Add(deviceId, player);
             _MatchService.AddPlayer(player);
             _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, deviceId));
-            var spawnPoint = _PlayersSpawnSettings.PlayerSpawnPoints[player.PlayerId].Point;
-            _CharacterCreationService.CreateCharacter(player.CharacterId, player.PlayerId, true, deviceId, spawnPoint.position);
-            Debug.LogError($"player {player.Nickname} spawned");
         }
 
-        private byte AllocateId() {
+        private byte AllocatePlayerId() {
             var id = _AllocatedId;
             _AllocatedId++;
             return id;

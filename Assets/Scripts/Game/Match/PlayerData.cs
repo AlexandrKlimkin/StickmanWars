@@ -17,5 +17,9 @@ namespace Game.Match {
             this.TeamIndex = teamIndex;
             this.CharacterId = characterId;
         }
+
+        public void SelectCharacter(string characterId) {
+            CharacterId = characterId;
+        }
     }
 }
