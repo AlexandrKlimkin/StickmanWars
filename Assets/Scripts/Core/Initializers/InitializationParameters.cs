@@ -35,7 +35,7 @@ namespace Core.Initialization {
                         new RegisterAndLoadServiceTask<CharacterSelectionService>(),
                         new MapSelectionUISpawnTask(),
                         new RegisterAndLoadServiceTask<GameLevelLoadService>(),
-                        new GameCameraSpawnTask(),
+                        //new GameCameraSpawnTask(),
                     })
                 .ToList();
 
