@@ -8,4 +8,10 @@ public static partial class Utils {
         }
         return collection;
     }
+
+    public static bool IsNullOrEmpty<T>(this ICollection<T> collection) {
+        if (collection == null || collection.Count == 0)
+            return true;
+        return false;
+    }
 }

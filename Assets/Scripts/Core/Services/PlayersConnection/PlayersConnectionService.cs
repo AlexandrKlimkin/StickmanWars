@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Services;
 using Core.Services.Controllers;
 using Game.Match;
+using InputSystem;
 using KlimLib.SignalBus;
 using Tools.Services;
 using Tools.Unity;
@@ -24,7 +25,10 @@ namespace Core.Services.Game {
         private readonly SignalBus _SignalBus;
         [Dependency]
         private readonly CharacterCreationService _CharacterCreationService;
+        [Dependency]
+        private readonly PlayersSpawnSettings _SpawnSettings;
 
+        private InputConfig _InputConfig => InputConfig.Instance;
         private byte _AllocatedId;
 
         private Dictionary<int, PlayerData> _DeviceLocalPlayerDict = new Dictionary<int, PlayerData>();
@@ -43,8 +47,8 @@ namespace Core.Services.Game {
             _SignalBus.UnSubscribeFromAll(this);
         }
 
-        public int GetDeviceIndex(byte playerId) {
-            return _DeviceLocalPlayerDict.First(_ => _.Value.PlayerId == playerId).Key;
+        public int? GetDeviceIndex(byte playerId) {
+            return _DeviceLocalPlayerDict.FirstOrDefault(_ => _.Value.PlayerId == playerId).Key;
         }
 
         private void OnGamepadStatusChanged(GamepadStatusChangedSignal signal) { }
@@ -52,11 +56,9 @@ namespace Core.Services.Game {
         private void ProcessPlayersConnect() {
             if (_PlayersLimitReached)
                 return;
-            TryToAddPlayer(KeyCode.Space, 0);
-            TryToAddPlayer(KeyCode.Joystick1Button0, 1);
-            TryToAddPlayer(KeyCode.Joystick2Button0, 2);
-            TryToAddPlayer(KeyCode.Joystick3Button0, 3);
-            TryToAddPlayer(KeyCode.Joystick4Button0, 4);
+            foreach (var input in _InputConfig.InputKitsDict) {
+                TryToAddPlayer(input.Value.Select, input.Key);
+            }
         }
 
         private void TryToAddPlayer(KeyCode keyCode, int deviceId) {

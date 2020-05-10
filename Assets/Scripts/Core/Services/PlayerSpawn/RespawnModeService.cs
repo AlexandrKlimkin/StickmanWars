@@ -56,12 +56,12 @@ namespace Core.Services.Game {
                 var randomPointIndex = Random.Range(0, availablePoints.Count);
                 var point = availablePoints[randomPointIndex];
                 availablePoints.Remove(point);
-                _CharacterCreationService.CreateCharacter(player.CharacterId, player.PlayerId, true, _PlayersConnectionService.GetDeviceIndex(player.PlayerId), point.Point.position);
+                _CharacterCreationService.CreateCharacter(player.CharacterId, player.PlayerId, true, _PlayersConnectionService.GetDeviceIndex(player.PlayerId).Value, point.Point.position);
             }
         }
 
         private void SpawnPlayerCharacter(PlayerData playerData, int pointIndex) {
-            var deviceIndex = _PlayersConnectionService.GetDeviceIndex(playerData.PlayerId);
+            var deviceIndex = _PlayersConnectionService.GetDeviceIndex(playerData.PlayerId).Value;
             var pos = _PlayersSpawnSettings.PlayerSpawnPoints[pointIndex].Point.position;
             _CharacterCreationService.CreateCharacter(playerData.CharacterId, playerData.PlayerId, true, deviceIndex, pos);
         }

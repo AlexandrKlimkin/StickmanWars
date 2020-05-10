@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e673b60a1a79da4f9d0caa86159f12a, type: 3}
+  m_Name: CharacterConfig
+  m_EditorClassIdentifier: 
+  _Characters:
+  - Name: Robot
+    AvatarPath: Previews/Characters/Robot_preview
+  - Name: Yuri
+    AvatarPath: Previews/Characters/Yuri_preview

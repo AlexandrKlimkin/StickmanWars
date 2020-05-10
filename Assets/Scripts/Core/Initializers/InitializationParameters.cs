@@ -6,12 +6,14 @@ using Core.Initialization.MapSelection;
 using Core.Services;
 using Core.Services.Controllers;
 using Core.Services.Game;
+using Core.Services.MapSelection;
 using Core.Services.SceneManagement;
 using Game.Match;
 using KlimLib.ResourceLoader;
 using KlimLib.SignalBus;
 using KlimLib.TaskQueueLib;
 using MapSelection;
+using UI.Markers;
 
 namespace Core.Initialization {
     public static class InitializationParameters {
@@ -30,6 +32,7 @@ namespace Core.Initialization {
                 .Concat(
                     new List<Task> {
                         new RegisterAndLoadServiceTask<PlayersConnectionService>(),
+                        new RegisterAndLoadServiceTask<CharacterSelectionService>(),
                         new MapSelectionUISpawnTask(),
                         new RegisterAndLoadServiceTask<GameLevelLoadService>(),
                         new GameCameraSpawnTask(),
@@ -38,11 +41,14 @@ namespace Core.Initialization {
 
         public static List<Task> MapSelectionUnloadTasks => new List<Task>() {
             new UnregisterAndUnloadServiceTask<GameLevelLoadService>(),
+            new UnregisterAndUnloadServiceTask<MarkerService>(),
+            new UnregisterAndUnloadServiceTask<CharacterSelectionService>(),
             //new UnregisterAndUnloadServiceTask<PlayersConnectionService>(),
         };
 
         public static List<Task> BaseGameTasks =>
             new List<Task> {
+                new RegisterAndLoadServiceTask<MarkerService>(),
                 new WaitForAwakesTask(),
                 new RegisterAndLoadServiceTask<MatchService>(),
                 new RegisterAndLoadServiceTask<CharacterCreationService>(),

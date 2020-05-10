@@ -10,6 +10,9 @@ namespace InputSystem {
         private Dictionary<int, InputKit> _InputKitsDict;
         private bool _Initialized;
 
+        public IReadOnlyList<InputKit> InputKits => _InputKits;
+        public IReadOnlyDictionary<int, InputKit> InputKitsDict => _InputKitsDict;
+
         private void OnEnable() {
             Initialize(true);
         }

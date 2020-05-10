@@ -15,7 +15,15 @@ namespace Core.Initialization {
         protected static bool _InitializationRequested;
 
         private void Awake() {
-            if(_InitializationRequested)
+            Initialize();
+        }
+
+        private void OnEnable() {
+            Initialize();
+        }
+
+        private void Initialize() {
+            if (_InitializationRequested)
                 return;
             _InitializationRequested = true;
             InitializationParameters.BaseTasks

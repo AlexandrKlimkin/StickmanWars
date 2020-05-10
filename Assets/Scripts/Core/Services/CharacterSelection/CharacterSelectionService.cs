@@ -3,6 +3,7 @@ using System.Linq;
 using Core.Services.Game;
 using Game.Match;
 using KlimLib.SignalBus;
+using MapSelection;
 using Tools.Services;
 using UnityDI;
 using UnityEngine;
@@ -32,17 +33,18 @@ namespace Core.Services.MapSelection {
             _SignalBus.Subscribe<PlayerConnectedSignal>(OnPlayerConnected, this);
         }
 
-        public void Unload() { }
+        public void Unload() {
+            _SignalBus.UnSubscribeFromAll(this);
+        }
 
         public void SelectCharacter(byte playerId, string characterId) {
             var player = _MatchService.GetPlayerData(playerId);
             player.SelectCharacter(characterId);
-            var deviceId = _PlayersConnectionService.GetDeviceIndex(playerId);
+            var deviceId = _PlayersConnectionService.GetDeviceIndex(playerId).Value;
             var spawnPoint = _PlayersSpawnSettings.PlayerSpawnPoints[player.PlayerId].Point;
             _CharacterCreationService.CreateCharacter(player.CharacterId, player.PlayerId, true, deviceId, spawnPoint.position);
             Debug.LogError($"player {player.Nickname} spawned");
         }
-
 
 
         private void OnPlayerConnected(PlayerConnectedSignal signal) {
