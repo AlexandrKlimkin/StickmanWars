@@ -25,6 +25,7 @@ namespace Core.Initialization {
                 new UnityEventProviderRegisterTask(),
                 new RegisterAndLoadServiceTask<SceneManagerService>(),
                 new RegisterAndLoadServiceTask<ControllersStatusService>(),
+                new RegisterAndLoadServiceTask<MarkerService>(),
             };
 
         public static List<Task> MapSelectionLoadTasks =>
@@ -41,14 +42,13 @@ namespace Core.Initialization {
 
         public static List<Task> MapSelectionUnloadTasks => new List<Task>() {
             new UnregisterAndUnloadServiceTask<GameLevelLoadService>(),
-            new UnregisterAndUnloadServiceTask<MarkerService>(),
+            //new UnregisterAndUnloadServiceTask<MarkerService>(),
             new UnregisterAndUnloadServiceTask<CharacterSelectionService>(),
             //new UnregisterAndUnloadServiceTask<PlayersConnectionService>(),
         };
 
         public static List<Task> BaseGameTasks =>
             new List<Task> {
-                new RegisterAndLoadServiceTask<MarkerService>(),
                 new WaitForAwakesTask(),
                 new RegisterAndLoadServiceTask<MatchService>(),
                 new RegisterAndLoadServiceTask<CharacterCreationService>(),

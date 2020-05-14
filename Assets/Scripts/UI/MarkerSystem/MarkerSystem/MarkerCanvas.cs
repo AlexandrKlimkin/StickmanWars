@@ -33,10 +33,10 @@ namespace UI.Markers {
         //}
 
         private void OnEnable() {
-            _MarkerService.RegisterCanvas(this);
+            _MarkerService?.RegisterCanvas(this);
         }
         private void OnDisable() {
-            _MarkerService.UnregisterCanvas(this);
+            _MarkerService?.UnregisterCanvas(this);
         }
 
         public virtual bool CheckCompatability(MarkerProvider provider) {

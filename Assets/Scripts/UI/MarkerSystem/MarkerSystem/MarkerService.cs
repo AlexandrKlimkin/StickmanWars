@@ -2,12 +2,13 @@
 using System.Linq;
 using System.Collections.Generic;
 using Core.Services;
+using Tools.Services;
 using UnityDI;
 using Tools.Unity;
 
 namespace UI.Markers {
 
-    public class MarkerService : ILoadableService {
+    public class MarkerService : ILoadableService, IUnloadableService {
 
         [Dependency]
         private UnityEventProvider _UnityEventProvider;
@@ -70,6 +71,10 @@ namespace UI.Markers {
 
         public void Load() {
             _UnityEventProvider.StartCoroutine(UpdateMarkerProviders());
+        }
+
+        public void Unload() {
+            _UnityEventProvider.StopCoroutine(UpdateMarkerProviders());
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Core.Services.Game;
 using Game.Match;
 using KlimLib.SignalBus;
@@ -24,11 +23,6 @@ namespace Core.Services.MapSelection {
         [Dependency]
         private readonly PlayersConnectionService _PlayersConnectionService;
 
-        private List<string> _AvailableCharacters = new List<string>() {
-            "Robot",
-            "Yuri",
-        };
-
         public void Load() {
             _SignalBus.Subscribe<PlayerConnectedSignal>(OnPlayerConnected, this);
         }
@@ -43,7 +37,7 @@ namespace Core.Services.MapSelection {
             var deviceId = _PlayersConnectionService.GetDeviceIndex(playerId).Value;
             var spawnPoint = _PlayersSpawnSettings.PlayerSpawnPoints[player.PlayerId].Point;
             _CharacterCreationService.CreateCharacter(player.CharacterId, player.PlayerId, true, deviceId, spawnPoint.position);
-            Debug.LogError($"player {player.Nickname} spawned");
+            Debug.Log($"player {player.PlayerId} charcacter {player.CharacterId} spawned");
         }
 
 

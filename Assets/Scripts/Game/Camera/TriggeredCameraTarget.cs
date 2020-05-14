@@ -20,7 +20,6 @@ namespace Rendering
         public float Direction => 0f;
         private float _TriggerOutTimer = 0f;
 
-        [Dependency]
         private GameCameraBehaviour _CameraBehaviour;
         [Dependency]
         private readonly SignalBus _SignalBus;

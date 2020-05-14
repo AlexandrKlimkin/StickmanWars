@@ -12,7 +12,7 @@ namespace Core.Services.Controllers {
             this.GamepadId = gamepadId;
             this.Status = status;
             this.Index = index;
-            Debug.LogError($"{gamepadId} {status} {index}");
+            Debug.Log($"{gamepadId} {status} {index}");
         }
     }
 

@@ -7,6 +7,7 @@ namespace Core.Services.Game {
     public class PlayersSpawnSettings : MonoBehaviour {
 
         public List<PlayerSpawnPointData> PlayerSpawnPoints;
+        public List<PlayerSpawnPointData> PlayerRespawnPoints;
 
         private void Awake() {
             ContainerHolder.Container.RegisterInstance(this);

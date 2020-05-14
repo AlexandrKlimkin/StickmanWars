@@ -51,6 +51,11 @@ namespace Core.Services.Game {
             return _DeviceLocalPlayerDict.FirstOrDefault(_ => _.Value.PlayerId == playerId).Key;
         }
 
+        public bool PlayerConnected(byte playerId, out int? deviceIndex) {
+            deviceIndex = GetDeviceIndex(playerId);
+            return deviceIndex != null;
+        }
+
         private void OnGamepadStatusChanged(GamepadStatusChangedSignal signal) { }
 
         private void ProcessPlayersConnect() {
@@ -72,6 +77,7 @@ namespace Core.Services.Game {
             var player = new PlayerData(id, id.ToString(), false, id, null);
             _DeviceLocalPlayerDict.Add(deviceId, player);
             _MatchService.AddPlayer(player);
+            Debug.Log($"player {player.PlayerId} connected");
             _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, deviceId));
         }
 

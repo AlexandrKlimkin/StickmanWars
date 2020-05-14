@@ -66,7 +66,8 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
 
     private void Kill() {
         Dead = true;
-        _SignalBus.FireSignal(new CharacterDeathSignal(OwnerId, CharacterId));
+        Debug.Log($"Player {OwnerId} character {CharacterId} dead.");
+        _SignalBus.FireSignal(new CharacterDeathSignal(OwnerId, CharacterId)); //ToDo: Move to service
         Destroy(gameObject); //ToDo: something different
     }
 
