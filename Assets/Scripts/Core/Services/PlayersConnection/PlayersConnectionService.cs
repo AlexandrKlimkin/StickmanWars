@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Character.Control;
 using Core.Services;
 using Core.Services.Controllers;
+using Core.Services.SceneManagement;
 using Game.Match;
 using InputSystem;
 using KlimLib.SignalBus;
@@ -27,6 +29,8 @@ namespace Core.Services.Game {
         private readonly CharacterCreationService _CharacterCreationService;
         [Dependency]
         private readonly PlayersSpawnSettings _SpawnSettings;
+        [Dependency]
+        private readonly SceneManagerService _SceneManagerService;
 
         private InputConfig _InputConfig => InputConfig.Instance;
         private byte _AllocatedId;
@@ -38,8 +42,16 @@ namespace Core.Services.Game {
         public const int MaxPlayerCount = 4;
 
         public void Load() {
-            _EventProvider.OnUpdate += ProcessPlayersConnect;
+            if (!_SceneManagerService.IsGameScene)
+                _EventProvider.OnUpdate += ProcessPlayersConnect;
             _SignalBus.Subscribe<GamepadStatusChangedSignal>(OnGamepadStatusChanged, this);
+
+            foreach (var player in _MatchData.Players) {
+                var unit = CharacterUnit.Characters.FirstOrDefault(_ => _.OwnerId == player.PlayerId);
+                if(unit == null)
+                    continue;
+                FillDeviceIndexForce(unit.GetComponent<PlayerController>().Id, player);
+            }
         }
 
         public void Unload() {
@@ -54,6 +66,10 @@ namespace Core.Services.Game {
         public bool PlayerConnected(byte playerId, out int? deviceIndex) {
             deviceIndex = GetDeviceIndex(playerId);
             return deviceIndex != null;
+        }
+
+        private void FillDeviceIndexForce(int deviceId, PlayerData player) {
+            _DeviceLocalPlayerDict.Add(deviceId, player);
         }
 
         private void OnGamepadStatusChanged(GamepadStatusChangedSignal signal) { }

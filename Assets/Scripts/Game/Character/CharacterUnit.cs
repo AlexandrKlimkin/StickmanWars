@@ -25,7 +25,7 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     public bool Dead { get; private set; }
 
     public byte OwnerId { get; private set; }
-    public string CharacterId { get; private set; }
+    public string CharacterId;
 
     public event Action OnApplyDamage;
 
@@ -60,6 +60,7 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     }
 
     public void Initialize(byte ownerId, string characterId) {
+        ContainerHolder.Container.BuildUp(this);
         OwnerId = ownerId;
         CharacterId = characterId;
     }
@@ -67,13 +68,13 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     private void Kill() {
         Dead = true;
         Debug.Log($"Player {OwnerId} character {CharacterId} dead.");
-        _SignalBus.FireSignal(new CharacterDeathSignal(OwnerId, CharacterId)); //ToDo: Move to service
+        _SignalBus?.FireSignal(new CharacterDeathSignal(OwnerId, CharacterId)); //ToDo: Move to service
         Destroy(gameObject); //ToDo: something different
     }
 
     private void OnDestroy() {
-        _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, false));
-        _SignalBus.UnSubscribeFromAll(this);
+        _SignalBus?.FireSignal(new GameCameraTargetsChangeSignal(this, false));
+        _SignalBus?.UnSubscribeFromAll(this);
         Characters.Remove(this);
     }
 }

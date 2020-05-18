@@ -23,7 +23,6 @@ namespace Core.Services.Game {
         public CharacterUnit CreateCharacter(string characterId, byte playerId, bool isLocalPlayer, int deviceId, Vector3 pos) {
             var path = Path.Resources.CharacterPath(characterId);
             var unit = _ResourceLoader.LoadResourceOnScene<CharacterUnit>(path, pos, Quaternion.identity);
-            ContainerHolder.Container.BuildUp(unit);
             if (isLocalPlayer) {
                 SetupLocalPlayerComponents(unit, deviceId);
             }

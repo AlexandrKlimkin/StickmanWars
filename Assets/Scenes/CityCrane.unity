@@ -9228,6 +9228,90 @@ MonoBehaviour:
   BigGear: {fileID: 1475987070}
   SmallGear: {fileID: 1112651356}
   CraneMan: {fileID: 219068595}
+--- !u!1001 &650186088
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1719326976381403381, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_Name
+      value: Yuri
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403381, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -95.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403389, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: CharacterId
+      value: Yuri
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403391, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: Id
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 118a64c8662ec4c4c95bd68725756e6b, type: 3}
 --- !u!1 &650804978
 GameObject:
   m_ObjectHideFlags: 0

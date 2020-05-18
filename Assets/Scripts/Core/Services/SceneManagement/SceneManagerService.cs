@@ -26,6 +26,13 @@ namespace Core.Services.SceneManagement {
             }
         }
 
+        public bool IsGameScene {
+            get {
+                var scene = ActiveScene;
+                return ActiveScene == SceneType.CityCrane;
+            }
+        }
+
         public void Load() {
 
         }

@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
 using Core.Services;
+using KlimLib.SignalBus;
 using Tools.Services;
 using UnityDI;
 
 namespace Game.Match {
     public class MatchService : ILoadableService, IUnloadableService {
+
+        [Dependency]
+        private readonly SignalBus _SignalBus;
 
         private MatchData _MatchData;
 
@@ -32,6 +36,7 @@ namespace Game.Match {
         private void CreateNewMatch() {
             _MatchData = new MatchData(new List<PlayerData>());
             ContainerHolder.Container.RegisterInstance(_MatchData);
+            _SignalBus.FireSignal(new MatchDataCreatedSignal(_MatchData));
         }
     }
 }
