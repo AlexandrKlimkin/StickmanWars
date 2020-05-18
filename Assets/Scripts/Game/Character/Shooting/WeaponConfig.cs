@@ -12,6 +12,7 @@ namespace Character.Shooting
         public float ProjectileSpeed;
         public float Damage;
         public float HitForce;
+        public float RecoilForce;
         public int Magazine;
 
         public float RateOfFire;

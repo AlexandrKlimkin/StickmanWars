@@ -40,12 +40,6 @@ namespace Character.Shooting
             Weapon?.InputProcessor.Process(input);
         }
 
-        //public void Fire()
-        //{
-        //    if(HasWeapon)
-        //        Weapon.PerformShot();
-        //}
-
         public void ThrowOutWeapon()
         {
             if (HasWeapon) {

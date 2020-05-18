@@ -35,7 +35,7 @@ namespace Character.Shooting
 
         public override void PerformShot() {
             base.PerformShot();
-            if(_ShellEffectPoint == null)
+            if (_ShellEffectPoint == null)
                 return;
             if(string.IsNullOrEmpty(_ShellEffectName))
                 return;
@@ -44,5 +44,6 @@ namespace Character.Shooting
             effect.transform.rotation = _ShellEffectPoint.rotation;
             effect.Play();
         }
+
     }
 }

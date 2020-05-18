@@ -33,6 +33,7 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         MovementController = GetComponent<MovementController>();
         WeaponController = GetComponent<WeaponController>();
         Collider = GetComponent<Collider2D>();
+        Rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Start() {
@@ -42,6 +43,7 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     }
 
     public Collider2D Collider { get; set; }
+    public Rigidbody2D Rigidbody2D { get; set; }
 
     public Vector3 Position => transform.position;
     public Vector3 Velocity => MovementController.Velocity;
