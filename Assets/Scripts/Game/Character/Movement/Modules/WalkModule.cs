@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Character.Movement.Modules
-{
-    public class WalkModule : MovementModule
-    {
+namespace Character.Movement.Modules {
+    public class WalkModule : MovementModule {
         public float Direction => _WalkData.Direction;
 
         private GroundedData _GroundedData;
@@ -17,13 +15,11 @@ namespace Character.Movement.Modules
         public float Horizontal => _WalkData.Horizontal;
         private List<SimpleCCD> _SimpleCcds = new List<SimpleCCD>();
 
-        public WalkModule(WalkParameters parameters) : base()
-        {
+        public WalkModule(WalkParameters parameters) : base() {
             this._Parameters = parameters;
         }
 
-        public override void Start()
-        {
+        public override void Start() {
             _GroundedData = BB.Get<GroundedData>();
             _WallSlideData = BB.Get<WallSlideData>();
             _WalkData = BB.Get<WalkData>();
@@ -31,16 +27,14 @@ namespace Character.Movement.Modules
             _WalkData.Direction = 1;
         }
 
-        public override void FixedUpdate()
-        {
+        public override void FixedUpdate() {
             var xVelocity = CommonData.ObjRigidbody.velocity.x;
             var acceleration = _GroundedData.MainGrounded ? _Parameters.GroundAcceleration : _Parameters.AirAcceleration;
             xVelocity = Mathf.Lerp(xVelocity, _TargetXVelocity, Time.fixedDeltaTime * acceleration);
             CommonData.ObjRigidbody.velocity = new Vector2(xVelocity, CommonData.ObjRigidbody.velocity.y);
         }
 
-        public override void Update()
-        {
+        public override void Update() {
             SetDirection();
             _TargetXVelocity = 0f;
             if (_WalkData.Horizontal > 0.15f)
@@ -56,35 +50,16 @@ namespace Character.Movement.Modules
             Mathf.Clamp(_WalkData.Horizontal, -1f, 1f);
         }
 
-        private void SetDirection()
-        {
-            if (_WalkData.Horizontal != 0)
-            {
-                var newDir = _WalkData.Horizontal > 0 ? 1 : -1;
-                if (_WallSlideData.LeftTouch)
-                    newDir = -1;
-                else if (_WallSlideData.RightTouch)
-                    newDir = 1;
-                if (_WalkData.Direction != newDir)
-                    ChangeDirection(newDir);
-            }
+        private void SetDirection() {
+            if (_WalkData.Horizontal == 0)
+                return;
+            var newDir = _WalkData.Horizontal > 0 ? 1 : -1;
+            CommonData.MovementController.ChangeDirection(newDir);
         }
-
-        private void ChangeDirection(int newDir)
-        {
-            _WalkData.Direction = newDir;
-            var localScale = _Parameters.IkTransform.localScale;
-            var newLocalScale = new Vector3(newDir * Mathf.Abs(localScale.x), localScale.y, localScale.z);
-            _Parameters.IkTransform.localScale = newLocalScale;
-            //PuppetTransform.localScale = newLocalScale;
-            _SimpleCcds.ForEach(_ => _.ReflectNodes());
-        }
-
     }
 
     [Serializable]
-    public class WalkParameters
-    {
+    public class WalkParameters {
         public float Speed = 1f;
         public float GroundAcceleration = 1f;
         public float AirAcceleration = 1f;

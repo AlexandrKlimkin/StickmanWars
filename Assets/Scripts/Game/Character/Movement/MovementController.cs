@@ -6,8 +6,7 @@ using UnityEditor;
 using UnityEngine;
 
 namespace Character.Movement {
-    public class MovementController : MonoBehaviour
-    {
+    public class MovementController : MonoBehaviour {
         [SerializeField]
         private WalkParameters WalkParameters;
         [SerializeField]
@@ -30,6 +29,9 @@ namespace Character.Movement {
         private LedgeHangModule _LedgeHangModule;
         private Blackboard _Blackboard;
 
+        private WalkData _WalkData;
+        private List<SimpleCCD> _SimpleCcds = new List<SimpleCCD>();
+
         public Rigidbody2D Rigidbody { get; private set; }
         public Collider2D Collider { get; private set; }
 
@@ -49,16 +51,16 @@ namespace Character.Movement {
             Collider = GetComponent<Collider2D>();
         }
 
-        private void Start()
-        {
+        private void Start() {
             InitializeModules();
             SetupBlackboard();
             SetupCommon();
+            _WalkData = _Blackboard.Get<WalkData>();
+            Collider.gameObject.GetComponentsInChildren(_SimpleCcds);
             _MovementModules.ForEach(_ => _.Start());
         }
 
-        private void InitializeModules()
-        {
+        private void InitializeModules() {
             _MovementModules = new List<MovementModule>();
 
             _WalkModule = new WalkModule(WalkParameters);
@@ -76,31 +78,28 @@ namespace Character.Movement {
             _MovementModules.Add(_JumpModule);
         }
 
-        private void SetupBlackboard()
-        {
+        private void SetupBlackboard() {
             _Blackboard = new Blackboard();
-            _MovementModules.ForEach(_=>_.Initialize(_Blackboard));
+            _MovementModules.ForEach(_ => _.Initialize(_Blackboard));
         }
 
-        private void SetupCommon()
-        {
+        private void SetupCommon() {
             var commonData = _Blackboard.Get<CommonData>();
             commonData.ObjRigidbody = Rigidbody;
             commonData.ObjTransform = this.transform;
             commonData.Collider = Collider;
+            commonData.MovementController = this;
         }
 
         private void Update() {
             _MovementModules.ForEach(_ => _.Update());
         }
 
-        private void LateUpdate()
-        {
-            _MovementModules.ForEach(_=>_.LateUpdate());
+        private void LateUpdate() {
+            _MovementModules.ForEach(_ => _.LateUpdate());
         }
 
-        private void FixedUpdate()
-        {
+        private void FixedUpdate() {
             _MovementModules.ForEach(_ => _.FixedUpdate());
         }
 
@@ -108,8 +107,7 @@ namespace Character.Movement {
             _WalkModule.SetHorizontal(hor);
         }
 
-        public bool Jump()
-        {
+        public bool Jump() {
             return _JumpModule.Jump(this);
         }
 
@@ -117,8 +115,7 @@ namespace Character.Movement {
             _JumpModule.ContinueJump();
         }
 
-        public bool WallJump()
-        {
+        public bool WallJump() {
             return _JumpModule.WallJump();
         }
 
@@ -126,9 +123,29 @@ namespace Character.Movement {
             _JumpModule.ContinueWallJump();
         }
 
-        private void OnDrawGizmos()
-        {
+        private void OnDrawGizmos() { }
 
+        //private void SetDirection() {
+        //    if (_WalkData.Horizontal != 0) {
+        //        var newDir = _WalkData.Horizontal > 0 ? 1 : -1;
+        //        if (_WallSlideData.LeftTouch)
+        //            newDir = -1;
+        //        else if (_WallSlideData.RightTouch)
+        //            newDir = 1;
+        //        if (_WalkData.Direction != newDir)
+        //            ChangeDirection(newDir);
+        //    }
+        //}
+
+        public void ChangeDirection(int newDir) {
+            if (_WalkData.Direction == newDir)
+                return;
+            _WalkData.Direction = newDir;
+            var localScale = WalkParameters.IkTransform.localScale;
+            var newLocalScale = new Vector3(newDir * Mathf.Abs(localScale.x), localScale.y, localScale.z);
+            WalkParameters.IkTransform.localScale = newLocalScale;
+            //PuppetTransform.localScale = newLocalScale;
+            _SimpleCcds.ForEach(_ => _.ReflectNodes());
         }
 
     }

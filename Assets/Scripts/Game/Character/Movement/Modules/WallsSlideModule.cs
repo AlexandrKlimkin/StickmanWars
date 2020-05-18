@@ -26,11 +26,20 @@ namespace Character.Movement.Modules
         {
             _WallSlideData.WallRun = !_GroundedData.MainGrounded && (_WallSlideData.LeftTouch || _WallSlideData.RightTouch) && !_GroundedData.FallingDown && !_WallSlideData.LedgeHanging;
             _WallSlideData.WallSliding = !_GroundedData.MainGrounded && (_WallSlideData.LeftTouch || _WallSlideData.RightTouch) && _GroundedData.FallingDown && !_WallSlideData.WallRun && !_WallSlideData.LedgeHanging;
-            if (_WallSlideData.WallSliding)
-            {
-                if (CommonData.ObjRigidbody.velocity.y < -_Parameters.WallSlideSpeed)
-                    CommonData.ObjRigidbody.velocity = new Vector2(CommonData.ObjRigidbody.velocity.x, -_Parameters.WallSlideSpeed);
-            }
+            if (!_WallSlideData.WallSliding)
+                return;
+            SetDirection();
+            if (CommonData.ObjRigidbody.velocity.y < -_Parameters.WallSlideSpeed)
+                CommonData.ObjRigidbody.velocity = new Vector2(CommonData.ObjRigidbody.velocity.x, -_Parameters.WallSlideSpeed);
+        }
+
+        private void SetDirection() {
+            var newDir = 1;
+            if (_WallSlideData.LeftTouch)
+                newDir = -1;
+            else if (_WallSlideData.RightTouch)
+                newDir = 1;
+            CommonData.MovementController.ChangeDirection(newDir);
         }
     }
 }

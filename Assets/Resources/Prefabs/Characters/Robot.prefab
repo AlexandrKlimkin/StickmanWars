@@ -706,7 +706,7 @@ MonoBehaviour:
   WalkParameters:
     Speed: 90
     GroundAcceleration: 20
-    AirAcceleration: 5
+    AirAcceleration: 8
     IkTransform: {fileID: 5957157953312266198}
   GroundCheckParameters:
     GroundSensors:
@@ -728,8 +728,8 @@ MonoBehaviour:
   LedgeHangParameters:
     UpSensor: {fileID: 5726852781389660807}
   JumpParameters:
-    JumpSpeed: 110
-    WallJumpSpeed: 230
+    JumpSpeed: 115
+    WallJumpSpeed: 250
     LowJumpTime: 0.12
     HighJumpAddTime: 0.15
 --- !u!114 &5957157953170100644
@@ -2035,7 +2035,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5957157954319578540}
-  m_LocalRotation: {x: -0, y: -0, z: 0.15655722, w: 0.98766893}
+  m_LocalRotation: {x: -0, y: -0, z: 0.15662552, w: 0.9876581}
   m_LocalPosition: {x: -3.95, y: 13.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2581,7 +2581,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5957157954734259026}
-  m_LocalRotation: {x: -0, y: -0, z: -0.04361942, w: -0.99904823}
+  m_LocalRotation: {x: -0, y: -0, z: -0.043619424, w: -0.9990483}
   m_LocalPosition: {x: 0, y: -12.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2875,7 +2875,7 @@ PrefabInstance:
     - target: {fileID: 504402483389360986, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 5939
+      value: 819
       objectReference: {fileID: 0}
     - target: {fileID: 1179529789131639477, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
@@ -3064,7 +3064,7 @@ PrefabInstance:
     - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 5939
+      value: 38707
       objectReference: {fileID: 0}
     - target: {fileID: 42787406825865337, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
@@ -3156,7 +3156,7 @@ PrefabInstance:
     - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 5939
+      value: 38707
       objectReference: {fileID: 0}
     - target: {fileID: 42787406825865337, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
@@ -3248,7 +3248,7 @@ PrefabInstance:
     - target: {fileID: 504402483389360986, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 5939
+      value: 819
       objectReference: {fileID: 0}
     - target: {fileID: 1179529789131639477, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
@@ -3340,7 +3340,7 @@ PrefabInstance:
     - target: {fileID: 504402483389360986, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 5939
+      value: 819
       objectReference: {fileID: 0}
     - target: {fileID: 1179529789131639477, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
@@ -3432,7 +3432,7 @@ PrefabInstance:
     - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 5939
+      value: 38707
       objectReference: {fileID: 0}
     - target: {fileID: 42787406825865337, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
@@ -3584,7 +3584,7 @@ PrefabInstance:
     - target: {fileID: 8774489497689066328, guid: ffa6db22b859c3d4eb2b2037102ef1bd,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 5939
+      value: 819
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa6db22b859c3d4eb2b2037102ef1bd, type: 3}
@@ -3676,7 +3676,7 @@ PrefabInstance:
     - target: {fileID: 8774489497689066328, guid: ffa6db22b859c3d4eb2b2037102ef1bd,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 5939
+      value: 819
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa6db22b859c3d4eb2b2037102ef1bd, type: 3}
@@ -3768,7 +3768,7 @@ PrefabInstance:
     - target: {fileID: 8774489497689066328, guid: ffa6db22b859c3d4eb2b2037102ef1bd,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 5939
+      value: 819
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa6db22b859c3d4eb2b2037102ef1bd, type: 3}

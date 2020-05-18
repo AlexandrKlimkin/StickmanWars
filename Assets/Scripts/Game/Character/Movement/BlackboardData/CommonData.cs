@@ -7,5 +7,6 @@ namespace Character.Movement.Modules
         public Transform ObjTransform;
         public Rigidbody2D ObjRigidbody;
         public Collider2D Collider;
+        public MovementController MovementController;
     }
 }

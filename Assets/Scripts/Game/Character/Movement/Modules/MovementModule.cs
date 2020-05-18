@@ -1,14 +1,18 @@
-﻿using Character.Movement.Modules;
+﻿using Character.Movement;
+using Character.Movement.Modules;
 
 public abstract class MovementModule : IMovementModule
 {
     protected Blackboard BB;
     protected CommonData CommonData;
+    protected MovementController MovementController;
 
     public virtual void Initialize(Blackboard bb) {
         BB = bb;
         CommonData = BB.Get<CommonData>();
     }
+
+    public virtual void Awake() { }
     public virtual void Start() { }
     public virtual void Update() { }
     public virtual void LateUpdate() { }

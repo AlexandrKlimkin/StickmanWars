@@ -2,10 +2,8 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Character.Movement.Modules
-{
-    public class LedgeHangModule : MovementModule
-    {
+namespace Character.Movement.Modules {
+    public class LedgeHangModule : MovementModule {
         public bool LedgeHang => _WallSlideData.LedgeHanging;
 
         private LedgeHangParameters _Parameters;
@@ -16,8 +14,7 @@ namespace Character.Movement.Modules
 
         private float _StartGravityScale;
 
-        public LedgeHangModule(LedgeHangParameters parameters)
-        {
+        public LedgeHangModule(LedgeHangParameters parameters) {
             _Parameters = parameters;
         }
 
@@ -28,18 +25,15 @@ namespace Character.Movement.Modules
             _StartGravityScale = CommonData.ObjRigidbody.gravityScale;
         }
 
-        public override void Update()
-        {
+        public override void Update() {
             var timeSinceLastJump = Time.time - _JumpData.LastWallJumpTime;
-            _WallSlideData.LedgeHanging = !_GroundedData.MainGrounded && 
-                                          timeSinceLastJump > 0.2f &&
-                                          (_WallSlideData.LeftTouch || _WallSlideData.RightTouch) &&
-                                          _Parameters.UpSensor.IsTouching;
-            if (_WallSlideData.LedgeHanging)
-            {
+            _WallSlideData.LedgeHanging = !_GroundedData.MainGrounded &&
+                timeSinceLastJump > 0.2f &&
+                (_WallSlideData.LeftTouch || _WallSlideData.RightTouch) &&
+                _Parameters.UpSensor.IsTouching;
+            if (_WallSlideData.LedgeHanging) {
                 var firstTrigger = _Parameters.UpSensor.TouchedColliders.FirstOrDefault(_ => _.GetComponent(typeof(WallHangTrigger)));
-                if (firstTrigger != null)
-                {
+                if (firstTrigger != null) {
                     var posY = firstTrigger.transform.position.y;
                     var posX = firstTrigger.transform.position.x;
                     var deltaY = _Parameters.UpSensor.transform.position.y - CommonData.ObjTransform.position.y;
@@ -47,17 +41,25 @@ namespace Character.Movement.Modules
                 }
                 CommonData.ObjRigidbody.gravityScale = 0;
                 CommonData.ObjRigidbody.velocity = Vector2.zero;
+                SetDirection();
             }
-            else
-            {
+            else {
                 CommonData.ObjRigidbody.gravityScale = _StartGravityScale;
             }
+        }
+
+        private void SetDirection() {
+            var newDir = 1;
+            if (_WallSlideData.LeftTouch)
+                newDir = -1;
+            else if (_WallSlideData.RightTouch)
+                newDir = 1;
+            CommonData.MovementController.ChangeDirection(newDir);
         }
     }
 
     [Serializable]
-    public class LedgeHangParameters
-    {
+    public class LedgeHangParameters {
         public Sensor UpSensor;
     }
 }
