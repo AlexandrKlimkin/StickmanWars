@@ -7,6 +7,7 @@ public static class Path
 {
     public static class Resources {
         public static string GameCamera => "Prefabs/Cameras/GameCamera";
+        public static string GameCameraPro => "Prefabs/Cameras/GameCameraPro";
 
         public static string MapSelectionUI => "Prefabs/UI/MapSelection/MapSelectionUI";
         public static string GameUI => "Prefabs/UI/Game/GameUI";
