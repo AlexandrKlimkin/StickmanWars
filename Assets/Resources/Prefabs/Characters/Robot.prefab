@@ -729,7 +729,7 @@ MonoBehaviour:
     UpSensor: {fileID: 5726852781389660807}
   JumpParameters:
     JumpSpeed: 115
-    WallJumpSpeed: 250
+    WallJumpSpeed: 270
     LowJumpTime: 0.12
     HighJumpAddTime: 0.15
 --- !u!114 &5957157953170100644
@@ -762,7 +762,6 @@ MonoBehaviour:
   NearArmShoulder: {fileID: 5957157954686377909}
   NearArmFist: {fileID: 6004891156823734208}
   Weapon: {fileID: 0}
-  NearArmCCD: {fileID: 5957157954686377908}
 --- !u!114 &5957157953170100646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2037,7 +2036,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5957157954319578540}
-  m_LocalRotation: {x: -0, y: -0, z: 0.15898855, w: 0.9872805}
+  m_LocalRotation: {x: -0, y: -0, z: 0.15908502, w: 0.98726493}
   m_LocalPosition: {x: -3.95, y: 13.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2583,7 +2582,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5957157954734259026}
-  m_LocalRotation: {x: -0, y: -0, z: -0.043619346, w: -0.99904823}
+  m_LocalRotation: {x: -0, y: -0, z: -0.04361941, w: -0.99904823}
   m_LocalPosition: {x: 0, y: -12.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
