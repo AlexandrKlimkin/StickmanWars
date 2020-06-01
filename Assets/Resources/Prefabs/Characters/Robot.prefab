@@ -706,7 +706,7 @@ MonoBehaviour:
   WalkParameters:
     Speed: 90
     GroundAcceleration: 20
-    AirAcceleration: 8
+    AirAcceleration: 6
     IkTransform: {fileID: 5957157953312266198}
   GroundCheckParameters:
     GroundSensors:
@@ -729,7 +729,7 @@ MonoBehaviour:
     UpSensor: {fileID: 5726852781389660807}
   JumpParameters:
     JumpSpeed: 115
-    WallJumpSpeed: 270
+    WallJumpSpeed: 250
     LowJumpTime: 0.12
     HighJumpAddTime: 0.15
 --- !u!114 &5957157953170100644
