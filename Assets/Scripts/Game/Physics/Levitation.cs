@@ -6,8 +6,14 @@ namespace Game.Physics {
     public class Levitation : MonoBehaviour {
         public bool Levitate;
         public float Force;
-        public float AngularVelocityDamping;
-        public float MaxLeviateAngularVelocity;
+        public float TorqueForce;
+        public float AngularResistance;
+        public float TargetRot;
+        public float MaxAngularVelocity;
+
+        public float LevitationEnableGroundDist;
+        public float TargetGroundDist;
+
         private Rigidbody2D _Rigidbody;
 
         private void Awake() {
@@ -17,19 +23,20 @@ namespace Game.Physics {
         private void FixedUpdate() {
             if(!Levitate)
                 return;
-            _Rigidbody.AddForce(-_Rigidbody.gravityScale * Physics2D.gravity * Force * _Rigidbody.mass);
+            var hit = Physics2D.Raycast(transform.position, Vector2.down, LevitationEnableGroundDist, Layers.Masks.Walkable);
+            if(hit.collider == null) {
 
-            var zRot = _Rigidbody.rotation;
-            var targetZRot = 0;
-            var delta = targetZRot - zRot;
-
-            var targetAngularVelocity = delta / 180 * MaxLeviateAngularVelocity;
-
-            _Rigidbody.angularVelocity = Mathf.Lerp(_Rigidbody.angularVelocity, targetAngularVelocity, Time.fixedDeltaTime * AngularVelocityDamping);
-
-            //_Rigidbody.angularVelocity += delta * AngularVelocityDamping;
-
-            //_Rigidbody.angularVelocity = Mathf.Lerp(_Rigidbody.angularVelocity, 0, Time.fixedDeltaTime * AngularVelocityDamping);
+            }
+            else {
+                _Rigidbody.AddForce(-_Rigidbody.gravityScale * Physics2D.gravity * _Rigidbody.mass);
+                var targetPositionY = (hit.point + Vector2.up * TargetGroundDist).y;
+                _Rigidbody.AddForce(Vector2.up * (targetPositionY - _Rigidbody.position.y) * Force);
+                var angularVel = _Rigidbody.angularVelocity;
+                var rot = _Rigidbody.rotation;
+                var rotDelta = rot - TargetRot;
+                _Rigidbody.AddTorque(-rotDelta * TorqueForce);
+                _Rigidbody.AddTorque(-angularVel * AngularResistance);
+            }
         }
     }
 }

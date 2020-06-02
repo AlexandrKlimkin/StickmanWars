@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 1802286954}
   - component: {fileID: 3689497979007992750}
   - component: {fileID: 4795353201214904644}
+  - component: {fileID: 67721363617865379}
   m_Layer: 13
   m_Name: Gun
   m_TagString: Untagged
@@ -364,13 +365,13 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 2
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 1
+  m_AngularDrag: 0.1
   m_GravityScale: 3
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 81761073cf7973f499490ce76e04dcea, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &1802286954
 MonoBehaviour:
@@ -414,6 +415,26 @@ MonoBehaviour:
   ProjectileName: Projectile
   _ShellEffectPoint: {fileID: 2045092268275970114}
   _ShellEffectName: ShellEffect
+--- !u!114 &67721363617865379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888260986880051133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765ed4a94a245084bb563fdb321dbde2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Levitate: 1
+  Force: 30
+  TorqueForce: 10
+  AngularResistance: 5
+  TargetRot: 0
+  MaxAngularVelocity: 360
+  LevitationEnableGroundDist: 300
+  TargetGroundDist: 10
 --- !u!1 &4108579417601912059
 GameObject:
   m_ObjectHideFlags: 0
