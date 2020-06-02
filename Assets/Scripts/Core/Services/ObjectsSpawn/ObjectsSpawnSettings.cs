@@ -22,5 +22,6 @@ namespace Core.Services.Game {
     [Serializable]
     public class ObjectSpawnData {
         public GameObject Prefab;
+        public int MaxAmount;
     }
 }

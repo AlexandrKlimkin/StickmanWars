@@ -30,7 +30,8 @@ namespace Character.Shooting
             var data = GetProjectileData();
             projectile.Setup(data);
             projectile.Play();
-            AddRecoil(data.Rotation * -Vector3.forward);
+            if(!Owner.MovementController.LedgeHang)
+                AddRecoil(data.Rotation * -Vector3.forward);
         }
 
         private void AddRecoil(Vector2 direction) {
