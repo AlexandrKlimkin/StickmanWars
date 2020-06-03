@@ -365,7 +365,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 2
-  m_LinearDrag: 1
+  m_LinearDrag: 0.1
   m_AngularDrag: 0.1
   m_GravityScale: 3
   m_Material: {fileID: 6200000, guid: 81761073cf7973f499490ce76e04dcea, type: 2}
@@ -427,14 +427,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765ed4a94a245084bb563fdb321dbde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Levitate: 1
   Force: 30
-  TorqueForce: 10
-  AngularResistance: 5
+  TorqueForce: 5
+  AngularResistance: 2.5
   TargetRot: 0
   MaxAngularVelocity: 360
-  LevitationEnableGroundDist: 300
-  TargetGroundDist: 10
+  LevitationEnableGroundDist: 30
+  MaxForceDist: 2
+  TargetGroundDist: 15
+  LinearDrag: 1
+  AngularDrag: 0.1
 --- !u!1 &4108579417601912059
 GameObject:
   m_ObjectHideFlags: 0

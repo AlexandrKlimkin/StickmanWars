@@ -39,6 +39,7 @@ namespace Character.Shooting
                 WeaponView.Rigidbody.AddForce(WeaponView.ShootTransform.forward * Stats.MaxThrowForce);
                 WeaponView.Rigidbody.angularVelocity = -720f;
             }
+            WeaponView.Levitation.DisableOnTime(6f);
             Owner = null;
         }
 
