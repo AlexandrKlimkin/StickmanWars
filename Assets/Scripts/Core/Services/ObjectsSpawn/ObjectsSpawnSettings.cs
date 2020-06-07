@@ -7,6 +7,7 @@ namespace Core.Services.Game {
     public class ObjectsSpawnSettings : MonoBehaviour {
 
         public Vector2 RandomDelay;
+        public int MaxCount;
         public List<ObjectSpawnData> ObjectsSpawnData;
         public List<Transform> SpawnPoints;
 

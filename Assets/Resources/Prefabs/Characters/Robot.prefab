@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2753337328351507455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 64346130303511659}
+  m_Layer: 0
+  m_Name: ChestWeaponTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &64346130303511659
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2753337328351507455}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.3, y: 3.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5957157954033245721}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5495009272457738886
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6004891156823734208}
   m_Layer: 0
-  m_Name: PistolPoint
+  m_Name: ArmNearWeaponTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -760,8 +790,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NearArmTransform: {fileID: 5957157954436975625}
   NearArmShoulder: {fileID: 5957157954686377909}
-  NearArmFist: {fileID: 6004891156823734208}
-  Weapon: {fileID: 0}
+  NearArmWeaponTransform: {fileID: 6004891156823734208}
+  NeckWeaponTransform: {fileID: 64346130303511659}
+  MainWeapon: {fileID: 0}
+  Vehicle: {fileID: 0}
 --- !u!114 &5957157953170100646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1522,7 +1554,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.020000339, y: 8.099998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 64346130303511659}
   m_Father: {fileID: 5957157953213349520}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

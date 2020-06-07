@@ -33,7 +33,7 @@ namespace Character.Shooting
         {
             var projectile = GetProjectile();
             var data = GetProjectileData();
-            Owner.WeaponController.ThrowOutWeapon();
+            PickableItem.Owner.WeaponController.ThrowOutMainWeapon();
             projectile.Setup(data);
             projectile.Play();
         }

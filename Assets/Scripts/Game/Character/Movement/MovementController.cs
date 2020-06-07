@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Character.Movement.Modules;
+using Character.Shooting;
 using UnityEditor;
 using UnityEngine;
 
@@ -32,6 +34,7 @@ namespace Character.Movement {
         private WalkData _WalkData;
         private List<SimpleCCD> _SimpleCcds = new List<SimpleCCD>();
 
+        public CharacterUnit Owner { get; private set; }
         public Rigidbody2D Rigidbody { get; private set; }
         public Collider2D Collider { get; private set; }
 
@@ -46,7 +49,13 @@ namespace Character.Movement {
         public bool WallRun => _JumpModule.WallRun;
         public bool LedgeHang => _LedgeHangModule.LedgeHang;
 
-        private void Awake() {
+        public event Action OnPressJump;
+        public event Action OnHoldJump;
+        public event Action OnReleaseJump;
+
+        private void Awake()
+        {
+            Owner = GetComponent<CharacterUnit>();
             Rigidbody = GetComponent<Rigidbody2D>();
             Collider = GetComponent<Collider2D>();
         }
@@ -107,35 +116,28 @@ namespace Character.Movement {
             _WalkModule.SetHorizontal(hor);
         }
 
-        public bool Jump() {
+        public bool Jump()
+        {
+            if (Owner.WeaponController.HasVehicle)
+                return false;
             return _JumpModule.Jump(this);
         }
 
         public void ContinueJump() {
+            if (Owner.WeaponController.HasVehicle)
+                return;
             _JumpModule.ContinueJump();
         }
 
         public bool WallJump() {
+            if (Owner.WeaponController.HasVehicle)
+                return false;
             return _JumpModule.WallJump();
         }
 
         public void ContinueWallJump() {
             _JumpModule.ContinueWallJump();
         }
-
-        private void OnDrawGizmos() { }
-
-        //private void SetDirection() {
-        //    if (_WalkData.Horizontal != 0) {
-        //        var newDir = _WalkData.Horizontal > 0 ? 1 : -1;
-        //        if (_WallSlideData.LeftTouch)
-        //            newDir = -1;
-        //        else if (_WallSlideData.RightTouch)
-        //            newDir = 1;
-        //        if (_WalkData.Direction != newDir)
-        //            ChangeDirection(newDir);
-        //    }
-        //}
 
         public void ChangeDirection(int newDir) {
             if (_WalkData.Direction == newDir)
@@ -144,8 +146,31 @@ namespace Character.Movement {
             var localScale = WalkParameters.IkTransform.localScale;
             var newLocalScale = new Vector3(newDir * Mathf.Abs(localScale.x), localScale.y, localScale.z);
             WalkParameters.IkTransform.localScale = newLocalScale;
-            //PuppetTransform.localScale = newLocalScale;
             _SimpleCcds.ForEach(_ => _.ReflectNodes());
+        }
+
+        public void SubscribeWeaponOnEvents(Weapon weapon) {
+            OnHoldJump += weapon.InputProcessor.ProcessHold;
+            OnPressJump += weapon.InputProcessor.ProcessPress;
+            OnReleaseJump += weapon.InputProcessor.ProcessRelease;
+        }
+
+        public void UnSubscribeWeaponOnEvents(Weapon weapon) {
+            OnHoldJump -= weapon.InputProcessor.ProcessHold;
+            OnPressJump -= weapon.InputProcessor.ProcessPress;
+            OnReleaseJump -= weapon.InputProcessor.ProcessRelease;
+        }
+
+        public void HoldJump() {
+            OnHoldJump?.Invoke();
+        }
+
+        public void PressJump() {
+            OnPressJump?.Invoke();
+        }
+
+        public void ReleaseJump() {
+            OnReleaseJump?.Invoke();
         }
 
     }

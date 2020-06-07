@@ -1,18 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Character.Health;
+using Items;
 using UnityEngine;
 
 namespace Character.Shooting
 {
     public abstract class Weapon : MonoBehaviour
     {
-        public CharacterUnit Owner { get; protected set; }
+        public abstract ItemType ItemType { get; }
+        public virtual WeaponReactionType WeaponReaction => WeaponReactionType.Fire;
+
         public WeaponView WeaponView { get; protected set; }
+        public PickableItem PickableItem { get; protected set; }
 
         public abstract WeaponInputProcessor InputProcessor { get; }
 
-        [SerializeField] protected WeaponConfig _Stats;
+        [SerializeField]
+        protected WeaponConfig _Stats;
+        public WeaponPickupType PickupType;
+
         public WeaponConfig Stats => _Stats;
         public abstract void PerformShot();
 
@@ -20,32 +27,35 @@ namespace Character.Shooting
 
         protected virtual void Awake()
         {
-            WeaponView = GetComponent<WeaponView>();
+            PickableItem = GetComponent<PickableItem>();
         }
 
-        protected virtual void Start() {
-
+        protected virtual void Start()
+        {
+            WeaponView = PickableItem.ItemView as WeaponView;
         }
+
+        public virtual void PickUp(CharacterUnit owner)
+        {
+            PickableItem.PickUp(owner);
+            if (WeaponReaction == WeaponReactionType.Fire)
+                owner?.WeaponController?.SubscribeWeaponOnEvents(this);
+            else if (WeaponReaction == WeaponReactionType.Jump)
+                owner?.MovementController?.SubscribeWeaponOnEvents(this);
+        }
+
+        public virtual void ThrowOut(CharacterUnit owner)
+        {
+            if(WeaponReaction == WeaponReactionType.Fire)
+                owner?.WeaponController?.UnSubscribeWeaponOnEvents(this);
+            else if(WeaponReaction == WeaponReactionType.Jump)
+                owner?.MovementController?.UnSubscribeWeaponOnEvents(this);
+            PickableItem.ThrowOut(WeaponView.ShootTransform.forward * Stats.MaxThrowForce);
+        } 
 
         protected virtual Damage GetDamage()
         {
-            return new Damage(Owner, _Stats.Damage);
-        }
-
-        public virtual void ThrowOut()
-        {
-            WeaponView.ThrowOut(Owner.WeaponController.gameObject);
-            if (UseThrowForce) {
-                WeaponView.Rigidbody.AddForce(WeaponView.ShootTransform.forward * Stats.MaxThrowForce);
-                WeaponView.Rigidbody.angularVelocity = -720f;
-            }
-            WeaponView.Levitation.DisableOnTime(6f);
-            Owner = null;
-        }
-
-        public virtual void PickUp(CharacterUnit pickuper) {
-            Owner = pickuper;
-            WeaponView.PickUp(pickuper.WeaponController.NearArmFist);
+            return new Damage(PickableItem.Owner, _Stats.Damage);
         }
 
         protected virtual void Enable()
@@ -56,5 +66,23 @@ namespace Character.Shooting
         protected virtual void OnDisable() {
             WeaponsInfoContainer.RemoveWeapon(this);
         }
+    }
+
+    public enum ItemType
+    {
+        Weapon,
+        Vehicle
+    }
+
+    public enum WeaponReactionType
+    {
+        Fire,
+        Jump,
+    }
+
+    public enum WeaponPickupType
+    {
+        ArmNear,
+        Neck,
     }
 }

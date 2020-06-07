@@ -17,6 +17,8 @@ namespace Core.Services.Game {
         [Dependency]
         private readonly GameManagerService _GameManagerService;
 
+
+
         public void Load() {
             _SignalBus.Subscribe<MatchEndSignal>(OnMatchEnd, this);
             StartSpawn();
@@ -26,6 +28,8 @@ namespace Core.Services.Game {
             while (true) {
                 if(!_GameManagerService.GameInProgress)
                     yield break;
+                if(WeaponsInfoContainer.AllWeapons.Count < _Settings.MaxCount)
+                    yield return null;
                 var randomIndex = Random.Range(0, _Settings.ObjectsSpawnData.Count);
                 var randomObjectData = _Settings.ObjectsSpawnData[randomIndex];
                 var randomPointIndex = Random.Range(0, _Settings.SpawnPoints.Count);

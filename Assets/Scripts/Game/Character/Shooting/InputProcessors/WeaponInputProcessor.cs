@@ -1,4 +1,5 @@
 ﻿using InputSystem;
+using UnityEngine;
 
 namespace Character.Shooting {
     public abstract class WeaponInputProcessor
@@ -10,6 +11,9 @@ namespace Character.Shooting {
             Weapon = weapon;
         }
 
-        public abstract void Process(InputKit inputKit);
+        public virtual void ProcessHold() { }
+        public virtual void ProcessRelease() { }
+        public virtual void ProcessPress() { }
+        public virtual void Process() { }
     }
 }

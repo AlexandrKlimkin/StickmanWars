@@ -38,8 +38,9 @@ namespace Character.Control {
         public void Update() {
             Move();
             Jump();
+            Shoot();
             ThrowWeapon();
-            _WeaponController.Process(_InputKit);
+            ThrowVehicle();
         }
 
         private void Move() {
@@ -57,6 +58,7 @@ namespace Character.Control {
 
                 if (_IsJumping)
                     _JumpTimer = 0;
+                _MovementController.PressJump();
             }
 
             if (Input.GetKey(_InputKit.Jump)) {
@@ -78,23 +80,45 @@ namespace Character.Control {
                 //    if (_IsJumping)
                 //        _JumpTimer = 0;
                 //}
+                _MovementController.HoldJump();
             }
 
             if (Input.GetKeyUp(_InputKit.Jump)) {
                 _IsJumping = false;
                 _WallJump = false;
                 _JumpTimer = 0;
+                _MovementController.ReleaseJump();
+            }
+        }
+
+        private void Shoot() {
+            if (Input.GetKeyDown(_InputKit.Attack1))
+            {
+                _WeaponController.PressFire();
+            }
+            if (Input.GetKey(_InputKit.Attack1)) {
+                _WeaponController.HoldFire();
+            }
+            if (Input.GetKeyUp(_InputKit.Attack1)) {
+                _WeaponController.ReleaseFire();
             }
         }
 
         private void ThrowWeapon() {
             if (Input.GetKeyDown(_InputKit.ThrowOutWeapon)) {
-                _WeaponController.ThrowOutWeapon();
+                _WeaponController.ThrowOutMainWeapon();
+            }
+        }
+
+        private void ThrowVehicle()
+        {
+            if (Input.GetKeyDown(_InputKit.ThrowOutVehicle)) {
+                _WeaponController.ThrowOutVehicle();
             }
         }
 
         public void LateUpdate() {
-            if (_WeaponController.HasWeapon)
+            if (_WeaponController.HasMainWeapon)
                 _WeaponController.SetWeaponedHandPosition(_AimProvider.AimPoint);
         }
     }

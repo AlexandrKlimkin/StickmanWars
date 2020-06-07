@@ -12,14 +12,15 @@ namespace Character.Shooting {
 
             public float NormilizedForce => Mathf.Clamp01(_Timer / Weapon.Stats.MaxForceTime);
 
-            public override void Process(InputKit inputKit) {
-                if (Input.GetKey(inputKit.Attack1)) {
-                    _Timer += Time.deltaTime;
-                }
-                if (Input.GetKeyUp(inputKit.Attack1)) {
-                    Weapon.PerformShot();
-                    _Timer = 0;
-                }
+            public override void ProcessHold()
+            {
+                _Timer += Time.deltaTime;
+            }
+
+            public override void ProcessRelease()
+            {
+                Weapon.PerformShot();
+                _Timer = 0;
             }
         }
     }

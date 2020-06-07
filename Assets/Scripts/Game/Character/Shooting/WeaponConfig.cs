@@ -15,6 +15,8 @@ namespace Character.Shooting
         public float RecoilForce;
         public int Magazine;
 
+        public int ProjectilesInShot = 1;
+
         public float RateOfFire;
         public float ReloadTime;
         public float DispersionAngle;

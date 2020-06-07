@@ -26,6 +26,8 @@ namespace Character.Movement.Modules {
         }
 
         public override void Update() {
+            if (CommonData.MovementController.Owner.WeaponController.HasVehicle)
+                return;
             var timeSinceLastJump = Time.time - _JumpData.LastWallJumpTime;
             _WallSlideData.LedgeHanging = !_GroundedData.MainGrounded &&
                 timeSinceLastJump > 0.2f &&

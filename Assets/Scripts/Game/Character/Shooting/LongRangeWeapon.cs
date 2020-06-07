@@ -7,6 +7,7 @@ namespace Character.Shooting
 {
     public abstract class LongRangeWeapon<P, D> : Weapon where P : Projectile<D> where D : ProjectileDataBase, new()
     {
+        public override ItemType ItemType => ItemType.Weapon;
         public string ProjectileName;
 
         public virtual P GetProjectile()
@@ -26,17 +27,19 @@ namespace Character.Shooting
 
         public override void PerformShot()
         {
-            var projectile = GetProjectile();
-            var data = GetProjectileData();
-            projectile.Setup(data);
-            projectile.Play();
-            if(!Owner.MovementController.LedgeHang)
-                AddRecoil(data.Rotation * -Vector3.forward);
+            for (int i = 0; i < Stats.ProjectilesInShot; i++) {
+                var projectile = GetProjectile();
+                var data = GetProjectileData();
+                projectile.Setup(data);
+                projectile.Play();
+                if (!PickableItem.Owner.MovementController.LedgeHang)
+                    AddRecoil(data.Rotation * -Vector3.forward);
+            }
         }
 
         private void AddRecoil(Vector2 direction) {
-            direction.y *= 0.25f;
-            Owner.Rigidbody2D.AddForce(direction * Stats.RecoilForce);
+            direction.y *= 0.15f;
+            PickableItem.Owner.Rigidbody2D.AddForce(direction * Stats.RecoilForce);
         }
     }
 }

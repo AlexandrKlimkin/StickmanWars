@@ -2,15 +2,11 @@
 using UnityEngine;
 
 namespace Character.Shooting {
-    public class SingleShotProcessor : WeaponInputProcessor {
-
+    public class SingleShotProcessor : RateOfFireProcessor {
         public SingleShotProcessor(Weapon weapon) : base(weapon) { }
 
-        public override void Process(InputKit inputKit) {
-            if (Input.GetKeyDown(inputKit.Attack1)) {
-                Weapon.PerformShot();
-            }
+        public override void ProcessPress() {
+            TryToShot();
         }
-
     }
 }
