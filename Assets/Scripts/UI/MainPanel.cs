@@ -4,13 +4,14 @@ using Character.Movement;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainPanel : UIPanel
+namespace UI.Game
 {
-    public Button _FastButton;
-    public Button _SlowButton;
-
-    private void Start()
+    public class MainPanel : UIPanel
     {
 
+        private void Start()
+        {
+
+        }
     }
 }

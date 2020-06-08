@@ -34,7 +34,7 @@ namespace Core.Services.Game {
 
         private List<byte> AlivePlayers => _PlayersLifesDict.Where(_ => _.Value > 0).Select(_=>_.Key).ToList();
 
-        public const int PlayerLifes = 1;
+        public const int PlayerLifes = 3;
         private const float _RespawnDelay = 2f;
 
 

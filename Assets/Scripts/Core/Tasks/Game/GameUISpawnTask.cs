@@ -1,6 +1,7 @@
 ﻿using KlimLib.ResourceLoader;
 using KlimLib.TaskQueueLib;
 using MapSelection;
+using UI;
 using UnityDI;
 
 namespace Core.Initialization.Game {

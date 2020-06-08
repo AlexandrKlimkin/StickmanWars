@@ -6,45 +6,49 @@ using Tools;
 using UnityDI;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+namespace UI
 {
-    private Dictionary<Type, IUIPanel> _PanelDict = new Dictionary<Type, IUIPanel>();
-    private List<IUIPanel> _Panels = new List<IUIPanel>();
-
-    protected void Awake()
+    public class UIManager : MonoBehaviour
     {
-        CollectPanels();
-    }
+        private Dictionary<Type, IUIPanel> _PanelDict = new Dictionary<Type, IUIPanel>();
+        private List<IUIPanel> _Panels = new List<IUIPanel>();
 
-    private void Start()
-    {
-        DeactivateAll();
-        //SetActivePanel<MainPanel>();
-    }
+        protected void Awake()
+        {
+            CollectPanels();
+        }
 
-    public void DeactivateAll()
-    {
-        _Panels.ForEach(_=>_.Deactivate());
-    }
+        private void Start()
+        {
+            DeactivateAll();
+            //SetActivePanel<MainPanel>();
+        }
 
-    private void CollectPanels()
-    {
-        GetComponentsInChildren(_Panels);
-        _PanelDict = _Panels.ToDictionary(_ => _.GetType());
-    }
+        public void DeactivateAll()
+        {
+            _Panels.ForEach(_ => _.Deactivate());
+        }
 
-    public T SetActivePanel<T>() where T : IUIPanel
-    {
-        var type = typeof(T);
-        if (!_PanelDict.ContainsKey(type))
-            Debug.LogError($"UI Manager has no panel type of {type}");
-        var panel = (T)_PanelDict[type];
-        DeactivateAll();
-        panel.Activate();
-        return panel;
-    }
+        private void CollectPanels()
+        {
+            GetComponentsInChildren(_Panels);
+            _PanelDict = _Panels.ToDictionary(_ => _.GetType());
+        }
 
-    private void OnDestroy() {
-        ContainerHolder.Container.Unregister<UIManager>();
+        public T SetActivePanel<T>() where T : IUIPanel
+        {
+            var type = typeof(T);
+            if (!_PanelDict.ContainsKey(type))
+                Debug.LogError($"UI Manager has no panel type of {type}");
+            var panel = (T) _PanelDict[type];
+            DeactivateAll();
+            panel.Activate();
+            return panel;
+        }
+
+        private void OnDestroy()
+        {
+            ContainerHolder.Container.Unregister<UIManager>();
+        }
     }
 }
