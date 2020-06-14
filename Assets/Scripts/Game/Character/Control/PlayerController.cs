@@ -119,7 +119,7 @@ namespace Character.Control {
 
         public void LateUpdate() {
             if (_WeaponController.HasMainWeapon)
-                _WeaponController.SetWeaponedHandPosition(_AimProvider.AimPoint);
+                _WeaponController.SetAimPosition(_AimProvider.AimPoint);
         }
     }
 }

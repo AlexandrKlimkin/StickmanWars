@@ -53,8 +53,7 @@ namespace Character.Movement {
         public event Action OnHoldJump;
         public event Action OnReleaseJump;
 
-        private void Awake()
-        {
+        private void Awake() {
             Owner = GetComponent<CharacterUnit>();
             Rigidbody = GetComponent<Rigidbody2D>();
             Collider = GetComponent<Collider2D>();
@@ -116,8 +115,7 @@ namespace Character.Movement {
             _WalkModule.SetHorizontal(hor);
         }
 
-        public bool Jump()
-        {
+        public bool Jump() {
             if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return false;
             return _JumpModule.Jump(this);

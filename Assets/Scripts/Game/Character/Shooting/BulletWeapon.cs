@@ -1,4 +1,5 @@
-﻿using Tools.VisualEffects;
+﻿using Assets.Scripts.Tools;
+using Tools.VisualEffects;
 using UnityEngine;
 
 namespace Character.Shooting
@@ -19,15 +20,15 @@ namespace Character.Shooting
             data.LifeTime = Stats.Range / Stats.ProjectileSpeed;
             data.Position = WeaponView.ShootTransform.position;
 
+            Vector3 shootRotEuler;
+            var directionVector = PickableItem.Owner.WeaponController.AimPosition - WeaponView.ShootTransform.position.ToVector2();
+            shootRotEuler = Quaternion.LookRotation(directionVector).eulerAngles;
             if (_Stats.DispersionAngle != 0) {
-                var shootTransformRot = WeaponView.ShootTransform.rotation.eulerAngles;
-                data.Rotation = Quaternion.Euler(shootTransformRot.x + RandomDispersionAngle, shootTransformRot.y, shootTransformRot.z);
+                shootRotEuler = new Vector3(shootRotEuler.x + RandomDispersionAngle, shootRotEuler.y, shootRotEuler.z);
             }
-            else {
-                data.Rotation = WeaponView.ShootTransform.rotation;
-            }
+            data.Rotation = Quaternion.Euler(shootRotEuler);
 
-            Debug.DrawLine(WeaponView.ShootTransform.position, WeaponView.ShootTransform.position + WeaponView.ShootTransform.forward * 10f, Color.green, 3f);
+           Debug.DrawLine(WeaponView.ShootTransform.position, WeaponView.ShootTransform.position + WeaponView.ShootTransform.forward * 10f, Color.green, 3f);
             data.Speed = Stats.ProjectileSpeed;
             data.Force = Stats.HitForce;
             return data;

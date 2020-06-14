@@ -26,6 +26,8 @@ namespace Character.Shooting
         public CharacterUnit Owner { get; private set; }
         public WeaponPicker WeaponPicker { get; private set; }
 
+        public Vector2 AimPosition { get; private set; }
+
         private void Awake()
         {
             Owner = GetComponent<CharacterUnit>();
@@ -44,10 +46,13 @@ namespace Character.Shooting
             Vehicle?.InputProcessor.Process();
         }
 
+        public void SetAimPosition(Vector2 position) {
+            SetWeaponedHandPosition(position);
+        }
 
-        public void SetWeaponedHandPosition(Vector2 position)
-        {
-            NearArmTransform.position = position;
+        public void SetWeaponedHandPosition(Vector2 position) {
+            AimPosition = position;
+            NearArmTransform.position = AimPosition;
         }
 
         public void HoldFire()
