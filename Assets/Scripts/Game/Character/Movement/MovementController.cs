@@ -118,19 +118,19 @@ namespace Character.Movement {
 
         public bool Jump()
         {
-            if (Owner.WeaponController.HasVehicle)
+            if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return false;
             return _JumpModule.Jump(this);
         }
 
         public void ContinueJump() {
-            if (Owner.WeaponController.HasVehicle)
+            if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return;
             _JumpModule.ContinueJump();
         }
 
         public bool WallJump() {
-            if (Owner.WeaponController.HasVehicle)
+            if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return false;
             return _JumpModule.WallJump();
         }
