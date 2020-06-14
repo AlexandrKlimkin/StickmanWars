@@ -22,6 +22,8 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
 
     public float Health { get; private set; }
     public float MaxHealth { get; private set; }
+    public float NormilizedHealth => Health / MaxHealth;
+
     public bool Dead { get; private set; }
 
     public byte OwnerId { get; private set; }

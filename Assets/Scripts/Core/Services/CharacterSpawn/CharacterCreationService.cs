@@ -3,6 +3,7 @@ using Game.CameraTools;
 using KlimLib.ResourceLoader;
 using KlimLib.SignalBus;
 using Tools.Services;
+using UI.Game.Markers;
 using UnityDI;
 using UnityEngine;
 
@@ -27,6 +28,9 @@ namespace Core.Services.Game {
                 SetupLocalPlayerComponents(unit, deviceId);
             }
             unit.Initialize(playerId, characterId);
+
+            //unit.gameObject.AddComponent<CharacterMarkerProvider>();
+
             _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(unit, true));
             return unit;
         }

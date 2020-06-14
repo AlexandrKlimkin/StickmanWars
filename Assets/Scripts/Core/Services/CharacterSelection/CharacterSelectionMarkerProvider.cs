@@ -29,7 +29,9 @@ namespace MapSelection.UI {
         private bool _HasHorizontal;
         private bool _LastFrameHasHorizontal;
         private bool _Leaf;
+        private bool _FirstTimeUpdated = false;
         private bool _AllowSpawn = false;
+        private bool _ChangePreview => _Leaf || !_FirstTimeUpdated;
 
         private float _Horizontal = 0f;
 
@@ -81,6 +83,7 @@ namespace MapSelection.UI {
                 Leaf(_Horizontal > 0 ? 1 : -1);
             }
             _LastFrameHasHorizontal = _HasHorizontal;
+            _FirstTimeUpdated = true;
         }
 
         private void Leaf(int count) {
@@ -100,7 +103,7 @@ namespace MapSelection.UI {
         protected override void RefreshData(CharacterSelectionMarkerData data) {
             base.RefreshData(data);
             data.PlayerConnected = _PlayerConnected;
-            data.ChangePreview = _Leaf;
+            data.ChangePreview = _ChangePreview;
             data.PreviewPath = _CharacterConfig?.Characters[_LeafIndex].AvatarPath;
             data.Right = _Horizontal > 0;
             data.Left = _Horizontal < 0;

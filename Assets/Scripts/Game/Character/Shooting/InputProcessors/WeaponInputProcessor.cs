@@ -4,6 +4,8 @@ using UnityEngine;
 namespace Character.Shooting {
     public abstract class WeaponInputProcessor
     {
+        public int CurrentMagazine { get; protected set; }
+
         protected Weapon Weapon { get; private set; }
 
         public WeaponInputProcessor(Weapon weapon)

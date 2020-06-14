@@ -20,6 +20,7 @@ namespace Character.Shooting {
             public override void ProcessRelease()
             {
                 Weapon.PerformShot();
+                CurrentMagazine--;
                 _Timer = 0;
             }
         }

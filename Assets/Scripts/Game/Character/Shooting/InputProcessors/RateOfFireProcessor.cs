@@ -4,8 +4,6 @@ namespace Character.Shooting
 {
     public abstract class RateOfFireProcessor : WeaponInputProcessor
     {
-
-        public int CurrentMagazine { get; private set; }
         protected float _ShotTimer;
         protected float _ReloadTimer;
         protected float TimeBetweenShots => 1 / Weapon.Stats.RateOfFire;
