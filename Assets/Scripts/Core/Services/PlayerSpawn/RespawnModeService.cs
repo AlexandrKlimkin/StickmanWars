@@ -48,6 +48,7 @@ namespace Core.Services.Game {
             _SignalBus.UnSubscribe<CharacterDeathSignal>(this);
         }
 
+
         public void InitializeNewMatch() {
             _PlayersLifesDict = new Dictionary<byte, int>();
             foreach (var player in _MatchData.Players) {

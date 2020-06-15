@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine.Serialization;
 using UnityEngine.U2D;
 
-namespace UnityEngine.UI {
+namespace UnityEngine.UI
+{
     /// <summary>
     /// Image is a textured element in the UI hierarchy.
     /// </summary>
