@@ -45,7 +45,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_ForceMagnitude: 100000
+  m_ForceMagnitude: 650000
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
@@ -83,3 +83,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayButton: 0
   PlayOnStart: 0
+  PlayOnEnable: 1
