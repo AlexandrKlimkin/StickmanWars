@@ -12,6 +12,10 @@ namespace Character.Shooting
         private Transform _ShellEffectPoint;
         [SerializeField]
         private string _ShellEffectName;
+        [SerializeField]
+        private Transform _MuzzleFlashEffectPoint;
+        [SerializeField]
+        private string _MuzzleFlashEffectName;
 
         public override BulletProjectileData GetProjectileData()
         {
@@ -36,14 +40,19 @@ namespace Character.Shooting
 
         public override void PerformShot() {
             base.PerformShot();
-            if (_ShellEffectPoint == null)
-                return;
-            if(string.IsNullOrEmpty(_ShellEffectName))
-                return;
-            var effect = VisualEffect.GetEffect<ParticleEffect>(_ShellEffectName);
-            effect.transform.position = _ShellEffectPoint.position;
-            effect.transform.rotation = _ShellEffectPoint.rotation;
-            effect.Play();
+            if (_ShellEffectPoint != null && !string.IsNullOrEmpty(_ShellEffectName)) {
+                var effect = VisualEffect.GetEffect<ParticleEffect>(_ShellEffectName);
+                effect.transform.position = _ShellEffectPoint.position;
+                effect.transform.rotation = _ShellEffectPoint.rotation;
+                effect.Play();
+            }
+            if (_MuzzleFlashEffectPoint != null && !string.IsNullOrEmpty(_MuzzleFlashEffectName)) {
+                var effect = VisualEffect.GetEffect<AttachedParticleEffect>(_MuzzleFlashEffectName);
+                //effect.transform.position = _ShellEffectPoint.position;
+                //effect.transform.rotation = _ShellEffectPoint.rotation;
+                effect.SetTarget(_MuzzleFlashEffectPoint);
+                effect.Play();
+            }
         }
 
     }

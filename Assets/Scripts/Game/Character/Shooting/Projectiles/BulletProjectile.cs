@@ -5,73 +5,65 @@ using Tools.VisualEffects;
 using UnityEngine;
 using System.Linq;
 
-namespace Character.Shooting
-{
-    public class BulletProjectile : Projectile<BulletProjectileData>
-    {
+namespace Character.Shooting {
+    public class BulletProjectile : Projectile<BulletProjectileData> {
         public string HitEffectName;
+        public Transform TrailTransformOverride;
         public string TrailName;
 
-        protected TrailEffect _Trail;
+        protected AttachedParticleEffect _Trail;
 
         private ContactFilter2D _Filter = new ContactFilter2D() { useTriggers = false };
 
-        public override void Simulate(float time)
-        {
+        public override void Simulate(float time) {
             var targetPos = transform.position + transform.forward * Data.Speed * time;
             List<RaycastHit2D> results = new List<RaycastHit2D>();
             var hitsCount = Physics2D.Linecast(transform.position, targetPos, _Filter, results);
             var hit = results.FirstOrDefault();
             transform.position = (hitsCount > 0 && hit.transform) ? (Vector3)hit.point : targetPos;
-            if (hit.transform != null)
-            {
+            if (hit.transform != null) {
                 PerformHit(hit.transform.GetComponent<IDamageable>());
             }
         }
 
-        protected override void Initialize()
-        {
+        protected override void Initialize() {
             base.Initialize();
             AttachTrail();
         }
 
-        protected override void PerformHit(IDamageable damageable, bool killProjectile = true)
-        {
+        protected override void PerformHit(IDamageable damageable, bool killProjectile = true) {
             base.PerformHit(damageable, killProjectile);
             Data.Damage.Force = transform.right;
             PlayHitEffect();
             damageable?.Collider?.attachedRigidbody?.AddForceAtPosition(new Vector2(transform.forward.x, transform.forward.y) * Data.Force, transform.position);
         }
 
-        protected virtual void AttachTrail()
-        {
+        protected virtual void AttachTrail() {
             if (string.IsNullOrEmpty(TrailName))
                 return;
-            _Trail = VisualEffect.GetEffect<TrailEffect>(TrailName);
-            _Trail.Attach(this.transform);
+            _Trail = GetEffect<AttachedParticleEffect>(TrailName);
+            _Trail.gameObject.SetActive(true);
+            var target = TrailTransformOverride ?? this.transform;
+            _Trail.SetTarget(target);
             _Trail.Play();
         }
 
-        protected virtual void DetachTrail()
-        {
-            if(_Trail == null)
+        protected virtual void DetachTrail() {
+            if (_Trail == null)
                 return;
-            _Trail.Detach();
+            //_Trail.SetTarget(null);
             _Trail = null;
         }
 
-        protected virtual void PlayHitEffect()
-        {
-            if (HitEffectName != null)
-            {
+        protected virtual void PlayHitEffect() {
+            if (HitEffectName != null) {
                 var effect = VisualEffect.GetEffect<ParticleEffect>(HitEffectName);
                 effect.transform.position = transform.position;
                 effect.Play();
             }
         }
 
-        protected override void KillProjectile()
-        {
+        protected override void KillProjectile() {
             base.KillProjectile();
             DetachTrail();
         }

@@ -459,6 +459,36 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 0
   m_Loop: 0
+--- !u!1 &1470442219490773722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6516215384383113439}
+  m_Layer: 13
+  m_Name: MuzzleFlashEffectSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6516215384383113439
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470442219490773722}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 6.72, y: -0.1, z: 0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5262251295035870090}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &2512444276730353405
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,9 +643,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Stats: {fileID: 11400000, guid: b0f83fbaf246838478734824645dfd59, type: 2}
+  PickupType: 0
   ProjectileName: Projectile_Middle
   _ShellEffectPoint: {fileID: 1621562587866599769}
   _ShellEffectName: ShellEffect
+  _MuzzleFlashEffectPoint: {fileID: 6516215384383113439}
+  _MuzzleFlashEffectName: Muzzle_Flash1
 --- !u!114 &1101390317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,6 +684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa5f7195fb979748a0ac75847d23bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _PickupType: 0
 --- !u!1 &4108579417601912059
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,6 +748,7 @@ Transform:
   - {fileID: 1827399128}
   - {fileID: 2082481628266163460}
   - {fileID: 1621562587866599769}
+  - {fileID: 6516215384383113439}
   m_Father: {fileID: 2888260986880051130}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

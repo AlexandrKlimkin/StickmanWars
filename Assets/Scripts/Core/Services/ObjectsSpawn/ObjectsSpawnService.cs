@@ -28,15 +28,16 @@ namespace Core.Services.Game {
             while (true) {
                 if(!_GameManagerService.GameInProgress)
                     yield break;
-                if(WeaponsInfoContainer.AllWeapons.Count < _Settings.MaxCount)
+                if (WeaponsInfoContainer.AllWeapons.Count < _Settings.MaxCount) {
+                    var randomIndex = Random.Range(0, _Settings.ObjectsSpawnData.Count);
+                    var randomObjectData = _Settings.ObjectsSpawnData[randomIndex];
+                    var randomPointIndex = Random.Range(0, _Settings.SpawnPoints.Count);
+                    var randomPoint = _Settings.SpawnPoints[randomPointIndex];
+                    Object.Instantiate(randomObjectData.Prefab, randomPoint.position, randomPoint.rotation);
+                    var randomDelay = Random.Range(_Settings.RandomDelay.x, _Settings.RandomDelay.y);
+                    yield return new WaitForSeconds(randomDelay);
+                } else
                     yield return null;
-                var randomIndex = Random.Range(0, _Settings.ObjectsSpawnData.Count);
-                var randomObjectData = _Settings.ObjectsSpawnData[randomIndex];
-                var randomPointIndex = Random.Range(0, _Settings.SpawnPoints.Count);
-                var randomPoint = _Settings.SpawnPoints[randomPointIndex];
-                Object.Instantiate(randomObjectData.Prefab, randomPoint.position, randomPoint.rotation);
-                var randomDelay = Random.Range(_Settings.RandomDelay.x, _Settings.RandomDelay.y);
-                yield return new WaitForSeconds(randomDelay);
             }
         }
 

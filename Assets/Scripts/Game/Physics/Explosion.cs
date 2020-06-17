@@ -8,10 +8,16 @@ namespace Game.Physics {
         [Button("Play")]
         public bool PlayButton;
         public bool PlayOnStart;
+        public bool PlayOnEnable;
         public LayerMask Layers;
         public float Radius;
         public float MaxForce;
         public AnimationCurve StrenghtCurve;
+
+        private void OnEnable() {
+            if (PlayOnEnable)
+                Play();
+        }
 
         protected virtual void Start() {
             if(PlayOnStart)
@@ -31,6 +37,10 @@ namespace Game.Physics {
             foreach (var rb in rigidbodies) {
                 var closestPoint = rb.ClosestPoint(transform.position);
                 var vector = closestPoint - transform.position.ToVector2();
+                if (vector == Vector2.zero)
+                    vector = rb.worldCenterOfMass - transform.position.ToVector2();
+                if (vector == Vector2.zero)
+                    continue;
                 var dist = vector.magnitude;
                 var normilizedVector = vector / dist;
                 var percentForce = StrenghtCurve.Evaluate(dist / Radius);

@@ -4,10 +4,8 @@ using Character.Health;
 using Items;
 using UnityEngine;
 
-namespace Character.Shooting
-{
-    public abstract class Weapon : MonoBehaviour
-    {
+namespace Character.Shooting {
+    public abstract class Weapon : MonoBehaviour {
         public abstract ItemType ItemType { get; }
         public virtual WeaponReactionType WeaponReaction => WeaponReactionType.Fire;
 
@@ -25,18 +23,16 @@ namespace Character.Shooting
 
         protected virtual bool UseThrowForce => true;
 
-        protected virtual void Awake()
-        {
+        protected virtual void Awake() {
             PickableItem = GetComponent<PickableItem>();
         }
 
-        protected virtual void Start()
-        {
+        protected virtual void Start() {
             WeaponView = PickableItem.ItemView as WeaponView;
+            WeaponsInfoContainer.AddWeapon(this);
         }
 
-        public virtual void PickUp(CharacterUnit owner)
-        {
+        public virtual void PickUp(CharacterUnit owner) {
             PickableItem.PickUp(owner);
             if (WeaponReaction == WeaponReactionType.Fire)
                 owner?.WeaponController?.SubscribeWeaponOnEvents(this);
@@ -44,22 +40,19 @@ namespace Character.Shooting
                 owner?.MovementController?.SubscribeWeaponOnEvents(this);
         }
 
-        public virtual void ThrowOut(CharacterUnit owner)
-        {
-            if(WeaponReaction == WeaponReactionType.Fire)
+        public virtual void ThrowOut(CharacterUnit owner) {
+            if (WeaponReaction == WeaponReactionType.Fire)
                 owner?.WeaponController?.UnSubscribeWeaponOnEvents(this);
-            else if(WeaponReaction == WeaponReactionType.Jump)
+            else if (WeaponReaction == WeaponReactionType.Jump)
                 owner?.MovementController?.UnSubscribeWeaponOnEvents(this);
             PickableItem.ThrowOut(WeaponView.ShootTransform.forward * Stats.MaxThrowForce);
-        } 
+        }
 
-        protected virtual Damage GetDamage()
-        {
+        protected virtual Damage GetDamage() {
             return new Damage(PickableItem.Owner, _Stats.Damage);
         }
 
-        protected virtual void Enable()
-        {
+        protected virtual void Enable() {
             WeaponsInfoContainer.AddWeapon(this);
         }
 
@@ -68,20 +61,17 @@ namespace Character.Shooting
         }
     }
 
-    public enum ItemType
-    {
+    public enum ItemType {
         Weapon,
         Vehicle
     }
 
-    public enum WeaponReactionType
-    {
+    public enum WeaponReactionType {
         Fire,
         Jump,
     }
 
-    public enum WeaponPickupType
-    {
+    public enum WeaponPickupType {
         ArmNear,
         Neck,
     }
