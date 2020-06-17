@@ -45,7 +45,7 @@ namespace Game.Physics {
                 var normilizedVector = vector / dist;
                 var percentForce = StrenghtCurve.Evaluate(dist / Radius);
                 var totalForce = percentForce * MaxForce;
-                Debug.LogError(totalForce);
+                //Debug.LogError(totalForce);
                 var levitation = rb.GetComponent<Levitation>();
                 if (levitation != null)
                     levitation.DisableOnTime(6f);
