@@ -32,7 +32,7 @@ namespace Character.Movement.Modules
         public override void Update()
         {
             _GroundedData.Grounded = _Parameters.GroundSensors.Any(_ => _.IsTouching) && !_WallSlideData.WallSliding;
-            _GroundedData.MainGrounded = _Parameters.MainGroundSensor.IsTouching/* && _Parameters.MainGroundSensor.Distanse < 1f*/;
+            _GroundedData.MainGrounded = _Parameters.MainGroundSensors.Any(_ => _.IsTouching);/* && _Parameters.MainGroundSensor.Distanse < 1f*/;
             _GroundedData.FallingDown = CommonData.ObjTransform.position.y < _LastY && !_GroundedData.MainGrounded;
             _GroundedData.MinDistanceToGround = _Parameters.GroundSensors.Min(_ => _.Distanse);
             if (_GroundedData.MainGrounded)
@@ -47,6 +47,6 @@ namespace Character.Movement.Modules
     public class GroundCheckParameters
     {
         public List<Sensor> GroundSensors;
-        public Sensor MainGroundSensor;
+        public List<Sensor> MainGroundSensors;
     }
 }
