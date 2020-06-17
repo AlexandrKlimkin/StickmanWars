@@ -840,6 +840,10 @@ MonoBehaviour:
     WallJumpSpeed: 250
     LowJumpTime: 0.12
     HighJumpAddTime: 0.15
+    JumpEffectTransformPoints:
+    - {fileID: 5923378598430264413}
+    JumpEffectNames:
+    - JumpEffect
 --- !u!114 &5957157953170100644
 MonoBehaviour:
   m_ObjectHideFlags: 0

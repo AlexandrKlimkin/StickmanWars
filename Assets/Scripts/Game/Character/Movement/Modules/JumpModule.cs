@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Tools.VisualEffects;
 using UnityEngine;
 
 namespace Character.Movement.Modules
@@ -14,6 +15,7 @@ namespace Character.Movement.Modules
         private WallSlideData _WallSlideData;
         private GroundedData _GroundedData;
         private JumpData _JumpData;
+        private WalkData _WalkData;
 
         private float _JumpTimer;
 
@@ -27,6 +29,7 @@ namespace Character.Movement.Modules
             _WallSlideData = BB.Get<WallSlideData>();
             _GroundedData = BB.Get<GroundedData>();
             _JumpData = BB.Get<JumpData>();
+            _WalkData = BB.Get<WalkData>();
         }
 
         public override void LateUpdate()
@@ -45,9 +48,23 @@ namespace Character.Movement.Modules
                 _JumpTimer = _Parameters.LowJumpTime;
                 behaviour.StopCoroutine(JumpRoutine());
                 behaviour.StartCoroutine(JumpRoutine());
+                SpawnJumpEffects();
                 return true;
             }
             return false;
+        }
+
+        private void SpawnJumpEffects() {
+            if (_Parameters.JumpEffectTransformPoints.IsNullOrEmpty() || _Parameters.JumpEffectNames.IsNullOrEmpty())
+                return;
+            foreach(var point in _Parameters.JumpEffectTransformPoints) {
+                var randIndex = UnityEngine.Random.Range(0, _Parameters.JumpEffectNames.Count);
+                var effect = VisualEffect.GetEffect<ParticleEffect>(_Parameters.JumpEffectNames[randIndex]);
+                effect.transform.position = point.transform.position;
+                effect.transform.rotation = Quaternion.identity;
+                effect.transform.localScale = new Vector3(Mathf.Abs(effect.transform.localScale.x) * _WalkData.Direction, effect.transform.localScale.y, effect.transform.localScale.z);
+                effect.Play();
+            }
         }
 
         private IEnumerator JumpRoutine() {
@@ -97,5 +114,7 @@ namespace Character.Movement.Modules
         public float WallJumpSpeed;
         public float LowJumpTime;
         public float HighJumpAddTime;
+        public List<Transform> JumpEffectTransformPoints;
+        public List<string> JumpEffectNames;
     }
 }
