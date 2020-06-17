@@ -483,8 +483,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470442219490773722}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 7.07, y: -0.1, z: 0.05}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 7.64, y: -0.1, z: 0.05}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 5262251295035870090}
   m_RootOrder: 4
@@ -647,8 +647,12 @@ MonoBehaviour:
   ProjectileName: Projectile_Middle
   _ShellEffectPoint: {fileID: 1621562587866599769}
   _ShellEffectName: ShellEffect
-  _MuzzleFlashEffectPoint: {fileID: 6516215384383113439}
-  _MuzzleFlashEffectName: Muzzle_Flash1
+  _MuzzleFlashEffectPoints:
+  - {fileID: 6516215384383113439}
+  _MuzzleFlashEffectNames:
+  - Muzzle_Flash1
+  - Muzzle_Flash2
+  - Muzzle_Flash3
 --- !u!114 &1101390317
 MonoBehaviour:
   m_ObjectHideFlags: 0

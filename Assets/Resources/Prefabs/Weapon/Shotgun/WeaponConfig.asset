@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1e5faba1661464db9a8ff2a8982e6d, type: 3}
   m_Name: WeaponConfig
   m_EditorClassIdentifier: 
-  Range: 1000
+  Range: 200
   ReloadingTime: 1
   ProjectileSpeed: 600
   Damage: 10
@@ -22,7 +22,7 @@ MonoBehaviour:
   ProjectilesInShot: 10
   RateOfFire: 1.5
   ReloadTime: 0
-  DispersionAngle: 15
+  DispersionAngle: 20
   MinThrowForce: 0
   MaxThrowForce: 20000
   MaxForceTime: 0

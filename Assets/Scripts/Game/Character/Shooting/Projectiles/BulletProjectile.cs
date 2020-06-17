@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Character.Shooting {
     public class BulletProjectile : Projectile<BulletProjectileData> {
-        public string HitEffectName;
+        public List<string> HitEffectNames;
         public Transform TrailTransformOverride;
         public string TrailName;
 
@@ -56,9 +56,11 @@ namespace Character.Shooting {
         }
 
         protected virtual void PlayHitEffect() {
-            if (HitEffectName != null) {
-                var effect = VisualEffect.GetEffect<ParticleEffect>(HitEffectName);
+            if (HitEffectNames != null && HitEffectNames.Count > 0) {
+                var randIndex = Random.Range(0, HitEffectNames.Count);
+                var effect = GetEffect<ParticleEffect>(HitEffectNames[randIndex]);
                 effect.transform.position = transform.position;
+                effect.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360f));
                 effect.Play();
             }
         }

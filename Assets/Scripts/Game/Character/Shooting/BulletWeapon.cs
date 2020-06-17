@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Tools;
+using System.Collections.Generic;
 using Tools.VisualEffects;
 using UnityEngine;
 
@@ -13,9 +14,9 @@ namespace Character.Shooting
         [SerializeField]
         private string _ShellEffectName;
         [SerializeField]
-        private Transform _MuzzleFlashEffectPoint;
+        private List<Transform> _MuzzleFlashEffectPoints;
         [SerializeField]
-        private string _MuzzleFlashEffectName;
+        private List<string> _MuzzleFlashEffectNames;
 
         public override BulletProjectileData GetProjectileData()
         {
@@ -46,11 +47,13 @@ namespace Character.Shooting
                 effect.transform.rotation = _ShellEffectPoint.rotation;
                 effect.Play();
             }
-            if (_MuzzleFlashEffectPoint != null && !string.IsNullOrEmpty(_MuzzleFlashEffectName)) {
-                var effect = VisualEffect.GetEffect<AttachedParticleEffect>(_MuzzleFlashEffectName);
+            if (_MuzzleFlashEffectPoints != null && _MuzzleFlashEffectPoints.Count > 0 && _MuzzleFlashEffectNames != null && _MuzzleFlashEffectNames.Count > 0) {
+                var randIndex = Random.Range(0, _MuzzleFlashEffectNames.Count);
+                var randPointIndex = Random.Range(0, _MuzzleFlashEffectPoints.Count);
+                var effect = VisualEffect.GetEffect<AttachedParticleEffect>(_MuzzleFlashEffectNames[randIndex]);
                 //effect.transform.position = _ShellEffectPoint.position;
                 //effect.transform.rotation = _ShellEffectPoint.rotation;
-                effect.SetTarget(_MuzzleFlashEffectPoint);
+                effect.SetTarget(_MuzzleFlashEffectPoints[randPointIndex]);
                 effect.Play();
             }
         }

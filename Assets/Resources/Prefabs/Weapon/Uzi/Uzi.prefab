@@ -612,9 +612,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Stats: {fileID: 11400000, guid: fb9725a9a02ff8f4b8a3507a1985b7d4, type: 2}
+  PickupType: 0
   ProjectileName: Projectile_Small
   _ShellEffectPoint: {fileID: 1621562587866599769}
   _ShellEffectName: ShellEffect_Uzi
+  _MuzzleFlashEffectPoints:
+  - {fileID: 6745122346434519573}
+  _MuzzleFlashEffectNames:
+  - Muzzle_Flash1
+  - Muzzle_Flash2
+  - Muzzle_Flash3
 --- !u!114 &1101390317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,6 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa5f7195fb979748a0ac75847d23bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _PickupType: 0
 --- !u!1 &4108579417601912059
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,6 +721,7 @@ Transform:
   - {fileID: 1827399128}
   - {fileID: 2082481628266163460}
   - {fileID: 1621562587866599769}
+  - {fileID: 6745122346434519573}
   m_Father: {fileID: 2888260986880051130}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -788,6 +797,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9937004, y: 0.18537188}
   m_EdgeRadius: 0
+--- !u!1 &7375530849153781582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6745122346434519573}
+  m_Layer: 13
+  m_Name: MuzzleFlashEffectSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6745122346434519573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7375530849153781582}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 4.46, y: 0.44117644, z: 0.052941263}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 5262251295035870090}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &8166066566550512289
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b30c7cc34aa9a334c9105e62effa0ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitEffectName: ProjectileHitExlosion
+  HitEffectNames:
+  - ProjectileHitExlosion
   TrailTransformOverride: {fileID: 4292161014810535279}
   TrailName: 
 --- !u!1 &2304586069294923877
