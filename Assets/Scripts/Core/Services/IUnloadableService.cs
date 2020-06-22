@@ -1,4 +1,4 @@
-﻿namespace Tools.Services {
+﻿namespace Core.Services {
     public interface IUnloadableService {
         void Unload();
     }

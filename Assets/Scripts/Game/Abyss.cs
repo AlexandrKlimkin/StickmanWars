@@ -9,6 +9,6 @@ public class Abyss : MonoBehaviour
         var damageable = collider.GetComponent<IDamageable>();
         if(damageable == null)
             return;
-        damageable.ApplyDamage(new Damage(null, float.MaxValue));
+        damageable.ApplyDamage(new Damage(null, damageable, float.MaxValue));
     }
 }

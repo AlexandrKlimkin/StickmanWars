@@ -2,12 +2,10 @@
 using Core.Services.Game;
 using Game.Match;
 using KlimLib.SignalBus;
-using MapSelection;
-using Tools.Services;
 using UnityDI;
 using UnityEngine;
 
-namespace Core.Services.MapSelection {
+namespace Core.Services {
     public class CharacterSelectionService : ILoadableService, IUnloadableService {
 
         [Dependency]

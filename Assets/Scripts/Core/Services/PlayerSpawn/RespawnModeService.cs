@@ -4,13 +4,12 @@ using System.Linq;
 using Character.Health;
 using Game.Match;
 using KlimLib.SignalBus;
-using Tools.Services;
 using Tools.Unity;
 using UnityDI;
 using UnityEngine;
 
 namespace Core.Services.Game {
-    public class RespawnModeService : ILoadableService, IUnloadableService {
+    public class RespawnModeService : ILoadableService, IUnloadableService, IPlayerLifesCounter {
         [Dependency]
         private readonly PlayersSpawnSettings _PlayersSpawnSettings;
         [Dependency]
@@ -24,9 +23,9 @@ namespace Core.Services.Game {
         [Dependency]
         private readonly SignalBus _SignalBus;
         [Dependency]
-        private readonly GameManagerService _GameManager;
-        [Dependency]
         private readonly UnityEventProvider _EventProvider;
+        [Dependency]
+        private readonly GameManagerService _GameManagerService;
 
         private Dictionary<byte, int> _PlayersLifesDict;
 
@@ -34,18 +33,21 @@ namespace Core.Services.Game {
 
         private List<byte> AlivePlayers => _PlayersLifesDict.Where(_ => _.Value > 0).Select(_=>_.Key).ToList();
 
+        public IReadOnlyDictionary<byte, int> PlayersLifesDict => _PlayersLifesDict;
+
         public const int PlayerLifes = 3;
         private const float _RespawnDelay = 2f;
 
 
         public void Load() {
-            _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
+            ContainerHolder.Container.RegisterInstance<IPlayerLifesCounter>(this);
+            _SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
+            _SignalBus.Subscribe<CharacterSpawnedSignal>(OnCharacterSpawned, this);
             InitializeNewMatch();
-            SpawnAllAtTheBegining();
         }
 
         public void Unload() {
-            _SignalBus.UnSubscribe<CharacterDeathSignal>(this);
+            _SignalBus.UnSubscribeFromAll(this);
         }
 
 
@@ -54,6 +56,10 @@ namespace Core.Services.Game {
             foreach (var player in _MatchData.Players) {
                 _PlayersLifesDict.Add(player.PlayerId, PlayerLifes);
             }
+        }
+
+        private void OnMatchStart(MatchStartSignal signal) {
+            SpawnAllAtTheBegining();
         }
 
         private void SpawnAllAtTheBegining() {
@@ -76,14 +82,19 @@ namespace Core.Services.Game {
             SpawnPlayerCharacter(playerData, position);
         }
 
-        private void OnCharacterDeath(CharacterDeathSignal signal) {
-            _PlayersLifesDict[signal.PlayerId]--;
-            if (_PlayersLifesDict[signal.PlayerId] > 0) {
-                _EventProvider.StartCoroutine(RespawnRoutine(signal.PlayerId));
+        private void OnCharacterDeath(Damage dmg) {
+            var playerId = dmg.Receiver.OwnerId.Value;
+            _PlayersLifesDict[playerId]--;
+            if (_PlayersLifesDict[playerId] > 0) {
+                _EventProvider.StartCoroutine(RespawnRoutine(playerId));
             }
             else {
-                PlayerDefeated(signal.PlayerId);
+                PlayerDefeated(playerId);
             }
+        }
+
+        private void OnCharacterSpawned(CharacterSpawnedSignal signal) {
+            signal.Unit.OnApplyDeathDamage += OnCharacterDeath;
         }
 
         private IEnumerator RespawnRoutine(byte playerId) {
@@ -101,8 +112,7 @@ namespace Core.Services.Game {
         }
 
         private void EndMatch() {
-            _SignalBus.FireSignal(new MatchEndSignal());
-            _GameManager.EndGame();
+            _GameManagerService.EndMatch();
             Debug.Log(PlayersAlive > 0 ? $"Match end. Player {AlivePlayers.First()} win!" : $"Match end.");
         }
 

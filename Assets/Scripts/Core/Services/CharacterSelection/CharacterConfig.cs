@@ -4,7 +4,7 @@ using System.Linq;
 using Tools;
 using UnityEngine;
 
-namespace Core.Services.MapSelection {
+namespace Core.Services {
     public class CharacterConfig : SingletonScriptableObject<CharacterConfig> {
         [SerializeField]
         private List<CharacterData> _Characters;

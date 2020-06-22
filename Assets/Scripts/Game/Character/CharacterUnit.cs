@@ -10,6 +10,7 @@ using Game.CameraTools;
 using KlimLib.SignalBus;
 using UnityEngine;
 using UnityDI;
+using Core.Services.Game;
 
 public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     [Dependency]
@@ -29,18 +30,14 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     public byte OwnerId { get; private set; }
     public string CharacterId;
 
-    public event Action OnApplyDamage;
+    public event Action<Damage> OnApplyDamage;
+    public event Action<Damage> OnApplyDeathDamage;
 
     private void Awake() {
         MovementController = GetComponent<MovementController>();
         WeaponController = GetComponent<WeaponController>();
         Collider = GetComponent<Collider2D>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
-    }
-
-    private void Start() {
-        MaxHealth = 100f; //Todo: Config
-        Health = MaxHealth;
         Characters.Add(this);
     }
 
@@ -51,34 +48,37 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     public Vector3 Velocity => MovementController.Velocity;
     public float Direction => MovementController.Direction;
 
+    byte? IDamageable.OwnerId => OwnerId;
+
     public void ApplyDamage(Damage damage) {
         if (Dead)
             return;
-        if (damage.Instigator == this) //ToDo: friendly fire, game config
+        if (damage.InstigatorId == OwnerId) //ToDo: friendly fire, game config
             return;
         Health -= damage.Amount;
         Health = Mathf.Clamp(Health, 0, MaxHealth);
+        OnApplyDamage?.Invoke(damage);
         if (Health <= 0)
-            Kill();
-        OnApplyDamage?.Invoke();
+            OnApplyDeathDamage(damage);
     }
 
     public void Initialize(byte ownerId, string characterId) {
         ContainerHolder.Container.BuildUp(this);
         OwnerId = ownerId;
         CharacterId = characterId;
-    }
-
-    private void Kill() {
-        Dead = true;
-        Debug.Log($"Player {OwnerId} character {CharacterId} dead.");
-        _SignalBus?.FireSignal(new CharacterDeathSignal(OwnerId, CharacterId)); //ToDo: Move to service
-        Destroy(gameObject); //ToDo: something different
+        MaxHealth = 100f; //Todo: Config
+        Health = MaxHealth;
     }
 
     private void OnDestroy() {
         _SignalBus?.FireSignal(new GameCameraTargetsChangeSignal(this, false));
         _SignalBus?.UnSubscribeFromAll(this);
         Characters.Remove(this);
+    }
+
+    public void Kill() {
+        Dead = true;
+        Debug.Log($"Player {OwnerId} character {CharacterId} dead.");
+        Destroy(gameObject); //ToDo: something different
     }
 }

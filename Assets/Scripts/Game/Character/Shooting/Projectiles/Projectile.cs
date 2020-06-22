@@ -56,6 +56,7 @@ namespace Character.Shooting
             if(killProjectile)
                 KillProjectile();
             _Hit = true;
+            Data.Damage.Receiver = damageable;
             damageable?.ApplyDamage(Data.Damage);
         }
     }

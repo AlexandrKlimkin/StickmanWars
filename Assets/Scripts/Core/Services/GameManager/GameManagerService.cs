@@ -1,5 +1,6 @@
 ﻿using Core.Services.SceneManagement;
-using Tools.Services;
+using Game.Match;
+using KlimLib.SignalBus;
 using UI;
 using UI.Game;
 using UnityDI;
@@ -11,19 +12,27 @@ namespace Core.Services.Game {
         private readonly SceneManagerService _SceneManager;
         [Dependency]
         private readonly UIManager _UiManager;
+        [Dependency]
+        private readonly SignalBus _SignalBus;
 
         public bool GameInProgress { get; private set; }
 
         public void Load() {
-            GameInProgress = true;
+
         }
 
         public void Unload() {
 
         }
 
-        public void EndGame() {
+        public void StartMatch() {
+            GameInProgress = true;
+            _SignalBus.FireSignal(new MatchStartSignal());
+        }
+
+        public void EndMatch() {
             GameInProgress = false;
+            _SignalBus.FireSignal(new MatchEndSignal());
             _UiManager.SetActivePanel<GameEndPanel>();
         }
 

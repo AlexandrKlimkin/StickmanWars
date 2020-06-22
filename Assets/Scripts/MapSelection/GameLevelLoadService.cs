@@ -5,7 +5,6 @@ using Core.Services.SceneManagement;
 using Game.Match;
 using KlimLib.SignalBus;
 using KlimLib.Timers;
-using Tools.Services;
 using UnityDI;
 using UnityEngine;
 

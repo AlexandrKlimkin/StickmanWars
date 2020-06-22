@@ -16,14 +16,14 @@ public class CharacterAnimationController : MonoBehaviour
         _CharacterUnit = GetComponentInParent<CharacterUnit>();
     }
 
-    private void Start()
-    {
-        _CharacterUnit.OnApplyDamage += this.OnApplyDamage;
-    }
+    //private void Start()
+    //{
+    //    _CharacterUnit.OnApplyDamage += this.OnApplyDamage;
+    //}
 
-    private void OnApplyDamage() {
-        //Animator.SetTrigger("BodyHit");
-    }
+    //private void OnApplyDamage() {
+    //    //Animator.SetTrigger("BodyHit");
+    //}
 
     private void Update()
     {

@@ -33,7 +33,6 @@ namespace Character.Shooting {
 
         protected override void PerformHit(IDamageable damageable, bool killProjectile = true) {
             base.PerformHit(damageable, killProjectile);
-            Data.Damage.Force = transform.right;
             PlayHitEffect();
             damageable?.Collider?.attachedRigidbody?.AddForceAtPosition(new Vector2(transform.forward.x, transform.forward.y) * Data.Force, transform.position);
         }

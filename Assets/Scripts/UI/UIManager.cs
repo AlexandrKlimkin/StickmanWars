@@ -31,7 +31,7 @@ namespace UI
 
         private void CollectPanels()
         {
-            GetComponentsInChildren(_Panels);
+            _Panels = GetComponentsInChildren<IUIPanel>(true).ToList();
             _PanelDict = _Panels.ToDictionary(_ => _.GetType());
         }
 

@@ -6,7 +6,6 @@ using Core.Initialization.MapSelection;
 using Core.Services;
 using Core.Services.Controllers;
 using Core.Services.Game;
-using Core.Services.MapSelection;
 using Core.Services.SceneManagement;
 using Game.Match;
 using KlimLib.ResourceLoader;
@@ -55,18 +54,20 @@ namespace Core.Initialization {
         public static List<Task> GameLoadTasks => new List<Task> {
             new WaitForAwakesTask(),
             new GameUISpawnTask(),
-            new RegisterAndLoadServiceTask<GameManagerService>(),
             new GameCameraSpawnTask(),
+            new RegisterAndLoadServiceTask<GameManagerService>(),
             new RegisterAndLoadServiceTask<RespawnModeService>(),
+            new RegisterAndLoadServiceTask<DeathService>(),
             new RegisterAndLoadServiceTask<ObjectsSpawnService>(),
+            new StartMatchTask(),
         };
 
         public static List<Task> GameUnloadTasks => new List<Task>() {
-            new UnregisterAndUnloadServiceTask<ObjectsSpawnService>(),
-            new UnregisterAndUnloadServiceTask<RespawnModeService>(),
             new UnregisterAndUnloadServiceTask<GameManagerService>(),
             new UnregisterAndUnloadServiceTask<MatchService>(),
             new UnregisterAndUnloadServiceTask<PlayersConnectionService>(),
+            new UnregisterAndUnloadServiceTask<RespawnModeService>(),
+            new UnregisterAndUnloadServiceTask<ObjectsSpawnService>(),
         };
     }
 }

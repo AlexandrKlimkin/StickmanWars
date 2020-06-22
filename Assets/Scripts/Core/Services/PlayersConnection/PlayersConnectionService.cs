@@ -8,7 +8,6 @@ using Core.Services.SceneManagement;
 using Game.Match;
 using InputSystem;
 using KlimLib.SignalBus;
-using Tools.Services;
 using Tools.Unity;
 using UnityDI;
 using UnityEngine;
@@ -50,7 +49,9 @@ namespace Core.Services.Game {
                 var unit = CharacterUnit.Characters.FirstOrDefault(_ => _.OwnerId == player.PlayerId);
                 if(unit == null)
                     continue;
-                FillDeviceIndexForce(unit.GetComponent<PlayerController>().Id, player);
+                var playerController = unit.GetComponent<PlayerController>();
+                FillDeviceIndexForce(playerController.Id, player);
+                _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, playerController.Id));
             }
         }
 

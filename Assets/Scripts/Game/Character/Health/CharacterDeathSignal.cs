@@ -1,11 +1,9 @@
 ﻿namespace Character.Health {
     public struct CharacterDeathSignal {
-        public byte PlayerId;
-        public string CharacterId;
+        public Damage Damage;
 
-        public CharacterDeathSignal(byte playerId, string characterId) {
-            this.PlayerId = playerId;
-            this.CharacterId = characterId;
+        public CharacterDeathSignal(Damage dmg) {
+            this.Damage = dmg;
         }
     }
 }

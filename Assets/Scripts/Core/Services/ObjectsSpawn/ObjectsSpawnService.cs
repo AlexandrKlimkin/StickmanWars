@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using Game.Match;
 using KlimLib.SignalBus;
-using Tools.Services;
 using Tools.Unity;
 using UnityDI;
 using UnityEngine;
@@ -27,7 +26,7 @@ namespace Core.Services.Game {
         private IEnumerator ObjectsSpawnRoutine() {
             while (true) {
                 if(!_GameManagerService.GameInProgress)
-                    yield break;
+                    yield return null;
                 if (WeaponsInfoContainer.AllWeapons.Count < _Settings.MaxCount) {
                     var randomIndex = Random.Range(0, _Settings.ObjectsSpawnData.Count);
                     var randomObjectData = _Settings.ObjectsSpawnData[randomIndex];

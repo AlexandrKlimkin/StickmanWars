@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Character.Health
-{
-    public class Damage
-    {
+namespace Character.Health {
+    public class Damage {
         public float Amount;
-        public CharacterUnit Instigator; //Todo: Id
-        public Vector2 Force;
+        public byte? InstigatorId;
+        public IDamageable Receiver;
 
-        public Damage(CharacterUnit instigator, float amount)
-        {
-            this.Instigator = instigator;
+        public Damage(byte? instigator, IDamageable receiver, float amount) {
+            this.InstigatorId = instigator;
+            this.Receiver = receiver;
             this.Amount = amount;
         }
     }
+
 }
