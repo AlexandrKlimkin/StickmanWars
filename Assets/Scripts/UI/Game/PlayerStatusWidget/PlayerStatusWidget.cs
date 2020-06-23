@@ -26,6 +26,8 @@ namespace UI.Game {
         private readonly SignalBus _SignalBus;
         [Dependency]
         private readonly IResourceLoaderService _ResourceLoader;
+        [Dependency]
+        private readonly BattleStatisticsService _BattleStatisticsService;
 
         private IPlayerLifesCounter PlayerLifesCounter {
             get {
@@ -85,6 +87,9 @@ namespace UI.Game {
             var playerId = signal.Damage.Receiver.OwnerId.Value;
             if (playerId == _AssignedPlayerId) {
                 RefreshLifesCount(PlayerLifesCounter.PlayersLifesDict[playerId]);
+            }
+            if(_AssignedPlayerId == signal.Damage.InstigatorId) {
+                KillsCountText.text = _BattleStatisticsService.KillsDict[_AssignedPlayerId.Value].Count.ToString();
             }
         }
 

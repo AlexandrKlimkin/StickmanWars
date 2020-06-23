@@ -1,4 +1,6 @@
-﻿namespace Character.Health {
+﻿using Game.Match;
+
+namespace Character.Health {
     public struct CharacterDeathSignal {
         public Damage Damage;
 

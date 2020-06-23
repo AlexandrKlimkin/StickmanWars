@@ -53,6 +53,7 @@ namespace Core.Initialization {
 
         public static List<Task> GameLoadTasks => new List<Task> {
             new WaitForAwakesTask(),
+            new RegisterAndLoadServiceTask<BattleStatisticsService>(),
             new GameUISpawnTask(),
             new GameCameraSpawnTask(),
             new RegisterAndLoadServiceTask<GameManagerService>(),
@@ -68,6 +69,7 @@ namespace Core.Initialization {
             new UnregisterAndUnloadServiceTask<PlayersConnectionService>(),
             new UnregisterAndUnloadServiceTask<RespawnModeService>(),
             new UnregisterAndUnloadServiceTask<ObjectsSpawnService>(),
+            new UnregisterAndUnloadServiceTask<BattleStatisticsService>(),
         };
     }
 }
