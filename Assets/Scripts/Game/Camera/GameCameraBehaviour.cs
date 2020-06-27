@@ -23,14 +23,15 @@ namespace Game.CameraTools
         public float VelocityOffsetMultiplier;
         private CameraBounds _CameraBounds;
 
-        public float Zoom => _Camera.orthographicSize;
+        public float Zoom => Camera.orthographicSize;
 
-        private Camera _Camera;
+        public Camera Camera { get; private set; }
+
         private Rect _ResultRect;
 
         protected void Awake()
         {
-            _Camera = GetComponent<Camera>();
+            Camera = GetComponent<Camera>();
             _Targets = new List<ICameraTarget>();
         }
 
@@ -60,17 +61,17 @@ namespace Game.CameraTools
             var right = _CameraBounds.Rect.xMax;
             var up = _CameraBounds.Rect.yMin;
             var down = _CameraBounds.Rect.yMax;
-            var width = _Camera.orthographicSize * _Camera.aspect;
+            var width = Camera.orthographicSize * Camera.aspect;
             var x = targetpos.x;
             var y = targetpos.y;
             if (x - width < left)
                 x = left + width;
             if (x + width > right)
                 x = right - width;
-            if (y + _Camera.orthographicSize > down)
-                y = down - _Camera.orthographicSize;
-            if (y - _Camera.orthographicSize < up)
-                y = up + _Camera.orthographicSize;
+            if (y + Camera.orthographicSize > down)
+                y = down - Camera.orthographicSize;
+            if (y - Camera.orthographicSize < up)
+                y = up + Camera.orthographicSize;
 
             targetpos = new Vector3(x, y, -100f);
             transform.position = Vector3.Lerp(transform.position, targetpos, Time.deltaTime * PositionDamping);
@@ -78,17 +79,17 @@ namespace Game.CameraTools
 
         private void CalculateSize()
         {
-            var aspect = _Camera.aspect;
+            var aspect = Camera.aspect;
             var width = _ResultRect.width;
             var height = _ResultRect.height;
-            var targetSize = width / height > aspect ? width / _Camera.aspect : height;
+            var targetSize = width / height > aspect ? width / Camera.aspect : height;
             targetSize *= 0.5f;
-            var maxSizeHor = _CameraBounds.Rect.size.x / (2f * _Camera.aspect);
+            var maxSizeHor = _CameraBounds.Rect.size.x / (2f * Camera.aspect);
             var maxSizeVert = _CameraBounds.Rect.size.y / 2f;
             var maxSize = Mathf.Min(maxSizeHor, maxSizeVert);
 
             targetSize = Mathf.Clamp(targetSize, MinSize, maxSize);
-            _Camera.orthographicSize = Mathf.Lerp(_Camera.orthographicSize, targetSize, Time.deltaTime * SizeDamping);
+            Camera.orthographicSize = Mathf.Lerp(Camera.orthographicSize, targetSize, Time.deltaTime * SizeDamping);
         }
 
         private Rect TargetsRect()
