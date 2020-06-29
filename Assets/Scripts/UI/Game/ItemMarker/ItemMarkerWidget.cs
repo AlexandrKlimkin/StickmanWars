@@ -39,6 +39,7 @@ namespace RC.UI.Markers {
 
         protected override void Start() {
             base.Start();
+            ContainerHolder.Container.BuildUp(this);
             if (_Left == null) {
                 _IAmBoss = true;
                 _Left = new BorderDeclampHandler();
@@ -46,7 +47,6 @@ namespace RC.UI.Markers {
             }
             _LeftID = _Left.Register(0, 0);
             _RightID = _Right.Register(0, 0);
-            //_ControlPointExtentionWidget = ContainerHolder.Container.Resolve<ControlPointExtentionWidget>();
             _Canvas = this.transform.root.GetComponent<Canvas>();
         }
 

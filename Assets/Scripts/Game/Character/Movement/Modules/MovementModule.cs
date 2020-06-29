@@ -5,7 +5,6 @@ public abstract class MovementModule : IMovementModule
 {
     protected Blackboard BB;
     protected CommonData CommonData;
-    protected MovementController MovementController;
 
     public virtual void Initialize(Blackboard bb) {
         BB = bb;

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3194724793190089569}
   - component: {fileID: 3194724793190089568}
   - component: {fileID: 3194724793190089571}
+  - component: {fileID: 481043350901620145}
   m_Layer: 0
   m_Name: GameCamera
   m_TagString: MainCamera
@@ -102,3 +103,15 @@ MonoBehaviour:
   LeftUpOffstet: {x: -100, y: -50}
   MinSize: 70
   VelocityOffsetMultiplier: 0
+--- !u!114 &481043350901620145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194724793190089583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f844e9093009e6c49b42af7cb14b0d7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

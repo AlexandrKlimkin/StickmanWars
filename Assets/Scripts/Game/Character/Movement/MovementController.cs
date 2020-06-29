@@ -20,6 +20,8 @@ namespace Character.Movement {
         [SerializeField]
         private LedgeHangParameters LedgeHangParameters;
         [SerializeField]
+        private PushingParameters PushingParameters;
+        [SerializeField]
         private JumpParameters JumpParameters;
 
         private List<MovementModule> _MovementModules;
@@ -29,6 +31,7 @@ namespace Character.Movement {
         private WallsSlideModule _WallsSlideModule;
         private JumpModule _JumpModule;
         private LedgeHangModule _LedgeHangModule;
+        private PushingModule _PushingModule;
         private Blackboard _Blackboard;
 
         private WalkData _WalkData;
@@ -48,6 +51,7 @@ namespace Character.Movement {
         public float Direction => _WalkModule.Direction;
         public bool WallRun => _JumpModule.WallRun;
         public bool LedgeHang => _LedgeHangModule.LedgeHang;
+        public bool Pushing => _PushingModule.Pushing;
 
         public event Action OnPressJump;
         public event Action OnHoldJump;
@@ -77,6 +81,7 @@ namespace Character.Movement {
             _WallsSlideModule = new WallsSlideModule(WallSlideParameters);
             _JumpModule = new JumpModule(JumpParameters);
             _LedgeHangModule = new LedgeHangModule(LedgeHangParameters);
+            _PushingModule = new PushingModule(PushingParameters);
 
             _MovementModules.Add(_GroundCheckModule);
             _MovementModules.Add(_WallsCheckModule);
@@ -84,6 +89,7 @@ namespace Character.Movement {
             _MovementModules.Add(_LedgeHangModule);
             _MovementModules.Add(_WallsSlideModule);
             _MovementModules.Add(_JumpModule);
+            _MovementModules.Add(_PushingModule);
         }
 
         private void SetupBlackboard() {
