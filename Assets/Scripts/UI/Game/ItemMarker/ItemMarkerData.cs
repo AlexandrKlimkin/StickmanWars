@@ -5,9 +5,7 @@ using UnityEngine;
 
 namespace RC.UI.Markers {
     public class ItemMarkerData : MarkerData {
-        public float FillAmount;
-        public bool isAlliedOwner;
-        public string PointLabel;
-        public float HighlightFraction;
+        public Vector3 ScreenPos;
+        public string WeaponId;
     }
 }

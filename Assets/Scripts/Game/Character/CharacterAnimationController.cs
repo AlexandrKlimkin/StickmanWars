@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using Character.Movement;
 using UnityEngine;
 
-public class CharacterAnimationController : MonoBehaviour
-{
+public class CharacterAnimationController : MonoBehaviour {
     private Animator Animator;
     private MovementController _MovementController;
     private CharacterUnit _CharacterUnit;
 
-    private void Awake()
-    {
+    private void Awake() {
         Animator = GetComponent<Animator>();
         _MovementController = GetComponentInParent<MovementController>();
         _CharacterUnit = GetComponentInParent<CharacterUnit>();
@@ -25,8 +23,7 @@ public class CharacterAnimationController : MonoBehaviour
     //    //Animator.SetTrigger("BodyHit");
     //}
 
-    private void Update()
-    {
+    private void Update() {
         Animator.SetFloat("Horizontal", Mathf.Abs(_MovementController.Horizontal));
         Animator.SetBool("Grounded", _MovementController.IsMainGrounded);
         Animator.SetFloat("DistanseToGround", _MovementController.MinDistanceToGround);

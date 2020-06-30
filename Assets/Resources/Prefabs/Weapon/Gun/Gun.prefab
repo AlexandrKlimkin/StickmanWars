@@ -191,6 +191,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -348,6 +349,7 @@ GameObject:
   - component: {fileID: 4795353201214904644}
   - component: {fileID: 67721363617865379}
   - component: {fileID: 5705224126902415721}
+  - component: {fileID: 2201153136931582844}
   m_Layer: 13
   m_Name: Gun
   m_TagString: Untagged
@@ -476,6 +478,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PickupType: 0
+--- !u!114 &2201153136931582844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888260986880051133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97fc431856a8590468d54a3e37f3022d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4108579417601912059
 GameObject:
   m_ObjectHideFlags: 0
