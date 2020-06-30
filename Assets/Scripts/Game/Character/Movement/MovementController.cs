@@ -49,9 +49,11 @@ namespace Character.Movement {
         public bool FallingDown => _GroundCheckModule.FallingDown;
         public bool WallSliding => _WallsSlideModule.WallSliding;
         public float Direction => _WalkModule.Direction;
-        public bool WallRun => _JumpModule.WallRun;
+        public bool WallRun => _WallsSlideModule.WallRun;
         public bool LedgeHang => _LedgeHangModule.LedgeHang;
         public bool Pushing => _PushingModule.Pushing;
+        public float TimeFallingDown => _GroundCheckModule.TimeFallingDown;
+        public float TimeNotFallingDown => _GroundCheckModule.TimeNotFallingDown;
 
         public event Action OnPressJump;
         public event Action OnHoldJump;

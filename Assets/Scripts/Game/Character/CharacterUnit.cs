@@ -59,7 +59,7 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         Health = Mathf.Clamp(Health, 0, MaxHealth);
         OnApplyDamage?.Invoke(damage);
         if (Health <= 0)
-            OnApplyDeathDamage(damage);
+            OnApplyDeathDamage?.Invoke(damage);
     }
 
     public void Initialize(byte ownerId, string characterId) {

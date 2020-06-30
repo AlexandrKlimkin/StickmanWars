@@ -8,8 +8,6 @@ namespace Character.Movement.Modules
 {
     public class JumpModule : MovementModule
     {
-        public bool WallRun => _WallSlideData.WallRun;
-
         private JumpParameters _Parameters;
 
         private WallSlideData _WallSlideData;

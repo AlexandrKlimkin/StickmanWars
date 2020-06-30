@@ -1,29 +1,25 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Character.Movement.Modules
-{
-    public class WallsSlideModule : MovementModule
-    {
+namespace Character.Movement.Modules {
+    public class WallsSlideModule : MovementModule {
         public bool WallSliding => _WallSlideData.WallSliding;
+        public bool WallRun => _WallSlideData.WallRun;
 
         private WallsSlideParameters _Parameters;
         private WallSlideData _WallSlideData;
         private GroundedData _GroundedData;
 
-        public WallsSlideModule(WallsSlideParameters parameters)
-        {
+        public WallsSlideModule(WallsSlideParameters parameters) {
             _Parameters = parameters;
         }
 
-        public override void Start()
-        {
+        public override void Start() {
             _WallSlideData = BB.Get<WallSlideData>();
             _GroundedData = BB.Get<GroundedData>();
         }
 
-        public override void Update()
-        {
+        public override void Update() {
             _WallSlideData.WallRun = !_GroundedData.MainGrounded && (_WallSlideData.LeftTouch || _WallSlideData.RightTouch) && !_GroundedData.FallingDown && !_WallSlideData.LedgeHanging;
             _WallSlideData.WallSliding = !_GroundedData.MainGrounded && (_WallSlideData.LeftTouch || _WallSlideData.RightTouch) && _GroundedData.FallingDown && !_WallSlideData.WallRun && !_WallSlideData.LedgeHanging;
             if (!_WallSlideData.WallSliding)
@@ -45,7 +41,6 @@ namespace Character.Movement.Modules
 }
 
 [Serializable]
-public class WallsSlideParameters
-{
+public class WallsSlideParameters {
     public float WallSlideSpeed;
 }

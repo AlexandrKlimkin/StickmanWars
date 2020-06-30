@@ -36,5 +36,7 @@ public class CharacterAnimationController : MonoBehaviour
         Animator.SetBool("LedgeHang", _MovementController.LedgeHang);
         Animator.SetFloat("Speed", Mathf.Abs(_MovementController.Rigidbody.velocity.x / 50f));
         Animator.SetBool("Pushing", _MovementController.Pushing);
+        Animator.SetFloat("TimeFallingDown", _MovementController.TimeFallingDown);
+        Animator.SetFloat("TimeNotFallingDown", _MovementController.TimeNotFallingDown);
     }
 }
