@@ -17,6 +17,9 @@ namespace Character.Shooting {
         [SerializeField]
         protected WeaponConfig _Stats;
         public WeaponPickupType PickupType;
+        [SerializeField]
+        private string _Id;
+        public string Id => _Id;
 
         public WeaponConfig Stats => _Stats;
         public abstract void PerformShot();

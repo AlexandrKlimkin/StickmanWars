@@ -1,4 +1,5 @@
 ﻿using Game.CameraTools;
+using KlimLib.ResourceLoader;
 using System.Collections.Generic;
 using System.Linq;
 using UI.Markers;
@@ -13,11 +14,17 @@ namespace RC.UI.Markers {
         private GameObject _MarkerRoot;
         [SerializeField]
         private UIInterpolator _Interpolator;
+        [SerializeField]
+        private Image _PreviewImage;
+
+        [Dependency]
+        private readonly IResourceLoaderService _ResourceLoader;
 
         private Bounds _CameraBounds;
         private bool _InCameraRect;
         private float _MinSizeCoef = 2f;
         private Vector2 _ScreenPos;
+        private string _CachedId;
 
         protected override void Awake() {
             base.Awake();
@@ -49,6 +56,12 @@ namespace RC.UI.Markers {
                 var maxFractionDist = minFractionDist * _MinSizeCoef;
                 var fraction = Mathf.InverseLerp(maxFractionDist, minFractionDist, distFromCenter);
                 _Interpolator.SetFraction(fraction);
+                if (data.WeaponId != _CachedId) {
+                    var sprite = _ResourceLoader.LoadResource<Sprite>(Path.Resources.WeaponPreview(data.WeaponId));
+                    _PreviewImage.sprite = sprite;
+                }
+                _CachedId = data.WeaponId;
+                _PreviewImage.transform.rotation = Quaternion.Euler(0, 0, 15f);
             }
         }
     }

@@ -133,6 +133,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -255,8 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4478ec024eabe074ba566c25a6ab8e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootTransform: {fileID: 2686587726837220741}
   CollidersContainer: {fileID: 4158809811156441188}
+  ShootTransform: {fileID: 2686587726837220741}
 --- !u!114 &5911491089988973796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,6 +271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Stats: {fileID: 11400000, guid: ea71ffbc4e41eda4d869409e480f1e17, type: 2}
+  PickupType: 0
+  _Id: Brick
   ProjectileName: 
 --- !u!114 &4006482121178286764
 MonoBehaviour:
@@ -311,7 +314,6 @@ MonoBehaviour:
   Force: 40
   TorqueForce: 5
   AngularResistance: 4
-  TargetRot: 0
   MaxAngularVelocity: 360
   LevitationEnableGroundDist: 30
   MaxForceDist: 2

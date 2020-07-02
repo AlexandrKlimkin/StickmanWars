@@ -24,10 +24,6 @@ namespace Character.Movement.Modules {
             _CommonData = BB.Get<CommonData>();
         }
 
-        public override void Update() {
-            if (Pushing)
-                Debug.LogError("Pushing");
-        }
     }
 
     [Serializable]

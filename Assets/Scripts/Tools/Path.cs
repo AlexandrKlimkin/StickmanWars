@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Character.MuscleSystem;
 using UnityEngine;
 
-public static class Path
-{
+public static class Path {
     public static class Resources {
         public static string GameCamera => "Prefabs/Cameras/GameCamera";
         public static string GameCameraPro => "Prefabs/Cameras/GameCameraPro";
@@ -16,9 +15,12 @@ public static class Path
             return $"Prefabs/Characters/{characterId}";
         }
 
-        public static string Bone(string unitId, MuscleType type)
-        {
+        public static string Bone(string unitId, MuscleType type) {
             return $"Characters/{unitId}/{type}";
+        }
+
+        public static string WeaponPreview(string weaponId) {
+            return $"Previews/Items/{weaponId}";
         }
     }
 }
