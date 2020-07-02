@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6171690667430873973}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -48,6 +48,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -92,7 +93,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 6171690667430873973}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: da422f68d60ed794286d476edd203feb, type: 2}
+  m_Material: {fileID: 6200000, guid: 0e70a54356217eb448e482a36ffc40be, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -125,7 +126,7 @@ Rigidbody2D:
   m_LinearDrag: 0.3
   m_AngularDrag: 0.1
   m_GravityScale: 6
-  m_Material: {fileID: 6200000, guid: da422f68d60ed794286d476edd203feb, type: 2}
+  m_Material: {fileID: 6200000, guid: 0e70a54356217eb448e482a36ffc40be, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
