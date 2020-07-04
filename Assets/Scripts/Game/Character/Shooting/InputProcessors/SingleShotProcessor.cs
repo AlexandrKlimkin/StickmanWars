@@ -7,6 +7,7 @@ namespace Character.Shooting {
 
         public override void ProcessPress() {
             TryToShot();
+            base.ProcessPress();
         }
     }
 }

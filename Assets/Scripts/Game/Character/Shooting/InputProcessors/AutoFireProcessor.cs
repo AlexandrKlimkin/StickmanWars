@@ -8,6 +8,7 @@ namespace Character.Shooting {
         public override void ProcessHold()
         {
             TryToShot();
+            base.ProcessHold();
         }
     }
 }

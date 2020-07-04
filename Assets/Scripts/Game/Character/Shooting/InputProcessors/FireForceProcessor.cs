@@ -12,16 +12,16 @@ namespace Character.Shooting {
 
             public float NormilizedForce => Mathf.Clamp01(_Timer / Weapon.Stats.MaxForceTime);
 
-            public override void ProcessHold()
-            {
+            public override void ProcessHold() {
                 _Timer += Time.deltaTime;
+                base.ProcessHold();
             }
 
-            public override void ProcessRelease()
-            {
+            public override void ProcessRelease() {
                 Weapon.PerformShot();
-                CurrentMagazine--;
                 _Timer = 0;
+                CurrentMagazine--;
+                base.ProcessRelease();
             }
         }
     }
