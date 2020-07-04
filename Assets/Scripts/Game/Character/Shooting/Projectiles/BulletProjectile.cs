@@ -32,9 +32,9 @@ namespace Character.Shooting {
         }
 
         protected override void PerformHit(IDamageable damageable, bool killProjectile = true) {
-            base.PerformHit(damageable, killProjectile);
-            PlayHitEffect();
             damageable?.Collider?.attachedRigidbody?.AddForceAtPosition(new Vector2(transform.forward.x, transform.forward.y) * Data.Force, transform.position);
+            PlayHitEffect();
+            base.PerformHit(damageable, killProjectile);
         }
 
         protected virtual void AttachTrail() {

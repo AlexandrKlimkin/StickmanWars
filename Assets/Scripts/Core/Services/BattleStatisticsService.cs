@@ -28,6 +28,8 @@ namespace Core.Services.Game {
             var dmg = signal.Damage;
             if (dmg.InstigatorId == null)
                 return;
+            if (dmg.Receiver.OwnerId == null)
+                return;
             var instigator = dmg.InstigatorId.Value;
             if (!_KillsDict.ContainsKey(instigator))
                 _KillsDict.Add(instigator, new List<KillData>());

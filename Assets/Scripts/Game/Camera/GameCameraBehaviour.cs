@@ -135,7 +135,7 @@ namespace Game.CameraTools
         }
 
         private void OnDestroy() {
-            _SignalBus.UnSubscribeFromAll(this);
+            _SignalBus?.UnSubscribeFromAll(this);
             ContainerHolder.Container.Unregister<GameCameraBehaviour>();
         }
     }

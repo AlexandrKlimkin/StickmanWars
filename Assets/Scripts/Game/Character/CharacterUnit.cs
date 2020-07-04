@@ -21,24 +21,29 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
 
     public static List<CharacterUnit> Characters = new List<CharacterUnit>();
 
-    public float Health { get; private set; }
+    public float Health { get; set; }
     public float MaxHealth { get; private set; }
     public float NormilizedHealth => Health / MaxHealth;
 
-    public bool Dead { get; private set; }
+    public bool Dead { get; set; }
 
+    [SerializeField]
+    private byte _OwnerId;
     public byte OwnerId { get; private set; }
     public string CharacterId;
 
     public event Action<Damage> OnApplyDamage;
-    public event Action<Damage> OnApplyDeathDamage;
 
     private void Awake() {
+        ContainerHolder.Container.BuildUp(this);
         MovementController = GetComponent<MovementController>();
         WeaponController = GetComponent<WeaponController>();
         Collider = GetComponent<Collider2D>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
         Characters.Add(this);
+        OwnerId = _OwnerId;
+        MaxHealth = 100f;
+        Health = MaxHealth;
     }
 
     public Collider2D Collider { get; set; }
@@ -51,15 +56,8 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     byte? IDamageable.OwnerId => OwnerId;
 
     public void ApplyDamage(Damage damage) {
-        if (Dead)
-            return;
-        if (damage.InstigatorId == OwnerId) //ToDo: friendly fire, game config
-            return;
-        Health -= damage.Amount;
-        Health = Mathf.Clamp(Health, 0, MaxHealth);
+        _SignalBus.FireSignal(new ApplyDamageSignal(damage));
         OnApplyDamage?.Invoke(damage);
-        if (Health <= 0)
-            OnApplyDeathDamage?.Invoke(damage);
     }
 
     public void Initialize(byte ownerId, string characterId) {
@@ -76,9 +74,10 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         Characters.Remove(this);
     }
 
-    public void Kill() {
+    public void Kill(Damage damage) {
         Dead = true;
         Debug.Log($"Player {OwnerId} character {CharacterId} dead.");
         Destroy(gameObject); //ToDo: something different
+        _SignalBus?.FireSignal(new CharacterDeathSignal(damage));
     }
 }

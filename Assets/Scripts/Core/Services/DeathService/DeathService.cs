@@ -15,20 +15,15 @@ namespace Core.Services.Game {
         private readonly CharacterCreationService _CharacterCreationService;
 
         public void Load() {
-            _SignalBus.Subscribe<CharacterSpawnedSignal>(OnCharacterSpawned, this);
+
         }
 
         public void Unload() {
             _SignalBus.UnSubscribeFromAll(this);
         }
 
-        private void Kill(Damage dmg) {
-            dmg.Receiver.Kill();
-            _SignalBus?.FireSignal(new CharacterDeathSignal(dmg));
-        }
+        public void Kill(Damage dmg) {
 
-        private void OnCharacterSpawned(CharacterSpawnedSignal signal) {
-            signal.Unit.OnApplyDeathDamage += Kill;
         }
     }
 }

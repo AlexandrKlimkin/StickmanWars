@@ -4,29 +4,28 @@ using System.Collections.Generic;
 using Character.Health;
 using UnityEngine;
 
-public class SimpleDamageable : MonoBehaviour, IDamageable
-{
+public class SimpleDamageable : MonoBehaviour, IDamageable {
     public Collider2D Collider { get; set; }
 
-    public float Health => 0;
+    public float Health { get; set; }
 
     public float NormilizedHealth => 1;
 
     public byte? OwnerId => null;
 
+    public float MaxHealth => throw new NotImplementedException();
+
+    public bool Dead { get; set; }
+
     public event Action<SimpleDamageable, Damage> OnDamage;
 
-    public void ApplyDamage(Damage damage)
-    {
+    public void ApplyDamage(Damage damage) {
         OnDamage?.Invoke(this, damage);
     }
 
-    public void Kill() {
-        throw new NotImplementedException();
-    }
+    public void Kill(Damage damage) { }
 
-    private void Awake()
-    {
+    private void Awake() {
         Collider = gameObject.GetComponentInChildren<Collider2D>();
     }
 }

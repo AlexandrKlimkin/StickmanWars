@@ -42,7 +42,7 @@ namespace Core.Services.Game {
         public void Load() {
             ContainerHolder.Container.RegisterInstance<IPlayerLifesCounter>(this);
             _SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
-            _SignalBus.Subscribe<CharacterSpawnedSignal>(OnCharacterSpawned, this);
+            _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
             InitializeNewMatch();
         }
 
@@ -82,7 +82,8 @@ namespace Core.Services.Game {
             SpawnPlayerCharacter(playerData, position);
         }
 
-        private void OnCharacterDeath(Damage dmg) {
+        private void OnCharacterDeath(CharacterDeathSignal signal) {
+            var dmg = signal.Damage;
             var playerId = dmg.Receiver.OwnerId.Value;
             _PlayersLifesDict[playerId]--;
             if (_PlayersLifesDict[playerId] > 0) {
@@ -91,10 +92,6 @@ namespace Core.Services.Game {
             else {
                 PlayerDefeated(playerId);
             }
-        }
-
-        private void OnCharacterSpawned(CharacterSpawnedSignal signal) {
-            signal.Unit.OnApplyDeathDamage += OnCharacterDeath;
         }
 
         private IEnumerator RespawnRoutine(byte playerId) {

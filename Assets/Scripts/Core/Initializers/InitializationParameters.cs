@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Character.Health;
 using Core.Initialization.Base;
 using Core.Initialization.Game;
 using Core.Initialization.MapSelection;
@@ -32,7 +33,7 @@ namespace Core.Initialization {
                     new RegisterAndLoadServiceTask<CharacterSelectionService>(),
                     new MapSelectionUISpawnTask(),
                     new RegisterAndLoadServiceTask<GameLevelLoadService>(),
-                    //new GameCameraSpawnTask(),
+                    new GameCameraSpawnTask(),
                 }
             .ToList();
 
@@ -49,6 +50,7 @@ namespace Core.Initialization {
                 new RegisterAndLoadServiceTask<MatchService>(),
                 new RegisterAndLoadServiceTask<PlayersConnectionService>(),
                 new RegisterAndLoadServiceTask<CharacterCreationService>(),
+                new RegisterAndLoadServiceTask<HealthService>(),
             };
 
         public static List<Task> GameLoadTasks => new List<Task> {
@@ -58,7 +60,6 @@ namespace Core.Initialization {
             new GameCameraSpawnTask(),
             new RegisterAndLoadServiceTask<GameManagerService>(),
             new RegisterAndLoadServiceTask<RespawnModeService>(),
-            new RegisterAndLoadServiceTask<DeathService>(),
             new RegisterAndLoadServiceTask<ObjectsSpawnService>(),
             new StartMatchTask(),
         };

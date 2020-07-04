@@ -57,6 +57,10 @@ namespace Character.Shooting
                 KillProjectile();
             _Hit = true;
             Data.Damage.Receiver = damageable;
+            ApplyDamage(damageable, Data.Damage);
+        }
+
+        protected virtual void ApplyDamage(IDamageable damageable, Damage dmg) {
             damageable?.ApplyDamage(Data.Damage);
         }
     }

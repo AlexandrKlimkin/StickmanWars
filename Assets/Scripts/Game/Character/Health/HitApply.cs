@@ -4,29 +4,35 @@ using Character.Health;
 using Character.MuscleSystem;
 using UnityEngine;
 
-public class HitApply : MonoBehaviour, IDamageable
-{
-    public Collider2D Collider { get; set; }
+//public class HitApply : MonoBehaviour, IDamageable
+//{
+//    public Collider2D Collider { get; protected set; }
 
-    public float Health => 0;
+//    public float Health => 0;
 
-    public float NormilizedHealth => 1;
+//    public float NormilizedHealth => 1;
 
-    public byte? OwnerId => null;
+//    public byte? OwnerId => null;
 
-    public Transform Applyer;
+//    public float MaxHealth => throw new System.NotImplementedException();
 
-    public void ApplyDamage(Damage damage)
-    {
+//    float IDamageable.Health { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+//    public bool Dead { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+//    Collider2D IDamageable.Collider { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-    }
+//    public Transform Applyer;
 
-    private void Awake()
-    {
-        Collider = GetComponent<Collider2D>();
-    }
+//    public void ApplyDamage(Damage damage)
+//    {
 
-    public void Kill() {
-        throw new System.NotImplementedException();
-    }
-}
+//    }
+
+//    private void Awake()
+//    {
+//        Collider = GetComponent<Collider2D>();
+//    }
+
+//    public void Kill() {
+//        throw new System.NotImplementedException();
+//    }
+//}
