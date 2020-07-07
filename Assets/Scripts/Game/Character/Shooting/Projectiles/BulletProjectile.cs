@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Character.Shooting {
     public class BulletProjectile : Projectile<BulletProjectileData> {
-        public List<string> HitEffectNames;
+        //public List<string> HitEffectNames;
         public Transform TrailTransformOverride;
         public string TrailName;
 
@@ -33,7 +33,7 @@ namespace Character.Shooting {
 
         protected override void PerformHit(IDamageable damageable, bool killProjectile = true) {
             damageable?.Collider?.attachedRigidbody?.AddForceAtPosition(new Vector2(transform.forward.x, transform.forward.y) * Data.Force, transform.position);
-            PlayHitEffect();
+            //PlayHitEffect();
             base.PerformHit(damageable, killProjectile);
         }
 
@@ -52,16 +52,6 @@ namespace Character.Shooting {
                 return;
             //_Trail.SetTarget(null);
             _Trail = null;
-        }
-
-        protected virtual void PlayHitEffect() {
-            if (HitEffectNames != null && HitEffectNames.Count > 0) {
-                var randIndex = Random.Range(0, HitEffectNames.Count);
-                var effect = GetEffect<ParticleEffect>(HitEffectNames[randIndex]);
-                effect.transform.position = transform.position;
-                effect.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360f));
-                effect.Play();
-            }
         }
 
         protected override void KillProjectile() {

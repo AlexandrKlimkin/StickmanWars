@@ -8,6 +8,7 @@ namespace Character.Shooting
 {
     public abstract class Projectile<D> : VisualEffect where D : ProjectileDataBase
     {
+        public List<string> HitEffectNames;
         public D Data { get; private set; }
         public bool Initialized { get; private set; }
         public float NormalizedLifeTime => (Time.time - Data.BirthTime) / Data.LifeTime;
@@ -58,6 +59,17 @@ namespace Character.Shooting
             _Hit = true;
             Data.Damage.Receiver = damageable;
             ApplyDamage(damageable, Data.Damage);
+            PlayHitEffect();
+        }
+
+        protected virtual void PlayHitEffect() {
+            if (HitEffectNames != null && HitEffectNames.Count > 0) {
+                var randIndex = Random.Range(0, HitEffectNames.Count);
+                var effect = GetEffect<ParticleEffect>(HitEffectNames[randIndex]);
+                effect.transform.position = transform.position;
+                effect.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360f));
+                effect.Play();
+            }
         }
 
         protected virtual void ApplyDamage(IDamageable damageable, Damage dmg) {
