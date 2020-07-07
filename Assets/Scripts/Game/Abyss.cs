@@ -6,9 +6,9 @@ using UnityEngine;
 public class Abyss : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collider) {
-        var damageable = collider.GetComponent<IDamageable>();
+        var damageable = collider.GetComponentInParent<IDamageable>();
         if(damageable == null)
             return;
-        damageable.ApplyDamage(new Damage(null, damageable, float.MaxValue));
+        damageable.Kill(new Damage(null, damageable, float.MaxValue));
     }
 }

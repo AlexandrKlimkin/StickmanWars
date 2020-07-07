@@ -50,7 +50,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   Radius: 30
-  MaxForce: 10000
+  MaxForce: 20000
   MaxDamage: 70
   StrenghtCurve:
     serializedVersion: 2
@@ -76,3 +76,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  MaxVelocityMagnitude: 150

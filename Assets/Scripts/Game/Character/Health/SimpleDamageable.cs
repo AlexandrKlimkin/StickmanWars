@@ -13,7 +13,7 @@ public class SimpleDamageable : MonoBehaviour, IDamageable {
 
     public byte? OwnerId => null;
 
-    public float MaxHealth => throw new NotImplementedException();
+    public float MaxHealth => float.MaxValue;
 
     public bool Dead { get; set; }
 
@@ -23,7 +23,9 @@ public class SimpleDamageable : MonoBehaviour, IDamageable {
         OnDamage?.Invoke(this, damage);
     }
 
-    public void Kill(Damage damage) { }
+    public void Kill(Damage damage) {
+        Destroy(gameObject);
+    }
 
     private void Awake() {
         Collider = gameObject.GetComponentInChildren<Collider2D>();

@@ -16,6 +16,7 @@ namespace Game.Physics {
         public float MaxForce;
         public float MaxDamage;
         public AnimationCurve StrenghtCurve;
+        public float MaxVelocityMagnitude;
 
         private void OnEnable() {
             if (PlayOnEnable)
@@ -31,6 +32,7 @@ namespace Game.Physics {
             var colliders = Physics2D.OverlapCircleAll(transform.position.ToVector2(), Radius, Layers);
             var rigidbodies = new List<Rigidbody2D>();
             var damageables = new List<PartData>();
+            var speedLimitsRbs = new List<Rigidbody2D>();
             foreach (var col in colliders) {
                 if(col.attachedRigidbody == null)
                     continue;
@@ -56,8 +58,13 @@ namespace Game.Physics {
                 rb.AddForceAtPosition(totalForce * normilizedVector, closestPoint);
                 var damageable = rb.GetComponent<IDamageable>();
                 damageables.Add(new PartData { Damageable = damageable, Damage = percentForce * MaxDamage });
+
+                var velMagnitude = rb.velocity.magnitude;
+                if (velMagnitude > MaxVelocityMagnitude)
+                    speedLimitsRbs.Add(rb);
             }
             StartCoroutine(ApplyDamageAfteFixedUpdate(damageables));
+            StartCoroutine(LimitVelocityAfterFixedUpdate(speedLimitsRbs));
         }
 
         private struct PartData {
@@ -68,6 +75,11 @@ namespace Game.Physics {
         private IEnumerator ApplyDamageAfteFixedUpdate(List<PartData> parts) {
             yield return new WaitForFixedUpdate();
             parts.ForEach(_=>_.Damageable.ApplyDamage(new Damage(null, _.Damageable, _.Damage)));
+        }
+
+        private IEnumerator LimitVelocityAfterFixedUpdate(List<Rigidbody2D> rbs) {
+            yield return new WaitForFixedUpdate();
+            rbs.ForEach(_ => _.velocity = _.velocity.normalized * MaxVelocityMagnitude);
         }
 
 
