@@ -74,7 +74,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.005105436, y: 0}
+  m_Offset: {x: 0.0007202029, y: -0.0029127598}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -85,7 +85,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.8, y: 1.55}
+  m_Size: {x: 1.6328691, y: 3.8744226}
   m_EdgeRadius: 0
 --- !u!1 &4905449903551151007
 GameObject:
@@ -112,13 +112,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4905449903551151007}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 6726360523302912760}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3201313414256865415
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 4006482121178286764}
   - component: {fileID: 872710027440348436}
   - component: {fileID: 7193429156207884514}
+  - component: {fileID: 5434374533421882330}
   m_Layer: 0
   m_Name: Brick
   m_TagString: Untagged
@@ -322,3 +323,16 @@ MonoBehaviour:
   AngularDrag: 0.1
   _DisableOnDamageTake: 1
   Rotate: 1
+--- !u!114 &5434374533421882330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6726360523302912758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa5f7195fb979748a0ac75847d23bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PickupType: 0

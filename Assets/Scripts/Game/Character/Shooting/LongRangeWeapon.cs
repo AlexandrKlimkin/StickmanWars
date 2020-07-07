@@ -10,6 +10,8 @@ namespace Character.Shooting
         public override ItemType ItemType => ItemType.Weapon;
         public string ProjectileName;
 
+        protected float RandomDispersionAngle => Random.Range(-_Stats.DispersionAngle / 2, _Stats.DispersionAngle / 2);
+
         public virtual P GetProjectile()
         {
             //return Instantiate(ProjectilePrefab);

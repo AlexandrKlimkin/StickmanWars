@@ -6,30 +6,26 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Character.Shooting
-{
-    public class ThrowingProjectile : Projectile<ThrowingProjectileData>
-    {
+namespace Character.Shooting {
+    public class ThrowingProjectile : Projectile<ThrowingProjectileData> {
         [SerializeField]
         private Rigidbody2D _RB;
 
         private ContactFilter2D _Filter = new ContactFilter2D() { useTriggers = false };
 
-        protected virtual void Awake()
-        {
+        protected virtual void Awake() {
             _RB = GetComponent<Rigidbody2D>();
         }
 
-        public override void Setup(ThrowingProjectileData data)
-        {
+        public override void Setup(ThrowingProjectileData data) {
             base.Setup(data);
-            Debug.DrawRay(data.Position, data.StartDirection * 30f, Color.magenta, 2f);
-            _RB.AddForce(data.StartDirection * data.StartForce);
-            _RB.angularVelocity = -720f;
+            _RB.velocity = Vector2.zero;
+            //Debug.DrawRay(data.Position, data.StartDirection * 30f, Color.magenta, 2f);
+            //_RB.AddForce(data.StartDirection * data.StartForce);
+            //_RB.angularVelocity = -720f;
         }
 
-        public override void Simulate(float time)
-        {
+        public override void Simulate(float time) {
 
         }
 

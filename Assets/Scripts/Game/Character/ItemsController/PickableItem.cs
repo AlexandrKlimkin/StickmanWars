@@ -14,10 +14,12 @@ namespace Items {
             ItemView = GetComponent<ItemView>();
         }
 
-        public virtual void ThrowOut(Vector2 force) {
+        public virtual void ThrowOut(Vector2? throwForce, float? angularVel) {
             ItemView.ThrowOut(Owner.WeaponController.gameObject);
-            ItemView.Rigidbody.AddForce(force);
-            ItemView.Rigidbody.angularVelocity = -360f;
+            if(throwForce != null)
+                ItemView.Rigidbody.AddForce(throwForce.Value);
+            if(angularVel != null)
+                ItemView.Rigidbody.angularVelocity = angularVel.Value;
             ItemView.Levitation.DisableOnTime(6f);
             Owner = null;
         }

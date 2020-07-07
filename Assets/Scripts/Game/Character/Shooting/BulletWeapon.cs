@@ -7,8 +7,6 @@ namespace Character.Shooting
 {
     public abstract class BulletWeapon : LongRangeWeapon<BulletProjectile, BulletProjectileData> {
 
-        private float RandomDispersionAngle => Random.Range(-_Stats.DispersionAngle / 2, _Stats.DispersionAngle / 2);
-
         [SerializeField]
         private Transform _ShellEffectPoint;
         [SerializeField]
