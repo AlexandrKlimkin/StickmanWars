@@ -1,10 +1,11 @@
-﻿using Game.CameraTools;
+﻿using Com.LuisPedroFonseca.ProCamera2D;
+using Game.CameraTools;
 
 namespace Game.CameraTools {
     public struct GameCameraSpawnedSignal {
-        public GameCameraBehaviour Camera;
+        public ProCamera2D Camera;
 
-        public GameCameraSpawnedSignal(GameCameraBehaviour camera) {
+        public GameCameraSpawnedSignal(ProCamera2D camera) {
             this.Camera = camera;
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Tools;
+using Com.LuisPedroFonseca.ProCamera2D;
 using Game.CameraTools;
 using Game.LevelSpecial;
 using KlimLib.SignalBus;
@@ -20,7 +21,7 @@ namespace Rendering
         public float Direction => 0f;
         private float _TriggerOutTimer = 0f;
 
-        private GameCameraBehaviour _CameraBehaviour;
+        private ProCamera2D _Camera;
         [Dependency]
         private readonly SignalBus _SignalBus;
 
@@ -31,32 +32,32 @@ namespace Rendering
 
         private void Update()
         {
-            if(_CameraBehaviour == null)
-                return;
-            if (Triggers.Any(_ => _.ContainsUnit()))
-            {
-                if (!_CameraBehaviour.Targets.Contains(this)) {
-                    _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, true));
-                }
-                _TriggerOutTimer = 0f;
-            }
-            else
-            {
-                if (_CameraBehaviour.Targets.Contains(this)) {
-                    if (_TriggerOutTimer >= TriggerOutTime)
-                    {
-                        _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, false));
-                    }
-                    else
-                    {
-                        _TriggerOutTimer += Time.deltaTime;
-                    }
-                }
-            }
+            //if(_CameraBehaviour == null)
+            //    return;
+            //if (Triggers.Any(_ => _.ContainsUnit()))
+            //{
+            //    if (!_CameraBehaviour.Targets.Contains(this)) {
+            //        _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, true));
+            //    }
+            //    _TriggerOutTimer = 0f;
+            //}
+            //else
+            //{
+            //    if (_CameraBehaviour.Targets.Contains(this)) {
+            //        if (_TriggerOutTimer >= TriggerOutTime)
+            //        {
+            //            _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(this, false));
+            //        }
+            //        else
+            //        {
+            //            _TriggerOutTimer += Time.deltaTime;
+            //        }
+            //    }
+            //}
         }
 
         private void OnCameraSpawned(GameCameraSpawnedSignal signal) {
-            _CameraBehaviour = signal.Camera;
+            _Camera = signal.Camera;
         }
     }
 }

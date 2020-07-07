@@ -11,8 +11,11 @@ GameObject:
   - component: {fileID: 3194724793190089570}
   - component: {fileID: 3194724793190089569}
   - component: {fileID: 3194724793190089568}
-  - component: {fileID: 3194724793190089571}
   - component: {fileID: 481043350901620145}
+  - component: {fileID: 369844855067255798}
+  - component: {fileID: 1637644485}
+  - component: {fileID: 488752418787073017}
+  - component: {fileID: 6572342332830188364}
   m_Layer: 0
   m_Name: GameCamera
   m_TagString: MainCamera
@@ -61,7 +64,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 127.24
+  orthographic size: 100
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -85,24 +88,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3194724793190089583}
   m_Enabled: 1
---- !u!114 &3194724793190089571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3194724793190089583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a984a1be6ba65f145b5eac1162c8bf3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PositionDamping: 2
-  SizeDamping: 1
-  RigthDownOffset: {x: 100, y: 50}
-  LeftUpOffstet: {x: -100, y: -50}
-  MinSize: 70
-  VelocityOffsetMultiplier: 0
 --- !u!114 &481043350901620145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,3 +100,109 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f844e9093009e6c49b42af7cb14b0d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &369844855067255798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194724793190089583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8c96e2cdc154e848a3d9fe62464d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraTargets: []
+  CenterTargetOnStart: 0
+  Axis: 0
+  UpdateType: 0
+  FollowHorizontal: 1
+  HorizontalFollowSmoothness: 0.15
+  FollowVertical: 1
+  VerticalFollowSmoothness: 0.15
+  OffsetX: 0
+  OffsetY: 0
+  IsRelativeOffset: 1
+  ZoomWithFOV: 0
+  IgnoreTimeScale: 0
+  CurrentZoomTriggerID: 0
+  IsCameraPositionLeftBounded: 0
+  IsCameraPositionRightBounded: 0
+  IsCameraPositionTopBounded: 0
+  IsCameraPositionBottomBounded: 0
+  GameCamera: {fileID: 3194724793190089569}
+--- !u!114 &1637644485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194724793190089583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6903f12ac8ae44a41ba2a44700ec60ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pc2D: {fileID: 369844855067255798}
+  UseNumericBoundaries: 1
+  UseTopBoundary: 0
+  TopBoundary: 10
+  TargetTopBoundary: 0
+  UseBottomBoundary: 1
+  BottomBoundary: -10
+  TargetBottomBoundary: 0
+  UseLeftBoundary: 0
+  LeftBoundary: -10
+  TargetLeftBoundary: 0
+  UseRightBoundary: 0
+  RightBoundary: 10
+  TargetRightBoundary: 0
+  IsCameraPositionHorizontallyBounded: 0
+  IsCameraPositionVerticallyBounded: 0
+  CurrentBoundariesTrigger: {fileID: 0}
+  HasFiredTransitionStarted: 0
+  HasFiredTransitionFinished: 0
+  UseSoftBoundaries: 1
+  Softness: 0.5
+  SoftAreaSize: 0.1
+--- !u!114 &488752418787073017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194724793190089583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d259ae680f345ccb8abad710dd1263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pc2D: {fileID: 369844855067255798}
+  ZoomOutBorder: 0.4
+  ZoomInBorder: 0.4
+  ZoomInSmoothness: 0.7
+  ZoomOutSmoothness: 1
+  MaxZoomInAmount: 2
+  MaxZoomOutAmount: 4
+  DisableWhenOneTarget: 1
+  CompensateForCameraPosition: 0
+--- !u!114 &6572342332830188364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194724793190089583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 852aabd699fd842b392ca48e4955f079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pc2D: {fileID: 369844855067255798}
+  CamVelocityForZoomOut: 15
+  CamVelocityForZoomIn: 4
+  ZoomInSmoothness: 1
+  ZoomOutSmoothness: 1
+  MaxZoomInAmount: 1.5
+  MaxZoomOutAmount: 1.04
+  CurrentVelocity: 0.043075897

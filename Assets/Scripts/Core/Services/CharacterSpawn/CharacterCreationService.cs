@@ -1,4 +1,5 @@
 ﻿using Character.Control;
+using Com.LuisPedroFonseca.ProCamera2D;
 using Game.CameraTools;
 using KlimLib.ResourceLoader;
 using KlimLib.SignalBus;
@@ -14,6 +15,8 @@ namespace Core.Services.Game {
         [Dependency]
         private readonly IResourceLoaderService _ResourceLoader;
 
+        private ProCamera2D Camera2D => _Camera2D == null ? ContainerHolder.Container.Resolve<ProCamera2D>() : _Camera2D;
+        private readonly ProCamera2D _Camera2D;
         public void Load() { }
 
         public void Unload() {
@@ -27,12 +30,13 @@ namespace Core.Services.Game {
                 SetupLocalPlayerComponents(unit, deviceId);
             }
             unit.Initialize(playerId, characterId);
-
-            //unit.gameObject.AddComponent<CharacterMarkerProvider>();
             _SignalBus.FireSignal(new CharacterSpawnedSignal(unit));
-            _SignalBus.FireSignal(new GameCameraTargetsChangeSignal(unit, true));
+            if(Camera2D != null) {
+                Camera2D.AddCameraTarget(unit.transform);
+            }
             return unit;
         }
+
 
         private void SetupLocalPlayerComponents(CharacterUnit character, int deviceId) {
             var playerController = character.GetComponent<PlayerController>();
