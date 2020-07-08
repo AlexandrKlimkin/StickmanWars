@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 369844855067255798}
   - component: {fileID: 1637644485}
   - component: {fileID: 488752418787073017}
-  - component: {fileID: 6572342332830188364}
+  - component: {fileID: 5207129655611201363}
   m_Layer: 0
   m_Name: GameCamera
   m_TagString: MainCamera
@@ -186,7 +186,7 @@ MonoBehaviour:
   MaxZoomOutAmount: 4
   DisableWhenOneTarget: 1
   CompensateForCameraPosition: 0
---- !u!114 &6572342332830188364
+--- !u!114 &5207129655611201363
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,14 +195,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3194724793190089583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 852aabd699fd842b392ca48e4955f079, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ac0ec3d6ad5f4a3d9d184bc3773a3a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _pc2D: {fileID: 369844855067255798}
-  CamVelocityForZoomOut: 15
-  CamVelocityForZoomIn: 4
-  ZoomInSmoothness: 1
-  ZoomOutSmoothness: 1
-  MaxZoomInAmount: 1.5
-  MaxZoomOutAmount: 1.04
-  CurrentVelocity: 0.043075897
+  ShakePresets:
+  - {fileID: 11400000, guid: 865c0998fbb884706bc8e9216bc17d0c, type: 2}
+  - {fileID: 11400000, guid: 0c1a6fe5e71a618489fcdbe228865cd0, type: 2}
+  - {fileID: 11400000, guid: c23f803bd39c8e842a30db24b2f21c16, type: 2}
+  ConstantShakePresets: []
+  StartConstantShakePreset: {fileID: 0}
+  CurrentConstantShakePreset: {fileID: 0}

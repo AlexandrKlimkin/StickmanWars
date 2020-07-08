@@ -3,20 +3,21 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbf2b71a297b84564b930517da7ba2d8, type: 3}
-  m_Name: LargeExplosion
+  m_Name: shake_gun_shot
   m_EditorClassIdentifier: 
-  Strength: {x: 3, y: 3, z: 0}
-  Duration: 0.777
-  Vibrato: 19
-  Randomness: 0.328
-  Smoothness: 0.075
-  UseRandomInitialAngle: 1
-  InitialAngle: 0
+  Strength: {x: 0.7, y: 0.7, z: 0}
+  Duration: 0.1
+  Vibrato: 3
+  Randomness: 0
+  Smoothness: 0.033
+  UseRandomInitialAngle: 0
+  InitialAngle: 10
   Rotation: {x: 0, y: 0, z: 0}
   IgnoreTimeScale: 0

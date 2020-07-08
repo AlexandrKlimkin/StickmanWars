@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Tools;
 using Character.Health;
+using Com.LuisPedroFonseca.ProCamera2D;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace Game.Physics {
         public float MaxDamage;
         public AnimationCurve StrenghtCurve;
         public float MaxVelocityMagnitude;
+        public string CameraShakePresetName;
 
         private void OnEnable() {
             if (PlayOnEnable)
@@ -65,6 +67,8 @@ namespace Game.Physics {
             }
             StartCoroutine(ApplyDamageAfteFixedUpdate(damageables));
             StartCoroutine(LimitVelocityAfterFixedUpdate(speedLimitsRbs));
+            if(ProCamera2DShake.Instance != null && !string.IsNullOrEmpty(CameraShakePresetName))
+                ProCamera2DShake.Instance.Shake(CameraShakePresetName);
         }
 
         private struct PartData {

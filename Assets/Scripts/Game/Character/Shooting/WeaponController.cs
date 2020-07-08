@@ -64,7 +64,8 @@ namespace Character.Shooting {
         }
 
         public void ThrowOutMainWeapon() {
-            ThrowOutMainWeapon(MainWeapon.Stats.MaxThrowForce, -360f);
+            if (!HasMainWeapon) return;
+                ThrowOutMainWeapon(MainWeapon.Stats.MaxThrowForce, -360f);
         }
 
         public void ThrowOutMainWeapon(float force, float angularVel) {
