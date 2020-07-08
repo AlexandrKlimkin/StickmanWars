@@ -275,6 +275,7 @@ MonoBehaviour:
   PickupType: 0
   _Id: Brick
   ProjectileName: 
+  ShotCameraShakePresetName: 
 --- !u!114 &8444042851038254120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HitEffectNames:
-  - ProjectileHitExlosion
+  - ProjectileHitExplosion
   _RB: {fileID: 3017729108957783455}
   Timer: 3
 --- !u!114 &872710027440348436
