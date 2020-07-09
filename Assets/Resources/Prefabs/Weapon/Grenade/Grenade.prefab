@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: -2876185567439430661}
   - component: {fileID: 5911491089988973796}
   - component: {fileID: 8444042851038254120}
-  - component: {fileID: 872710027440348436}
+  - component: {fileID: 3204002030724636861}
   - component: {fileID: 7193429156207884514}
   - component: {fileID: 5434374533421882330}
   m_Layer: 0
@@ -292,7 +292,7 @@ MonoBehaviour:
   - ProjectileHitExplosion
   _RB: {fileID: 3017729108957783455}
   Timer: 3
---- !u!114 &872710027440348436
+--- !u!114 &3204002030724636861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -301,9 +301,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6726360523302912758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 946ad52d3c4638f4c9173d7b9aa8c691, type: 3}
+  m_Script: {fileID: 11500000, guid: b385800dc30f087498149c59398d828c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _MaxHealth: 20
 --- !u!114 &7193429156207884514
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -52,7 +52,7 @@ namespace Character.Shooting {
         }
 
         protected virtual Damage GetDamage() {
-            return new Damage(PickableItem.Owner.OwnerId, null, _Stats.Damage);
+            return new Damage(PickableItem.Owner?.OwnerId, null, _Stats.Damage);
         }
 
         protected virtual void Enable() {

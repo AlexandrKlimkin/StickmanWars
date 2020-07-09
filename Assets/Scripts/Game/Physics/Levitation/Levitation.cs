@@ -141,7 +141,8 @@ namespace Game.Physics {
         }
 
         private void OnDestroy() {
-            _Damageable.OnDamage -= DisableOnDamage;
+            if(_Damageable != null)
+                _Damageable.OnDamage -= DisableOnDamage;
         }
     }
 }

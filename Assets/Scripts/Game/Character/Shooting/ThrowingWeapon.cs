@@ -18,10 +18,13 @@ namespace Character.Shooting {
             data.Position = transform.position;
 
             Vector3 shootRotEuler;
-            var directionVector = PickableItem.Owner.WeaponController.AimPosition - WeaponView.ShootTransform.position.ToVector2().normalized;
+            if (PickableItem.Owner != null) {
+                var directionVector = PickableItem.Owner.WeaponController.AimPosition - WeaponView.ShootTransform.position.ToVector2().normalized;
+                data.StartDirection = directionVector;
+
+                data.StartForce = Mathf.Lerp(_Stats.MinThrowForce, _Stats.MaxThrowForce, _FireForceProcessor.NormilizedForce);
+            }
             data.Rotation = transform.rotation;
-            data.StartDirection = directionVector;
-            data.StartForce = Mathf.Lerp(_Stats.MinThrowForce, _Stats.MaxThrowForce, _FireForceProcessor.NormilizedForce);
             return data;
         }
 

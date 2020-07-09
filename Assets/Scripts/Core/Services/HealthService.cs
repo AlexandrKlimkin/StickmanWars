@@ -25,7 +25,7 @@ namespace Character.Health {
             var damage = signal.Damage;
             if (damage.Receiver.Dead)
                 return;
-            if (damage.InstigatorId == damage.Receiver.OwnerId)
+            if (damage.InstigatorId != null && damage.InstigatorId == damage.Receiver.OwnerId)
                 return;
             damage.Receiver.Health -= damage.Amount;
             damage.Receiver.Health = Mathf.Clamp(damage.Receiver.Health, 0, damage.Receiver.MaxHealth);

@@ -4,10 +4,8 @@ using Character.Health;
 using Tools.VisualEffects;
 using UnityEngine;
 
-namespace Character.Shooting
-{
-    public abstract class Projectile<D> : VisualEffect where D : ProjectileDataBase
-    {
+namespace Character.Shooting {
+    public abstract class Projectile<D> : VisualEffect where D : ProjectileDataBase {
         public List<string> HitEffectNames;
         public D Data { get; private set; }
         public bool Initialized { get; private set; }
@@ -17,8 +15,7 @@ namespace Character.Shooting
 
         protected bool _Hit;
 
-        public virtual void Setup(D data)
-        {
+        public virtual void Setup(D data) {
             Data = data;
             transform.position = data.Position;
             transform.rotation = data.Rotation;
@@ -26,35 +23,29 @@ namespace Character.Shooting
             Initialize();
         }
 
-        protected virtual void Initialize()
-        {
+        protected virtual void Initialize() {
             Initialized = true;
         }
-        
-        protected override IEnumerator PlayTask()
-        {
+
+        protected override IEnumerator PlayTask() {
             if (!Initialized)
                 yield break;
-            while (true)
-            {
+            while (true) {
                 Simulate(Time.deltaTime);
-                if (NormalizedLifeTime >= 1)
-                {
+                if (NormalizedLifeTime >= 1) {
                     KillProjectile();
                 }
                 yield return null;
             }
         }
 
-        protected virtual void KillProjectile()
-        {
+        protected virtual void KillProjectile() {
             this.gameObject.SetActive(false);
             Initialized = false;
         }
 
-        protected virtual void PerformHit(IDamageable damageable, bool killProjectile = true)
-        {
-            if(killProjectile)
+        protected virtual void PerformHit(IDamageable damageable, bool killProjectile = true) {
+            if (killProjectile)
                 KillProjectile();
             _Hit = true;
             Data.Damage.Receiver = damageable;
