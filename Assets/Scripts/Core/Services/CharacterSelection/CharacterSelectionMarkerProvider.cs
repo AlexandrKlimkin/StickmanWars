@@ -62,28 +62,51 @@ namespace MapSelection.UI {
             _SignalBus?.UnSubscribeFromAll(this);
         }
 
+        private float _SrollBeginTime = 0.7f;
+        private float _HasHorizontalTimer;
+        private bool _IsScrolling;
+
+        private float _ScrollTime = 0.25f;
+        private float _ScrollTimer;
+
         private void Update() {
-            if(!_PlayerConnected)
+            if (!_PlayerConnected)
                 return;
-            if(!_AllowSpawn)
+            if (!_AllowSpawn)
                 return;
-            if(_CharacterSelected)
+            if (_CharacterSelected)
                 return;
             if (Input.GetKeyDown(_InputKit.Select)) {
                 _CharacterSelected = true;
                 CharacterSelectionService.SelectCharacter(_CachedPlayerConnected.PlayerData.PlayerId, _CharacterConfig.Characters[_LeafIndex].Name);
             }
-            if (Input.GetKeyDown(_InputKit.Back)) {
-
-            }
             _Horizontal = Input.GetAxis(_InputKit.Horizontal);
             _HasHorizontal = Mathf.Abs(_Horizontal) > 0.1f;
             _Leaf = _HasHorizontal && !_LastFrameHasHorizontal;
-            if (_Leaf) {
-                Leaf(_Horizontal > 0 ? 1 : -1);
+            var leafWithTimer = false;
+            int dir = _Horizontal > 0 ? 1 : -1;
+            if (_HasHorizontal) {
+                if (_HasHorizontalTimer >= _SrollBeginTime) {
+                    if (_ScrollTimer >= _ScrollTime) {
+                        Leaf(dir);
+                        leafWithTimer = true;
+                        _ScrollTimer = 0f;
+                    }
+                }
+                _ScrollTimer += Time.deltaTime;
+                _HasHorizontalTimer += Time.deltaTime;;
+                _FirstTimeUpdated = true;
+
+                if (_Leaf) {
+                    Leaf(dir);
+                    leafWithTimer = false;
+                }
+                _Leaf = leafWithTimer || _Leaf;
+            } else {
+                _ScrollTimer = 0;
+                _HasHorizontalTimer = 0;
             }
             _LastFrameHasHorizontal = _HasHorizontal;
-            _FirstTimeUpdated = true;
         }
 
         private void Leaf(int count) {
