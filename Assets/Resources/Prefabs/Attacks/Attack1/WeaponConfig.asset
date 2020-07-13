@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1e5faba1661464db9a8ff2a8982e6d, type: 3}
   m_Name: WeaponConfig
   m_EditorClassIdentifier: 
-  Range: 1000
-  ReloadingTime: 1
-  ProjectileSpeed: 500
-  Damage: 8
-  HitForce: 10000
-  RecoilForce: 4500
-  MagazineLimited: 1
-  Magazine: 10000
+  Range: 0
+  ReloadingTime: 0
+  ProjectileSpeed: 0
+  Damage: 10
+  HitForce: 20000
+  RecoilForce: 100000
+  MagazineLimited: 0
+  Magazine: 0
   ProjectilesInShot: 1
-  RateOfFire: 60
+  RateOfFire: 1000
   ReloadTime: 0
-  DispersionAngle: 8.53
+  DispersionAngle: 0
   MinThrowForce: 0
-  MaxThrowForce: 25000
+  MaxThrowForce: 0
   MaxForceTime: 0

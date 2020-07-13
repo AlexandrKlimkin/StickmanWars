@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Tools;
+using Character.CloseCombat;
 using InputSystem;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Character.Shooting {
         public Transform NeckWeaponTransform;
         public Weapon MainWeapon;
         public Weapon Vehicle;
+        public MeleeAttack MeleeAttack;
 
         public bool HasMainWeapon => MainWeapon != null;
         public bool HasVehicle => Vehicle != null;
@@ -27,6 +29,8 @@ namespace Character.Shooting {
 
         public Vector2 AimPosition { get; private set; }
 
+        public bool MeleeAttacking => MeleeAttack.Attacking && MainWeapon == null;
+
         private void Awake() {
             Owner = GetComponent<CharacterUnit>();
             WeaponPicker = GetComponentInChildren<WeaponPicker>();
@@ -34,12 +38,19 @@ namespace Character.Shooting {
 
         private void Start() {
             MainWeapon?.PickableItem.PickUp(Owner);
+            TryPickUpWeapon(MeleeAttack);
             Vehicle?.PickableItem.PickUp(Owner);
         }
 
         private void Update() {
-            MainWeapon?.InputProcessor.Process();
+            if(MainWeapon == null) {
+                MeleeAttack?.InputProcessor.Process();
+            }
+            else {
+                MainWeapon.InputProcessor.Process();
+            }
             Vehicle?.InputProcessor.Process();
+
         }
 
         public void SetAimPosition(Vector2 position) {
@@ -92,6 +103,8 @@ namespace Character.Shooting {
                 if (HasVehicle)
                     return;
                 Vehicle = weapon;
+                weapon.PickUp(Owner);
+            } else if(weapon.ItemType == ItemType.MeleeAttack) {
                 weapon.PickUp(Owner);
             }
         }

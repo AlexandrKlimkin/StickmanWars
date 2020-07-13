@@ -31,12 +31,13 @@ namespace Character.Shooting {
         }
 
         protected virtual void Start() {
-            WeaponView = PickableItem.ItemView as WeaponView;
+            WeaponView = PickableItem?.ItemView as WeaponView;
             WeaponsInfoContainer.AddWeapon(this);
         }
 
         public virtual void PickUp(CharacterUnit owner) {
-            PickableItem.PickUp(owner);
+            if(PickableItem != null)
+                PickableItem.PickUp(owner);
             if (WeaponReaction == WeaponReactionType.Fire)
                 owner?.WeaponController?.SubscribeWeaponOnEvents(this);
             else if (WeaponReaction == WeaponReactionType.Jump)
@@ -66,7 +67,8 @@ namespace Character.Shooting {
 
     public enum ItemType {
         Weapon,
-        Vehicle
+        Vehicle,
+        MeleeAttack,
     }
 
     public enum WeaponReactionType {
@@ -77,5 +79,6 @@ namespace Character.Shooting {
     public enum WeaponPickupType {
         ArmNear,
         Neck,
+        None,
     }
 }

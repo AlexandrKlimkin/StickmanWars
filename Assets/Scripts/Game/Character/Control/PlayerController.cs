@@ -38,7 +38,7 @@ namespace Character.Control {
         public void Update() {
             Move();
             Jump();
-            Shoot();
+            Attack();
             ThrowWeapon();
             ThrowVehicle();
         }
@@ -91,7 +91,7 @@ namespace Character.Control {
             }
         }
 
-        private void Shoot() {
+        private void Attack() {
             if (Input.GetKeyDown(_InputKit.Attack1))
             {
                 _WeaponController.PressFire();

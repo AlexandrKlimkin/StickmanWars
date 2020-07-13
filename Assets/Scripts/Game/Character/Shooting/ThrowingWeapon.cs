@@ -33,6 +33,7 @@ namespace Character.Shooting {
         }
 
         public override void PerformShot() {
+            base.PerformShot();
             var projectile = GetProjectile();
             var data = GetProjectileData();
             PickableItem.Owner.WeaponController.ThrowOutMainWeapon(data.StartForce, -720f);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Character.Shooting;
+using UnityEngine;
 
 namespace Character.Movement.Modules
 {
@@ -8,5 +9,6 @@ namespace Character.Movement.Modules
         public Rigidbody2D ObjRigidbody;
         public Collider2D Collider;
         public MovementController MovementController;
+        public WeaponController WeaponController;
     }
 }

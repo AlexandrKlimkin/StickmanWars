@@ -105,6 +105,7 @@ namespace Character.Movement {
             commonData.ObjTransform = this.transform;
             commonData.Collider = Collider;
             commonData.MovementController = this;
+            commonData.WeaponController = Owner.WeaponController;
         }
 
         private void Update() {

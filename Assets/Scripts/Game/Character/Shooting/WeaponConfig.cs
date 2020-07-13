@@ -13,6 +13,7 @@ namespace Character.Shooting
         public float Damage;
         public float HitForce;
         public float RecoilForce;
+        public bool MagazineLimited = true;
         public int Magazine;
 
         public int ProjectilesInShot = 1;
