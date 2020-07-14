@@ -28,9 +28,9 @@ public class JoystickAim : IAimProvider
         var vert = Input.GetAxis(_VertAxisName);
         Vector2 vector;
         if(Mathf.Abs(hor) < 0.1f && Mathf.Abs(vert) < 0.1f)
-            vector = new Vector2(_MovementController.Direction, 0) * 20f;
+            vector = _HandTransform.transform.position + new Vector3(_MovementController.Direction * 200f, 0.7f, 0);
         else
-            vector = new Vector2(hor, -vert).normalized * 20f;
-        return _HandTransform.position.ToVector2() + vector;
+            vector = _HandTransform.transform.position + new Vector3(hor, -vert).normalized * 200f + Vector3.up * 0.7f;
+        return vector;
     }
 }

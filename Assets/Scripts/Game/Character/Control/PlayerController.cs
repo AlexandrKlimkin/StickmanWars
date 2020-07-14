@@ -32,7 +32,7 @@ namespace Character.Control {
             _Camera = Camera.main;
             _AimProvider = _InputKit.Id == 0
                 ? (IAimProvider) new MouseAim(_Camera)
-                : new JoystickAim(_WeaponController.NearArmShoulder, _MovementController, _InputKit.Horizontal, _InputKit.Vertical);
+                : new JoystickAim(_WeaponController.NearArmShoulder, _MovementController, _InputKit.HorizontalRight, _InputKit.VerticalRight);
         }
 
         public void Update() {
@@ -120,6 +120,14 @@ namespace Character.Control {
         public void LateUpdate() {
             if (_WeaponController.HasMainWeapon)
                 _WeaponController.SetAimPosition(_AimProvider.AimPoint);
+        }
+
+        private void OnDrawGizmosSelected() {
+            if (!Application.isPlaying)
+                return;
+            Gizmos.color = _AimProvider is MouseAim ? Color.red : Color.yellow;
+            Gizmos.DrawWireSphere(_AimProvider.AimPoint, 1f);
+            Gizmos.DrawLine(_AimProvider.AimPoint, _WeaponController.NearArmShoulder.position);
         }
     }
 }

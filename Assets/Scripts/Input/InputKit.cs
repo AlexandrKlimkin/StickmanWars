@@ -9,6 +9,10 @@ namespace InputSystem {
         public int Id;
         public string Horizontal;
         public string Vertical;
+
+        public string HorizontalRight;
+        public string VerticalRight;
+
         public KeyCode Attack1;
         public KeyCode Attack2;
         public KeyCode Jump;

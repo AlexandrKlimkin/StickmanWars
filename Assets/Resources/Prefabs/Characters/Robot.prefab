@@ -2271,7 +2271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Iterations: 5
-  Damping: 1
+  Damping: 0.9
   Target: {fileID: 5957157954468987223}
   EndTransform: {fileID: 5957157953208456527}
   Nodes:
@@ -2764,7 +2764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Iterations: 5
-  Damping: 1
+  Damping: 0.9
   Target: {fileID: 5957157954436975625}
   EndTransform: {fileID: 5957157952836007918}
   Nodes:

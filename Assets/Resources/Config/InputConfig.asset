@@ -16,6 +16,8 @@ MonoBehaviour:
   - Id: 0
     Horizontal: Horizontal0
     Vertical: Vertical0
+    HorizontalRight: 
+    VerticalRight: 
     Attack1: 323
     Attack2: 324
     Jump: 32
@@ -26,9 +28,11 @@ MonoBehaviour:
   - Id: 1
     Horizontal: Horizontal1
     Vertical: Vertical1
-    Attack1: 352
+    HorizontalRight: Horizontal1Right
+    VerticalRight: Vertical1Right
+    Attack1: 355
     Attack2: 351
-    Jump: 350
+    Jump: 354
     ThrowOutWeapon: 353
     ThrowOutVehicle: 355
     Select: 350
@@ -36,6 +40,8 @@ MonoBehaviour:
   - Id: 2
     Horizontal: Horizontal2
     Vertical: Vertical2
+    HorizontalRight: 
+    VerticalRight: 
     Attack1: 372
     Attack2: 371
     Jump: 370
@@ -46,6 +52,8 @@ MonoBehaviour:
   - Id: 3
     Horizontal: Horizontal3
     Vertical: Vertical3
+    HorizontalRight: 
+    VerticalRight: 
     Attack1: 392
     Attack2: 391
     Jump: 390
@@ -56,6 +64,8 @@ MonoBehaviour:
   - Id: 4
     Horizontal: Horizontal4
     Vertical: Vertical4
+    HorizontalRight: 
+    VerticalRight: 
     Attack1: 412
     Attack2: 411
     Jump: 410
