@@ -43,6 +43,7 @@ namespace UI
             var panel = (T) _PanelDict[type];
             DeactivateAll();
             panel.Activate();
+            panel.Setup();
             return panel;
         }
 

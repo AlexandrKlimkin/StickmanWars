@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: CharacterConfig
   m_EditorClassIdentifier: 
   _Characters:
-  - Name: Robot
+  - Id: Robot
+    Name: Guid
     AvatarPath: Previews/Characters/preview_Robot
-  - Name: Yuri
+  - Id: Yuri
+    Name: Yuri
     AvatarPath: Previews/Characters/preview_Yuri
-  - Name: Nigga
+  - Id: Nigga
+    Name: Benjamin
     AvatarPath: Previews/Characters/preview_Nigga
-  - Name: Woman
+  - Id: Woman
+    Name: Elise
     AvatarPath: Previews/Characters/preview_Woman

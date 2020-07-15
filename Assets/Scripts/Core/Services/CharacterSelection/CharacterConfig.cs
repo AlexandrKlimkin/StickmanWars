@@ -23,7 +23,7 @@ namespace Core.Services {
             if (_Initialized && !force)
                 return;
             _Initialized = true;
-            _CharactersDict = _Characters.ToDictionary(_ => _.Name);
+            _CharactersDict = _Characters.ToDictionary(_ => _.Id);
         }
 
         public CharacterData GetCharacterData(string name) {
@@ -34,6 +34,7 @@ namespace Core.Services {
 
     [Serializable]
     public class CharacterData {
+        public string Id;
         public string Name;
         public string AvatarPath;
     }

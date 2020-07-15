@@ -1,4 +1,5 @@
 ﻿using Character.Health;
+using Game.Match;
 using KlimLib.SignalBus;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,17 @@ namespace Core.Services.Game {
 
         [Dependency]
         private readonly SignalBus _SignalBus;
+        [Dependency]
+        private readonly MatchData _MatchData;
 
         private Dictionary<byte, List<KillData>> _KillsDict = new Dictionary<byte, List<KillData>>();
         public IReadOnlyDictionary<byte, List<KillData>> KillsDict => _KillsDict;
 
         public void Load() {
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
+            foreach(var playerData in _MatchData.Players) {
+                _KillsDict.Add(playerData.PlayerId, new List<KillData>());
+            }
         }
 
         public void Unload() {

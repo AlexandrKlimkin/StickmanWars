@@ -36,8 +36,12 @@ namespace Core.Services.Game {
             _UiManager.SetActivePanel<GameEndPanel>();
         }
 
-        public void RestartGame() {
+        public void BackToMapSelection() {
             _SceneManager.LoadScene(SceneType.MapSelection);
+        }
+
+        public void RestartLevel() {
+
         }
     }
 }
