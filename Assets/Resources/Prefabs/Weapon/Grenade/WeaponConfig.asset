@@ -18,11 +18,12 @@ MonoBehaviour:
   Damage: 100
   HitForce: 10
   RecoilForce: 0
+  MagazineLimited: 1
   Magazine: 0
   ProjectilesInShot: 1
   RateOfFire: 0
   ReloadTime: 0
   DispersionAngle: 0
-  MinThrowForce: 40000
-  MaxThrowForce: 80000
+  MinThrowForce: 5000
+  MaxThrowForce: 70000
   MaxForceTime: 1
