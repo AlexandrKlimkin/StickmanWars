@@ -43,6 +43,9 @@ namespace Character.Movement.Modules {
                 _TargetXVelocity = -_Parameters.Speed;
             else
                 _WalkData.Horizontal = 0;
+            if (CommonData.WeaponController.MeleeAttacking) {
+                _TargetXVelocity = 0;
+            }
         }
 
         public void SetHorizontal(float hor) {
