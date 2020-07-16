@@ -111,6 +111,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -8607263691580707293, guid: e4ca1047464959c4f96cd46c43cfe1cb,
         type: 3}
+    - target: {fileID: 5957157953170100640, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: JumpParameters.JumpAudioEffectNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957157953170100640, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: JumpParameters.JumpAudioEffectNames.Array.data[0]
+      value: AudioTrackTest
+      objectReference: {fileID: 0}
     - target: {fileID: 5957157953170100641, guid: b28e96083f517b741b045198bd887745,
         type: 3}
       propertyPath: m_LocalPosition.x

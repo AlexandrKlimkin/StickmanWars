@@ -1,13 +1,17 @@
-﻿using System;
+﻿using Core.Audio;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Tools.VisualEffects;
+using UnityDI;
 using UnityEngine;
 
-namespace Character.Movement.Modules
-{
-    public class JumpModule : MovementModule
-    {
+namespace Character.Movement.Modules {
+    public class JumpModule : MovementModule {
+
+        [Dependency]
+        private readonly AudioService _AudioService;
+
         private JumpParameters _Parameters;
 
         private WallSlideData _WallSlideData;
@@ -17,29 +21,21 @@ namespace Character.Movement.Modules
 
         private float _JumpTimer;
 
-        public JumpModule(JumpParameters parameters)
-        {
+        public JumpModule(JumpParameters parameters) {
             _Parameters = parameters;
         }
 
-        public override void Start()
-        {
+        public override void Start() {
+            ContainerHolder.Container.BuildUp(this);
             _WallSlideData = BB.Get<WallSlideData>();
             _GroundedData = BB.Get<GroundedData>();
             _JumpData = BB.Get<JumpData>();
             _WalkData = BB.Get<WalkData>();
         }
 
-        public override void LateUpdate()
-        {
+        public override void LateUpdate() {
             _JumpData.Jump = false;
         }
-
-        //public override void Update()
-        //{
-        //    if()
-        //    _JumpData.JumpTimer += Time.deltaTime;
-        //}
 
         public bool Jump(MonoBehaviour behaviour) {
             if (_GroundedData.Grounded && _GroundedData.TimeSinceMainGrounded < 0.3f) {
@@ -47,6 +43,8 @@ namespace Character.Movement.Modules
                 behaviour.StopCoroutine(JumpRoutine());
                 behaviour.StartCoroutine(JumpRoutine());
                 SpawnJumpEffects();
+                PlayAudioEffect();
+
                 return true;
             }
             return false;
@@ -55,7 +53,7 @@ namespace Character.Movement.Modules
         private void SpawnJumpEffects() {
             if (_Parameters.JumpEffectTransformPoints.IsNullOrEmpty() || _Parameters.JumpEffectNames.IsNullOrEmpty())
                 return;
-            foreach(var point in _Parameters.JumpEffectTransformPoints) {
+            foreach (var point in _Parameters.JumpEffectTransformPoints) {
                 var randIndex = UnityEngine.Random.Range(0, _Parameters.JumpEffectNames.Count);
                 var effect = VisualEffect.GetEffect<ParticleEffect>(_Parameters.JumpEffectNames[randIndex]);
                 effect.transform.position = point.transform.position;
@@ -63,6 +61,13 @@ namespace Character.Movement.Modules
                 effect.transform.localScale = new Vector3(Mathf.Abs(effect.transform.localScale.x) * _WalkData.Direction, effect.transform.localScale.y, effect.transform.localScale.z);
                 effect.Play();
             }
+        }
+
+        private void PlayAudioEffect() {
+            if (_Parameters.JumpAudioEffectNames.IsNullOrEmpty())
+                return;
+            var randIndex = UnityEngine.Random.Range(0, _Parameters.JumpAudioEffectNames.Count);
+            _AudioService.PlaySound3D(_Parameters.JumpAudioEffectNames[randIndex], false, false, CommonData.MovementController.transform.position);
         }
 
         private IEnumerator JumpRoutine() {
@@ -106,13 +111,13 @@ namespace Character.Movement.Modules
     }
 
     [Serializable]
-    public class JumpParameters
-    {
+    public class JumpParameters {
         public float JumpSpeed;
         public float WallJumpSpeed;
         public float LowJumpTime;
         public float HighJumpAddTime;
         public List<Transform> JumpEffectTransformPoints;
         public List<string> JumpEffectNames;
+        public List<string> JumpAudioEffectNames;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Character.Health;
+using Core.Audio;
 using Core.Initialization.Base;
 using Core.Initialization.Game;
 using Core.Initialization.MapSelection;
@@ -26,6 +27,7 @@ namespace Core.Initialization {
                 new RegisterAndLoadServiceTask<SceneManagerService>(),
                 new RegisterAndLoadServiceTask<ControllersStatusService>(),
                 new RegisterAndLoadServiceTask<MarkerService>(),
+                new RegisterAndLoadServiceTask<AudioService>(),
             };
 
         public static List<Task> MapSelectionLoadTasks =>

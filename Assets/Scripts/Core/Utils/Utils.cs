@@ -14,4 +14,8 @@ public static partial class Utils {
             return true;
         return false;
     }
+
+    public static string RemoveClonePostfix(string name) {
+        return name.Replace("(Clone)", "");
+    }
 }
