@@ -21,6 +21,7 @@ namespace Items.Jetpack {
         }
 
         public override void PerformShot() {
+            base.PerformShot();
             AddRecoil(Vector2.up);
         }
 

@@ -25,6 +25,7 @@ namespace Character.Shooting {
         }
 
         public override void PerformShot() {
+            base.PerformShot();
             if (ProCamera2DShake.Instance != null && !string.IsNullOrEmpty(ShotCameraShakePresetName))
                 ProCamera2DShake.Instance.Shake(ShotCameraShakePresetName);
             for (int i = 0; i < Stats.ProjectilesInShot; i++) {

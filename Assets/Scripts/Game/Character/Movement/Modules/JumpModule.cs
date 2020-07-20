@@ -93,12 +93,14 @@ namespace Character.Movement.Modules {
                 var vector = new Vector2(-1, 0.9f).normalized;
                 CommonData.ObjRigidbody.velocity = vector * _Parameters.WallJumpSpeed;
                 _JumpData.LastWallJumpTime = Time.time;
+                PlayAudioEffect();
                 return true;
             }
             if (_WallSlideData.LeftTouch) {
                 var vector = new Vector2(1, 0.9f).normalized;
                 CommonData.ObjRigidbody.velocity = vector * _Parameters.WallJumpSpeed;
                 _JumpData.LastWallJumpTime = Time.time;
+                PlayAudioEffect();
                 return true;
             }
             return false;

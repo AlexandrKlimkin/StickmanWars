@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Character.Control;
@@ -11,10 +10,14 @@ using KlimLib.SignalBus;
 using UnityEngine;
 using UnityDI;
 using Core.Services.Game;
+using System;
+using Core.Audio;
 
 public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     [Dependency]
     private readonly SignalBus _SignalBus;
+    [Dependency]
+    private readonly AudioService _AudioService;
 
     public MovementController MovementController { get; private set; }
     public WeaponController WeaponController { get; private set; }
@@ -31,7 +34,8 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     private byte _OwnerId;
     public byte OwnerId { get; private set; }
     public string CharacterId;
-
+    public List<string> HitAudioEffects;
+    public List<string> DeathAudioEffects;
     public event Action<Damage> OnApplyDamage;
 
     private void Awake() {
@@ -58,6 +62,14 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     public void ApplyDamage(Damage damage) {
         _SignalBus.FireSignal(new ApplyDamageSignal(damage));
         OnApplyDamage?.Invoke(damage);
+        PlayeHitSound(HitAudioEffects);
+    }
+
+    private void PlayeHitSound(List<string> sounds) {
+        if (sounds == null || sounds.Count == 0)
+            return;
+        var randIndex = UnityEngine.Random.Range(0, sounds.Count);
+        _AudioService.PlaySound3D(sounds[randIndex], false, false, transform.position);
     }
 
     public void Initialize(byte ownerId, string characterId) {
@@ -79,5 +91,6 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         Debug.Log($"Player {OwnerId} character {CharacterId} dead.");
         Destroy(gameObject); //ToDo: something different
         _SignalBus?.FireSignal(new CharacterDeathSignal(damage));
+        PlayeHitSound(DeathAudioEffects);
     }
 }

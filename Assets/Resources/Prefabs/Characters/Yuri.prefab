@@ -119,7 +119,12 @@ PrefabInstance:
     - target: {fileID: 5957157953170100640, guid: b28e96083f517b741b045198bd887745,
         type: 3}
       propertyPath: JumpParameters.JumpAudioEffectNames.Array.data[0]
-      value: AudioTrackTest
+      value: Jump1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957157953170100640, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: JumpParameters.JumpAudioEffectNames.Array.data[1]
+      value: Jump1
       objectReference: {fileID: 0}
     - target: {fileID: 5957157953170100641, guid: b28e96083f517b741b045198bd887745,
         type: 3}
@@ -178,8 +183,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5957157953170100646, guid: b28e96083f517b741b045198bd887745,
         type: 3}
+      propertyPath: HitAudioEffects.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957157953170100646, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: DeathAudioEffects.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957157953170100646, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
       propertyPath: _OwnerId
       value: 255
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957157953170100646, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: HitAudioEffects.Array.data[0]
+      value: HitYuri1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957157953170100646, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: HitAudioEffects.Array.data[1]
+      value: HitYuri2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957157953170100646, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: HitAudioEffects.Array.data[2]
+      value: HitYuri3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957157953170100646, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: DeathAudioEffects.Array.data[0]
+      value: DeathYuri1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957157953170100646, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: DeathAudioEffects.Array.data[1]
+      value: DeathYuri2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957157953170100646, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: DeathAudioEffects.Array.data[2]
+      value: DeathYuri3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5957157953170100646, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: DeathAudioEffects.Array.data[3]
+      value: DeathYuri4
       objectReference: {fileID: 0}
     - target: {fileID: 5957157953170100654, guid: b28e96083f517b741b045198bd887745,
         type: 3}
@@ -667,6 +717,56 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767776787033257323, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: _JumpAudioEffectNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767776787033257323, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: JumpAudioEffectNames.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767776787033257323, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: AudioEffectNames.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767776787033257323, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: _JumpAudioEffectNames.Array.data[0]
+      value: Jump3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767776787033257323, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: JumpAudioEffectNames.Array.data[0]
+      value: AttackYuri
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767776787033257323, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: JumpAudioEffectNames.Array.data[1]
+      value: AttackYuri
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767776787033257323, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: HitAudioEffect
+      value: AttackHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767776787033257323, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: AudioEffectNames.Array.data[0]
+      value: AttackYuri
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767776787033257323, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: AudioEffectNames.Array.data[1]
+      value: AttackYuri
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767776787033257323, guid: b28e96083f517b741b045198bd887745,
+        type: 3}
+      propertyPath: AudioEffectNames.Array.data[2]
+      value: HitYuri3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b28e96083f517b741b045198bd887745, type: 3}

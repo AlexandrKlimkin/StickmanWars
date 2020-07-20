@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Character.Health;
+using Core.Audio;
 using Items;
+using UnityDI;
 using UnityEngine;
 
 namespace Character.Shooting {
@@ -22,7 +24,11 @@ namespace Character.Shooting {
         public string Id => _Id;
 
         public WeaponConfig Stats => _Stats;
-        public abstract void PerformShot();
+
+        [Dependency]
+        protected readonly AudioService _AudioService;
+
+        public virtual void PerformShot() { }
 
         protected virtual bool UseThrowForce => true;
 
@@ -31,6 +37,7 @@ namespace Character.Shooting {
         }
 
         protected virtual void Start() {
+            ContainerHolder.Container.BuildUp(GetType(), this);
             WeaponView = PickableItem?.ItemView as WeaponView;
             WeaponsInfoContainer.AddWeapon(this);
         }

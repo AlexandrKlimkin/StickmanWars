@@ -87,9 +87,9 @@ namespace Game.Physics {
         }
 
 
-        protected virtual void OnDrawGizmos() {
-            Handles.color = Color.red;
-            Handles.DrawWireDisc(transform.position, Vector3.back, Radius);
-        }
+        //protected virtual void OnDrawGizmos() {
+        //    Handles.color = Color.red;
+        //    Handles.DrawWireDisc(transform.position, Vector3.back, Radius);
+        //}
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityDI;
 using UnityEngine;
 
 namespace Character.CloseCombat {
@@ -23,6 +24,9 @@ namespace Character.CloseCombat {
         public Collider2D DamageTrigger;
         public CharacterUnit Owner;
 
+        public List<string> AudioEffectNames;
+        public string HitAudioEffect;
+
         private float _AttackTimer = 0;
         private void Update() {
             Attacking = _AttackTimer > 0;
@@ -32,6 +36,7 @@ namespace Character.CloseCombat {
         }
 
         public override void PerformShot() {
+            base.PerformShot();
             _AttackTimer += 0.25f;
             if (_AttackTimer > 0.5f)
                 _AttackTimer = 0.5f;
@@ -49,10 +54,20 @@ namespace Character.CloseCombat {
 
         public virtual void AddForce1() {
             AddForce(RecoilForce[0]);
+            PlayAudioEffect(0);
         }
 
         public virtual void AddForce2() {
             AddForce(RecoilForce[1]);
+            PlayAudioEffect(1);
+        }
+
+        private void PlayAudioEffect(int index) {
+            if (AudioEffectNames.IsNullOrEmpty())
+                return;
+            if (index >= AudioEffectNames.Count)
+                return;
+            _AudioService.PlaySound3D(AudioEffectNames[index], false, false, transform.position);
         }
 
         private void AddForce(Vector2 force) {
@@ -86,7 +101,7 @@ namespace Character.CloseCombat {
             }
             if (dmgbls.Count > 0) {
                 dmgbls.ForEach(_ => _.ApplyDamage(new Damage(Owner?.OwnerId, _, Stats.Damage)));
-
+                _AudioService.PlaySound3D(HitAudioEffect, false, false, transform.position);
             }
         }
 

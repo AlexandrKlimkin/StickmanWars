@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db29b820ea9a32b4982f756be3e700d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxVelocityMagnitude: 250
 --- !u!1001 &5873931646218250178
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126,10 +127,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403387, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: JumpParameters.JumpAudioEffectNames.Array.data[0]
+      value: Jump1
+      objectReference: {fileID: 0}
     - target: {fileID: 1719326976381403389, guid: 118a64c8662ec4c4c95bd68725756e6b,
         type: 3}
       propertyPath: CharacterId
       value: Nigga
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403389, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: DeathAudioEffects.Array.data[0]
+      value: DeathNigga1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403389, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: DeathAudioEffects.Array.data[1]
+      value: DeathNigga2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403389, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: DeathAudioEffects.Array.data[2]
+      value: DeathNigga3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403389, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: DeathAudioEffects.Array.data[3]
+      value: DeathNigga4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403389, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: HitAudioEffects.Array.data[0]
+      value: HitNigga1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403389, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: HitAudioEffects.Array.data[1]
+      value: HitNigga2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719326976381403389, guid: 118a64c8662ec4c4c95bd68725756e6b,
+        type: 3}
+      propertyPath: HitAudioEffects.Array.data[2]
+      value: HitNigga3
       objectReference: {fileID: 0}
     - target: {fileID: 1719326976453115425, guid: 118a64c8662ec4c4c95bd68725756e6b,
         type: 3}
