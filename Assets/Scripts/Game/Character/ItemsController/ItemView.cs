@@ -44,6 +44,10 @@ namespace Items
             StartCoroutine(IgnorThrowerCollisionRoutine(thrower));
         }
 
+        public void MakeFallingDown() {
+            _Colliders.ForEach(_ => _.gameObject.layer = LayerMask.NameToLayer(Layers.Names.FallingDownObject));
+        }
+
         private IEnumerator IgnorThrowerCollisionRoutine(GameObject thrower) {
             var throwerColliders = thrower.GetComponentsInChildren<Collider2D>();
             foreach (var col in _Colliders) {

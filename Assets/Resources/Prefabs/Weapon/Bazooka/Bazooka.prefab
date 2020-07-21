@@ -357,6 +357,8 @@ GameObject:
   - component: {fileID: 1101390317}
   - component: {fileID: 6212469348490715252}
   - component: {fileID: 1844138444}
+  - component: {fileID: 907604388}
+  - component: {fileID: 907604389}
   m_Layer: 13
   m_Name: Bazooka
   m_TagString: Untagged
@@ -426,6 +428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946ad52d3c4638f4c9173d7b9aa8c691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartHealth: 0
+  UseHealth: 0
 --- !u!114 &-6823359592472144862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,6 +446,7 @@ MonoBehaviour:
   PickupType: 0
   _Id: Bazooka
   ProjectileName: Projectile_Bazooka
+  ShotCameraShakePresetName: 
   _ShellEffectPoint: {fileID: 0}
   _ShellEffectName: 
   _MuzzleFlashEffectPoints: []
@@ -492,6 +497,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97fc431856a8590468d54a3e37f3022d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &907604388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888260986880051133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db29b820ea9a32b4982f756be3e700d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxVelocityMagnitude: 350
+--- !u!114 &907604389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888260986880051133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4ff9866e0f8154baa76cc89643f39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4108579417601912059

@@ -20,6 +20,8 @@ public class DestructableObject : MonoBehaviour, IDamageable {
     private Vector2 _RandExplosionForceVector;
     [SerializeField]
     private bool _UseParentForse = true;
+    [SerializeField]
+    private float _AverageDmg = 10f;
 
     public byte? OwnerId => 255;
 
@@ -57,12 +59,12 @@ public class DestructableObject : MonoBehaviour, IDamageable {
             parts.Add(newPart);
         }
         if (Rigidbody != null) {
-            AddExplosionPartsForces(parts);
+            AddExplosionPartsForces(parts, damage);
         }
         Destroy(gameObject);
     }
 
-    private void AddExplosionPartsForces(List<GameObject> parts) {
+    private void AddExplosionPartsForces(List<GameObject> parts, Damage dmg) {
         foreach (var part in parts) {
             var partRB = part.GetComponent<Rigidbody2D>();
             //if (_UseParentForse) {
@@ -70,6 +72,7 @@ public class DestructableObject : MonoBehaviour, IDamageable {
             //}
             //if (partRB != null) {
             if (_RandExplosionForceVector != Vector2.zero) {
+                var randVector = _RandExplosionForceVector * dmg.Amount / _AverageDmg;
                 var randomMagnitude = Random.Range(_RandExplosionForceVector.x, _RandExplosionForceVector.y);
                 var randomDir = Random.onUnitSphere;
                 var finalForce = randomDir * randomMagnitude;

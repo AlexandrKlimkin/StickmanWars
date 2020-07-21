@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Character.Health;
 using Core.Audio;
@@ -25,10 +26,15 @@ namespace Character.Shooting {
 
         public WeaponConfig Stats => _Stats;
 
+        public event Action OnNoAmmo;
+
         [Dependency]
         protected readonly AudioService _AudioService;
 
-        public virtual void PerformShot() { }
+        public virtual void PerformShot() {
+            if (InputProcessor.CurrentMagazine <= 0)
+                OnNoAmmo?.Invoke();
+        }
 
         protected virtual bool UseThrowForce => true;
 

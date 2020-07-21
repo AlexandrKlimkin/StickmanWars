@@ -19,8 +19,8 @@ namespace Character.Shooting {
             if ((Weapon.Stats.MagazineLimited && CurrentMagazine <= 0) || 
                 _ShotTimer < TimeBetweenShots)
                 return;
-            Weapon.PerformShot();
             CurrentMagazine--;
+            Weapon.PerformShot();
             _ShotTimer = 0;
         }
     }

@@ -83,7 +83,10 @@ namespace Game.Physics {
 
         private IEnumerator LimitVelocityAfterFixedUpdate(List<Rigidbody2D> rbs) {
             yield return new WaitForFixedUpdate();
-            rbs.ForEach(_ => _.velocity = _.velocity.normalized * MaxVelocityMagnitude);
+            rbs.ForEach(_ => {
+                if (_)
+                    _.velocity = _.velocity.normalized * MaxVelocityMagnitude;
+            });
         }
 
 

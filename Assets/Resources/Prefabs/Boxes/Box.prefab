@@ -125,8 +125,9 @@ MonoBehaviour:
   - {fileID: 1259843051773129081, guid: 58c76082e039ae447a656a488a25747c, type: 3}
   - {fileID: 5620934848944547511, guid: 8acd21d03bb5b1e4f9967fb0d95126bc, type: 3}
   _RandomCount: {x: 2, y: 3}
-  _RandExplosionForceVector: {x: 5000, y: 10000}
+  _RandExplosionForceVector: {x: 50000, y: 100000}
   _UseParentForse: 1
+  _AverageDmg: 10
 --- !u!114 &8010922606460574576
 MonoBehaviour:
   m_ObjectHideFlags: 0

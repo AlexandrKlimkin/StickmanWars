@@ -2,13 +2,15 @@
 
 public static class Layers {
 
-    private static class Names {
+    public static class Names {
         public const string Bone = "Bone";
         public const string Box = "Box";
         public const string Ground = "Ground";
         public const string Platform = "Platform";
         public const string Damageable = "Damageable";
         public const string Character = "Character";
+        public const string Abyss = "Abyss";
+        public const string FallingDownObject = "FallingDownObject";
     }
 
     public static class Masks {
