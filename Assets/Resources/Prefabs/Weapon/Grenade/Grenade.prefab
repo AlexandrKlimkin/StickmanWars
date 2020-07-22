@@ -236,6 +236,7 @@ MonoBehaviour:
   _Stats: {fileID: 11400000, guid: 46e617a3f12ad4b4595795a9ce0adbb8, type: 2}
   PickupType: 0
   _Id: Grenade
+  ShotSoundEffects: []
   ProjectileName: 
   ShotCameraShakePresetName: 
 --- !u!114 &8444042851038254120
@@ -253,7 +254,7 @@ MonoBehaviour:
   HitEffectNames:
   - ProjectileHitExplosion
   _RB: {fileID: 3017729108957783455}
-  Timer: 3
+  Timer: 2
 --- !u!114 &3204002030724636861
 MonoBehaviour:
   m_ObjectHideFlags: 0

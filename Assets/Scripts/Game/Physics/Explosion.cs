@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using Assets.Scripts.Tools;
 using Character.Health;
 using Com.LuisPedroFonseca.ProCamera2D;
+using Core.Audio;
+using UnityDI;
 using UnityEditor;
 using UnityEngine;
 
 namespace Game.Physics {
     public class Explosion : MonoBehaviour {
+        [Dependency]
+        private readonly AudioService _AudioService;
+
         [Button("Play")]
         public bool PlayButton;
         public bool PlayOnStart;
@@ -19,6 +24,7 @@ namespace Game.Physics {
         public AnimationCurve StrenghtCurve;
         public float MaxVelocityMagnitude;
         public string CameraShakePresetName;
+        public List<string> AudioEffectNames;
 
         private void OnEnable() {
             if (PlayOnEnable)
@@ -28,6 +34,13 @@ namespace Game.Physics {
         protected virtual void Start() {
             if(PlayOnStart)
                 Play();
+        }
+
+        private void PlaySound() {
+            ContainerHolder.Container.BuildUp(this);
+            if (AudioEffectNames == null || AudioEffectNames.Count == 0)
+                return;
+            _AudioService.PlaySound3D(AudioEffectNames[UnityEngine.Random.Range(0, AudioEffectNames.Count)], false, false, transform.position);
         }
 
         public virtual void Play() {
@@ -69,6 +82,7 @@ namespace Game.Physics {
             StartCoroutine(LimitVelocityAfterFixedUpdate(speedLimitsRbs));
             if(ProCamera2DShake.Instance != null && !string.IsNullOrEmpty(CameraShakePresetName))
                 ProCamera2DShake.Instance.Shake(CameraShakePresetName);
+            PlaySound();
         }
 
         private struct PartData {
@@ -88,7 +102,6 @@ namespace Game.Physics {
                     _.velocity = _.velocity.normalized * MaxVelocityMagnitude;
             });
         }
-
 
         //protected virtual void OnDrawGizmos() {
         //    Handles.color = Color.red;

@@ -26,6 +26,8 @@ namespace Character.Shooting {
 
         public WeaponConfig Stats => _Stats;
 
+        public List<string> ShotSoundEffects;
+
         public event Action OnNoAmmo;
 
         [Dependency]
@@ -34,6 +36,13 @@ namespace Character.Shooting {
         public virtual void PerformShot() {
             if (InputProcessor.CurrentMagazine <= 0)
                 OnNoAmmo?.Invoke();
+            PlayShotSound();
+        }
+
+        private void PlayShotSound() {
+            if (ShotSoundEffects == null || ShotSoundEffects.Count == 0)
+                return;
+            _AudioService.PlaySound3D(ShotSoundEffects[UnityEngine.Random.Range(0, ShotSoundEffects.Count)], false, false, transform.position);
         }
 
         protected virtual bool UseThrowForce => true;

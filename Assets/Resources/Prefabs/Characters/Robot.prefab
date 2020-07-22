@@ -848,6 +848,7 @@ MonoBehaviour:
     GroundAcceleration: 15
     AirAcceleration: 5
     IkTransform: {fileID: 5597976798365144394}
+    RunSoundEffectName: Running
   GroundCheckParameters:
     GroundSensors:
     - {fileID: 5923378598430264412}
@@ -916,6 +917,8 @@ MonoBehaviour:
   MainWeapon: {fileID: 0}
   Vehicle: {fileID: 0}
   MeleeAttack: {fileID: 6767776787033257323}
+  ThrowSound: Throwing
+  PickUpSound: PickingUp
 --- !u!114 &5957157953170100646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1272,6 +1275,7 @@ MonoBehaviour:
   _Stats: {fileID: 11400000, guid: 77100d388ee6a1543a24fd13ca0bad18, type: 2}
   PickupType: 2
   _Id: Attack1
+  ShotSoundEffects: []
   RecoilForce:
   - {x: 20000, y: 0}
   - {x: 30000, y: 0}

@@ -4,11 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Tools;
 using Character.CloseCombat;
+using Core.Audio;
 using InputSystem;
+using UnityDI;
 using UnityEngine;
 
 namespace Character.Shooting {
     public class WeaponController : MonoBehaviour {
+        [Dependency]
+        private readonly AudioService _AudioService;
+
         public Transform NearArmTransform;
         public Transform NearArmShoulder;
         public Transform NearArmWeaponTransform;
@@ -29,6 +34,9 @@ namespace Character.Shooting {
 
         public Vector2 AimPosition { get; private set; }
 
+        public string ThrowSound;
+        public string PickUpSound;
+
         public bool MeleeAttacking => MeleeAttack.Attacking && MainWeapon == null;
 
         private void Awake() {
@@ -37,6 +45,7 @@ namespace Character.Shooting {
         }
 
         private void Start() {
+            ContainerHolder.Container.BuildUp(this);
             MainWeapon?.PickableItem.PickUp(Owner);
             TryPickUpWeapon(MeleeAttack);
             Vehicle?.PickableItem.PickUp(Owner);
@@ -85,12 +94,27 @@ namespace Character.Shooting {
             dir.Normalize();
             MainWeapon.ThrowOut(Owner, dir * force, angularVel);
             MainWeapon = null;
+            PlaySound(ThrowSound);
         }
 
         public void ThrowOutVehicle() {
             if (!HasVehicle) return;
-            Vehicle.ThrowOut(Owner);
+            ThrowOutMainVehicle(Vehicle.Stats.MaxThrowForce, -360f);
+        }
+
+        public void ThrowOutMainVehicle(float force, float angularVel) {
+            if (!HasVehicle) return;
+            Vector2 dir = (AimPosition - Vehicle.WeaponView.ShootTransform.position.ToVector2());
+            dir.Normalize();
+            Vehicle.ThrowOut(Owner, dir * force, angularVel);
             Vehicle = null;
+            PlaySound(ThrowSound);
+        }
+
+        private void PlaySound(string soundName) {
+            if (string.IsNullOrEmpty(soundName))
+                return;
+            _AudioService.PlaySound3D(soundName, false, false, transform.position);
         }
 
         public void TryPickUpWeapon(Weapon weapon) {
@@ -99,11 +123,13 @@ namespace Character.Shooting {
                     return;
                 MainWeapon = weapon;
                 weapon.PickUp(Owner);
+                PlaySound(PickUpSound);
             } else if (weapon.ItemType == ItemType.Vehicle) {
                 if (HasVehicle)
                     return;
                 Vehicle = weapon;
                 weapon.PickUp(Owner);
+                PlaySound(PickUpSound);
             } else if(weapon.ItemType == ItemType.MeleeAttack) {
                 weapon.PickUp(Owner);
             }

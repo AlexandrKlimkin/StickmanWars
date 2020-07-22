@@ -536,6 +536,8 @@ GameObject:
   - component: {fileID: 3363078827716749254}
   - component: {fileID: 1792141803}
   - component: {fileID: 1792141804}
+  - component: {fileID: 319127437}
+  - component: {fileID: 319127438}
   m_Layer: 13
   m_Name: Minigun
   m_TagString: Untagged
@@ -622,6 +624,8 @@ MonoBehaviour:
   _Stats: {fileID: 11400000, guid: 84b47233df0c42e418421224cea1fa2e, type: 2}
   PickupType: 0
   _Id: Minigun
+  ShotSoundEffects:
+  - ShotMinigun
   ProjectileName: Projectile_Middle
   ShotCameraShakePresetName: 
   _ShellEffectPoint: {fileID: 1621562587866599769}
@@ -696,6 +700,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxVelocityMagnitude: 350
 --- !u!114 &1792141804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888260986880051133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c4ff9866e0f8154baa76cc89643f39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &319127437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888260986880051133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db29b820ea9a32b4982f756be3e700d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxVelocityMagnitude: 350
+--- !u!114 &319127438
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

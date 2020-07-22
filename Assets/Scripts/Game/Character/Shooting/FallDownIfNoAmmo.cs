@@ -20,8 +20,14 @@ namespace Character.Shooting {
 
         private IEnumerator MakeFallingDownRoutine() {
             yield return null;
-            yield return new WaitForSeconds(0.1f);
-            _Weapon.PickableItem.ThrowOut(null, Random.Range(-180f, -540f));
+            if (_Weapon.PickableItem.Owner != null) {
+                if (_Weapon.ItemType == ItemType.Weapon) {
+                    _Weapon.PickableItem.Owner.WeaponController.ThrowOutMainWeapon(0, Random.Range(-180, 540f));
+                } else
+                if (_Weapon.ItemType == ItemType.Vehicle) {
+                    _Weapon.PickableItem.Owner.WeaponController.ThrowOutVehicle();
+                }
+            }
             var itemProvider = _Weapon.gameObject.GetComponent<ItemMarkerProvider>();
             if (itemProvider != null)
                 Destroy(itemProvider);
