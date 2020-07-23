@@ -151,8 +151,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MaxHealth: 12
-  _PartPrefabs1: []
-  _RandomCountPrefabs1: {x: 0, y: 0}
+  _PartPrefabs1:
+  - {fileID: 4760076281087219508, guid: 3a667c10fbfd9b9468970a34e39a0246, type: 3}
+  _RandomCountPrefabs1: {x: 1, y: 1}
   _PartPrefabs2: []
   _RandomCountPrefabs2: {x: 0, y: 0}
   _RandExplosionForceVector: {x: 5000, y: 10000}
