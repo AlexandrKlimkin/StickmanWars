@@ -13,9 +13,13 @@ public class DestructableObject : MonoBehaviour, IDamageable {
     [SerializeField]
     private float _MaxHealth;
     [SerializeField]
-    private List<GameObject> _PartPrefabs;
+    private List<GameObject> _PartPrefabs1;
     [SerializeField]
-    private Vector2Int _RandomCount;
+    private Vector2Int _RandomCountPrefabs1;
+    [SerializeField]
+    private List<GameObject> _PartPrefabs2;
+    [SerializeField]
+    private Vector2Int _RandomCountPrefabs2;
     [SerializeField]
     private Vector2 _RandExplosionForceVector;
     [SerializeField]
@@ -45,8 +49,16 @@ public class DestructableObject : MonoBehaviour, IDamageable {
     }
 
     public void Kill(Damage damage) {
-        var count = Random.Range(_RandomCount.x, _RandomCount.y);
-        var availablepartList = _PartPrefabs.ToList();
+        if (_PartPrefabs1.Count > 0)
+            SpawnPart(damage, _PartPrefabs1, _RandomCountPrefabs1);
+        if(_PartPrefabs2.Count > 0)
+            SpawnPart(damage, _PartPrefabs2, _RandomCountPrefabs2);
+        Destroy(gameObject);
+    }
+
+    private void SpawnPart(Damage damage, List<GameObject> partList, Vector2Int rand) {
+        var count = Random.Range(rand.x, rand.y);
+        var availablepartList = partList.ToList();
         var parts = new List<GameObject>();
         for (int i = 0; i < count; i++) {
             var index = Random.Range(0, availablepartList.Count);
@@ -61,7 +73,6 @@ public class DestructableObject : MonoBehaviour, IDamageable {
         if (Rigidbody != null) {
             AddExplosionPartsForces(parts, damage);
         }
-        Destroy(gameObject);
     }
 
     private void AddExplosionPartsForces(List<GameObject> parts, Damage dmg) {
