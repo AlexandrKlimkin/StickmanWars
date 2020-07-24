@@ -43,6 +43,16 @@ namespace Core.Services.Game {
             ContainerHolder.Container.RegisterInstance<IPlayerLifesCounter>(this);
             _SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
+            if (RespawnModeConfig.Instance.UseBots) {
+                var playersDontPlay = 4 - _MatchData.Players.Count;
+                var botsNeedToSpawn = Mathf.Min(playersDontPlay, RespawnModeConfig.Instance.MaxBotsCount);
+                var maxIndex = _MatchData.Players.Max(_ => _.PlayerId);
+                maxIndex++;
+                for(byte index = maxIndex; index < maxIndex + botsNeedToSpawn; index++) {
+                    var player = new PlayerData(index, index.ToString(), false, index, "Robot");
+                    _MatchService.AddPlayer(player);
+                }
+            }
             InitializeNewMatch();
         }
 
