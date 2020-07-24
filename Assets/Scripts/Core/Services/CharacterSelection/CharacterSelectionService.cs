@@ -34,7 +34,7 @@ namespace Core.Services {
             player.SelectCharacter(characterId);
             var deviceId = _PlayersConnectionService.GetDeviceIndex(playerId).Value;
             var spawnPoint = _PlayersSpawnSettings.PlayerSpawnPoints[player.PlayerId].Point;
-            _CharacterCreationService.CreateCharacter(player.CharacterId, player.PlayerId, true, deviceId, spawnPoint.position);
+            _CharacterCreationService.CreateCharacter(player, true, deviceId, spawnPoint.position);
             Debug.Log($"player {player.PlayerId} charcacter {player.CharacterId} spawned");
         }
 

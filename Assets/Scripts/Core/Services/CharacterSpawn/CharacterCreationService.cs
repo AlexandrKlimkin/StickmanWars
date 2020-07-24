@@ -1,6 +1,7 @@
 ﻿using Character.Control;
 using Com.LuisPedroFonseca.ProCamera2D;
 using Game.CameraTools;
+using Game.Match;
 using KlimLib.ResourceLoader;
 using KlimLib.SignalBus;
 using UI.Game.Markers;
@@ -23,13 +24,13 @@ namespace Core.Services.Game {
             _SignalBus.UnSubscribeFromAll(this);
         }
 
-        public CharacterUnit CreateCharacter(string characterId, byte playerId, bool isLocalPlayer, int deviceId, Vector3 pos) {
-            var path = Path.Resources.CharacterPath(characterId);
+        public CharacterUnit CreateCharacter(PlayerData playerData, bool isLocalPlayer, int deviceId, Vector3 pos) {
+            var path = Path.Resources.CharacterPath(playerData.CharacterId);
             var unit = _ResourceLoader.LoadResourceOnScene<CharacterUnit>(path, pos, Quaternion.identity);
             if (isLocalPlayer) {
-                SetupLocalPlayerComponents(unit, deviceId);
+                SetupLocalPlayerComponents(unit, playerData, deviceId);
             }
-            unit.Initialize(playerId, characterId);
+            unit.Initialize(playerData.PlayerId, playerData.CharacterId);
             _SignalBus.FireSignal(new CharacterSpawnedSignal(unit));
             if(Camera2D != null) {
                 Camera2D.AddCameraTarget(unit.transform);
@@ -37,10 +38,13 @@ namespace Core.Services.Game {
             return unit;
         }
 
-
-        private void SetupLocalPlayerComponents(CharacterUnit character, int deviceId) {
-            var playerController = character.GetComponent<PlayerController>();
-            playerController.Id = deviceId;
+        private void SetupLocalPlayerComponents(CharacterUnit character, PlayerData playerData, int deviceId) {
+            if (playerData.IsBot) {
+                //ToDo: Add AI Components
+            } else {
+                var playerController = character.gameObject.AddComponent<PlayerController>();
+                playerController.Id = deviceId;
+            }
         }
     }
 }

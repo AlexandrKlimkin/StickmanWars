@@ -10,7 +10,7 @@ namespace Character.Control {
     public class PlayerController : MonoBehaviour {
 
         public int Id;
-        public float PressTime2HighJump;
+        public const float PressTime2HighJump = 0.12f;
         private WeaponController _WeaponController;
         private MovementController _MovementController;
         private InputKit _InputKit;
