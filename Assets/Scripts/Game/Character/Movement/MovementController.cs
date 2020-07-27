@@ -109,12 +109,17 @@ namespace Character.Movement {
             commonData.WeaponController = Owner.WeaponController;
         }
 
+        private float _JumpTimer;
+        private bool _JumpHold;
+        private const float PressTime2HighJump = 0.12f;
+
         private void Update() {
             _MovementModules.ForEach(_ => _.Update());
         }
 
         private void LateUpdate() {
             _MovementModules.ForEach(_ => _.LateUpdate());
+            _JumpHold = false;
         }
 
         private void FixedUpdate() {
@@ -124,17 +129,38 @@ namespace Character.Movement {
         public void SetHorizontal(float hor) {
             _WalkModule.SetHorizontal(hor);
         }
-
+        private bool _Jumping = false;
         public bool Jump() {
             if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return false;
-            return _JumpModule.Jump(this);
+            _Jumping = _JumpModule.Jump(this);
+            if (_Jumping) {
+                _JumpTimer = 0;
+            }
+            return _Jumping;
+        }
+
+        public bool HighJump() {
+            var jumped = false;
+             jumped = Jump();
+            if(jumped)
+                StartCoroutine(HighJumpRoutine());
+            return jumped;
+        }
+
+        private IEnumerator HighJumpRoutine() {
+            bool jumped = false;
+            while (!jumped) {
+                yield return null;
+                jumped = ProcessHoldJump();
+            }
         }
 
         public void ContinueJump() {
             if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return;
             _JumpModule.ContinueJump();
+            _Jumping = false;
         }
 
         public bool WallJump() {
@@ -169,8 +195,16 @@ namespace Character.Movement {
             OnReleaseJump -= weapon.InputProcessor.ProcessRelease;
         }
 
-        public void HoldJump() {
+        public bool ProcessHoldJump() {
+            _JumpHold = true;
+            _JumpTimer += Time.deltaTime;
+            if (_Jumping && _JumpTimer > PressTime2HighJump) {
+                ContinueJump();
+                _JumpTimer = 0;
+                return true;
+            }
             OnHoldJump?.Invoke();
+            return false;
         }
 
         public void PressJump() {
