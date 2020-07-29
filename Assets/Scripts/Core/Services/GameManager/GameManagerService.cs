@@ -1,6 +1,7 @@
 ﻿using Core.Services.SceneManagement;
 using Game.Match;
 using KlimLib.SignalBus;
+using System.Linq;
 using UI;
 using UI.Game;
 using UnityDI;
@@ -14,6 +15,10 @@ namespace Core.Services.Game {
         private readonly UIManager _UiManager;
         [Dependency]
         private readonly SignalBus _SignalBus;
+        [Dependency]
+        private readonly MatchService _MatchService;
+        [Dependency]
+        private readonly MatchData _MatchData;
 
         public bool GameInProgress { get; private set; }
 
@@ -42,6 +47,13 @@ namespace Core.Services.Game {
 
         public void RestartLevel() {
 
+        }
+
+        public void AddPlayerOnMap(string characterId, bool bot) {
+            var lastPlayerId = _MatchData.Players.Max(_=>_.PlayerId);
+            lastPlayerId++;
+            var player = new PlayerData(lastPlayerId, characterId, bot, lastPlayerId, characterId);
+            _MatchService.AddPlayer(player);
         }
     }
 }

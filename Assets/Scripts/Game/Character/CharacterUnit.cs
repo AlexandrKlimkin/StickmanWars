@@ -33,7 +33,8 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     [SerializeField]
     private byte _OwnerId;
     public byte OwnerId { get; private set; }
-    public string CharacterId;
+    public string CharacterId { get; private set; }
+    public bool IsBot { get; private set; }
     public List<string> HitAudioEffects;
     public List<string> DeathAudioEffects;
     public event Action<Damage> OnApplyDamage;
@@ -72,12 +73,13 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         _AudioService.PlaySound3D(sounds[randIndex], false, false, transform.position);
     }
 
-    public void Initialize(byte ownerId, string characterId) {
+    public void Initialize(byte ownerId, string characterId, bool isBot) {
         ContainerHolder.Container.BuildUp(this);
         OwnerId = ownerId;
         CharacterId = characterId;
         MaxHealth = 100f; //Todo: Config
         Health = MaxHealth;
+        IsBot = isBot;
     }
 
     private void OnDestroy() {

@@ -42,6 +42,7 @@ namespace Core.Services.Game {
         public void Load() {
             ContainerHolder.Container.RegisterInstance<IPlayerLifesCounter>(this);
             _SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
+            _SignalBus.Subscribe<PlayerAddedSignal>(OnPlayerAdded, this);
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
             InitializeNewMatch();
         }
@@ -60,6 +61,12 @@ namespace Core.Services.Game {
 
         private void OnMatchStart(MatchStartSignal signal) {
             SpawnAllAtTheBegining();
+        }
+
+        private void OnPlayerAdded(PlayerAddedSignal signal) {
+            _PlayersLifesDict.Add(signal.PlayerData.PlayerId, PlayerLifes);
+            if (signal.SpawnOnMap)
+                SpawnCharacterInRandomPos(signal.PlayerData.PlayerId);
         }
 
         private void SpawnAllAtTheBegining() {
@@ -96,6 +103,10 @@ namespace Core.Services.Game {
 
         private IEnumerator RespawnRoutine(byte playerId) {
             yield return new WaitForSeconds(_RespawnDelay);
+            SpawnCharacterInRandomPos(playerId);
+        }
+
+        private void SpawnCharacterInRandomPos(byte playerId) {
             var respawnPoint = GetRandomRespawnPointIndex();
             var pos = _PlayersSpawnSettings.PlayerRespawnPoints[respawnPoint].Point.position;
             SpawnPlayerCharacter(playerId, pos);

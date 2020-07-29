@@ -26,6 +26,7 @@ namespace Game.Match {
         public void AddPlayer(PlayerData player) {
             _MatchData.Players.Add(player);
             _PlayersDict.Add(player.PlayerId, player);
+            _SignalBus.FireSignal(new PlayerAddedSignal(player));
         }
 
         public PlayerData GetPlayerData(byte playerId) {

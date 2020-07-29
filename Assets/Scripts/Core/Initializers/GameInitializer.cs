@@ -18,6 +18,8 @@ namespace Core.Initialization {
         private readonly MatchService _MatchService;
         [Dependency]
         private readonly PlayersConnectionService _PlayersConnectionService;
+        [Dependency]
+        private readonly GameManagerService _GameManagerService;
 
         private List<CharacterUnit> _Units;
 
@@ -30,16 +32,16 @@ namespace Core.Initialization {
             if(!_WasInitialized)
                 return;
             ContainerHolder.Container.BuildUp(this);
-            _SignalBus.Subscribe<MatchDataCreatedSignal>(OnMatchDataCreated, this);
+            AddExistingCharactersInMap();
         }
 
-        private void OnMatchDataCreated(MatchDataCreatedSignal signal) {
+        private void AddExistingCharactersInMap() {
             ContainerHolder.Container.BuildUp(this);
             _Units = FindObjectsOfType<CharacterUnit>().ToList();
             byte i = 0;
             foreach (var unit in _Units) {
                 var player = new PlayerData(i, i.ToString(), false, i, unit.CharacterId);
-                _MatchService.AddPlayer(player);
+                //_GameManagerService.AddPlayerOnMap(unit.CharacterId, unit.Is);
                 Destroy(unit.gameObject);
                 i++;
             }
