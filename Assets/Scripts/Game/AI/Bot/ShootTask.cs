@@ -11,6 +11,7 @@ namespace Game.AI {
         private bool _Released;
         private Transform _Target;
         private bool _TargetIsVisible;
+        private float _TargetVisibleTimer;
         private int _CharacterLayer = LayerMask.NameToLayer(Layers.Names.Character);
 
         private ContactFilter2D _ContactViewFilter = new ContactFilter2D() {
@@ -61,6 +62,7 @@ namespace Game.AI {
         private void ProcessVisible() {
             if (!_Target) {
                 _TargetIsVisible = false;
+                _TargetVisibleTimer = 0f;
                 return;
             }
             var armPos = WeaponController.NearArmWeaponTransform.position;
@@ -69,13 +71,15 @@ namespace Game.AI {
             foreach (var hit in hits) {
                 if (!hit.collider.isTrigger) {
                     _TargetIsVisible = false;
+                    _TargetVisibleTimer = 0f;
                 }
-
             }
+            if (_TargetIsVisible)
+                _TargetVisibleTimer += Time.deltaTime;
         }
 
         private void Fire() {
-            if (_TargetIsVisible) {
+            if (_TargetIsVisible && _TargetVisibleTimer > 0.5f) {
                 if (!_Pressed)
                     WeaponController.PressFire();
                 WeaponController.HoldFire();
