@@ -28,6 +28,10 @@ namespace Character.Shooting {
         public event Action OnPressFire;
         public event Action OnHoldFire;
         public event Action OnReleaseFire;
+        public event Action<Weapon> OnWeaponEquiped;
+        public event Action<Weapon> OnVehicleEquiped;
+        public event Action<Weapon> OnWeaponThrowed;
+        public event Action<Weapon> OnVehicleThrowed;
 
         public CharacterUnit Owner { get; private set; }
         public WeaponPicker WeaponPicker { get; private set; }
@@ -93,8 +97,10 @@ namespace Character.Shooting {
             Vector2 dir = (AimPosition - MainWeapon.WeaponView.ShootTransform.position.ToVector2());
             dir.Normalize();
             MainWeapon.ThrowOut(Owner, dir * force, angularVel);
+            var weapon = MainWeapon;
             MainWeapon = null;
             PlaySound(ThrowSound);
+            OnWeaponThrowed?.Invoke(weapon);
         }
 
         public void ThrowOutVehicle() {
@@ -107,8 +113,10 @@ namespace Character.Shooting {
             Vector2 dir = (AimPosition - Vehicle.WeaponView.ShootTransform.position.ToVector2());
             dir.Normalize();
             Vehicle.ThrowOut(Owner, dir * force, angularVel);
+            var vehicle = Vehicle;
             Vehicle = null;
             PlaySound(ThrowSound);
+            OnVehicleThrowed?.Invoke(vehicle);
         }
 
         private void PlaySound(string soundName) {
@@ -124,12 +132,14 @@ namespace Character.Shooting {
                 MainWeapon = weapon;
                 weapon.PickUp(Owner);
                 PlaySound(PickUpSound);
+                OnWeaponEquiped?.Invoke(weapon);
             } else if (weapon.ItemType == ItemType.Vehicle) {
                 if (HasVehicle)
                     return;
                 Vehicle = weapon;
                 weapon.PickUp(Owner);
                 PlaySound(PickUpSound);
+                OnVehicleEquiped?.Invoke(weapon);
             } else if(weapon.ItemType == ItemType.MeleeAttack) {
                 weapon.PickUp(Owner);
             }

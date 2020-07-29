@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Tools;
 using System.Collections.Generic;
+using System.Linq;
 using Tools.BehaviourTree;
 using UnityEngine;
 
@@ -7,35 +8,37 @@ namespace Game.AI {
     public class MoveToPointTask : UnitTask {
 
         private w2dp_PathCalculator calculator = new w2dp_PathCalculator();
-        private List<w2dp_Waypoint> currentPath;
-        private Transform _Target;
-
-        public MoveToPointTask(Transform target) {
-            _Target = target;
-        }
+        private MovementData _MovementData;
 
         private float _StopDistance;
 
+        public override void Begin() {
+            _MovementData = Blackboard.Get<MovementData>();
+        }
+
         public override TaskStatus Run() {
-            if (_Target == null)
+            if (_MovementData.TargetPos == null)
                 return TaskStatus.Failure;
-            var sqrDist = Vector2.SqrMagnitude(_Target.position.ToVector2() - CharacterUnit.transform.position.ToVector2());
-            if (sqrDist > 4) {
+            var sqrDist = Vector2.SqrMagnitude(_MovementData.CurrentPath.Last().Position.ToVector2() - CharacterUnit.transform.position.ToVector2());
+            if (sqrDist > 25) {
                 FindNewPath();
                 ProcessMove();
                 return TaskStatus.Running;
-            } else
+            } else {
+                _MovementData.TargetPos = null;
+                _MovementData.DestinationType = DestinationType.None;
                 return TaskStatus.Success;
+            }
         }
 
         private void FindNewPath() {
-            currentPath = calculator.GetPath(CharacterUnit.transform.position, _Target.position);
+            _MovementData.CurrentPath = calculator.GetPath(CharacterUnit.transform.position, _MovementData.TargetPos.Value);
         }
 
         private void ProcessMove() {
-            if (currentPath.Count == 0)
+            if (_MovementData.CurrentPath.Count == 0)
                 return;
-            var firstPoint = currentPath[0];
+            var firstPoint = _MovementData.CurrentPath[0];
             var targetVector = firstPoint.Position - CharacterUnit.transform.position;
             var dist = targetVector.magnitude;
             var horDist = Mathf.Abs(targetVector.x);
@@ -56,5 +59,9 @@ namespace Game.AI {
                 }
             }
         }
+    }
+
+    public enum DestinationType {
+        None, Weapon, ShootPosition, Escape, Random
     }
 }
