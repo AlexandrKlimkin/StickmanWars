@@ -10,7 +10,7 @@ namespace Character.Control {
     public class PlayerController : MonoBehaviour {
 
         public int Id;
-        public float PressTime2HighJump;
+        //public const float PressTime2HighJump = 0.12f;
         private WeaponController _WeaponController;
         private MovementController _MovementController;
         private InputKit _InputKit;
@@ -20,7 +20,6 @@ namespace Character.Control {
         private bool _IsJumping;
         private bool _WallJump;
         private bool _IsWallJumping;
-        private float _JumpTimer;
 
         private void Awake() {
             _MovementController = GetComponent<MovementController>();
@@ -55,38 +54,16 @@ namespace Character.Control {
                     _IsJumping = _MovementController.WallJump();
                     _WallJump = _IsJumping;
                 }
-
-                if (_IsJumping)
-                    _JumpTimer = 0;
                 _MovementController.PressJump();
             }
 
             if (Input.GetKey(_InputKit.Jump)) {
-                if (_IsJumping) {
-                    _JumpTimer += Time.deltaTime;
-                    if (_JumpTimer > PressTime2HighJump) {
-                        _MovementController.ContinueJump();
-                        _IsJumping = false;
-                        _WallJump = false;
-                        _JumpTimer = 0;
-                    }
-                }
-                //else {
-                //    _IsJumping = _MovementController.Jump();
-                //    if (!_IsJumping) {
-                //        _IsJumping = _MovementController.WallJump();
-                //        _WallJump = _IsJumping;
-                //    }
-                //    if (_IsJumping)
-                //        _JumpTimer = 0;
-                //}
-                _MovementController.HoldJump();
+                _MovementController.ProcessHoldJump();
             }
 
             if (Input.GetKeyUp(_InputKit.Jump)) {
                 _IsJumping = false;
                 _WallJump = false;
-                _JumpTimer = 0;
                 _MovementController.ReleaseJump();
             }
         }

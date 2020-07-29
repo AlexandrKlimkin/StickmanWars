@@ -1,5 +1,6 @@
 ﻿using Character.Movement;
 using Character.Movement.Modules;
+using Tools.BehaviourTree;
 using UnityDI;
 
 public abstract class MovementModule : IMovementModule
