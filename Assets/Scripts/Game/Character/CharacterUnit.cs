@@ -33,8 +33,8 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     [SerializeField]
     private byte _OwnerId;
     public byte OwnerId { get; private set; }
-    public string CharacterId { get; private set; }
-    public bool IsBot { get; private set; }
+    public string CharacterId;
+    public bool IsBot;
     public List<string> HitAudioEffects;
     public List<string> DeathAudioEffects;
     public event Action<Damage> OnApplyDamage;

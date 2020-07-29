@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.Tools;
+using Character.Health;
 using Character.Movement;
 using Character.Shooting;
+using KlimLib.SignalBus;
 using System.Collections.Generic;
 using Tools.BehaviourTree;
 using UnityDI;
@@ -8,6 +10,9 @@ using UnityEngine;
 
 namespace Game.AI {
     public class BotBehaviour : CharacterBehaviour {
+
+        [Dependency]
+        private readonly SignalBus _SignalBus;
 
         private w2dp_PathCalculator calculator = new w2dp_PathCalculator();
         private List<w2dp_Waypoint> currentPath;
@@ -17,11 +22,13 @@ namespace Game.AI {
             var behaviourTree = new BehaviourTree();
                 var root = behaviourTree.AddChild<SelectorTask>();
                     var mainTree = root.AddChild<ParallelTask>();
-                        var movement = mainTree.AddChild<SelectorTask>();
+                        var movement = mainTree.AddChild<ParallelTask>();
                             var combatDestination = movement.AddChild(new SelectorTask());          
                                 combatDestination.AddChild(new WeaponDestinationTask());
                                 combatDestination.AddChild(new RandomPointDestinationTask());
                             movement.AddChild(new MoveToPointTask());
+                        var shooting = mainTree.AddChild<ParallelTask>();
+                            shooting.AddChild(new ShootTask());
             return behaviourTree;
         }
 
@@ -32,6 +39,8 @@ namespace Game.AI {
 
         protected override void Awake() {
             base.Awake();
+            ContainerHolder.Container.BuildUp(this);
+            _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeathSignal, this);
             _MovementData = BehaviourTree.Blackboard.Get<MovementData>();
             CharacterUnit.WeaponController.OnWeaponEquiped += OnWeaponEquip;
             CharacterUnit.WeaponController.OnVehicleEquiped += OnVehicleEquiped;
@@ -49,10 +58,19 @@ namespace Game.AI {
 
         }
 
-        protected override void OnDestoy() {
-            base.OnDestoy();
+        private void OnCharacterDeathSignal(CharacterDeathSignal signal) {
+            if (signal.Damage.Receiver != CharacterUnit as IDamageable)
+                return;
+            foreach (var task in BehaviourTree.Tasks) {
+                if (task is BuildedTask)
+                    ((BuildedTask)task).UpdatedTask = false;
+            }
+        }
+
+        protected virtual void OnDestoy() {
             CharacterUnit.WeaponController.OnWeaponEquiped -= OnWeaponEquip;
             CharacterUnit.WeaponController.OnVehicleEquiped -= OnVehicleEquiped;
+            _SignalBus.UnSubscribeFromAll(this);
         }
 
         private void Update() {
@@ -65,7 +83,7 @@ namespace Game.AI {
             var movementData = BehaviourTree.Blackboard.Get<MovementData>();
             if (movementData.TargetPos != null) {
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(movementData.TargetPos.Value + Vector3.up * 20f, 10f);
+                Gizmos.DrawWireSphere(movementData.TargetPos.Value, 10f);
             }
         }
     }

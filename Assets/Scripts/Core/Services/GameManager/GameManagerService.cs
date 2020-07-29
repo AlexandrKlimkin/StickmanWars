@@ -36,6 +36,7 @@ namespace Core.Services.Game {
         }
 
         public void EndMatch() {
+            ContainerHolder.Container.BuildUp(this);
             GameInProgress = false;
             _SignalBus.FireSignal(new MatchEndSignal());
             _UiManager.SetActivePanel<GameEndPanel>();
@@ -50,9 +51,12 @@ namespace Core.Services.Game {
         }
 
         public void AddPlayerOnMap(string characterId, bool bot) {
-            var lastPlayerId = _MatchData.Players.Max(_=>_.PlayerId);
-            lastPlayerId++;
-            var player = new PlayerData(lastPlayerId, characterId, bot, lastPlayerId, characterId);
+            byte playerId = 0;
+            if (_MatchData.Players.Count > 0) {
+                playerId = _MatchData.Players.Max(_ => _.PlayerId);
+                playerId++;
+            }
+            var player = new PlayerData(playerId, characterId, bot, playerId, characterId);
             _MatchService.AddPlayer(player);
         }
     }

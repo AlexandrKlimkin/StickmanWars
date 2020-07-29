@@ -12,8 +12,6 @@ namespace Game.AI {
         }
 
         public override TaskStatus Run() {
-            if (_MovementData.TargetPos != null)
-                return TaskStatus.Failure;
             if(WeaponController.HasMainWeapon)
                 return TaskStatus.Failure;
             var weapon = FindClosestWeapon();
@@ -25,7 +23,7 @@ namespace Game.AI {
         }
 
         private Weapon FindClosestWeapon() {
-            var weapons = WeaponsInfoContainer.AllWeapons.Where(_ => _.ItemType == ItemType.Weapon).ToList();
+            var weapons = WeaponsInfoContainer.AllWeapons.Where(_ => _.ItemType == ItemType.Weapon && _.PickableItem.Owner == null  && !_.WeaponView.FallingDown).ToList();
             if (weapons.Count == 0)
                 return null;
             var closestWeapon = weapons.First();

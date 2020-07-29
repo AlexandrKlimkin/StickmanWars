@@ -1,5 +1,6 @@
 ﻿using Character.Control;
 using Com.LuisPedroFonseca.ProCamera2D;
+using Game.AI;
 using Game.CameraTools;
 using Game.Match;
 using KlimLib.ResourceLoader;
@@ -30,7 +31,7 @@ namespace Core.Services.Game {
             if (isLocalPlayer) {
                 SetupLocalPlayerComponents(unit, playerData, deviceId);
             }
-            unit.Initialize(playerData.PlayerId, playerData.CharacterId);
+            unit.Initialize(playerData.PlayerId, playerData.CharacterId, false);
             _SignalBus.FireSignal(new CharacterSpawnedSignal(unit));
             if(Camera2D != null) {
                 Camera2D.AddCameraTarget(unit.transform);
@@ -40,7 +41,7 @@ namespace Core.Services.Game {
 
         private void SetupLocalPlayerComponents(CharacterUnit character, PlayerData playerData, int deviceId) {
             if (playerData.IsBot) {
-                //ToDo: Add AI Components
+                var bot = character.gameObject.AddComponent<BotBehaviour>();
             } else {
                 var playerController = character.gameObject.AddComponent<PlayerController>();
                 playerController.Id = deviceId;

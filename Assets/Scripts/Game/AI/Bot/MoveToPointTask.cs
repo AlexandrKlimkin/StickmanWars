@@ -17,11 +17,9 @@ namespace Game.AI {
         }
 
         public override TaskStatus Run() {
-            if (_MovementData.TargetPos == null)
-                return TaskStatus.Failure;
+            FindNewPath();
             var sqrDist = Vector2.SqrMagnitude(_MovementData.CurrentPath.Last().Position.ToVector2() - CharacterUnit.transform.position.ToVector2());
             if (sqrDist > 25) {
-                FindNewPath();
                 ProcessMove();
                 return TaskStatus.Running;
             } else {

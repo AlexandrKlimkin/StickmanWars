@@ -15,6 +15,8 @@ namespace Items
         public Rigidbody2D Rigidbody { get; private set; }
         public Levitation Levitation { get; private set; }
 
+        public bool FallingDown { get; private set; }
+
         protected virtual void Awake() {
             Rigidbody = GetComponent<Rigidbody2D>();
             Levitation = GetComponent<Levitation>();
@@ -46,6 +48,7 @@ namespace Items
 
         public void MakeFallingDown() {
             _Colliders.ForEach(_ => _.gameObject.layer = LayerMask.NameToLayer(Layers.Names.FallingDownObject));
+            FallingDown = true;
         }
 
         private IEnumerator IgnorThrowerCollisionRoutine(GameObject thrower) {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Core.Services;
 using KlimLib.SignalBus;
 using UnityDI;
@@ -37,6 +38,15 @@ namespace Game.Match {
             _MatchData = new MatchData(new List<PlayerData>());
             ContainerHolder.Container.RegisterInstance(_MatchData);
             _SignalBus.FireSignal(new MatchDataCreatedSignal(_MatchData));
+        }
+
+        public byte AllocatePlayerId() {
+            byte playerId = 0;
+            if (_MatchData.Players.Count > 0) {
+                playerId = _MatchData.Players.Max(_ => _.PlayerId);
+                playerId++;
+            }
+            return playerId;
         }
     }
 }

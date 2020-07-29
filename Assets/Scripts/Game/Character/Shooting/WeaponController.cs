@@ -156,5 +156,10 @@ namespace Character.Shooting {
             OnPressFire -= weapon.InputProcessor.ProcessPress;
             OnReleaseFire -= weapon.InputProcessor.ProcessRelease;
         }
+
+        private void OnDestroy() {
+            ThrowOutMainWeapon();
+            ThrowOutVehicle();
+        }
     }
 }

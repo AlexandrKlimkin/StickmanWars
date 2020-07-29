@@ -16,9 +16,5 @@ namespace Game.AI {
             MovementController = CharacterUnit.MovementController;
             WeaponController = CharacterUnit.WeaponController;
         }
-
-        protected virtual void OnDestoy() {
-
-        }
     }
 }

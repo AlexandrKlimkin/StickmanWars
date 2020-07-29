@@ -56,11 +56,11 @@ namespace Core.Initialization {
             };
 
         public static List<Task> GameLoadTasks => new List<Task> {
+            new RegisterAndLoadServiceTask<GameManagerService>(),
             new WaitForAwakesTask(),
             new RegisterAndLoadServiceTask<BattleStatisticsService>(),
             new GameUISpawnTask(),
             new GameCameraSpawnTask(Path.Resources.GameCamera, Path.Resources.GameCameraBoundaries),
-            new RegisterAndLoadServiceTask<GameManagerService>(),
             new RegisterAndLoadServiceTask<RespawnModeService>(),
             new RegisterAndLoadServiceTask<ObjectsSpawnService>(),
             new StartMatchTask(),

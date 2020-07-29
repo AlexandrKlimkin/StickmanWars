@@ -32,6 +32,11 @@ namespace Core.Initialization {
             if(!_WasInitialized)
                 return;
             ContainerHolder.Container.BuildUp(this);
+            StartCoroutine(AddPlayersRoutine());
+        }
+
+        private IEnumerator AddPlayersRoutine() {
+            yield return null;
             AddExistingCharactersInMap();
         }
 
@@ -40,8 +45,8 @@ namespace Core.Initialization {
             _Units = FindObjectsOfType<CharacterUnit>().ToList();
             byte i = 0;
             foreach (var unit in _Units) {
-                var player = new PlayerData(i, i.ToString(), false, i, unit.CharacterId);
-                //_GameManagerService.AddPlayerOnMap(unit.CharacterId, unit.Is);
+                var player = new PlayerData(_MatchService.AllocatePlayerId(), i.ToString(), false, i, unit.CharacterId);
+                _GameManagerService.AddPlayerOnMap(unit.CharacterId, unit.IsBot);
                 Destroy(unit.gameObject);
                 i++;
             }
