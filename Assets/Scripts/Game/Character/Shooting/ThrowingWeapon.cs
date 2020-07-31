@@ -22,7 +22,7 @@ namespace Character.Shooting {
                 var directionVector = PickableItem.Owner.WeaponController.AimPosition - WeaponView.ShootTransform.position.ToVector2().normalized;
                 data.StartDirection = directionVector;
 
-                data.StartForce = Mathf.Lerp(_Stats.MinThrowForce, _Stats.MaxThrowForce, _FireForceProcessor.NormilizedForce);
+                data.StartVelocity = Mathf.Lerp(_Stats.MinThrowStartSpeed, _Stats.MaxThrowStartSpeed, _FireForceProcessor.NormilizedForce);
             }
             data.Rotation = transform.rotation;
             return data;
@@ -36,7 +36,7 @@ namespace Character.Shooting {
             base.PerformShot();
             var projectile = GetProjectile();
             var data = GetProjectileData();
-            PickableItem.Owner.WeaponController.ThrowOutMainWeapon(data.StartForce, -720f);
+            PickableItem.Owner.WeaponController.ThrowOutMainWeapon(data.StartVelocity, -720f);
             projectile.Setup(data);
             projectile.Play();
         }

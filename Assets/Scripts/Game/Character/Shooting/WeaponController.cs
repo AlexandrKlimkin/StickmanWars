@@ -89,14 +89,19 @@ namespace Character.Shooting {
 
         public void ThrowOutMainWeapon() {
             if (!HasMainWeapon) return;
-                ThrowOutMainWeapon(MainWeapon.Stats.MaxThrowForce, -360f);
+                ThrowOutMainWeapon(MainWeapon.Stats.MaxThrowStartSpeed, -360f);
         }
 
-        public void ThrowOutMainWeapon(float force, float angularVel) {
+        public void ThrowOutMainWeapon(float startSpeed, float angularVel) {
             if (!HasMainWeapon) return;
             Vector2 dir = (AimPosition - MainWeapon.WeaponView.ShootTransform.position.ToVector2());
             dir.Normalize();
-            MainWeapon.ThrowOut(Owner, dir * force, angularVel);
+            ThrowOutMainWeapon(dir * startSpeed, angularVel);
+        }
+
+        public void ThrowOutMainWeapon(Vector2 startSpeed, float angularVel) {
+            if (!HasMainWeapon) return;
+            MainWeapon.ThrowOut(Owner, startSpeed, angularVel);
             var weapon = MainWeapon;
             MainWeapon = null;
             PlaySound(ThrowSound);
@@ -105,14 +110,19 @@ namespace Character.Shooting {
 
         public void ThrowOutVehicle() {
             if (!HasVehicle) return;
-            ThrowOutMainVehicle(Vehicle.Stats.MaxThrowForce, -360f);
+            ThrowOutVehicle(Vehicle.Stats.MaxThrowStartSpeed, -360f);
         }
 
-        public void ThrowOutMainVehicle(float force, float angularVel) {
+        public void ThrowOutVehicle(float startSpeed, float angularVel) {
             if (!HasVehicle) return;
             Vector2 dir = (AimPosition - Vehicle.WeaponView.ShootTransform.position.ToVector2());
             dir.Normalize();
-            Vehicle.ThrowOut(Owner, dir * force, angularVel);
+            ThrowOutVehicle(dir * startSpeed, angularVel);
+        }
+
+        public void ThrowOutVehicle(Vector2 startSpeed, float angularVel) {
+            if (!HasVehicle) return;
+            Vehicle.ThrowOut(Owner, startSpeed, angularVel);
             var vehicle = Vehicle;
             Vehicle = null;
             PlaySound(ThrowSound);
@@ -158,7 +168,7 @@ namespace Character.Shooting {
         }
 
         private void OnDestroy() {
-            ThrowOutMainWeapon();
+            ThrowOutMainWeapon(Owner.Rigidbody2D.velocity, UnityEngine.Random.Range(-360f, 360f));
             ThrowOutVehicle();
         }
     }

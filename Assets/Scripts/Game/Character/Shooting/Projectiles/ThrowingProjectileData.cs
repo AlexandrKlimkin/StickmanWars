@@ -6,6 +6,6 @@ namespace Character.Shooting
     public class ThrowingProjectileData : ProjectileDataBase
     {
         public Vector2 StartDirection;
-        public float StartForce;
+        public float StartVelocity;
     }
 }

@@ -345,6 +345,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: WallRun
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: LedgeHang
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8331744617024796302}
   m_Solo: 0
@@ -425,6 +428,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: WallRun
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: LedgeHang
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8331744617024796302}
@@ -681,6 +687,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: WallRun
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: LedgeHang
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8331744617024796302}
@@ -1289,6 +1298,9 @@ AnimatorStateTransition:
     m_EventTreshold: 0.4
   - m_ConditionMode: 1
     m_ConditionEvent: WallRun
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: LedgeHang
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8331744617024796302}
@@ -2267,6 +2279,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: WallRun
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: LedgeHang
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8331744617024796302}
   m_Solo: 0
@@ -2383,13 +2398,13 @@ AnimatorStateMachine:
     m_Position: {x: -520, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3440342621305069452}
-    m_Position: {x: -900, y: -300, z: 0}
+    m_Position: {x: -640, y: -360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -281598430423636320}
     m_Position: {x: 400, y: -500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7195324644810581544}
-    m_Position: {x: -900, y: -500, z: 0}
+    m_Position: {x: -990, y: -530, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8331744617024796302}
     m_Position: {x: -500, y: -740, z: 0}
@@ -2829,6 +2844,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: WallRun
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: LedgeHang
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8331744617024796302}

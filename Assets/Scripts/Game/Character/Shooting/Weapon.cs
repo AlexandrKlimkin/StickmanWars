@@ -66,12 +66,12 @@ namespace Character.Shooting {
                 owner?.MovementController?.SubscribeWeaponOnEvents(this);
         }
 
-        public virtual void ThrowOut(CharacterUnit owner, Vector2? throwForce = null, float? angularVel = null) {
+        public virtual void ThrowOut(CharacterUnit owner, Vector2? startVelocity = null, float? angularVel = null) {
             if (WeaponReaction == WeaponReactionType.Fire)
                 owner?.WeaponController?.UnSubscribeWeaponOnEvents(this);
             else if (WeaponReaction == WeaponReactionType.Jump)
                 owner?.MovementController?.UnSubscribeWeaponOnEvents(this);
-            PickableItem.ThrowOut(throwForce, angularVel);
+            PickableItem.ThrowOut(startVelocity, angularVel);
         }
 
         protected virtual Damage GetDamage() {
