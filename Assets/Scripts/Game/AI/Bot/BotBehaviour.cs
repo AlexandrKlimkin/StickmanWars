@@ -85,6 +85,15 @@ namespace Game.AI {
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(movementData.TargetPos.Value, 10f);
             }
+
+            Gizmos.color = Color.blue;
+            if (_MovementData.CurrentPath != null) {
+                for (int i = 0; i < _MovementData.CurrentPath.Count - 1; i++) {
+                    var point1 = _MovementData.CurrentPath[i];
+                    var point2 = _MovementData.CurrentPath[i + 1];
+                    Gizmos.DrawLine(point1.Position + Vector3.up * 3, point2.Position + Vector3.up * 3);
+                }
+            }
         }
     }
 }
