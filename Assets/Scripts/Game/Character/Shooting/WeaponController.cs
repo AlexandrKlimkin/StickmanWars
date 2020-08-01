@@ -27,7 +27,7 @@ namespace Character.Shooting {
 
         public bool HasMainWeapon => MainWeapon != null;
         public bool HasVehicle => Vehicle != null;
-        public bool HasArmor => Armor != null;
+        public bool HasArmor => HasVehicle && Vehicle.Id == "Shield";
 
         public event Action OnPressFire;
         public event Action OnHoldFire;
@@ -163,15 +163,16 @@ namespace Character.Shooting {
                 weapon.PickUp(Owner);
                 PlaySound(PickUpSound);
                 OnVehicleEquiped?.Invoke(weapon);
-            } else if(weapon.ItemType == ItemType.MeleeAttack) {
+            } else if (weapon.ItemType == ItemType.MeleeAttack) {
                 weapon.PickUp(Owner);
-            } else if (weapon.ItemType == ItemType.Armor) {
-                if (HasArmor) 
-                    return;
-                Armor = weapon;
-                weapon.PickUp(Owner);
-                PlaySound(PickUpSound);
             }
+            //} else if (weapon.ItemType == ItemType.Armor) {
+            //    if (HasArmor) 
+            //        return;
+            //    Armor = weapon;
+            //    weapon.PickUp(Owner);
+            //    PlaySound(PickUpSound);
+            //}
         }
 
         public void SubscribeWeaponOnEvents(Weapon weapon) {

@@ -91,7 +91,7 @@ namespace Character.Shooting {
         Weapon,
         Vehicle,
         MeleeAttack,
-        Armor,
+        //Armor,
     }
 
     public enum WeaponReactionType {
