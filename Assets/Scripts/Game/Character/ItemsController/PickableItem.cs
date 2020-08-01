@@ -39,6 +39,8 @@ namespace Items {
                     return Owner.WeaponController.NearArmWeaponTransform;
                 case WeaponPickupType.Neck:
                     return Owner.WeaponController.NeckWeaponTransform;
+                case WeaponPickupType.ArmRear:
+                    return Owner.WeaponController.RearArmWeaponTransform;
                 default:
                     return null;
             }

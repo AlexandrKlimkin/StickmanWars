@@ -95,7 +95,7 @@ namespace Character.Control {
         }
 
         public void LateUpdate() {
-            if (_WeaponController.HasMainWeapon)
+            if (_WeaponController.HasMainWeapon || _WeaponController.HasArmor)
                 _WeaponController.SetAimPosition(_AimProvider.AimPoint);
         }
 

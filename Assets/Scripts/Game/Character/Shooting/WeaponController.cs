@@ -18,12 +18,16 @@ namespace Character.Shooting {
         public Transform NearArmShoulder;
         public Transform NearArmWeaponTransform;
         public Transform NeckWeaponTransform;
+        public Transform RearArmTransform;
+        public Transform RearArmWeaponTransform;
         public Weapon MainWeapon;
         public Weapon Vehicle;
+        public Weapon Armor;
         public MeleeAttack MeleeAttack;
 
         public bool HasMainWeapon => MainWeapon != null;
         public bool HasVehicle => Vehicle != null;
+        public bool HasArmor => Armor != null;
 
         public event Action OnPressFire;
         public event Action OnHoldFire;
@@ -53,6 +57,7 @@ namespace Character.Shooting {
             MainWeapon?.PickableItem.PickUp(Owner);
             TryPickUpWeapon(MeleeAttack);
             Vehicle?.PickableItem.PickUp(Owner);
+            Armor?.PickableItem.PickUp(Owner);
         }
 
         private void Update() {
@@ -63,16 +68,24 @@ namespace Character.Shooting {
                 MainWeapon.InputProcessor.Process();
             }
             Vehicle?.InputProcessor.Process();
-
+            Armor?.InputProcessor.Process();
         }
 
         public void SetAimPosition(Vector2 position) {
             SetWeaponedHandPosition(position);
+            SetArmoredHandPosition(position);
         }
 
         public void SetWeaponedHandPosition(Vector2 position) {
-            AimPosition = position;
-            NearArmTransform.position = AimPosition;
+            if (HasMainWeapon) {
+                AimPosition = position;
+                NearArmTransform.position = AimPosition;
+            }
+        }
+
+        private void SetArmoredHandPosition(Vector2 position) {
+            if (HasArmor)
+                RearArmTransform.position = position;
         }
 
         public void HoldFire() {
@@ -152,6 +165,12 @@ namespace Character.Shooting {
                 OnVehicleEquiped?.Invoke(weapon);
             } else if(weapon.ItemType == ItemType.MeleeAttack) {
                 weapon.PickUp(Owner);
+            } else if (weapon.ItemType == ItemType.Armor) {
+                if (HasArmor) 
+                    return;
+                Armor = weapon;
+                weapon.PickUp(Owner);
+                PlaySound(PickUpSound);
             }
         }
 
