@@ -239,6 +239,9 @@ MonoBehaviour:
   ShotSoundEffects: []
   ProjectileName: 
   ShotCameraShakePresetName: 
+  _grenadeScript: {fileID: 8444042851038254120}
+  _rb2d: {fileID: 3017729108957783455}
+  _dir: {x: 5, y: 0}
 --- !u!114 &8444042851038254120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +257,7 @@ MonoBehaviour:
   HitEffectNames:
   - ProjectileHitExplosion
   _RB: {fileID: 3017729108957783455}
-  Timer: 2
+  Timer: 3
 --- !u!114 &3204002030724636861
 MonoBehaviour:
   m_ObjectHideFlags: 0
