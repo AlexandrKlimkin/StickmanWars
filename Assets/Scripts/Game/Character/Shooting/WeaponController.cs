@@ -139,17 +139,19 @@ namespace Character.Shooting {
             if (weapon.ItemType == ItemType.Weapon) {
                 if (HasMainWeapon)
                     return;
-                MainWeapon = weapon;
-                weapon.PickUp(Owner);
-                PlaySound(PickUpSound);
-                OnWeaponEquiped?.Invoke(weapon);
+                if (weapon.PickUp(Owner)) {
+                    MainWeapon = weapon;
+                    PlaySound(PickUpSound);
+                    OnWeaponEquiped?.Invoke(weapon);
+                }
             } else if (weapon.ItemType == ItemType.Vehicle) {
                 if (HasVehicle)
                     return;
-                Vehicle = weapon;
-                weapon.PickUp(Owner);
-                PlaySound(PickUpSound);
-                OnVehicleEquiped?.Invoke(weapon);
+                if (weapon.PickUp(Owner)) {
+                    Vehicle = weapon;
+                    PlaySound(PickUpSound);
+                    OnVehicleEquiped?.Invoke(weapon);
+                }
             } else if(weapon.ItemType == ItemType.MeleeAttack) {
                 weapon.PickUp(Owner);
             }

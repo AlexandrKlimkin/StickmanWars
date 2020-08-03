@@ -42,9 +42,9 @@ namespace Character.CloseCombat {
                 _AttackTimer = 0.5f;
         }
 
-        public override void PickUp(CharacterUnit unit) {
-            base.PickUp(unit);
+        public override bool PickUp(CharacterUnit unit) {
             Owner = unit;
+            return base.PickUp(unit);
         }
 
         public override void ThrowOut(CharacterUnit owner, Vector2? throwForce = null, float? angularVel = null) {

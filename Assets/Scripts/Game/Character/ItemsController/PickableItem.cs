@@ -7,7 +7,16 @@ namespace Items {
         protected WeaponPickupType _PickupType;
 
         public CharacterUnit Owner { get; protected set; }
-        [SerializeField] private bool _canPickUp = true;
+        [SerializeField] private bool _CanPickUp = true;
+        public bool CanPickUp {
+            get {
+                return _CanPickUp;
+            }
+            set {
+                _CanPickUp = value;
+            }
+        }
+
         public ItemView ItemView { get; protected set; }
         protected virtual void Awake() {
             ItemView = GetComponent<ItemView>();
@@ -23,14 +32,14 @@ namespace Items {
             Owner = null;
         }
 
-        public virtual void PickUp(CharacterUnit pickuper) {
-            if (_canPickUp)
+        public virtual bool PickUp(CharacterUnit pickuper) {
+            if (CanPickUp)
             {
                 Owner = pickuper;
                 var target = GetPickupTransform(_PickupType);
                 ItemView.PickUp(target);
             }
-            
+            return CanPickUp;
         }
 
 

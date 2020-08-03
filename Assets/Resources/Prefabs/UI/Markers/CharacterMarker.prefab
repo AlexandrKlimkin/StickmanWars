@@ -211,6 +211,7 @@ MonoBehaviour:
   _HPSlider: {fileID: 2403464003960018490}
   _VehicleSlider: {fileID: 1058374675106644202}
   _AmmoText: {fileID: 2558081050887831725}
+  _ThrowForceWidget: {fileID: 5114206187203303470}
 --- !u!1 &4535292780083479574
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,7 +808,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0
+  m_FillAmount: 0.341
   m_FillClockwise: 1
   m_FillOrigin: 2
   m_UseSpriteMesh: 0

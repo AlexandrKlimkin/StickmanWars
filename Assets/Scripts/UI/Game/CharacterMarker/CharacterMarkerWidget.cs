@@ -9,6 +9,7 @@ namespace UI.Game.Markers {
         [SerializeField] private Slider _HPSlider;
         [SerializeField] private Slider _VehicleSlider;
         [SerializeField] private Text _AmmoText;
+        [SerializeField] private Image _ThrowForceWidget;
 
         protected override void HandleData(CharacterMarkerData data) {
             _HPSlider.value = data.NormilizedHealth;
@@ -20,7 +21,7 @@ namespace UI.Game.Markers {
             if (data.HasVehicle) {
                 _VehicleSlider.value = (float)data.VehicleAmmo / data.VehicleMaxAmmo;
             }
-
+            _ThrowForceWidget.fillAmount = data.NormilizedStartVelocity;
         }
     }
 }

@@ -2366,7 +2366,7 @@ PrefabInstance:
     - target: {fileID: 5434374533421882330, guid: 600f74f5f22e045429ae1b446d132ab0,
         type: 3}
       propertyPath: _canPickUp
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5911491089988973796, guid: 600f74f5f22e045429ae1b446d132ab0,
         type: 3}
@@ -12786,13 +12786,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -8.473999, w: 0}
   m_textInfo:
     textComponent: {fileID: 2138314689}
-    characterCount: 0
+    characterCount: 10
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 0
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
