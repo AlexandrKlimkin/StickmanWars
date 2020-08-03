@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Character.Shooting.Character.Shooting;
+using System.Collections;
 using System.Collections.Generic;
 using UI.Markers;
 using UnityEngine;
@@ -28,6 +29,13 @@ namespace UI.Game.Markers {
                 data.VehicleAmmo = _CharacterUnit.WeaponController.Vehicle.InputProcessor.CurrentMagazine;
                 data.VehicleMaxAmmo = _CharacterUnit.WeaponController.Vehicle.Stats.Magazine;
             }
+            var normilizedFireForceStartVelocity = 0f;
+            if (_CharacterUnit.WeaponController.HasMainWeapon) {
+                if (_CharacterUnit.WeaponController.MainWeapon.InputProcessor is FireForceProcessor) {
+                    normilizedFireForceStartVelocity = ((FireForceProcessor)(_CharacterUnit.WeaponController.MainWeapon.InputProcessor)).NormilizedForce;
+                }
+            }
+            data.NormilizedStartVelocity = normilizedFireForceStartVelocity;
         }
     }
 }

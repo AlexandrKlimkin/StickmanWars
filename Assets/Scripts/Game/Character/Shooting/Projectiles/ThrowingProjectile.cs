@@ -19,7 +19,7 @@ namespace Character.Shooting {
 
         public override void Setup(ThrowingProjectileData data) {
             base.Setup(data);
-            _RB.velocity = Vector2.zero;
+            //_RB.velocity = Vector2.zero;
         }
 
         public override void Simulate(float time) {

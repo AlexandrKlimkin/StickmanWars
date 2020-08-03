@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Character.Health;
+using Items;
 using UnityEngine;
 
 namespace Character.Shooting {
@@ -23,6 +24,7 @@ namespace Character.Shooting {
         private void Start() {
             _HealthDamageable.OnDeath += PerformHit;
         }
+
 
         public override void Setup(ThrowingProjectileData data) {
             base.Setup(data);
