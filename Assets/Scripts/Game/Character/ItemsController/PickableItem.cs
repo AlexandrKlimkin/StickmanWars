@@ -7,9 +7,8 @@ namespace Items {
         protected WeaponPickupType _PickupType;
 
         public CharacterUnit Owner { get; protected set; }
-
+        [SerializeField] private bool _canPickUp = true;
         public ItemView ItemView { get; protected set; }
-
         protected virtual void Awake() {
             ItemView = GetComponent<ItemView>();
         }
@@ -25,23 +24,27 @@ namespace Items {
         }
 
         public virtual void PickUp(CharacterUnit pickuper) {
-            Owner = pickuper;
-            var target = GetPickupTransform(_PickupType);
-            ItemView.PickUp(target);
+            if (_canPickUp)
+            {
+                Owner = pickuper;
+                var target = GetPickupTransform(_PickupType);
+                ItemView.PickUp(target);
+            }
+            
         }
 
 
         private Transform GetPickupTransform(WeaponPickupType pickupType)
-        {
-            switch (pickupType)
-            {
-                case WeaponPickupType.ArmNear:
-                    return Owner.WeaponController.NearArmWeaponTransform;
-                case WeaponPickupType.Neck:
-                    return Owner.WeaponController.NeckWeaponTransform;
-                default:
-                    return null;
-            }
+        {                    
+                switch (pickupType)
+                {
+                    case WeaponPickupType.ArmNear:
+                        return Owner.WeaponController.NearArmWeaponTransform;
+                    case WeaponPickupType.Neck:
+                        return Owner.WeaponController.NeckWeaponTransform;
+                    default:
+                        return null;
+                }         
         }
 
     }

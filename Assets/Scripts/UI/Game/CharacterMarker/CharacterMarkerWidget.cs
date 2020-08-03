@@ -6,12 +6,9 @@ using UnityEngine.UI;
 
 namespace UI.Game.Markers {
     public class CharacterMarkerWidget : MarkerWidget<CharacterMarkerData> {
-        [SerializeField]
-        private Slider _HPSlider;
-        [SerializeField]
-        private Slider _VehicleSlider;
-        [SerializeField]
-        private Text _AmmoText;
+        [SerializeField] private Slider _HPSlider;
+        [SerializeField] private Slider _VehicleSlider;
+        [SerializeField] private Text _AmmoText;
 
         protected override void HandleData(CharacterMarkerData data) {
             _HPSlider.value = data.NormilizedHealth;
@@ -23,6 +20,7 @@ namespace UI.Game.Markers {
             if (data.HasVehicle) {
                 _VehicleSlider.value = (float)data.VehicleAmmo / data.VehicleMaxAmmo;
             }
+
         }
     }
 }
