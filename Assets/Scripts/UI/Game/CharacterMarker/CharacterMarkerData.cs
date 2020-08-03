@@ -13,5 +13,6 @@ namespace UI.Game.Markers {
         public bool HasVehicle;
         public int VehicleAmmo;
         public int VehicleMaxAmmo;
+        public float NormilizedStartVelocity;
     }
 }

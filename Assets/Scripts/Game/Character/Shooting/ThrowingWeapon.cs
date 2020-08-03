@@ -1,6 +1,9 @@
 ﻿using Assets.Scripts.Tools;
 using Character.Shooting.Character.Shooting;
+using System.Collections;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Character.Shooting {
     public class ThrowingWeapon : LongRangeWeapon<ThrowingProjectile, ThrowingProjectileData> {
@@ -16,15 +19,8 @@ namespace Character.Shooting {
             data.BirthTime = Time.time;
             data.LifeTime = Stats.Range / Stats.ProjectileSpeed;
             data.Position = transform.position;
-
-            Vector3 shootRotEuler;
-            if (PickableItem.Owner != null) {
-                var directionVector = PickableItem.Owner.WeaponController.AimPosition - WeaponView.ShootTransform.position.ToVector2().normalized;
-                data.StartDirection = directionVector;
-
-                data.StartVelocity = Mathf.Lerp(_Stats.MinThrowStartSpeed, _Stats.MaxThrowStartSpeed, _FireForceProcessor.NormilizedForce);
-            }
             data.Rotation = transform.rotation;
+            data.StartVelocity = Mathf.Lerp(_Stats.MinThrowStartSpeed, _Stats.MaxThrowStartSpeed,  _FireForceProcessor.NormilizedForce);
             return data;
         }
 
@@ -36,9 +32,10 @@ namespace Character.Shooting {
             base.PerformShot();
             var projectile = GetProjectile();
             var data = GetProjectileData();
-            PickableItem.Owner.WeaponController.ThrowOutMainWeapon(data.StartVelocity, -720f);
             projectile.Setup(data);
+            PickableItem.Owner.WeaponController.ThrowOutMainWeapon(data.StartVelocity, -720f);
             projectile.Play();
+            PickableItem.CanPickUp = false;
         }
     }
 }

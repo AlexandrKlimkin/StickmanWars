@@ -254,7 +254,7 @@ MonoBehaviour:
   HitEffectNames:
   - ProjectileHitExplosion
   _RB: {fileID: 3017729108957783455}
-  Timer: 2
+  Timer: 5
 --- !u!114 &3204002030724636861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PickupType: 0
+  _CanPickUp: 1
 --- !u!114 &-3252101610701767166
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -57,13 +57,17 @@ namespace Character.Shooting {
             WeaponsInfoContainer.AddWeapon(this);
         }
 
-        public virtual void PickUp(CharacterUnit owner) {
+        public virtual bool PickUp(CharacterUnit owner) {
+            var pickedUp = false;
             if(PickableItem != null)
-                PickableItem.PickUp(owner);
-            if (WeaponReaction == WeaponReactionType.Fire)
-                owner?.WeaponController?.SubscribeWeaponOnEvents(this);
-            else if (WeaponReaction == WeaponReactionType.Jump)
-                owner?.MovementController?.SubscribeWeaponOnEvents(this);
+                pickedUp = PickableItem.PickUp(owner);
+            if (pickedUp) {
+                if (WeaponReaction == WeaponReactionType.Fire)
+                    owner?.WeaponController?.SubscribeWeaponOnEvents(this);
+                else if (WeaponReaction == WeaponReactionType.Jump)
+                    owner?.MovementController?.SubscribeWeaponOnEvents(this);
+            }
+            return pickedUp;
         }
 
         public virtual void ThrowOut(CharacterUnit owner, Vector2? startVelocity = null, float? angularVel = null) {
