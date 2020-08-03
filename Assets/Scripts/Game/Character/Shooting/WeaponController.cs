@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Tools;
 using Character.CloseCombat;
 using Core.Audio;
-using InputSystem;
 using UnityDI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Character.Shooting {
     public class WeaponController : MonoBehaviour {
@@ -102,7 +99,7 @@ namespace Character.Shooting {
 
         public void ThrowOutMainWeapon() {
             if (!HasMainWeapon) return;
-                ThrowOutMainWeapon(MainWeapon.Stats.MaxThrowStartSpeed, -360f);
+            ThrowOutMainWeapon(MainWeapon.Stats.MaxThrowStartSpeed, -360f);
         }
 
         public void ThrowOutMainWeapon(float startSpeed, float angularVel) {
@@ -166,13 +163,6 @@ namespace Character.Shooting {
             } else if (weapon.ItemType == ItemType.MeleeAttack) {
                 weapon.PickUp(Owner);
             }
-            //} else if (weapon.ItemType == ItemType.Armor) {
-            //    if (HasArmor) 
-            //        return;
-            //    Armor = weapon;
-            //    weapon.PickUp(Owner);
-            //    PlaySound(PickUpSound);
-            //}
         }
 
         public void SubscribeWeaponOnEvents(Weapon weapon) {
@@ -188,7 +178,7 @@ namespace Character.Shooting {
         }
 
         private void OnDestroy() {
-            ThrowOutMainWeapon(Owner.Rigidbody2D.velocity, UnityEngine.Random.Range(-360f, 360f));
+            ThrowOutMainWeapon(Owner.Rigidbody2D.velocity, Random.Range(-360f, 360f));
             ThrowOutVehicle();
         }
     }

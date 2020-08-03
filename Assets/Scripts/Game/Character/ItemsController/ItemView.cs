@@ -7,6 +7,8 @@ namespace Items
 {
     public class ItemView : MonoBehaviour
     {
+        [SerializeField] private bool _CollidersActive;
+        
         public GameObject CollidersContainer;
 
         private List<Collider2D> _Colliders = new List<Collider2D>();
@@ -29,7 +31,7 @@ namespace Items
 
         public virtual void PickUp(Transform place) {
             Rigidbody.simulated = false;
-            CollidersContainer.SetActive(false);
+            CollidersContainer.SetActive(_CollidersActive);
             transform.SetParent(place);
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * _StartXScaleSign, transform.localScale.y, transform.localScale.z);
             transform.localPosition = Vector3.zero;
