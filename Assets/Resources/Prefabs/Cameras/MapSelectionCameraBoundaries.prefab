@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 85032010610679395}
   - component: {fileID: 1945391866917751036}
   m_Layer: 0
-  m_Name: GameCameraBoundaries
+  m_Name: MapSelectionCameraBoundaries
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,13 +51,13 @@ MonoBehaviour:
   NumericBoundaries: {fileID: 0}
   AreBoundariesRelative: 1
   UseTopBoundary: 1
-  TopBoundary: 370.1
+  TopBoundary: 110.08
   UseBottomBoundary: 1
-  BottomBoundary: -23.8
+  BottomBoundary: -104.4
   UseLeftBoundary: 1
-  LeftBoundary: -196.6
+  LeftBoundary: -186.5
   UseRightBoundary: 1
-  RightBoundary: 375.01
+  RightBoundary: 168.3
   TransitionDuration: 1
   TransitionEaseType: 0
   ChangeZoom: 0

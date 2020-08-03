@@ -44,8 +44,8 @@ namespace Core.Services.Game {
             _SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
             _SignalBus.Subscribe<PlayerAddedSignal>(OnPlayerAdded, this);
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
-            AddBots();
             InitializeNewMatch();
+            AddBots();
         }
 
         public void Unload() {
