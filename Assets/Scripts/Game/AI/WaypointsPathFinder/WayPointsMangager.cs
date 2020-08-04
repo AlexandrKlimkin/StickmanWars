@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,12 +8,15 @@ namespace Game.AI.PathFinding {
     public class WayPointsMangager : MonoBehaviour {
 
         public Color WayPointsColor;
+        public Color WayPointsSelectedColor;
         public Color UsualLinkColor;
         public Color JumpLinkColor;
         public float WayPointRadius;
         public bool ShowCostText;
         public int CostTextSize;
         public List<WayPoint> WayPoints;
+
+        public const string WaypointPrefix = "Waypoint";
 
         public void RegisterWayPoint(WayPoint waypoint) {
             if(WayPoints == null) {
@@ -32,16 +36,27 @@ namespace Game.AI.PathFinding {
         }
 
         public void AddLink(WayPoint firstPoint, WayPoint secondPoint, bool twoSided) {
-            firstPoint.Links.Add(new WayPointLink(secondPoint));
+            if(firstPoint.Links.FirstOrDefault(_=>_.Neighbour == secondPoint) == null)
+                firstPoint.Links.Add(new WayPointLink(secondPoint));
             if(twoSided)
-                secondPoint.Links.Add(new WayPointLink(firstPoint));
+                if(secondPoint.Links.FirstOrDefault(_ => _.Neighbour == firstPoint) == null)
+                    secondPoint.Links.Add(new WayPointLink(firstPoint));
+        }
+
+        public void RemoveAllLinks(WayPoint waypoint) {
+            WayPoints.ForEach(_ => {
+                var links = _.Links.Where(link => link.Neighbour == waypoint).ToList();
+                if(links != null && links.Count > 0) {
+                    links.ForEach(link => _.Links.Remove(link));
+                }
+            });
         }
 
 #if UNITY_EDITOR
         private void OnDrawGizmos() {
             if (!WayPoints.IsNullOrEmpty()) {
                 foreach (var point in WayPoints) {
-                    Gizmos.color = WayPointsColor;
+                    Gizmos.color = Selection.Contains(point.gameObject) ? WayPointsSelectedColor : WayPointsColor;
                     Gizmos.DrawWireSphere(point.Position, WayPointRadius);
                     if (point.Links == null)
                         continue;
@@ -67,6 +82,10 @@ namespace Game.AI.PathFinding {
                     }
                 }
             }
+        }
+
+        private void OnDrawGizmosSelected() {
+            
         }
 #endif
     }
