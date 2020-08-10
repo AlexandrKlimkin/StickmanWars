@@ -7,7 +7,6 @@ using UnityEngine;
 public class GameCameraSettings : MonoBehaviour {
 
     public Transform SpawnTransform;
-    public CameraBounds CameraBounds;
 
     private void Awake() {
         ContainerHolder.Container.RegisterInstance(this);

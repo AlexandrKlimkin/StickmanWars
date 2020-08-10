@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Com.LuisPedroFonseca.ProCamera2D;
+using Core.Services.SceneManagement;
 using Game.CameraTools;
 using KlimLib.ResourceLoader;
 using KlimLib.SignalBus;
@@ -18,20 +19,18 @@ namespace Core.Initialization.Game {
         private readonly IResourceLoaderService _ResourceLoader;
         [Dependency]
         private readonly SignalBus _SignalBus;
-
-        private string _CameraPath, _BoundariesPath;
-
-        public GameCameraSpawnTask(string cameraPath, string boundariesPath) {
-            _CameraPath = cameraPath;
-            _BoundariesPath = boundariesPath;
-        }
+        [Dependency]
+        private readonly SceneManagerService _SceneManagerService;
 
         protected override void AutoCompletedRun() {
-            var camera = _ResourceLoader.LoadResourceOnScene<ProCamera2D>(_CameraPath, _CameraSettings.SpawnTransform.position, _CameraSettings.SpawnTransform.rotation);
+            var activeScene = _SceneManagerService.ActiveScene;
+            var cameraPath = Path.Resources.CameraPath(activeScene);
+            var cameraBoundariesPath = Path.Resources.CameraBoundariesPath(activeScene);
+            var camera = _ResourceLoader.LoadResourceOnScene<ProCamera2D>(cameraPath, _CameraSettings.SpawnTransform.position, _CameraSettings.SpawnTransform.rotation);
             ContainerHolder.Container.RegisterInstance(camera);
             var units = Object.FindObjectsOfType<CharacterUnit>();
             camera.AddCameraTargets(units.Select(_ => _.transform).ToList());
-            var borders = _ResourceLoader.LoadResourceOnScene<ProCamera2DTriggerBoundaries>(_BoundariesPath);
+            var borders = _ResourceLoader.LoadResourceOnScene<ProCamera2DTriggerBoundaries>(cameraBoundariesPath);
             //ContainerHolder.Container.RegisterInstance(camera);
             //ContainerHolder.Container.BuildUp(camera);
             //camera.Initialize();

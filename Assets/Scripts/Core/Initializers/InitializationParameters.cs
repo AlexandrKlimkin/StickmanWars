@@ -35,7 +35,7 @@ namespace Core.Initialization {
                     new RegisterAndLoadServiceTask<CharacterSelectionService>(),
                     new MapSelectionUISpawnTask(),
                     new RegisterAndLoadServiceTask<GameLevelLoadService>(),
-                    new GameCameraSpawnTask(Path.Resources.MapSelectionCamera, Path.Resources.MapSelectionCameraBoundaries),
+                    new GameCameraSpawnTask(),
                 }
             .ToList();
 
@@ -60,7 +60,7 @@ namespace Core.Initialization {
             new WaitForAwakesTask(),
             new RegisterAndLoadServiceTask<BattleStatisticsService>(),
             new GameUISpawnTask(),
-            new GameCameraSpawnTask(Path.Resources.GameCamera, Path.Resources.GameCameraBoundaries),
+            new GameCameraSpawnTask(),
             new RegisterAndLoadServiceTask<RespawnModeService>(),
             new RegisterAndLoadServiceTask<ObjectsSpawnService>(),
             new StartMatchTask(),

@@ -17,6 +17,8 @@ namespace Core.Services.SceneManagement {
         private readonly Dictionary<SceneType, SceneLoadingParameters> _SceneLoadingParametersMap = new Dictionary<SceneType, SceneLoadingParameters>() {
             { SceneType.MapSelection, new MapSelectionLoadingParameters() },
             { SceneType.CityCrane, new GameLoadingParameters() },
+            { SceneType.MapTemplate, new GameLoadingParameters() },
+     
         };
 
         public SceneType ActiveScene {
@@ -85,5 +87,6 @@ namespace Core.Services.SceneManagement {
     public enum SceneType {
         MapSelection,
         CityCrane,
+        MapTemplate,
     }
 }
