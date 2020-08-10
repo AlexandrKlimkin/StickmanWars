@@ -1,13 +1,16 @@
 ﻿using Assets.Scripts.Tools;
+using Game.AI.PathFinding;
 using System.Collections.Generic;
 using System.Linq;
 using Tools.BehaviourTree;
+using UnityDI;
 using UnityEngine;
 
 namespace Game.AI {
     public class MoveToPointTask : UnitTask {
+        [Dependency]
+        protected readonly WayPointsMangager _WayPointsMangager;
 
-        private w2dp_PathCalculator calculator = new w2dp_PathCalculator();
         private MovementData _MovementData;
 
         private float _StopDistance;
@@ -30,13 +33,13 @@ namespace Game.AI {
         }
 
         private void FindNewPath() {
-            _MovementData.CurrentPath = calculator.GetPath(CharacterUnit.transform.position, _MovementData.TargetPos.Value);
+            _MovementData.CurrentPath = _WayPointsMangager.CalculateGraphPath(CharacterUnit.transform.position, _MovementData.TargetPos.Value);
         }
 
         private void ProcessMove() {
-            if (_MovementData.CurrentPath.Count == 0)
+            if (_MovementData.CurrentPath.Count < 2)
                 return;
-            var firstPoint = _MovementData.CurrentPath[0];
+            var firstPoint = _MovementData.CurrentPath[1];
             var targetVector = firstPoint.Position - CharacterUnit.transform.position;
             var dist = targetVector.magnitude;
             var horDist = Mathf.Abs(targetVector.x);

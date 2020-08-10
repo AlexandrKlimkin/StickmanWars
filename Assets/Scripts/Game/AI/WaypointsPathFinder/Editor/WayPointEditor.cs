@@ -23,18 +23,8 @@ namespace Game.AI.PathFinding {
 
         public override void OnInspectorGUI() {
             if (targets.Length == 1) {
-                //SHOW CONNECTED NEIGHBOURS
-                //for (int i = 0; i < _Links.arraySize; i++) {
-                //    GUILayout.BeginHorizontal();
-
-                //    EditorGUILayout.ObjectField(_Links.GetArrayElementAtIndex(i).objectReferenceValue as WayPointLink, typeof(WayPointLink), true);
-
-                //    if (GUILayout.Button("-", GUILayout.Width(20))) {
-                //        //DeleteThisNeighbour(i);
-                //    }
-
-                //    GUILayout.EndHorizontal();
-                //}
+                //SHOW LINKS
+                EditorGUILayout.PropertyField(_Links);
 
                 //BUTTON TO ADD NEW NEIGHBOUR
                 AddNeighbour("<- -> neighbour", true, true);
@@ -49,7 +39,6 @@ namespace Game.AI.PathFinding {
                 Link2Selected("-> link selected", true, false);
                 Link2Selected("<- link selected", false, true);
             }
-
             _Waypoint.ApplyModifiedProperties();
         }
 
@@ -86,20 +75,6 @@ namespace Game.AI.PathFinding {
                 }
                 if (hasBackLink) {
                     first.Manager.AddLink(first, second, false);
-                }
-            }
-        }
-
-        void OnDestroy() {
-            foreach (Object t in targets) {
-                WayPoint currentWaypoint = (WayPoint)t;
-                if (currentWaypoint == null) {
-                    currentWaypoint.Links.ForEach(_ => {
-                        if (_ != null) {
-
-                        }
-                            //currentWaypoint.Links[i].Neighbours.Remove(currentWaypoint);
-                    });
                 }
             }
         }

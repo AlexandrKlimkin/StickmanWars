@@ -7,7 +7,7 @@ namespace Game.AI.PathFinding {
     [Serializable]
     public class WayPointLink {
         public WayPoint Neighbour;
-        public float Cost;
+        public float Cost = 1f;
         public bool IsJumpLink;
 
         public WayPointLink(WayPoint neighbour) {

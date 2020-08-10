@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityDI;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,6 +19,10 @@ namespace Game.AI.PathFinding {
 
         public const string WaypointPrefix = "Waypoint";
 
+        private void Awake() {
+            ContainerHolder.Container.RegisterInstance(this);
+        }
+
         public void RegisterWayPoint(WayPoint waypoint) {
             if(WayPoints == null) {
                 WayPoints = new List<WayPoint>();
@@ -31,6 +36,7 @@ namespace Game.AI.PathFinding {
 
         public void UnRegisterWayPoint(WayPoint waypoint) {
             if (WayPoints != null && WayPoints.Contains(waypoint)) {
+                RemoveAllLinks(waypoint);
                 WayPoints.Remove(waypoint);
             }
         }
@@ -52,8 +58,68 @@ namespace Game.AI.PathFinding {
             });
         }
 
+        private WayPoint GetNearestWaypoint(Vector3 targetPosition) {
+            WayPoint nearestWaypoint = null;
+            float nearestSqrDistance = float.PositiveInfinity;
+            for (int i = 0; i < WayPoints.Count; i++) {
+                if (WayPoints[i] != null) {
+                    float sqrDistance = Vector3.SqrMagnitude(WayPoints[i].Position - targetPosition);
+                    if (sqrDistance < nearestSqrDistance) {
+                        nearestWaypoint = WayPoints[i];
+                        nearestSqrDistance = sqrDistance;
+                    }
+                }
+            }
+            return nearestWaypoint;
+        }
+
+        private class DijkstraData {
+            public float Cost;
+            public WayPoint Previous;
+        }
+
+        public List<WayPoint> CalculateGraphPath(WayPoint start, WayPoint end) {
+            var unvisitedPoints = WayPoints.ToList();
+            var track = new Dictionary<WayPoint, DijkstraData>();
+            track[start] = new DijkstraData { Previous = null, Cost = 0 };
+
+            while (true) {
+                WayPoint toOpen = null;
+                float bestPrice = float.PositiveInfinity;
+                foreach(var v in unvisitedPoints) {
+                    if(track.ContainsKey(v) && track[v].Cost < bestPrice) {
+                        toOpen = v;
+                        bestPrice = track[v].Cost;
+                    }
+                }
+                if (toOpen == null)
+                    return null;
+                if (toOpen == end)
+                    break;
+                foreach(var link in toOpen.Links) {
+                    var currentPrice = track[toOpen].Cost + link.Cost;
+                    if(!track.ContainsKey(link.Neighbour) || track[link.Neighbour].Cost > currentPrice) {
+                        track[link.Neighbour] = new DijkstraData { Cost = currentPrice, Previous = toOpen };
+                    }
+                }
+                unvisitedPoints.Remove(toOpen);
+            }
+            var path = new List<WayPoint>();
+            while(end != null) {
+                path.Add(end);
+                end = track[end].Previous;
+            }
+            path.Reverse();
+            return path;
+        }
+
+        public List<WayPoint> CalculateGraphPath(Vector3 start, Vector3 end) {
+            return CalculateGraphPath(GetNearestWaypoint(start), GetNearestWaypoint(end));
+        }
+
+
 #if UNITY_EDITOR
-        private void OnDrawGizmos() {
+            private void OnDrawGizmos() {
             if (!WayPoints.IsNullOrEmpty()) {
                 foreach (var point in WayPoints) {
                     Gizmos.color = Selection.Contains(point.gameObject) ? WayPointsSelectedColor : WayPointsColor;
@@ -83,10 +149,10 @@ namespace Game.AI.PathFinding {
                 }
             }
         }
-
-        private void OnDrawGizmosSelected() {
-            
-        }
 #endif
+
+        private void OnDestroy() {
+            ContainerHolder.Container.Unregister<WayPointsMangager>();
+        }
     }
 }

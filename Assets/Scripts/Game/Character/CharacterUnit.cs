@@ -19,6 +19,8 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     [Dependency]
     private readonly AudioService _AudioService;
 
+    public Transform Target;
+
     public MovementController MovementController { get; private set; }
     public WeaponController WeaponController { get; private set; }
 
