@@ -11,6 +11,8 @@ public class ParallaxController : MonoBehaviour {
     private readonly SignalBus _SignalBus;
 
     public List<ParallaxObject> ParallaxObjects;
+    public List<DiagonalParallaxObject> DiagonalParallaxObjects;
+
     private Vector3 _LastTargetPosition;
     private float _LastZoom;
 
@@ -25,19 +27,22 @@ public class ParallaxController : MonoBehaviour {
     {
         if(_Camera == null)
             return;
-        if(ParallaxObjects == null)
-            return;
         var targetSpeed = _Camera.transform.position - _LastTargetPosition;
-        foreach (var obj in ParallaxObjects)
-        {
-            var velocity = new Vector3(targetSpeed.x * obj.SpeedX, targetSpeed.y * obj.SpeedY, 0);
-            obj.transform.position += velocity;
-            //var zoomChange = _Camera.Zoom - _LastZoom;
-            //var newScale = zoomChange * obj.ScaleMult;
-            //obj.transform.localScale -= new Vector3(newScale, newScale, newScale);
+        if (ParallaxObjects != null) {
+            foreach (var obj in ParallaxObjects) {
+                var velocity = new Vector3(targetSpeed.x * obj.SpeedX, targetSpeed.y * obj.SpeedY, 0);
+                obj.transform.position += velocity;
+            }
+        }
+        if(DiagonalParallaxObjects != null) {
+            foreach (var obj in DiagonalParallaxObjects) {
+                var rotateY = targetSpeed.x * obj.RotY;
+                var rotateZ = targetSpeed.y * obj.RotZ;
+                var eulerAngles = obj.transform.rotation.eulerAngles;
+                obj.transform.rotation = Quaternion.Euler(eulerAngles.x + 0, eulerAngles.y + rotateY, eulerAngles.z + rotateZ);
+            }
         }
         _LastTargetPosition = _Camera.transform.position;
-        //_LastZoom = _Camera.Zoom;
     }
 
     private void OnGameCameraSpawn(GameCameraSpawnedSignal signal) {
