@@ -43,7 +43,7 @@ namespace Character.Control {
         }
 
         private void Move() {
-            var hor = Input.GetAxis(_InputKit.Horizontal);
+             var hor = Input.GetAxis(_InputKit.Horizontal);
             _MovementController.SetHorizontal(hor);
         }
 
