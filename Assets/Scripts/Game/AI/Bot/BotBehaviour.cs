@@ -29,7 +29,7 @@ namespace Game.AI {
                                 combatDestination.AddChild(new TransformDestinationTask());
                             movement.AddChild(new MoveToPointTask());
                         var shooting = mainTree.AddChild<ParallelTask>();
-                            shooting.AddChild(new ShootTask());
+                            //shooting.AddChild(new ShootTask());
             return behaviourTree;
         }
 
@@ -88,11 +88,14 @@ namespace Game.AI {
             }
 
             Gizmos.color = Color.blue;
-            if (_MovementData.CurrentPath != null) {
-                for (int i = 0; i < _MovementData.CurrentPath.Count - 1; i++) {
-                    var point1 = _MovementData.CurrentPath[i];
-                    var point2 = _MovementData.CurrentPath[i + 1];
-                    Gizmos.DrawLine(point1.Position + Vector3.up * 3, point2.Position + Vector3.up * 3);
+            if (_MovementData.CurrentPointPath != null) {
+                for (int i = 0; i < _MovementData.CurrentPointPath.Count - 1; i++) {
+                    var point1 = _MovementData.CurrentPointPath[i];
+                    var point2 = _MovementData.CurrentPointPath[i + 1];
+                    Gizmos.DrawLine(point1 + Vector3.up * 3, point2 + Vector3.up * 3);
+                }
+                if (_MovementData.CurrentPointPath.Count > 0) {
+                    Gizmos.DrawLine(CharacterUnit.transform.position + Vector3.up * 3, _MovementData.CurrentPointPath[0] + Vector3.up * 3);
                 }
             }
         }

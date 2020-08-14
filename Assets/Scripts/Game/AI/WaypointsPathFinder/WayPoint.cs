@@ -16,12 +16,14 @@ namespace Game.AI.PathFinding {
             Manager.RegisterWayPoint(this);
         }
 
-        private void OnDisable() {
-            Manager.UnRegisterWayPoint(this);
-        }
+        //private void OnDisable() {
+        //    if(Manager != null)
+        //        Manager.UnRegisterWayPoint(this);
+        //}
 
         private void OnDestroy() {
-            Manager.UnRegisterWayPoint(this);
+            if (Manager != null)
+                Manager.UnRegisterWayPoint(this);
         }
 
     }

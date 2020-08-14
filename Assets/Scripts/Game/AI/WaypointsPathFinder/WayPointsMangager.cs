@@ -28,7 +28,7 @@ namespace Game.AI.PathFinding {
                 WayPoints = new List<WayPoint>();
             }
             if (WayPoints.Contains(waypoint)) {
-                Debug.LogError($"Way point {waypoint.gameObject.name} has been already registered.");
+                //Debug.LogError($"Way point {waypoint.gameObject.name} has been already registered.");
                 return;
             }
             WayPoints.Add(waypoint);
@@ -58,7 +58,7 @@ namespace Game.AI.PathFinding {
             });
         }
 
-        private WayPoint GetNearestWaypoint(Vector3 targetPosition) {
+        public WayPoint GetNearestWaypoint(Vector3 targetPosition) {
             WayPoint nearestWaypoint = null;
             float nearestSqrDistance = float.PositiveInfinity;
             for (int i = 0; i < WayPoints.Count; i++) {

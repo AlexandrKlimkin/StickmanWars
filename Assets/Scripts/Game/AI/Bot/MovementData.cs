@@ -9,6 +9,7 @@ using UnityEngine;
 namespace Game.AI {
     public class MovementData : BlackboardData {
         public List<WayPoint> CurrentPath;
+        public List<Vector3> CurrentPointPath;
         public Vector3? TargetPos;
         public DestinationType DestinationType;
     }
