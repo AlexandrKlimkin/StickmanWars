@@ -68,10 +68,12 @@ namespace Game.AI {
                             var sqrDistLastPreLast = Vector2.SqrMagnitude(_MovementData.CurrentPointPath[pointPathCount - 2].ToVector2() - pos);
                             if (sqrDistToLast < sqrDistLastPreLast) {
                                 _MovementData.CurrentPointPath.RemoveAt(pointPathCount - 2);
+                                pointPathCount = _MovementData.CurrentPointPath.Count;
                             }
                         }
                     }
                 }
+                
             }
         }
         
@@ -105,19 +107,11 @@ namespace Game.AI {
             MovementController.SetHorizontal(horizontal);
             var closest = _WayPointsMangager.GetNearestWaypoint(CharacterUnit.Position);
             var vertDist = firstPointVector.y;
+
             if(_MovementData.CurrentPointPath.Count > 1) {
-                if(_MovementData.CurrentPath[0].Links.Any(_=>_.Neighbour == firstWayPoint)) {
-
-                    if (dist <= 100) {
-                        if (vertDist >= 30) {
-                            if (!MovementController.HighJump())
-                                MovementController.WallJump();
-                        } else if (vertDist >= 15) {
-                            if (!MovementController.Jump())
-                                MovementController.WallJump();
-                        }
-                    }
-
+                if(_MovementData.CurrentPath[0].Links.Any(_=>_.IsJumpLink)) {
+                    if (!MovementController.HighJump())
+                        MovementController.WallJump();
                 }
             }
         }
