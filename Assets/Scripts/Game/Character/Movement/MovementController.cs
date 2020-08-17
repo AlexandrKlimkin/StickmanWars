@@ -166,7 +166,7 @@ namespace Character.Movement {
         public bool WallJump() {
             if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return false;
-            return _JumpModule.WallJump();
+            return _JumpModule.WallJump(this);
         }
 
         public void ContinueWallJump() {

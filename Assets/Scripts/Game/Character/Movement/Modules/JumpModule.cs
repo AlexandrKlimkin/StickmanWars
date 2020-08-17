@@ -20,6 +20,7 @@ namespace Character.Movement.Modules {
         private WalkData _WalkData;
 
         private float _JumpTimer;
+        private Coroutine _WallJumpWaitingRoutine;
 
         public JumpModule(JumpParameters parameters) {
             _Parameters = parameters;
@@ -83,26 +84,47 @@ namespace Character.Movement.Modules {
             _JumpTimer = 0;
         }
 
+        private IEnumerator IWallJumpWaiting(MonoBehaviour behaviour)
+        {
+            float timeBeforeJump = 0.7f;
+
+            for (int c = Mathf.RoundToInt(timeBeforeJump / Time.fixedDeltaTime); c > 0; c--)
+            {
+                yield return new WaitForFixedUpdate();
+                if (WallJump(behaviour))
+                    break;
+            }
+
+            _WallJumpWaitingRoutine = null;
+        }
+
         public void ContinueJump() {
             if (_JumpTimer != 0)
                 _JumpTimer += _Parameters.HighJumpAddTime;
         }
 
-        public bool WallJump() {
-            if (_WallSlideData.RightTouch) {
+        public bool WallJump(MonoBehaviour behaviour)
+        {
+            if (_WallSlideData.RightTouch)
+            {
                 var vector = new Vector2(-1, 0.9f).normalized;
                 CommonData.ObjRigidbody.velocity = vector * _Parameters.WallJumpSpeed;
                 _JumpData.LastWallJumpTime = Time.time;
                 PlayAudioEffect();
                 return true;
             }
-            if (_WallSlideData.LeftTouch) {
+            if (_WallSlideData.LeftTouch)
+            {
                 var vector = new Vector2(1, 0.9f).normalized;
                 CommonData.ObjRigidbody.velocity = vector * _Parameters.WallJumpSpeed;
                 _JumpData.LastWallJumpTime = Time.time;
                 PlayAudioEffect();
                 return true;
             }
+
+            if (_WallJumpWaitingRoutine == null)
+                _WallJumpWaitingRoutine = behaviour.StartCoroutine(IWallJumpWaiting(behaviour));
+
             return false;
         }
 
