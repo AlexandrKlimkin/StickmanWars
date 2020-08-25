@@ -4728,6 +4728,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SewerBranchCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 3194724793190089583, guid: 18c8c6051ae692142801649a9ae62605,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18c8c6051ae692142801649a9ae62605, type: 3}
 --- !u!1 &1650543806
@@ -4985,6 +4990,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SewerBranchCameraBoundaries
+      objectReference: {fileID: 0}
+    - target: {fileID: 102217279589954615, guid: 74317c4dc49f2384bb8d7efd22f72072,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1945391866917751036, guid: 74317c4dc49f2384bb8d7efd22f72072,
         type: 3}
