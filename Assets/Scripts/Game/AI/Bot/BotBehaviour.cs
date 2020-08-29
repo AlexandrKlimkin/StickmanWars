@@ -45,6 +45,9 @@ namespace Game.AI {
             _MovementData = BehaviourTree.Blackboard.Get<MovementData>();
             CharacterUnit.WeaponController.OnWeaponEquiped += OnWeaponEquip;
             CharacterUnit.WeaponController.OnVehicleEquiped += OnVehicleEquiped;
+
+            CharacterUnit.Target = GameObject.FindGameObjectWithTag("BotTarget").transform;
+
         }
 
         private void OnWeaponEquip(Weapon weapon) {
