@@ -20,6 +20,7 @@ namespace Character.Health {
         public float Health { get; set; }
         public float NormilizedHealth => Health / MaxHealth;
         public event Action OnDeath;
+        public bool DestroyOnDeath = true;
 
         public bool Dead { get; set; }
         public Collider2D Collider { get; set; }
@@ -38,7 +39,8 @@ namespace Character.Health {
         }
 
         public void Kill(Damage damage) {
-            Destroy(gameObject);
+            if(DestroyOnDeath)
+                Destroy(gameObject);
             OnDeath?.Invoke();
         }
     }
