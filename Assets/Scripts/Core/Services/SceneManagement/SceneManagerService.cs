@@ -18,7 +18,7 @@ namespace Core.Services.SceneManagement {
             { SceneType.MapSelection, new MapSelectionLoadingParameters() },
             { SceneType.CityCrane, new GameLoadingParameters() },
             { SceneType.MapTemplate, new GameLoadingParameters() },
-     
+            { SceneType.RailWay, new GameLoadingParameters() },
         };
 
         public SceneType ActiveScene {
@@ -88,5 +88,6 @@ namespace Core.Services.SceneManagement {
         MapSelection,
         CityCrane,
         MapTemplate,
+        RailWay,
     }
 }

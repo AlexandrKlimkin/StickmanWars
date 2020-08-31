@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.LevelSpecial
-{
-    public class PathFollowPhysicsObject : MonoBehaviour
-    {
+namespace Game.LevelSpecial {
+    public class PathFollowPhysicsObject : MonoBehaviour {
         public List<FollowPointData> FollowPoints;
         public float Speed;
 
@@ -15,13 +13,8 @@ namespace Game.LevelSpecial
         public bool IsMoving { get; private set; }
         private FollowPointData _CurrentFollowPoint;
 
-        private void Awake()
-        {
+        private void Awake() {
             _Rigidbody = GetComponent<Rigidbody2D>();
-        }
-
-        private void Start()
-        {
             CurrentFollowPointIndex = 0;
             _CurrentFollowPoint = FollowPoints[CurrentFollowPointIndex];
         }
@@ -34,29 +27,35 @@ namespace Game.LevelSpecial
                 var moveVector = normilizedVelocity * Speed;
                 moveVector = Vector2.ClampMagnitude(moveVector, distance);
                 _Rigidbody.position += moveVector;
-            }
-            if (_TargetPointReached) {
-                IsMoving = false;
+                if (_TargetPointReached) {
+                    IsMoving = false;
+                }
             }
         }
 
-        public void MoveToNextPoint()
-        {
+        public void MoveToNextPoint() {
             SwitchFollowPoint();
             IsMoving = true;
         }
 
-        private bool _TargetPointReached
-        {
-            get
-            {
+        public void ResetToPoint(int index) {
+            if (index >= FollowPoints.Count)
+                return;
+            IsMoving = false;
+            CurrentFollowPointIndex = index;
+            _CurrentFollowPoint = FollowPoints[CurrentFollowPointIndex];
+            _Rigidbody.position = _CurrentFollowPoint.Transform.position;
+            _Rigidbody.velocity = Vector2.zero;
+        }
+
+        private bool _TargetPointReached {
+            get {
                 var distance = Vector2.Distance(_CurrentFollowPoint.Transform.position, transform.position);
                 return distance < 0.1f;
             }
         }
 
-        private void SwitchFollowPoint()
-        {
+        private void SwitchFollowPoint() {
             var totalPoints = FollowPoints.Count;
             CurrentFollowPointIndex = (CurrentFollowPointIndex + 1) % totalPoints;
             _CurrentFollowPoint = FollowPoints[CurrentFollowPointIndex];
@@ -64,9 +63,7 @@ namespace Game.LevelSpecial
     }
 
     [Serializable]
-    public class FollowPointData
-    {
+    public class FollowPointData {
         public Transform Transform;
-        public float WaitTime;
     }
 }
