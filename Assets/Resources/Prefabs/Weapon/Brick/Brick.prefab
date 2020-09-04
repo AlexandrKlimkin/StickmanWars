@@ -277,9 +277,7 @@ MonoBehaviour:
   ShotSoundEffects: []
   ProjectileName: 
   ShotCameraShakePresetName: 
-  _weaponConfigScript: {fileID: 11400000, guid: ea71ffbc4e41eda4d869409e480f1e17,
-    type: 2}
-  _rb2d: {fileID: 3017729108957783455}
+  _PickUpAfterShoot: 1
 --- !u!114 &4006482121178286764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946ad52d3c4638f4c9173d7b9aa8c691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartHealth: 0
+  StartHealth: 10
   UseHealth: 0
 --- !u!114 &7193429156207884514
 MonoBehaviour:
@@ -344,3 +342,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PickupType: 0
+  _CanPickUp: 1

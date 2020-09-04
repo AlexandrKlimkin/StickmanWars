@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class GateController : MonoBehaviour
 {
-    [SerializeField] private GameObject _gate;
-    [SerializeField] private GameObject _flootButtun;
+    [SerializeField] private GameObject _Gate;
+    [SerializeField] private GameObject _FlootButton;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.GetComponent<CharacterUnit>() != null)
         {
-            _gate.SetActive(false);
-            _flootButtun.SetActive(false);
+            _Gate.SetActive(false);
+            _FlootButton.SetActive(false);
         }
     }
 
     private void OnDisable()
     {
-        Debug.Log("floor buttun make sound! Click!");
+        Debug.Log(" Floor button make sound! Click!");
     }
 
 }

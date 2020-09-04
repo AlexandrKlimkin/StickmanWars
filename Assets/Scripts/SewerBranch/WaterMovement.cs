@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class WaterMovement : MonoBehaviour
 {
-    [SerializeField] private GameObject _water;
-    [SerializeField] private float _speed;
-    [SerializeField] private Vector2 _endPosition;
+    [SerializeField] private GameObject _Water;
+    [SerializeField] private float _Speed;
+    [SerializeField] private Vector2 _EndPosition;
 
-    private Vector2 _startPosition;
-    private float _progress;
+    private Vector2 _StartPosition;
+    private float _Progress;
     private void Start()
     {
-        _startPosition = transform.position;
+        _StartPosition = transform.position;
     }
 
     private void FixedUpdate()
     {
-        transform.position = Vector2.Lerp(_startPosition, _endPosition, _progress);
-        _progress += _speed;
+        transform.position = Vector2.Lerp(_StartPosition, _EndPosition, _Progress);
+        _Progress += _Speed;
     }
 
 }
