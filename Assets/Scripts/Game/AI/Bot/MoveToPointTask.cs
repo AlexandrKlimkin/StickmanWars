@@ -21,10 +21,11 @@ namespace Game.AI {
 
         public override TaskStatus Run() {
             FindNewPath();
-            if (_MovementData.CurrentPointPath != null && _MovementData.CurrentPointPath.Count > 0) {
-                var sqrDist = Vector2.SqrMagnitude(_MovementData.CurrentPointPath.Last().ToVector2() - CharacterUnit.transform.position.ToVector2());
-                if (sqrDist > 25) {
+            if (_MovementData.CurrentPointPath != null && _MovementData.CurrentPointPath.Count > 0 && _MovementData.TargetPos != null) {
+                var sqrDistToTarget = Vector2.SqrMagnitude(_MovementData.TargetPos.Value.ToVector2() - CharacterUnit.transform.position.ToVector2());
+                if (sqrDistToTarget > 25) {
                     ProcessMove();
+                    ProcessJump();
                     return TaskStatus.Running;
                 } else {
                     _MovementData.TargetPos = null;
@@ -55,13 +56,11 @@ namespace Game.AI {
                         var sqrDistToFirst = (characterPos - _MovementData.CurrentPointPath[0].ToVector2()).sqrMagnitude;
                         var sqrDistToSecond = (characterPos - _MovementData.CurrentPointPath[1].ToVector2()).sqrMagnitude;
                         var sqrDistFirstToSecond = (_MovementData.CurrentPointPath[0].ToVector2() - _MovementData.CurrentPointPath[1].ToVector2()).sqrMagnitude;
-                        //if (sqrDistToSecond < sqrDistToFirst)
-                        //    _MovementData.CurrentPointPath.RemoveAt(0);
                         if (sqrDistToSecond < sqrDistFirstToSecond) {
                             _MovementData.CurrentPointPath.RemoveAt(0);
                             pointPathCount = _MovementData.CurrentPointPath.Count;
                         }
-                       if (pointPathCount > 1) {
+                        if (pointPathCount > 1) {
                             var pos = _MovementData.CurrentPointPath.Count == 2 ? characterPos : _MovementData.CurrentPointPath[pointPathCount - 3].ToVector2();
 
                             var sqrDistToLast = Vector2.SqrMagnitude(_MovementData.CurrentPointPath.Last().ToVector2() - pos);
@@ -73,43 +72,33 @@ namespace Game.AI {
                         }
                     }
                 }
-                
             }
         }
-        
 
         private void ProcessMove() {
-            if (_MovementData.CurrentPointPath.Count == 0)
-                return;
-
-            var firstWayPoint = _MovementData.CurrentPath[0];
             var firstPoint = _MovementData.CurrentPointPath[0];
             var firstPointVector = firstPoint - CharacterUnit.transform.position;
             var horDistToFirstPoint = Mathf.Abs(firstPointVector.x);
 
-            var targetVector = CharacterUnit.Target.position - CharacterUnit.transform.position;
+            var targetVector = _MovementData.TargetPos.Value.ToVector2() - CharacterUnit.transform.position.ToVector2();
             var horDistToTarget = Mathf.Abs(targetVector.x);
 
-            var dist = firstPointVector.magnitude;
             float horizontal = MovementController.Horizontal;
-            //if (_MovementData.CurrentPath.Count == 1)
-            //    horizontal = 0;
-            if (horDistToFirstPoint > 5) {
-                horizontal = firstPointVector.x > 0 ? 1f : -1f;
+
+            if (Mathf.Abs(targetVector.x) < 2 && _MovementData.CurrentPointPath.Count < 2) {
+                horizontal = 0;
             } else {
-                if(_MovementData.CurrentPointPath.Count > 1) {
-                    var secondndPoint = _MovementData.CurrentPointPath[0];
-                    var targetVector2 = secondndPoint - CharacterUnit.transform.position;
-                }
-                if (_MovementData.CurrentPointPath.Count < 2 && horDistToTarget < 1f)
-                    horizontal = 0;
+                horizontal = firstPointVector.x > 0 ? 1f : -1f;
             }
             MovementController.SetHorizontal(horizontal);
-            var closest = _WayPointsMangager.GetNearestWaypoint(CharacterUnit.Position);
-            var vertDist = firstPointVector.y;
+        }
 
-            if(_MovementData.CurrentPointPath.Count > 1) {
-                if(_MovementData.CurrentPath[0].Links.Any(_=>_.IsJumpLink)) {
+        private void ProcessJump() {
+            var firstWayPoint = _MovementData.CurrentPath[0];
+            if (_MovementData.CurrentPath.Count > 1) {
+                var secondWayPoint = _MovementData.CurrentPath[1];
+                var linkFirstToSecond = firstWayPoint.Links.FirstOrDefault(_ => _.Neighbour == secondWayPoint);
+                if (linkFirstToSecond != null && linkFirstToSecond.IsJumpLink) {
                     if (!MovementController.HighJump())
                         MovementController.WallJump();
                 }
