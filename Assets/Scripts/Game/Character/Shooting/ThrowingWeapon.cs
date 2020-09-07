@@ -49,5 +49,20 @@ namespace Character.Shooting {
             projectile.Play();
             PickableItem.CanPickUp = false;
         }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.GetComponent<CharacterUnit>() != null && _Stats.CanPickedUp)
+            {
+                StartCoroutine(PickUpItem());
+            }
+        }
+
+        IEnumerator PickUpItem()
+        {
+            yield return new WaitForSeconds(1);
+            PickableItem.CanPickUp = true;
+        }
+
     }
 }

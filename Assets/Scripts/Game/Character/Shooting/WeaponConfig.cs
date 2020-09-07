@@ -30,6 +30,9 @@ namespace Character.Shooting
         [Header ("Bools")]
         public bool MagazineLimited = true;
 
+        [Header("CanPickedUpAfterThrown")]
+        public bool CanPickedUp = false;
+
         [Header("Damage up per time")]
         public bool TensionDamage = false;
 
