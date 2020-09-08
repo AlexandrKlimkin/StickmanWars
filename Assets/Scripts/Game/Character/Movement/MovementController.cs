@@ -144,15 +144,17 @@ namespace Character.Movement {
         public bool HighJump() {
             var jumped = false;
              jumped = Jump();
-            if(jumped)
-                StartCoroutine(HighJumpRoutine());
+            if (jumped) {
+                StopCoroutine(ContinueJumpRoutine());
+                StartCoroutine(ContinueJumpRoutine());
+            }
             return jumped;
         }
 
-        private IEnumerator HighJumpRoutine() {
-            bool jumped = false;
-            while (!jumped) {
-                jumped = ProcessHoldJump();
+        private IEnumerator ContinueJumpRoutine() {
+            var continueJump = false;
+            while (!continueJump) {
+                continueJump = ProcessHoldJump();
                 yield return null;
             }
         }
