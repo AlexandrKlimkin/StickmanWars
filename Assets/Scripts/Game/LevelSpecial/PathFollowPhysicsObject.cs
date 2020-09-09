@@ -9,14 +9,23 @@ namespace Game.LevelSpecial {
         public float Speed;
 
         private Rigidbody2D _Rigidbody;
-        public int CurrentFollowPointIndex { get; private set; }
-        public bool IsMoving { get; private set; }
+
+        private int _CurrentFollowPointIndex;
         private FollowPointData _CurrentFollowPoint;
+        public int CurrentFollowPointIndex {
+            get {
+                return _CurrentFollowPointIndex;
+            }
+            private set {
+                _CurrentFollowPointIndex = value;
+                _CurrentFollowPoint = FollowPoints[CurrentFollowPointIndex];
+            }
+        }
+        public bool IsMoving { get; private set; }
 
         private void Awake() {
             _Rigidbody = GetComponent<Rigidbody2D>();
             CurrentFollowPointIndex = 0;
-            _CurrentFollowPoint = FollowPoints[CurrentFollowPointIndex];
         }
 
         private void FixedUpdate() {
@@ -29,6 +38,7 @@ namespace Game.LevelSpecial {
                 _Rigidbody.position += moveVector;
                 if (_TargetPointReached) {
                     IsMoving = false;
+                    _Rigidbody.position = _CurrentFollowPoint.Transform.position;
                 }
             }
         }
@@ -43,7 +53,6 @@ namespace Game.LevelSpecial {
                 return;
             IsMoving = false;
             CurrentFollowPointIndex = index;
-            _CurrentFollowPoint = FollowPoints[CurrentFollowPointIndex];
             _Rigidbody.position = _CurrentFollowPoint.Transform.position;
             _Rigidbody.velocity = Vector2.zero;
         }
@@ -51,6 +60,7 @@ namespace Game.LevelSpecial {
         private bool _TargetPointReached {
             get {
                 var distance = Vector2.Distance(_CurrentFollowPoint.Transform.position, transform.position);
+                //Debug.LogError($"distance = {distance}");
                 return distance < 0.1f;
             }
         }
@@ -58,7 +68,7 @@ namespace Game.LevelSpecial {
         private void SwitchFollowPoint() {
             var totalPoints = FollowPoints.Count;
             CurrentFollowPointIndex = (CurrentFollowPointIndex + 1) % totalPoints;
-            _CurrentFollowPoint = FollowPoints[CurrentFollowPointIndex];
+            //Debug.LogError($"Current Follow Point Index = {CurrentFollowPointIndex}");
         }
     }
 
