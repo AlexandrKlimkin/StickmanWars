@@ -93,14 +93,24 @@ namespace Game.AI {
             MovementController.SetHorizontal(horizontal);
         }
 
+        private float _DelayBetweenJumps = 0.5f;
+        private float _LastJumpTime = float.NegativeInfinity;
+
         private void ProcessJump() {
             var firstWayPoint = _MovementData.CurrentPath[0];
             if (_MovementData.CurrentPath.Count > 1) {
                 var secondWayPoint = _MovementData.CurrentPath[1];
                 var linkFirstToSecond = firstWayPoint.Links.FirstOrDefault(_ => _.Neighbour == secondWayPoint);
-                if (linkFirstToSecond != null && linkFirstToSecond.IsJumpLink) {
-                    if (!MovementController.HighJump())
-                        MovementController.WallJump();
+                var timeFromLastJumpLeft = Time.time - _LastJumpTime;
+                if (linkFirstToSecond != null && linkFirstToSecond.IsJumpLink && timeFromLastJumpLeft >= _DelayBetweenJumps) {
+                    Debug.LogError(timeFromLastJumpLeft);
+                    if (MovementController.HighJump()) {
+                        _LastJumpTime = Time.time;
+                    } else {
+                        if (MovementController.WallJump()) {
+
+                        }
+                    }
                 }
             }
         }

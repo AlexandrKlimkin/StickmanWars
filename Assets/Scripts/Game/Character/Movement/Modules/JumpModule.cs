@@ -71,6 +71,7 @@ namespace Character.Movement.Modules {
         }
 
         private IEnumerator JumpRoutine() {
+            //Debug.LogError("Module jump");
             var gravityScale = CommonData.ObjRigidbody.gravityScale;
             while (_JumpTimer > 0) {
                 CommonData.ObjRigidbody.velocity = new Vector2(CommonData.ObjRigidbody.velocity.x, _Parameters.JumpSpeed);
@@ -79,13 +80,16 @@ namespace Character.Movement.Modules {
                 _JumpTimer -= Time.deltaTime;
                 yield return null;
             }
+            //Debug.LogError("Module jump finish");
             CommonData.ObjRigidbody.gravityScale = gravityScale;
             _JumpTimer = 0;
         }
 
         public void ContinueJump() {
-            if (_JumpTimer != 0)
+            if (_JumpTimer != 0) {
                 _JumpTimer += _Parameters.HighJumpAddTime;
+                //Debug.LogError("Module continue jump");
+            }
         }
 
         public bool WallJump() {

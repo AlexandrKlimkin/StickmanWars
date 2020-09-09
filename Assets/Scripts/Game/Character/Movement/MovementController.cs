@@ -144,6 +144,7 @@ namespace Character.Movement {
         public bool HighJump() {
             var jumped = false;
              jumped = Jump();
+            //Debug.LogError($"Jumped {jumped}");
             if (jumped) {
                 StopCoroutine(ContinueJumpRoutine());
                 StartCoroutine(ContinueJumpRoutine());
@@ -162,6 +163,7 @@ namespace Character.Movement {
         private void ContinueJump() {
             if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return;
+            //Debug.LogError("Continue jump");
             _JumpModule.ContinueJump();
             _Jumping = false;
         }
