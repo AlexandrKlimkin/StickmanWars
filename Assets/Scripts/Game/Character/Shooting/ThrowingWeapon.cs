@@ -52,7 +52,7 @@ namespace Character.Shooting {
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.GetComponent<CharacterUnit>() != null && _Stats.CanPickedUp)
+            if (_Stats.CanPickedUp)
             {
                 StartCoroutine(PickUpItem());
             }
