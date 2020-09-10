@@ -16,6 +16,10 @@ namespace Character.Shooting {
             Weapon = weapon;
         }
 
+        public void SetMagazine(int ammo) {
+            CurrentMagazine = ammo;
+        }
+
         public virtual void ProcessHold() {
             OnProcessHold?.Invoke(CurrentMagazine);
         }

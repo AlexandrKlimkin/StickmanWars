@@ -36,6 +36,12 @@ namespace Character.Shooting {
             return data;
         }
 
+        public override bool PickUp(CharacterUnit owner) {
+            var pickedUp = base.PickUp(owner);
+            InputProcessor.SetMagazine(1);
+            return pickedUp;
+        }
+
         public override ThrowingProjectile GetProjectile() {
             return GetComponent<ThrowingProjectile>();
         }

@@ -14,13 +14,8 @@ namespace UI.Game.Markers {
         protected override void HandleData(CharacterMarkerData data) {
             _HPSlider.value = data.NormilizedHealth;
             _AmmoText.gameObject.SetActive(data.HasWeapon);
-            if (data.HasWeapon && data.Ammo > 0) 
-            {
+            if (data.HasWeapon) {
                 _AmmoText.text = $"{data.Ammo}";
-            }
-            else
-            {
-                _AmmoText.text = null;
             }
             _VehicleSlider.gameObject.SetActive(data.HasVehicle);
             if (data.HasVehicle) {

@@ -26,7 +26,7 @@ namespace Character.Shooting {
         }
 
         protected virtual void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.gameObject.GetComponent<CharacterUnit>() != null)
+            if (collision.gameObject.GetComponent<IDamageable>() != null)
             {
                 if (!_Hit && collision.collider.gameObject != null)
                 {
