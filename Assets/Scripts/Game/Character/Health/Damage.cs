@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Character.Health {
             this.Receiver = receiver;
             this.Amount = amount;
         }
+
     }
 
 }

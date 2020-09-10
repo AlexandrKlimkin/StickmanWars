@@ -61,8 +61,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.4627451, b: 0.24313726, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -100,8 +101,8 @@ MonoBehaviour:
   Settings:
     InterpolateColor: 1
   GraphicTarget: {fileID: 4797309724243105401}
-  StartColor: {r: 1, g: 1, b: 1, a: 1}
-  FinishColor: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+  StartColor: {r: 1, g: 0.4627451, b: 0.24313726, a: 1}
+  FinishColor: {r: 1, g: 0.29803923, b: 0.24313726, a: 1}
 --- !u!114 &5511597931888059508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,8 +235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.4627451, b: 0.24313726, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -273,8 +275,8 @@ MonoBehaviour:
   Settings:
     InterpolateColor: 1
   GraphicTarget: {fileID: 4461700560363117155}
-  StartColor: {r: 1, g: 1, b: 1, a: 1}
-  FinishColor: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+  StartColor: {r: 1, g: 0.4627451, b: 0.24313726, a: 1}
+  FinishColor: {r: 1, g: 0.29803923, b: 0.24313726, a: 1}
 --- !u!114 &3799506562983592480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,8 +496,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.28773582, b: 0.28773582, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -647,6 +650,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

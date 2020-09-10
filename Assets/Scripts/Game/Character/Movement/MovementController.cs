@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Character.Control;
 using Character.Movement.Modules;
 using Character.Shooting;
 using Tools.BehaviourTree;
@@ -10,6 +11,7 @@ using UnityEngine;
 
 namespace Character.Movement {
     public class MovementController : MonoBehaviour {
+
         [SerializeField]
         private WalkParameters WalkParameters;
         [SerializeField]
@@ -34,6 +36,7 @@ namespace Character.Movement {
         private LedgeHangModule _LedgeHangModule;
         private PushingModule _PushingModule;
         private Blackboard _Blackboard;
+
 
         private WalkData _WalkData;
         private List<SimpleCCD> _SimpleCcds = new List<SimpleCCD>();
@@ -174,7 +177,7 @@ namespace Character.Movement {
         }
 
         public void ChangeDirection(int newDir) {
-            if (_WalkData.Direction == newDir)
+            if (_WalkData.Direction == newDir) //_WalkData.Direction == newDir
                 return;
             _WalkData.Direction = newDir;
             var localScale = WalkParameters.IkTransform.localScale;
