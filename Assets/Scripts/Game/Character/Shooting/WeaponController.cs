@@ -59,7 +59,7 @@ namespace Character.Shooting {
             if(MainWeapon == null) {
                 MeleeAttack?.InputProcessor.Process();
             }
-            else {
+            else  {
                 MainWeapon.InputProcessor.Process();
             }
             Vehicle?.InputProcessor.Process();
@@ -81,6 +81,10 @@ namespace Character.Shooting {
 
         public void PressFire() {
             OnPressFire?.Invoke();
+            if (MainWeapon == null)
+            {
+                MeleeAttack.PerformShot();
+            }
         }
 
         public void ReleaseFire() {
