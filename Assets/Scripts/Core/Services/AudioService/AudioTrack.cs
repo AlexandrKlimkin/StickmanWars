@@ -24,6 +24,11 @@ namespace Core.Audio {
             _AudioSource.volume = _CurrnetVolume;
         }
 
+        private void OnDisable()
+        {
+            Destroy(this.gameObject);
+        }
+
         protected override void ResetVolume() {
             _AudioSource.volume = _CurrnetVolume;
         }
