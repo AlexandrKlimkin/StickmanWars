@@ -144,6 +144,8 @@ namespace Character.Movement {
         public bool HighJump() {
             var jumped = false;
              jumped = Jump();
+            if (!jumped)
+                jumped = WallJump();
             //Debug.LogError($"Jumped {jumped}");
             if (jumped) {
                 StopCoroutine(ContinueJumpRoutine());
