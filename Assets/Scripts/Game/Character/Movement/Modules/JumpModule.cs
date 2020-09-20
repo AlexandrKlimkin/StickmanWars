@@ -73,6 +73,7 @@ namespace Character.Movement.Modules {
 
         private IEnumerator JumpRoutine() {
             var gravityScale = CommonData.ObjRigidbody.gravityScale;
+
             while (_JumpTimer > 0) {
                 CommonData.ObjRigidbody.velocity = new Vector2(CommonData.ObjRigidbody.velocity.x, _Parameters.JumpSpeed);
                 //CommonData.ObjRigidbody.gravityScale = 0;
@@ -136,6 +137,11 @@ namespace Character.Movement.Modules {
 
     [Serializable]
     public class JumpParameters {
+        public float LowJumpHeight;
+        public AnimationCurve LowJumpCurve;
+        public float HighJumpHeight;
+        public AnimationCurve HighJumpCurve;
+
         public float JumpSpeed;
         public float WallJumpSpeed;
         public float LowJumpTime;

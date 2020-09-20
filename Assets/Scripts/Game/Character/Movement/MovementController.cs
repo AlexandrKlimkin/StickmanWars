@@ -116,8 +116,12 @@ namespace Character.Movement {
         private bool _JumpHold;
         private const float PressTime2HighJump = 0.12f;
 
+        private Vector3 _LastPos;
         private void Update() {
             _MovementModules.ForEach(_ => _.Update());
+            if (_LastPos != Vector3.zero)
+                Debug.DrawLine(transform.position, _LastPos, Color.red, 10);
+            _LastPos = transform.position;
         }
 
         private void LateUpdate() {
