@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Character.CloseCombat;
 using Character.Health;
 using Core.Audio;
 using Items;
@@ -59,8 +60,10 @@ namespace Character.Shooting {
 
         public virtual bool PickUp(CharacterUnit owner) {
             var pickedUp = false;
-            if(PickableItem != null)
+            if (PickableItem != null)
                 pickedUp = PickableItem.PickUp(owner);
+            else
+                pickedUp = this is MeleeAttack;
             if (pickedUp) {
                 if (WeaponReaction == WeaponReactionType.Fire)
                     owner?.WeaponController?.SubscribeWeaponOnEvents(this);

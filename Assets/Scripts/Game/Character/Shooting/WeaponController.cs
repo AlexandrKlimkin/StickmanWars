@@ -81,10 +81,6 @@ namespace Character.Shooting {
 
         public void PressFire() {
             OnPressFire?.Invoke();
-            if (MainWeapon == null)
-            {
-                MeleeAttack.PerformShot();
-            }
         }
 
         public void ReleaseFire() {
