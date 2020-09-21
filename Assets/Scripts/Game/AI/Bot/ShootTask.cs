@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Tools;
+using Character.Shooting;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,8 @@ namespace Game.AI {
                 _Pressed = false;
                 return TaskStatus.Failure;
             }
+            if(WeaponController.MainWeapon.InputProcessor is SingleShotProcessor)
+                _Pressed = false;
             FindTarget();
             ProcessVisible();
             Fire();

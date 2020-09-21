@@ -7,6 +7,7 @@ using KlimLib.SignalBus;
 using KlimLib.Timers;
 using UnityDI;
 using UnityEngine;
+using System.Linq;
 
 namespace MapSelection {
     public class GameLevelLoadService : ILoadableService, IUnloadableService {
@@ -31,7 +32,7 @@ namespace MapSelection {
         }
 
         private void OnLoadLvlTriggerInteractionSignal(LoadLvlTriggerInteractionSignal signal) {
-            if (signal.TotalUnitsInsde < _MatchData.Players.Count) {
+            if (signal.TotalUnitsInsde < _MatchData.Players.Where(_=> !_.IsBot).Count()) {
                 StopCountDown();
             }
             else {

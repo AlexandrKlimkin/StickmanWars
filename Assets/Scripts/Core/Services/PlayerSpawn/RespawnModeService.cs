@@ -42,10 +42,10 @@ namespace Core.Services.Game {
         public void Load() {
             ContainerHolder.Container.RegisterInstance<IPlayerLifesCounter>(this);
             _SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
-            _SignalBus.Subscribe<PlayerAddedSignal>(OnPlayerAdded, this);
+            //_SignalBus.Subscribe<PlayerAddedSignal>(OnPlayerAdded, this);
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
+            //AddBots();
             InitializeNewMatch();
-            AddBots();
         }
 
         public void Unload() {
@@ -53,20 +53,20 @@ namespace Core.Services.Game {
         }
 
 
-        private void AddBots() {
-            if (RespawnModeConfig.Instance.UseBots) {
-                var playersDontPlay = 4 - _MatchData.Players.Count;
-                var botsNeedToSpawn = Mathf.Min(playersDontPlay, RespawnModeConfig.Instance.MaxBotsCount);
-                var maxIndex = _MatchData.Players.Max(_ => _.PlayerId);
-                maxIndex++;
-                for (byte index = maxIndex; index < maxIndex + botsNeedToSpawn; index++) {
-                    var player = new PlayerData(index, index.ToString(), true, index, "Robot");
-                    _MatchService.AddPlayer(player);
-                }
-            }
-        }
+        //private void AddBots() {
+        //    if (RespawnModeConfig.Instance.UseBots) {
+        //        var playersDontPlay = 4 - _MatchData.Players.Count;
+        //        var botsNeedToSpawn = Mathf.Min(playersDontPlay, RespawnModeConfig.Instance.MaxBotsCount);
+        //        var maxIndex = _MatchData.Players.Max(_ => _.PlayerId);
+        //        maxIndex++;
+        //        for (byte index = maxIndex; index < maxIndex + botsNeedToSpawn; index++) {
+        //            var player = new PlayerData(index, index.ToString(), true, index, "Robot");
+        //            _MatchService.AddPlayer(player);
+        //        }
+        //    }
+        //}
 
-        public void InitializeNewMatch() {
+        private void InitializeNewMatch() {
             _PlayersLifesDict = new Dictionary<byte, int>();
             foreach (var player in _MatchData.Players) {
                 _PlayersLifesDict.Add(player.PlayerId, PlayerLifes);
@@ -77,11 +77,11 @@ namespace Core.Services.Game {
             SpawnAllAtTheBegining();
         }
 
-        private void OnPlayerAdded(PlayerAddedSignal signal) {
-            _PlayersLifesDict.Add(signal.PlayerData.PlayerId, PlayerLifes);
-            if (signal.SpawnOnMap)
-                SpawnCharacterInRandomPos(signal.PlayerData.PlayerId);
-        }
+        //private void OnPlayerAdded(PlayerAddedSignal signal) {
+        //    _PlayersLifesDict.Add(signal.PlayerData.PlayerId, PlayerLifes);
+        //    if (signal.SpawnOnMap)
+        //        SpawnCharacterInRandomPos(signal.PlayerData.PlayerId);
+        //}
 
         private void SpawnAllAtTheBegining() {
             var availablePoints = _PlayersSpawnSettings.PlayerSpawnPoints.ToList();

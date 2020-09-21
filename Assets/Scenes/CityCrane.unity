@@ -10626,9 +10626,9 @@ MonoBehaviour:
   - Neighbour: {fileID: 505994806}
     Cost: 1
     IsJumpLink: 0
-  - Neighbour: {fileID: 689030741}
-    Cost: 0.5
-    IsJumpLink: 1
+  - Neighbour: {fileID: 991699835}
+    Cost: 1
+    IsJumpLink: 0
 --- !u!4 &550659592
 Transform:
   m_ObjectHideFlags: 0
@@ -12152,56 +12152,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8559879665841836150}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &689030740
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 689030742}
-  - component: {fileID: 689030741}
-  m_Layer: 0
-  m_Name: Waypoint41
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &689030741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 689030740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 873c58fd2296f3e4fb05964d1e4081c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Links:
-  - Neighbour: {fileID: 550659591}
-    Cost: 0.5
-    IsJumpLink: 0
-  - Neighbour: {fileID: 991699835}
-    Cost: 1
-    IsJumpLink: 0
---- !u!4 &689030742
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 689030740}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 286.6, y: 242.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 774898473}
-  m_RootOrder: 41
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &699104898
 GameObject:
   m_ObjectHideFlags: 0
@@ -12620,7 +12570,6 @@ MonoBehaviour:
   - {fileID: 1661727022}
   - {fileID: 1687072609}
   - {fileID: 550659591}
-  - {fileID: 689030741}
 --- !u!4 &774898473
 Transform:
   m_ObjectHideFlags: 0
@@ -12673,7 +12622,6 @@ Transform:
   - {fileID: 1661727023}
   - {fileID: 1687072610}
   - {fileID: 550659592}
-  - {fileID: 689030742}
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19121,7 +19069,7 @@ MonoBehaviour:
   - Neighbour: {fileID: 360370203}
     Cost: 1
     IsJumpLink: 0
-  - Neighbour: {fileID: 689030741}
+  - Neighbour: {fileID: 550659591}
     Cost: 1
     IsJumpLink: 1
 --- !u!4 &991699836
@@ -27271,7 +27219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1384701619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39742,7 +39690,7 @@ PrefabInstance:
     - target: {fileID: 1719326976381403381, guid: 118a64c8662ec4c4c95bd68725756e6b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
         type: 3}

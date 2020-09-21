@@ -20,7 +20,8 @@ namespace Game.AI {
         }
 
         public override TaskStatus Run() {
-            FindNewPath();
+            //if(MovementController.IsGrounded)
+                FindNewPath();
             if (_MovementData.CurrentPointPath != null && _MovementData.CurrentPointPath.Count > 0 && _MovementData.TargetPos != null) {
                 var sqrDistToTarget = Vector2.SqrMagnitude(_MovementData.TargetPos.Value.ToVector2() - CharacterUnit.transform.position.ToVector2());
                 if (sqrDistToTarget > 25) {
@@ -98,19 +99,26 @@ namespace Game.AI {
 
         private void ProcessJump() {
             var firstWayPoint = _MovementData.CurrentPath[0];
-            if (_MovementData.CurrentPath.Count > 1) {
+            var timeFromLastJumpLeft = Time.time - _LastJumpTime;
+            var pathCount = _MovementData.CurrentPath.Count;
+            if (pathCount > 1) {
                 var secondWayPoint = _MovementData.CurrentPath[1];
                 var linkFirstToSecond = firstWayPoint.Links.FirstOrDefault(_ => _.Neighbour == secondWayPoint);
-                var timeFromLastJumpLeft = Time.time - _LastJumpTime;
                 if (linkFirstToSecond != null && (linkFirstToSecond.IsJumpLink || MovementController.LedgeHang) && timeFromLastJumpLeft >= _DelayBetweenJumps) {
-                    Debug.LogError(timeFromLastJumpLeft);
-                    if (MovementController.HighJump()) {
-                        _LastJumpTime = Time.time;
-                    } else {
-                        if (MovementController.WallJump()) {
+                    Jump();
+                }
+            } else if (pathCount > 0) {
+                if (MovementController.LedgeHang)
+                    Jump();
+            }
+        }
 
-                        }
-                    }
+        private void Jump() {
+            if (MovementController.HighJump()) {
+                _LastJumpTime = Time.time;
+            } else {
+                if (MovementController.WallJump()) {
+
                 }
             }
         }
