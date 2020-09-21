@@ -43,7 +43,7 @@ namespace Core.Audio {
             }
             _AudioSource.volume = 0;
             StopAudio();
-            gameObject.SetActive(false);
+            gameObject.SetActive(false); 
         }
 
         protected override IEnumerator PlayAndRiseTask() {

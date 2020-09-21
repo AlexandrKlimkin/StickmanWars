@@ -59,7 +59,7 @@ namespace Character.Shooting {
             if(MainWeapon == null) {
                 MeleeAttack?.InputProcessor.Process();
             }
-            else {
+            else  {
                 MainWeapon.InputProcessor.Process();
             }
             Vehicle?.InputProcessor.Process();

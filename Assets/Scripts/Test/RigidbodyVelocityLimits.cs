@@ -14,7 +14,7 @@ public class RigidbodyVelocityLimits : MonoBehaviour {
         var sqrMag = _Rigidbody.velocity.sqrMagnitude;
         if (sqrMag > MaxVelocityMagnitude * MaxVelocityMagnitude) {
             _Rigidbody.velocity = _Rigidbody.velocity.normalized * MaxVelocityMagnitude;
-            Debug.Log($"{gameObject.name} max velocity is {_Rigidbody.velocity.magnitude}");
+           // Debug.Log($"{gameObject.name} max velocity is {_Rigidbody.velocity.magnitude}");
         }
     }
 }

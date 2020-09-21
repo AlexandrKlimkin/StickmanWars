@@ -19,18 +19,20 @@ namespace Character.Shooting {
 
         public override void Setup(ThrowingProjectileData data) {
             base.Setup(data);
-            //_RB.velocity = Vector2.zero;
         }
 
         public override void Simulate(float time) {
 
         }
 
-        //protected virtual void OnCollisionEnter2D(Collision2D collision) {
-        //    if (!_Hit && collision.collider.gameObject != null && !_HitPerformed) {
-        //        PerformHit(collision.collider.gameObject.GetComponent<IDamageable>(), false);
-        //        _HitPerformed = true;
-        //    }
-        //}
+        protected virtual void OnCollisionEnter2D(Collision2D collision) {
+            if (collision.gameObject.GetComponent<IDamageable>() != null)
+            {
+                if (!_Hit && collision.collider.gameObject != null)
+                {
+                    PerformHit(collision.collider.gameObject.GetComponent<IDamageable>(), false);
+                }
+            }
+        }
     }
 }

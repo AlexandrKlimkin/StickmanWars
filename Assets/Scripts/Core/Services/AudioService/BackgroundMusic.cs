@@ -9,18 +9,18 @@ public class BackgroundMusic : MonoBehaviour {
     [Dependency]
     private readonly AudioService _AudioService;
 
-    public AudioEffect AudioTrack;
+    private AudioEffect _AudioTrack;
 
     private void Start() {
         ContainerHolder.Container.BuildUp(this);
-        AudioTrack = _AudioService.PlayMusic(BackgroundTrackName);
+        _AudioTrack = _AudioService.PlayMusic(BackgroundTrackName);
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.P)) {
-            AudioTrack.gameObject.SetActive(true);
-            AudioTrack.Play(false);
-        }
-    }
+    //private void Update() {
+    //    if (Input.GetKeyDown(KeyCode.P)) {
+    //        AudioTrack.gameObject.SetActive(true);
+    //        AudioTrack.Play(false);
+    //    }
+    //}
 
 }
