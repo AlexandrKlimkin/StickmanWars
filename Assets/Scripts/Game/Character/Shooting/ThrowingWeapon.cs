@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Tools;
 using Character.Health;
-using Character.Shooting.Character.Shooting;
 using System.Collections;
 using System.Threading;
 using UnityEngine;

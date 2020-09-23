@@ -15,15 +15,19 @@ MonoBehaviour:
   Range: 1000
   ReloadingTime: 1
   ProjectileSpeed: 500
-  Damage: 6
+  Damage: 5
   HitForce: 10000
   RecoilForce: 4500
-  MagazineLimited: 1
-  Magazine: 250
-  ProjectilesInShot: 1
-  RateOfFire: 30
+  RateOfFire: 25
   ReloadTime: 0
   DispersionAngle: 8.53
   MinThrowStartSpeed: 100
   MaxThrowStartSpeed: 200
   MaxForceTime: 0
+  Magazine: 150
+  ProjectilesInShot: 1
+  MagazineLimited: 1
+  CanPickedUp: 0
+  TensionDamage: 0
+  MinTensionDamage: 0
+  MaxTensionDamage: 0

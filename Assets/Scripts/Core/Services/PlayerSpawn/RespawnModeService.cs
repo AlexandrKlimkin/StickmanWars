@@ -89,7 +89,7 @@ namespace Core.Services.Game {
                 var randomPointIndex = Random.Range(0, availablePoints.Count);
                 var point = availablePoints[randomPointIndex];
                 availablePoints.Remove(point);
-                _CharacterCreationService.CreateCharacter(player, true, _PlayersConnectionService.GetDeviceIndex(player.PlayerId).Value, point.Point.position);
+                SpawnPlayerCharacter(player, point.Point.position); 
             }
         }
 

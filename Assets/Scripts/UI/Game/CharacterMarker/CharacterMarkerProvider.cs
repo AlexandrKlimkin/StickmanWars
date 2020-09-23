@@ -1,4 +1,4 @@
-﻿using Character.Shooting.Character.Shooting;
+﻿using Character.Shooting;
 using System.Collections;
 using System.Collections.Generic;
 using UI.Markers;

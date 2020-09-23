@@ -13,6 +13,7 @@ namespace Game.AI {
         private Transform _Target;
         private bool _TargetIsVisible;
         private float _TargetVisibleTimer;
+        private float _WeaponHoldTimer;
         private int _CharacterLayer = LayerMask.NameToLayer(Layers.Names.Character);
 
         private ContactFilter2D _ContactViewFilter = new ContactFilter2D() {
@@ -28,10 +29,9 @@ namespace Game.AI {
         public override TaskStatus Run() {
             if (WeaponController.MainWeapon == null) {
                 _Pressed = false;
+                _WeaponHoldTimer = 0;
                 return TaskStatus.Failure;
             }
-            if(WeaponController.MainWeapon.InputProcessor is SingleShotProcessor)
-                _Pressed = false;
             FindTarget();
             ProcessVisible();
             Fire();
@@ -82,13 +82,22 @@ namespace Game.AI {
         }
 
         private void Fire() {
+            var processorType = WeaponController.MainWeapon.InputProcessor.GetType();
+
             if (_TargetIsVisible && _TargetVisibleTimer > 0.5f) {
                 if (!_Pressed)
                     WeaponController.PressFire();
                 WeaponController.HoldFire();
+                _WeaponHoldTimer += Time.deltaTime;
                 _Pressed = true;
-            } else {
-
+            }
+            if (processorType == typeof(SingleShotProcessor)) {
+                _Pressed = false;
+            } else if (processorType == typeof(FireForceProcessor)) {
+                if(_WeaponHoldTimer > 1f) {
+                    WeaponController.ReleaseFire();
+                    _WeaponHoldTimer = 0f;
+                }
             }
         }
 

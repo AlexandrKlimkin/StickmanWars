@@ -24,12 +24,15 @@ namespace Game.AI {
                     var mainTree = root.AddChild<ParallelTask>();
                         var movement = mainTree.AddChild<ParallelTask>();
                             var combatDestination = movement.AddChild(new SelectorTask());
+                                var scarySequence = combatDestination.AddChild(new SequenceTask());
+                                    scarySequence.AddChild(new CheckBurstDamageTask(2f, 40f, true));
+                                    scarySequence.AddChild(new TransformDestinationTask());
                                 combatDestination.AddChild(new WeaponDestinationTask());
                                 combatDestination.AddChild(new RandomPointDestinationTask());
                                 //combatDestination.AddChild(new TransformDestinationTask());
                             movement.AddChild(new MoveToPointTask());
                         var shooting = mainTree.AddChild<ParallelTask>();
-                            shooting.AddChild(new ShootTask());
+                            //shooting.AddChild(new ShootTask());
             return behaviourTree;
         }
 

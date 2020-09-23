@@ -20,7 +20,6 @@ namespace Game.AI {
         }
 
         public override TaskStatus Run() {
-            //if(MovementController.IsGrounded)
                 FindNewPath();
             if (_MovementData.CurrentPointPath != null && _MovementData.CurrentPointPath.Count > 0 && _MovementData.TargetPos != null) {
                 var sqrDistToTarget = Vector2.SqrMagnitude(_MovementData.TargetPos.Value.ToVector2() - CharacterUnit.transform.position.ToVector2());

@@ -12,11 +12,17 @@ namespace Game.AI {
         }
 
         public override TaskStatus Run() {
-            if(WeaponController.HasMainWeapon)
+            if (WeaponController.HasMainWeapon) {
+                if (_MovementData.DestinationType == DestinationType.Weapon)
+                    _MovementData.TargetPos = null;
                 return TaskStatus.Failure;
+            }
             var weapon = FindClosestWeapon();
-            if (weapon == null)
+            if (weapon == null) {
+                if (_MovementData.DestinationType == DestinationType.Weapon)
+                    _MovementData.TargetPos = null;
                 return TaskStatus.Failure;
+            }
             _MovementData.TargetPos = weapon.transform.position;
             _MovementData.DestinationType = DestinationType.Weapon;
             return TaskStatus.Success;
