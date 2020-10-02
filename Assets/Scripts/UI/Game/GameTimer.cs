@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameTimer : MonoBehaviour
 {
-    [SerializeField] private int seconds, minutes, hours;
+    [SerializeField] private float seconds, minutes, hours;
     [SerializeField] private Text timerDisplay;
 
     private void Start()
@@ -14,6 +15,7 @@ public class GameTimer : MonoBehaviour
     }
     public void StartTimer ()
     {
+        StopAllCoroutines();
         StartCoroutine(Timer());
     }
 
@@ -25,10 +27,10 @@ public class GameTimer : MonoBehaviour
     IEnumerator Timer()
     {
         while (true)
-        {            
-      
-            seconds++;
-            if (seconds == 60)
+        {
+            seconds += Time.unscaledDeltaTime;
+
+            if (seconds >= 60)
             {
                 seconds = 0;
                 minutes++;
@@ -41,18 +43,18 @@ public class GameTimer : MonoBehaviour
 
             if (minutes != 0 && hours == 0)
             {
-                timerDisplay.text = minutes + "м " + seconds + " c";
+                timerDisplay.text = Math.Round(minutes) + "м " + Math.Round(seconds) + " c";
             }
             else if (hours != 0)
             {
-                timerDisplay.text = hours + "ч " + minutes + "м";
+                timerDisplay.text = Math.Round(hours) + "ч " + Math.Round(minutes) + "м";
             }
             else
             {
-                timerDisplay.text = seconds + "с";
+                timerDisplay.text = Math.Round(seconds) + "с";
             }
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForEndOfFrame();
         }
     }
 }
