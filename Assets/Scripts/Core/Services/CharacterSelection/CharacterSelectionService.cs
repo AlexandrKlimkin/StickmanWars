@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Character.Health;
 using Core.Services.Game;
 using Game.Match;
 using KlimLib.SignalBus;
@@ -22,7 +23,7 @@ namespace Core.Services {
         private readonly PlayersConnectionService _PlayersConnectionService;
 
         public void Load() {
-            _SignalBus.Subscribe<PlayerConnectedSignal>(OnPlayerConnected, this);
+            _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
         }
 
         public void Unload() {
@@ -39,10 +40,10 @@ namespace Core.Services {
         }
 
 
-        private void OnPlayerConnected(PlayerConnectedSignal signal) {
-
+        private void OnCharacterDeath(CharacterDeathSignal signal) {
+            var playerId = signal.Damage.Receiver.OwnerId.Value;
+            var player = _MatchService.GetPlayerData(playerId);
+            SelectCharacter(playerId, player.CharacterId);
         }
-
-
     }
 }
