@@ -32,7 +32,7 @@ namespace Game.AI {
                                 //combatDestination.AddChild(new TransformDestinationTask());
                             movement.AddChild(new MoveToPointTask());
                         var shooting = mainTree.AddChild<ParallelTask>();
-                            //shooting.AddChild(new ShootTask());
+                            shooting.AddChild(new ShootTask());
             return behaviourTree;
         }
 
