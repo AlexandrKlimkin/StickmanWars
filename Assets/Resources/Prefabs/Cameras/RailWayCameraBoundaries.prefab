@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 85032010610679395}
   - component: {fileID: 1945391866917751036}
   m_Layer: 0
-  m_Name: CityCraneCameraBoundaries 1
+  m_Name: RailWayCameraBoundaries
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pc2D: {fileID: 0}
-  UpdateInterval: 0.12732089
+  UpdateInterval: 0.1
   TriggerShape: 1
   UseTargetsMidPoint: 1
   TriggerTarget: {fileID: 0}
@@ -55,9 +55,9 @@ MonoBehaviour:
   UseBottomBoundary: 1
   BottomBoundary: -162.8
   UseLeftBoundary: 1
-  LeftBoundary: -279.7
+  LeftBoundary: -723.64
   UseRightBoundary: 1
-  RightBoundary: 280
+  RightBoundary: 721.5
   TransitionDuration: 1
   TransitionEaseType: 0
   ChangeZoom: 0

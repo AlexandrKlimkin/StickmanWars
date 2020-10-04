@@ -20,7 +20,7 @@ namespace Game.LevelSpecial {
                 var delay = Random.Range(DelayTimeRandom.x, DelayTimeRandom.y);
                 //Debug.LogError($"Waiting for delay {delay} sec");
                 yield return new WaitForSeconds(delay);
-                var randpoint = Random.Range(0, 2);
+                var randpoint = Random.Range(0, 1);
                 TrafficLights[randpoint].SetState(TrafficLightController.TrafficLightControllerState.On);
                 Train.ResetToPoint(randpoint);
                 //Debug.LogError($"Reset To Point {randpoint}");

@@ -126,6 +126,14 @@ namespace Character.Movement {
             _MovementModules.ForEach(_ => _.FixedUpdate());
         }
 
+        private void OnCollisionEnter2D(Collision2D collision) {
+            _MovementModules.ForEach(_ => _.OnCollisionEnter2D(collision));
+        }
+
+        private void OnCollisionExit2D(Collision2D collision) {
+            _MovementModules.ForEach(_ => _.OnCollisionExit2D(collision));
+        }
+
         public void SetHorizontal(float hor) {
             _WalkModule.SetHorizontal(hor);
         }

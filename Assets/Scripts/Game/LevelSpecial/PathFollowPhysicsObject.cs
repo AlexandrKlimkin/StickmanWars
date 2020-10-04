@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Tools;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Game.LevelSpecial {
     public class PathFollowPhysicsObject : MonoBehaviour {
         public List<FollowPointData> FollowPoints;
         public float Speed;
-
+        public float DestinationReachDist = 0.5f;
         private Rigidbody2D _Rigidbody;
 
         private int _CurrentFollowPointIndex;
@@ -30,15 +31,14 @@ namespace Game.LevelSpecial {
 
         private void FixedUpdate() {
             if (IsMoving) {
-                var delta = (Vector2)(_CurrentFollowPoint.Transform.position - transform.position);
+                var delta = _CurrentFollowPoint.Transform.position - transform.position;
                 var distance = delta.magnitude;
                 var normilizedVelocity = delta.normalized;
-                var moveVector = normilizedVelocity * Speed;
-                moveVector = Vector2.ClampMagnitude(moveVector, distance);
-                _Rigidbody.position += moveVector;
-                if (_TargetPointReached) {
+                var velocity = normilizedVelocity * Speed * Time.fixedDeltaTime;
+                _Rigidbody.MovePosition(_Rigidbody.position + velocity.ToVector2());
+                if (distance < DestinationReachDist) {
                     IsMoving = false;
-                    _Rigidbody.position = _CurrentFollowPoint.Transform.position;
+                    transform.position = _CurrentFollowPoint.Transform.position;
                 }
             }
         }
@@ -53,16 +53,7 @@ namespace Game.LevelSpecial {
                 return;
             IsMoving = false;
             CurrentFollowPointIndex = index;
-            _Rigidbody.position = _CurrentFollowPoint.Transform.position;
-            _Rigidbody.velocity = Vector2.zero;
-        }
-
-        private bool _TargetPointReached {
-            get {
-                var distance = Vector2.Distance(_CurrentFollowPoint.Transform.position, transform.position);
-                //Debug.LogError($"distance = {distance}");
-                return distance < 0.1f;
-            }
+            transform.position = _CurrentFollowPoint.Transform.position;
         }
 
         private void SwitchFollowPoint() {
