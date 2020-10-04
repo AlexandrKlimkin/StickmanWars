@@ -11,20 +11,8 @@ namespace MapSelection {
     public class LoadLvlTrigger : UnitTriggerSignalBroadcaster<LoadLvlTriggerInteractionSignal> {
         [SerializeField]
         private SceneType _SceneType;
-        [SerializeField] 
-        private bool _Tube;
-        [SerializeField]
-        private Animation _TubeAnim;
 
         protected override LoadLvlTriggerInteractionSignal CreateSignal(CharacterUnit characterUnit, bool enter) {
-            if (_Tube && !_TubeAnim.isPlaying)
-            {
-                _TubeAnim.Play("Tube");
-            }
-            else if (_Tube)
-            {
-                _TubeAnim.Stop();
-            }
             return new LoadLvlTriggerInteractionSignal(characterUnit, enter, UnitsInside.Count, _SceneType);
         }
     }
