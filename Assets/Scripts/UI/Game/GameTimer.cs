@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Game.Match;
+using KlimLib.SignalBus;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityDI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +12,24 @@ public class GameTimer : MonoBehaviour
     [SerializeField] private float seconds, minutes, hours;
     [SerializeField] private Text timerDisplay;
 
+    [Dependency]
+    private readonly SignalBus _SignalBus;
+
+    private void Awake()
+    {
+        ContainerHolder.Container.BuildUp(this);
+        _SignalBus.Subscribe<MatchEndSignal>(OnMatchEnd, this);
+    }
+
+
     private void Start()
     {
         StartTimer();
+    }
+
+    private void OnMatchEnd (MatchEndSignal signal)
+    {
+        StopTimer();
     }
     public void StartTimer ()
     {
@@ -21,8 +39,14 @@ public class GameTimer : MonoBehaviour
 
     public void StopTimer()
     {
-        StopCoroutine(Timer());
+        StopAllCoroutines();
     }
+
+    private void OnDestroy()
+    {
+        _SignalBus.UnSubscribe<MatchEndSignal>(this);
+    }
+
 
     IEnumerator Timer()
     {
