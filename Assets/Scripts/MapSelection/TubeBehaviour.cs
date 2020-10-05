@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityDI;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace MapSelection {
@@ -24,7 +23,7 @@ namespace MapSelection {
         private void Update() {
             if (_Matchdata?.Players == null)
                 return;
-            var realPlayers = _Matchdata.Players.Where(_=>!_.IsBot).Count();
+            var realPlayers = _Matchdata.Players.Where(_ => !_.IsBot).Count();
             var enoughPlayersToPlay = realPlayers > 0 && CharacterUnit.Characters.Count == realPlayers;
             Animator.SetBool("Show", enoughPlayersToPlay);
         }

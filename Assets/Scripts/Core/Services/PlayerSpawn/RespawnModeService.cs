@@ -35,7 +35,7 @@ namespace Core.Services.Game {
 
         public IReadOnlyDictionary<byte, int> PlayersLifesDict => _PlayersLifesDict;
 
-        public const int PlayerLifes = 3;
+        public const int PlayerLifes = 5;
         private const float _RespawnDelay = 2f;
 
 
@@ -74,7 +74,8 @@ namespace Core.Services.Game {
         }
 
         private void OnMatchStart(MatchStartSignal signal) {
-            SpawnAllAtTheBegining();
+            //SpawnAllAtTheBegining();
+            _EventProvider.StartCoroutine(SpawnAllAtTheBeginingRoutine()); //ToDo: Fix this shit
         }
 
         //private void OnPlayerAdded(PlayerAddedSignal signal) {
@@ -82,6 +83,11 @@ namespace Core.Services.Game {
         //    if (signal.SpawnOnMap)
         //        SpawnCharacterInRandomPos(signal.PlayerData.PlayerId);
         //}
+
+        private IEnumerator SpawnAllAtTheBeginingRoutine() {
+            yield return new WaitForEndOfFrame(); 
+            SpawnAllAtTheBegining();
+        }
 
         private void SpawnAllAtTheBegining() {
             var availablePoints = _PlayersSpawnSettings.PlayerSpawnPoints.ToList();

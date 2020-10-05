@@ -52,7 +52,6 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         Rigidbody2D = GetComponent<Rigidbody2D>();
         Characters.Add(this);
         OwnerId = _OwnerId;
-        MaxHealth = 100f;
         Health = MaxHealth;
     }
 
@@ -87,7 +86,7 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         ContainerHolder.Container.BuildUp(this);
         OwnerId = ownerId;
         CharacterId = characterId;
-        MaxHealth = 100f; //Todo: Config
+        MaxHealth = 130f; //Todo: Config
         Health = MaxHealth;
         IsBot = isBot;
         DamageBuffer?.Initialize(this, 3f);

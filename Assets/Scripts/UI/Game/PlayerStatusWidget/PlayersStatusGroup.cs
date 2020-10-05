@@ -18,6 +18,9 @@ namespace UI.Game {
 
         private void Awake() {
             ContainerHolder.Container.BuildUp(this);
+        }
+
+        private void Start() {
             AssignWidgets();
         }
 

@@ -20,6 +20,7 @@ namespace UI.Game.Markers {
             base.RefreshData(data);
             data.NormilizedHealth = _CharacterUnit.NormilizedHealth;
             data.HasWeapon = _CharacterUnit.WeaponController.HasMainWeapon;
+            data.IsBot = _CharacterUnit.IsBot;
             if (data.HasWeapon) {
                 data.Ammo = _CharacterUnit.WeaponController.MainWeapon.InputProcessor.CurrentMagazine;
                 data.MaxAmmo = _CharacterUnit.WeaponController.MainWeapon.Stats.Magazine;

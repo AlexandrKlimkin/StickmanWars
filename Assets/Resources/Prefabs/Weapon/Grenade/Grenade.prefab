@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2686587726837220741}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ShootTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8230054740170520992}
   - component: {fileID: 7720835660714947347}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 7193429156207884514}
   - component: {fileID: 5434374533421882330}
   - component: {fileID: -3252101610701767166}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Grenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,6 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MaxHealth: 20
+  DestroyOnDeath: 1
 --- !u!114 &7193429156207884514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +399,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: granata
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 377bcfe889026794b8dcbb8933593aa6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 377bcfe889026794b8dcbb8933593aa6, type: 3}

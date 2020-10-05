@@ -48,6 +48,7 @@ namespace UI.Game {
             _Initialized = true;
             ContainerHolder.Container.BuildUp(this);
             CacheLifes();
+            RefreshKillsCount(0);
         }
 
         private void CacheLifes() {
@@ -65,7 +66,6 @@ namespace UI.Game {
             _SignalBus.Subscribe<CharacterSpawnedSignal>(OnCharacterSpawned, this);
             _SignalBus.UnSubscribe<CharacterDeathSignal>(this);
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
-
         }
 
         private void OnCharacterSpawned(CharacterSpawnedSignal signal) {
@@ -75,7 +75,6 @@ namespace UI.Game {
             signal.Unit.OnApplyDamage += UpdateAfterDamage;
             RefreshAvatar(unit.CharacterId);
             RefreshLifesCount(PlayerLifesCounter.PlayersLifesDict[unit.OwnerId]);
-            RefreshKillsCount(0);
             RefreshHealthAmount(unit.NormilizedHealth);
         }
 
@@ -87,6 +86,7 @@ namespace UI.Game {
             var playerId = signal.Damage.Receiver.OwnerId.Value;
             if (playerId == _AssignedPlayerId) {
                 RefreshLifesCount(PlayerLifesCounter.PlayersLifesDict[playerId]);
+                RefreshHealthAmount(0);
             }
             if(_AssignedPlayerId == signal.Damage.InstigatorId) {
                 KillsCountText.text = _BattleStatisticsService.KillsDict[_AssignedPlayerId.Value].Count.ToString();
