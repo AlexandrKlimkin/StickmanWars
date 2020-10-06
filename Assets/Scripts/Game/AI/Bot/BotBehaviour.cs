@@ -11,6 +11,9 @@ using UnityEngine;
 namespace Game.AI {
     public class BotBehaviour : CharacterBehaviour {
 
+        public float TargetVisibleTimeToShoot = 0.3f;
+        public Vector2 EscapeTimeRandomVector = new Vector2(2f, 6f);
+
         [Dependency]
         private readonly SignalBus _SignalBus;
 
@@ -24,15 +27,15 @@ namespace Game.AI {
                     var mainTree = root.AddChild<ParallelTask>();
                         var movement = mainTree.AddChild<ParallelTask>();
                             var combatDestination = movement.AddChild(new SelectorTask());
-                                var scarySequence = combatDestination.AddChild(new SequenceTask());
-                                    scarySequence.AddChild(new CheckBurstDamageTask(2f, 40f, true));
-                                    scarySequence.AddChild(new TransformDestinationTask());
-                                combatDestination.AddChild(new WeaponDestinationTask());
-                                combatDestination.AddChild(new RandomPointDestinationTask());
-                                //combatDestination.AddChild(new TransformDestinationTask());
+                                //var scarySequence = combatDestination.AddChild(new SequenceTask());
+                                //    scarySequence.AddChild(new CheckBurstDamageTask(2f, 20f, true));
+                                //    scarySequence.AddChild(new EscapeDestinationTask(EscapeTimeRandomVector));
+                                //combatDestination.AddChild(new WeaponDestinationTask());
+                                //combatDestination.AddChild(new RandomPointDestinationTask());
+                                combatDestination.AddChild(new TransformDestinationTask());
                             movement.AddChild(new MoveToPointTask());
                         var shooting = mainTree.AddChild<ParallelTask>();
-                            shooting.AddChild(new ShootTask());
+                            //shooting.AddChild(new ShootTask(TargetVisibleTimeToShoot));
             return behaviourTree;
         }
 

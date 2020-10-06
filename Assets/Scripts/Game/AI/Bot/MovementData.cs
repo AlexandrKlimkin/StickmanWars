@@ -11,6 +11,17 @@ namespace Game.AI {
         public List<WayPoint> CurrentPath;
         public List<Vector3> CurrentPointPath;
         public Vector3? TargetPos;
-        public DestinationType DestinationType;
+        private DestinationType _DestinationType;
+
+        public DestinationType DestinationType {
+            get =>
+              this._DestinationType;
+            set {
+                if (value != _DestinationType) {
+                    this._DestinationType = value;
+                    Debug.LogError(_DestinationType);
+                }
+            }
+        }
     }
 }

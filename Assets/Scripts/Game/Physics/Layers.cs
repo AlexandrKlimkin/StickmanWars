@@ -17,6 +17,7 @@ public static class Layers {
 
         public static int Bone { get; private set; }
         public static int Walkable { get; private set; }
+        public static int Box { get; private set; }
         public static int Damageable { get; private set; }
         public static int NoCharacter { get; private set; }
         public static int Character { get; private set; }
@@ -29,6 +30,7 @@ public static class Layers {
             NoCharacter = CreateLayerMask(true, LayerMask.NameToLayer(Names.Character));
             Character = LayerMask.GetMask(Names.Character);
             BotVisionMask = LayerMask.GetMask(Names.Ground, Names.Platform);
+            Box = LayerMask.GetMask(Names.Box);
         }
 
         public static int CreateLayerMask(bool aExclude, params int[] aLayers) {

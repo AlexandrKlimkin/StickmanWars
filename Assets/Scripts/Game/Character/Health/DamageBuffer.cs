@@ -24,7 +24,7 @@ namespace Character.Health {
         }
 
         private void OnDestroy() {
-            _SignalBus.UnSubscribeFromAll(this);
+            _SignalBus?.UnSubscribeFromAll(this);
         }
 
         private void AddToBuffer(DamageBufferData damageBufferData) {

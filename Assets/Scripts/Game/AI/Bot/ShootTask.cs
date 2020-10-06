@@ -15,12 +15,19 @@ namespace Game.AI {
         private float _TargetVisibleTimer;
         private float _WeaponHoldTimer;
         private int _CharacterLayer = LayerMask.NameToLayer(Layers.Names.Character);
+        private float _TargetVisibleTime;
+
 
         private ContactFilter2D _ContactViewFilter = new ContactFilter2D() {
             useTriggers = false,
             useLayerMask = true,
             layerMask = Layers.Masks.NoCharacter,
         };
+
+        public ShootTask(float TargetVisibleTime) {
+            this._TargetVisibleTime = TargetVisibleTime;
+        }
+
         public override void Init() {
             base.Init();
             UpdatedTask = true;
@@ -84,7 +91,7 @@ namespace Game.AI {
         private void Fire() {
             var processorType = WeaponController.MainWeapon.InputProcessor.GetType();
 
-            if (_TargetIsVisible && _TargetVisibleTimer > 0.5f) {
+            if (_TargetIsVisible && _TargetVisibleTimer > _TargetVisibleTime) {
                 if (!_Pressed)
                     WeaponController.PressFire();
                 WeaponController.HoldFire();

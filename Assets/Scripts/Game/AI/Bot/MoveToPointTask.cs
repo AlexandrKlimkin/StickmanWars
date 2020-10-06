@@ -20,13 +20,20 @@ namespace Game.AI {
         }
 
         public override TaskStatus Run() {
-                FindNewPath();
+            FindNewPath();
             if (_MovementData.CurrentPointPath != null && _MovementData.CurrentPointPath.Count > 0 && _MovementData.TargetPos != null) {
                 var sqrDistToTarget = Vector2.SqrMagnitude(_MovementData.TargetPos.Value.ToVector2() - CharacterUnit.transform.position.ToVector2());
                 if (sqrDistToTarget > 25) {
-                    ProcessMove();
+                    var move = ProcessMove();
                     ProcessJump();
-                    return TaskStatus.Running;
+                    if (move)
+                        return TaskStatus.Running;
+                    else {
+                        _MovementData.TargetPos = null;
+                        _MovementData.DestinationType = DestinationType.None;
+                        MovementController.SetHorizontal(0);
+                        return TaskStatus.Success;
+                    }
                 } else {
                     _MovementData.TargetPos = null;
                     _MovementData.DestinationType = DestinationType.None;
@@ -34,6 +41,8 @@ namespace Game.AI {
                     return TaskStatus.Success;
                 }
             } else {
+                _MovementData.TargetPos = null;
+                _MovementData.DestinationType = DestinationType.None;
                 MovementController.SetHorizontal(0);
                 return TaskStatus.Success;
             }
@@ -47,7 +56,8 @@ namespace Game.AI {
                     _MovementData.CurrentPath = path;
 
                     _MovementData.CurrentPointPath = _MovementData.CurrentPath.Select(_ => _.Position).ToList();
-                    _MovementData.CurrentPointPath.Add(_MovementData.TargetPos.Value);
+                    if(Vector2.SqrMagnitude(_MovementData.TargetPos.Value.ToVector2() - _MovementData.CurrentPointPath.Last().ToVector2()) > 25)
+                        _MovementData.CurrentPointPath.Add(_MovementData.TargetPos.Value);
 
                     var pointPathCount = _MovementData.CurrentPointPath.Count;
                     if (pointPathCount > 1) {
@@ -75,43 +85,104 @@ namespace Game.AI {
             }
         }
 
-        private void ProcessMove() {
+        private bool ProcessMove() {
             var firstPoint = _MovementData.CurrentPointPath[0];
-            var firstPointVector = firstPoint - CharacterUnit.transform.position;
-            var horDistToFirstPoint = Mathf.Abs(firstPointVector.x);
 
+            //if (_MovementData.CurrentPointPath.Count > 1) {
+            //    var charPoint = CharacterUnit.Position.ToVector2();
+            //    var hit = JumpLinecast(charPoint, firstPoint);
+            //    if(hit.collider != null && Vector2.Distance(hit.point, charPoint) < 20f) {
+            //        firstPoint = _MovementData.CurrentPointPath[1];
+            //    }
+            //}
+
+            var firstPointVector = firstPoint - CharacterUnit.transform.position;
+
+            var horDistToFirstPoint = Mathf.Abs(firstPointVector.x);
             var targetVector = _MovementData.TargetPos.Value.ToVector2() - CharacterUnit.transform.position.ToVector2();
             var horDistToTarget = Mathf.Abs(targetVector.x);
 
             float horizontal = MovementController.Horizontal;
 
-            if (Mathf.Abs(targetVector.x) < 2 && _MovementData.CurrentPointPath.Count < 2) {
+
+            if (Mathf.Abs(targetVector.x) < 2f && _MovementData.CurrentPointPath.Count < 2) {
                 horizontal = 0;
             } else {
                 horizontal = firstPointVector.x > 0 ? 1f : -1f;
             }
+
             MovementController.SetHorizontal(horizontal);
+            return horizontal != 0;
+        }
+
+        private bool ObjectBetweenPoints(Vector2 point) {
+            if (_MovementData.CurrentPointPath.Count <= 2) {
+                var point1 = CharacterUnit.Position.ToVector2() + Vector2.up * 5f;
+                var point2 = point;
+                var hit = Physics2D.Linecast(point1, point2, Layers.Masks.Box);
+                return hit.collider != null;
+            }
+            return false;
         }
 
         private float _DelayBetweenJumps = 0.3f;
         private float _LastJumpTime = float.NegativeInfinity;
 
         private void ProcessJump() {
-            var firstWayPoint = _MovementData.CurrentPath[0];
             var timeFromLastJumpLeft = Time.time - _LastJumpTime;
-            var pathCount = _MovementData.CurrentPath.Count;
-            if (pathCount > 1) {
-                var secondWayPoint = _MovementData.CurrentPath[1];
-                var linkFirstToSecond = firstWayPoint.Links.FirstOrDefault(_ => _.Neighbour == secondWayPoint);
-                if (linkFirstToSecond != null && (linkFirstToSecond.IsJumpLink || MovementController.LedgeHang) && timeFromLastJumpLeft >= _DelayBetweenJumps) {
-                    Jump();
-                }
-            } else if (pathCount > 0) {
-                if (MovementController.LedgeHang)
-                    Jump();
+            if (timeFromLastJumpLeft >= _DelayBetweenJumps) {
+                if (!JumpOnLinks())
+                    if (!JumpIfLedgeHang())
+                        if (!JumpAroundObstacles()) { }
             }
         }
 
+        private bool JumpOnLinks() {
+            var firstWayPoint = _MovementData.CurrentPath[0];
+            if (_MovementData.CurrentPath.Count > 1) {
+                var secondWayPoint = _MovementData.CurrentPath[1];
+                var linkFirstToSecond = firstWayPoint.Links.FirstOrDefault(_ => _.Neighbour == secondWayPoint);
+                if (linkFirstToSecond != null && linkFirstToSecond.IsJumpLink) {
+                    Jump();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool JumpIfLedgeHang() {
+            if (_MovementData.CurrentPath.Count > 0) {
+                if (MovementController.LedgeHang) {
+                    Jump();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool JumpAroundObstacles() {
+            var charPos = CharacterUnit.Position.ToVector2();
+            var pos1 = charPos + Vector2.up * 2f;
+            var pos2 = charPos + Vector2.up * 10f;
+            var pos3 = charPos + Vector2.up * 20f;
+            //var velocityVector = CharacterUnit.Rigidbody2D.velocity * 0.1f;
+            var velocityVector = Vector2.right * MovementController.Horizontal * 15f;
+            var hit1 = JumpLinecast(pos1, pos1 + velocityVector);
+            var hit2 = JumpLinecast(pos2, pos2 + velocityVector);
+            var hit3 = JumpLinecast(pos3, pos3 + velocityVector);
+            if (hit1.collider != null || hit2.collider != null || hit3.collider != null) {
+                Jump();
+                return true;
+            }
+            return false;
+        }
+
+        private RaycastHit2D JumpLinecast(Vector2 point1, Vector2 point2) {
+            var hit = Physics2D.Linecast(point1, point2, Layers.Masks.Walkable);
+            Debug.DrawLine(point1, point2, hit.collider == null ? Color.green : Color.red, Time.deltaTime);
+            return hit;
+        }
+        
         private void Jump() {
             if (MovementController.HighJump()) {
                 _LastJumpTime = Time.time;
