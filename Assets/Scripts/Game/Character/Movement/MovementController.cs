@@ -9,7 +9,7 @@ using UnityEditor;
 using UnityEngine;
 
 namespace Character.Movement {
-    public class MovementController : MonoBehaviour {
+    public class MovementController : MonoBehaviour, IVelocityInheritor {
         [SerializeField]
         private WalkParameters WalkParameters;
         [SerializeField]
@@ -43,6 +43,8 @@ namespace Character.Movement {
         public Collider2D Collider { get; private set; }
 
         public Vector2 Velocity => Rigidbody.velocity;
+        public Vector2 LocalVelocity { get; private set; }
+
         public float Horizontal => _WalkModule.Horizontal;
         public bool IsGrounded => _GroundCheckModule.IsGrounded;
         public bool IsMainGrounded => _GroundCheckModule.IsMainGrounded;
@@ -55,6 +57,9 @@ namespace Character.Movement {
         public bool Pushing => _PushingModule.Pushing;
         public float TimeFallingDown => _GroundCheckModule.TimeFallingDown;
         public float TimeNotFallingDown => _GroundCheckModule.TimeNotFallingDown;
+
+        public Rigidbody2D AttachedToRB { get; set; }
+        public bool CanDetach { get; set; }
 
         public event Action OnPressJump;
         public event Action OnHoldJump;
@@ -115,6 +120,12 @@ namespace Character.Movement {
 
         private void Update() {
             _MovementModules.ForEach(_ => _.Update());
+            LocalVelocity = Velocity;
+            if (!AttachedToRB) {
+                AttachedToRB = null;
+            } else {
+                LocalVelocity -= AttachedToRB.velocity;
+            }
         }
 
         private void LateUpdate() {
@@ -128,6 +139,9 @@ namespace Character.Movement {
 
         private void OnCollisionEnter2D(Collision2D collision) {
             _MovementModules.ForEach(_ => _.OnCollisionEnter2D(collision));
+            if(CanDetach && AttachedToRB && Layers.Masks.LayerInMask(Layers.Masks.GroundAndPlatform, collision.gameObject.layer)) {
+                AttachedToRB = null;
+            }
         }
 
         private void OnCollisionExit2D(Collision2D collision) {

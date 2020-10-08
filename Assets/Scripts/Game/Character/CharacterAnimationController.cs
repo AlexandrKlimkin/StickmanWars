@@ -25,7 +25,7 @@ public class CharacterAnimationController : MonoBehaviour {
         Animator.SetBool("WallRun", _MovementController.WallRun);
         Animator.SetBool("WallSliding", _MovementController.WallSliding);
         Animator.SetBool("LedgeHang", _MovementController.LedgeHang);
-        Animator.SetFloat("Speed", Mathf.Abs(_MovementController.Rigidbody.velocity.x / 50f));
+        Animator.SetFloat("Speed", Mathf.Abs(_MovementController.LocalVelocity.x / 50f));
         Animator.SetBool("Pushing", _MovementController.Pushing);
         Animator.SetFloat("TimeFallingDown", _MovementController.TimeFallingDown);
         Animator.SetFloat("TimeNotFallingDown", _MovementController.TimeNotFallingDown);

@@ -22,6 +22,7 @@ public static class Layers {
         public static int NoCharacter { get; private set; }
         public static int Character { get; private set; }
         public static int BotVisionMask { get; private set; }
+        public static int GroundAndPlatform { get; private set; }
 
         static Masks() {
             Bone = LayerMask.GetMask(Names.Bone);
@@ -30,6 +31,7 @@ public static class Layers {
             NoCharacter = CreateLayerMask(true, LayerMask.NameToLayer(Names.Character));
             Character = LayerMask.GetMask(Names.Character);
             BotVisionMask = LayerMask.GetMask(Names.Ground, Names.Platform, Names.MovingPlatform);
+            GroundAndPlatform = LayerMask.GetMask(Names.Ground, Names.Platform);
         }
 
         public static int CreateLayerMask(bool aExclude, params int[] aLayers) {
@@ -39,6 +41,10 @@ public static class Layers {
             if (aExclude)
                 v = ~v;
             return v;
+        }
+
+        public static bool LayerInMask(int mask, int layer) {
+            return mask == (mask | (1 << layer));
         }
     }
 }

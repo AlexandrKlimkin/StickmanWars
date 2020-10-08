@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Tools;
-using Core.Audio;
+﻿using Core.Audio;
 using System;
 using System.Collections.Generic;
 using UnityDI;
@@ -35,27 +34,17 @@ namespace Character.Movement.Modules {
         }
 
         public override void FixedUpdate() {
-            //var xVelocity = CommonData.ObjRigidbody.velocity.x;
+            var xVelocity = CommonData.ObjRigidbody.velocity.x;
+            var xLocalvelocity = xVelocity;
+            var attachedRb = CommonData.MovementController.AttachedToRB;
+            if (attachedRb != null)
+                xLocalvelocity -= attachedRb.velocity.x;
             var acceleration = _GroundedData.MainGrounded ? _Parameters.GroundAcceleration : _Parameters.AirAcceleration;
-            //xVelocity = Mathf.Lerp(xVelocity, _TargetXVelocity, Time.fixedDeltaTime * acceleration);
-            //CommonData.ObjRigidbody.velocity = new Vector2(xVelocity, CommonData.ObjRigidbody.velocity.y);
-
-            var force = new Vector2(_TargetXVelocity * acceleration * Time.fixedDeltaTime, 0);
-            CommonData.ObjRigidbody.AddForce(force, ForceMode2D.Impulse);
-            UpdateSlowDownForce();
-        }
-
-        private void UpdateSlowDownForce() {
-            var velocity = CommonData.ObjRigidbody.velocity;
-            var targetSpeed = _Parameters.Speed;
-            var directionalSpeed = Vector2.Dot(CommonData.ObjTransform.right * Mathf.Abs(_TargetXVelocity), velocity);
-            var relativeTargetSpeed = targetSpeed / _Parameters.Speed;
-            var relativeCurrentSpeed = directionalSpeed / _Parameters.Speed;
-            var relativeSpeedDelta = relativeTargetSpeed - relativeCurrentSpeed;
-            var slowdownCoeff = Mathf.Clamp01(-relativeSpeedDelta);
-            //if (this.GetComponentInParent<VehicleController>().IsLocalPlayerVehicle)
-            //    Debug.LogError(slowdownCoeff);
-            CommonData.ObjRigidbody.AddForce(CommonData.ObjTransform.right.ToVector2() * Mathf.Sign(_TargetXVelocity) * -slowdownCoeff * 10, ForceMode2D.Impulse);
+            xLocalvelocity = Mathf.Lerp(xLocalvelocity, _TargetXVelocity, Time.fixedDeltaTime * acceleration);
+            xVelocity = xLocalvelocity;
+            if (attachedRb != null)
+                xVelocity += attachedRb.velocity.x;
+            CommonData.ObjRigidbody.velocity = new Vector2(xVelocity, CommonData.ObjRigidbody.velocity.y);
         }
 
         public override void Update() {

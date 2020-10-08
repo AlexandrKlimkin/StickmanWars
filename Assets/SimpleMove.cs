@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SimpleMove : MonoBehaviour {
     public Vector2 Velocity;
+    public float Acceleration;
+    public float Delay;
 
     private Rigidbody2D _Rigidbody;
 
@@ -11,7 +13,16 @@ public class SimpleMove : MonoBehaviour {
         _Rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    void Update() {
-        _Rigidbody.velocity = Velocity;
+    private void Start() {
+        StartCoroutine(DelayRoutine());
+    }
+
+    private IEnumerator DelayRoutine() {
+        yield return new WaitForSeconds(Delay);
+        while (_Rigidbody.velocity.x < Velocity.x) {
+            _Rigidbody.velocity += Velocity.normalized * Acceleration * Time.deltaTime;
+            yield return null;
+        }
+        _Rigidbody.velocity = Vector2.ClampMagnitude(_Rigidbody.velocity, Velocity.magnitude);
     }
 }
