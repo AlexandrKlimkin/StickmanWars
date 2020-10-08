@@ -156,7 +156,7 @@ PrefabInstance:
     - target: {fileID: 1719326976381403381, guid: 118a64c8662ec4c4c95bd68725756e6b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1719326976381403386, guid: 118a64c8662ec4c4c95bd68725756e6b,
         type: 3}
@@ -24559,7 +24559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RandomDelay: {x: 2, y: 6}
-  MaxCount: 100000
+  MaxCount: 8
   ObjectsSpawnData:
   - Prefab: {fileID: 2888260986880051133, guid: b5cab1871ff93d24d9ea324bc2e07313,
       type: 3}
@@ -36479,7 +36479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1751875228
 Transform:
   m_ObjectHideFlags: 0
@@ -39355,9 +39355,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922427535385}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923064801954}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202921855510772
 GameObject:
   m_ObjectHideFlags: 0
@@ -39405,9 +39407,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922771933018}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202921914414776}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!114 &7853202921914414776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39424,9 +39428,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202921855510775}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922918150110}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202921914414777
 GameObject:
   m_ObjectHideFlags: 0
@@ -39474,9 +39480,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922030199784}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922124345215}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
 --- !u!1 &7853202921951637249
 GameObject:
   m_ObjectHideFlags: 0
@@ -39524,9 +39532,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922882847810}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202921951637248}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922030199785
 GameObject:
   m_ObjectHideFlags: 0
@@ -39605,9 +39615,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202921951637248}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923390505276}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922179650436
 GameObject:
   m_ObjectHideFlags: 0
@@ -39655,9 +39667,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922473867820}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922567823245}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
 --- !u!1 &7853202922404828940
 GameObject:
   m_ObjectHideFlags: 0
@@ -39705,9 +39719,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923178861452}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923288699396}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!4 &7853202922427535384
 Transform:
   m_ObjectHideFlags: 0
@@ -39738,15 +39754,19 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923717946634}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202921700882675}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202921951637248}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922030199784}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922427535462
 GameObject:
   m_ObjectHideFlags: 0
@@ -39780,9 +39800,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922908239459}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922179650439}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
 --- !u!1 &7853202922473867821
 GameObject:
   m_ObjectHideFlags: 0
@@ -39830,9 +39852,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923707198547}
     Cost: 2
     IsJumpLink: 1
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922590666025}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922503288307
 GameObject:
   m_ObjectHideFlags: 0
@@ -39880,9 +39904,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923568000456}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923766991298}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922562334779
 GameObject:
   m_ObjectHideFlags: 0
@@ -39961,12 +39987,15 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922968445652}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922473867820}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922179650439}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!4 &7853202922590666024
 Transform:
   m_ObjectHideFlags: 0
@@ -39997,9 +40026,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922503288306}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922667819815}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922590666038
 GameObject:
   m_ObjectHideFlags: 0
@@ -40033,12 +40064,15 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923561650194}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923178861452}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923707198547}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922617542355
 GameObject:
   m_ObjectHideFlags: 0
@@ -40117,9 +40151,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922590666025}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923568000456}
     Cost: 1
-    IsJumpLink: 1
+    IsJumpLink: 0
+    IsLowJumpLink: 1
 --- !u!114 &7853202922686828480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40136,9 +40172,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922955120745}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922753894380}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922686828481
 GameObject:
   m_ObjectHideFlags: 0
@@ -40217,9 +40255,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923733164949}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923707198547}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!114 &7853202922753894380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40236,9 +40276,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923733164949}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922686828480}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
 --- !u!1 &7853202922753894381
 GameObject:
   m_ObjectHideFlags: 0
@@ -40286,9 +40328,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923805520437}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202921855510775}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922771933019
 GameObject:
   m_ObjectHideFlags: 0
@@ -40389,7 +40433,8 @@ MonoBehaviour:
   WayPointsColor: {r: 1, g: 1, b: 1, a: 1}
   WayPointsSelectedColor: {r: 1, g: 0, b: 0, a: 1}
   UsualLinkColor: {r: 1, g: 1, b: 1, a: 1}
-  JumpLinkColor: {r: 1, g: 0.7222922, b: 0, a: 1}
+  HighJumpLinkColor: {r: 1, g: 0.33520982, b: 0, a: 1}
+  LowJumpLinkColor: {r: 1, g: 0.77250254, b: 0, a: 1}
   WayPointRadius: 4
   ShowCostText: 1
   CostTextSize: 13
@@ -40403,7 +40448,6 @@ MonoBehaviour:
   - {fileID: 7853202922667819815}
   - {fileID: 7853202923568000456}
   - {fileID: 7853202922562334778}
-  - {fileID: 7853202923766991298}
   - {fileID: 7853202922882847810}
   - {fileID: 7853202922030199784}
   - {fileID: 7853202921951637248}
@@ -40434,6 +40478,7 @@ MonoBehaviour:
   - {fileID: 7853202921855510775}
   - {fileID: 7853202921914414776}
   - {fileID: 7853202922918150110}
+  - {fileID: 7853202923766991298}
 --- !u!1 &7853202922882603774
 GameObject:
   m_ObjectHideFlags: 0
@@ -40464,12 +40509,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Links:
-  - Neighbour: {fileID: 7853202923766991298}
-    Cost: 1
-    IsJumpLink: 1
   - Neighbour: {fileID: 7853202922030199784}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
+  - Neighbour: {fileID: 7853202923766991298}
+    Cost: 1
+    IsJumpLink: 1
+    IsLowJumpLink: 0
 --- !u!1 &7853202922882847811
 GameObject:
   m_ObjectHideFlags: 0
@@ -40548,9 +40595,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923390505276}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922473867820}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
 --- !u!4 &7853202922918150097
 Transform:
   m_ObjectHideFlags: 0
@@ -40581,12 +40630,15 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202921914414776}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923686381551}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923064801954}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922918150111
 GameObject:
   m_ObjectHideFlags: 0
@@ -40634,9 +40686,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923445117714}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922686828480}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922955120758
 GameObject:
   m_ObjectHideFlags: 0
@@ -40670,9 +40724,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922567823245}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923717946634}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202922968445653
 GameObject:
   m_ObjectHideFlags: 0
@@ -40720,15 +40776,15 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202921700882675}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923686381551}
     Cost: 1
     IsJumpLink: 0
-  - Neighbour: {fileID: 7853202923766991298}
-    Cost: 1
-    IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922918150110}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
 --- !u!1 &7853202923064801955
 GameObject:
   m_ObjectHideFlags: 0
@@ -40776,12 +40832,15 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922617542354}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922404828943}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923805520437}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
 --- !u!1 &7853202923178861453
 GameObject:
   m_ObjectHideFlags: 0
@@ -40829,9 +40888,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922404828943}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923445117714}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202923288699397
 GameObject:
   m_ObjectHideFlags: 0
@@ -40879,9 +40940,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922124345215}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922908239459}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202923390505277
 GameObject:
   m_ObjectHideFlags: 0
@@ -40929,9 +40992,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923288699396}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922955120745}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202923445117715
 GameObject:
   m_ObjectHideFlags: 0
@@ -40978,10 +41043,12 @@ MonoBehaviour:
   Links:
   - Neighbour: {fileID: 7853202923694310627}
     Cost: 1
-    IsJumpLink: 1
+    IsJumpLink: 0
+    IsLowJumpLink: 1
   - Neighbour: {fileID: 7853202922617542354}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202923561650195
 GameObject:
   m_ObjectHideFlags: 0
@@ -41029,9 +41096,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922667819815}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922562334778}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202923568000457
 GameObject:
   m_ObjectHideFlags: 0
@@ -41110,9 +41179,15 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923064801954}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923829677238}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
+  - Neighbour: {fileID: 7853202923766991298}
+    Cost: 1
+    IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202923694310624
 GameObject:
   m_ObjectHideFlags: 0
@@ -41160,9 +41235,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923829677238}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923561650194}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202923707198544
 GameObject:
   m_ObjectHideFlags: 0
@@ -41210,12 +41287,15 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922716471583}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922503288306}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922617542354}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
 --- !u!114 &7853202923717946634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41232,12 +41312,15 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922968445652}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922427535385}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922030199784}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202923717946635
 GameObject:
   m_ObjectHideFlags: 0
@@ -41316,9 +41399,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922753894380}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922716471583}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!114 &7853202923766991298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41335,9 +41420,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202922562334778}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922882847810}
     Cost: 1
     IsJumpLink: 1
+    IsLowJumpLink: 0
 --- !u!1 &7853202923766991299
 GameObject:
   m_ObjectHideFlags: 0
@@ -41416,9 +41503,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923178861452}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202922771933018}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!4 &7853202923829677225
 Transform:
   m_ObjectHideFlags: 0
@@ -41449,9 +41538,11 @@ MonoBehaviour:
   - Neighbour: {fileID: 7853202923686381551}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
   - Neighbour: {fileID: 7853202923694310627}
     Cost: 1
     IsJumpLink: 0
+    IsLowJumpLink: 0
 --- !u!1 &7853202923829677239
 GameObject:
   m_ObjectHideFlags: 0

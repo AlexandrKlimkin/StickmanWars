@@ -142,9 +142,14 @@ namespace Game.AI {
             if (_MovementData.CurrentPath.Count > 1) {
                 var secondWayPoint = _MovementData.CurrentPath[1];
                 var linkFirstToSecond = firstWayPoint.Links.FirstOrDefault(_ => _.Neighbour == secondWayPoint);
-                if (linkFirstToSecond != null && linkFirstToSecond.IsJumpLink) {
-                    Jump();
-                    return true;
+                if (linkFirstToSecond != null) {
+                    if (linkFirstToSecond.IsJumpLink) {
+                        HighJump();
+                        return true;
+                    } else if (linkFirstToSecond.IsLowJumpLink) {
+                        LowJump();
+                        return true;
+                    }
                 }
             }
             return false;
@@ -153,7 +158,7 @@ namespace Game.AI {
         private bool JumpIfLedgeHang() {
             if (_MovementData.CurrentPath.Count > 0) {
                 if (MovementController.LedgeHang) {
-                    Jump();
+                    HighJump();
                     return true;
                 }
             }
@@ -161,29 +166,56 @@ namespace Game.AI {
         }
 
         private bool JumpAroundObstacles() {
+            if (MovementController.Horizontal == 0)
+                return false;
+            if (_MovementData.CurrentPointPath == null)
+                return false;
+            if (_MovementData.CurrentPointPath.Count == 0)
+                return false;
             var charPos = CharacterUnit.Position.ToVector2();
+            var movePoint = _MovementData.CurrentPointPath[0].ToVector2();
+
             var pos1 = charPos + Vector2.up * 2f;
             var pos2 = charPos + Vector2.up * 10f;
             var pos3 = charPos + Vector2.up * 20f;
-            //var velocityVector = CharacterUnit.Rigidbody2D.velocity * 0.1f;
-            var velocityVector = Vector2.right * MovementController.Horizontal * 15f;
-            var hit1 = JumpLinecast(pos1, pos1 + velocityVector);
-            var hit2 = JumpLinecast(pos2, pos2 + velocityVector);
-            var hit3 = JumpLinecast(pos3, pos3 + velocityVector);
-            if (hit1.collider != null || hit2.collider != null || hit3.collider != null) {
-                Jump();
+            var velocityVector = Vector2.right * MovementController.Horizontal * 25f;
+            var hit1 = JumpLinecast(pos1, pos1 + velocityVector, Layers.Masks.Walkable);
+            var hit2 = JumpLinecast(pos2, pos2 + velocityVector, Layers.Masks.Walkable);
+            var hit3 = JumpLinecast(pos3, pos3 + velocityVector, Layers.Masks.Walkable);
+            if (MovePointIsHigher(hit1) || MovePointIsHigher(hit2) || MovePointIsHigher(hit3)) {
+                HighJump();
+                return true;
+            }
+
+            var hit4 = JumpLinecast(pos1, movePoint, Layers.Masks.Box);
+            if (hit1.collider != null && Layers.Masks.LayerInMask(Layers.Masks.Obstacle, hit1.collider.gameObject.layer)
+                && hit4.collider != null && _MovementData.CurrentPointPath.Count > 1) {
+                HighJump();
                 return true;
             }
             return false;
         }
 
-        private RaycastHit2D JumpLinecast(Vector2 point1, Vector2 point2) {
-            var hit = Physics2D.Linecast(point1, point2, Layers.Masks.Walkable);
+        private RaycastHit2D JumpLinecast(Vector2 point1, Vector2 point2, int layerMask) {
+            var hit = Physics2D.Linecast(point1, point2, layerMask);
             Debug.DrawLine(point1, point2, hit.collider == null ? Color.green : Color.red, Time.deltaTime);
             return hit;
         }
+
+        private bool MovePointIsHigher(RaycastHit2D hit) {
+            if (hit.collider == null)
+                return false;
+            var firstPointPos = _MovementData.CurrentPath[0].Position;
+            if (firstPointPos.y > hit.point.y)
+                return true;
+            return false;
+        }
         
-        private void Jump() {
+        private void LowJump() {
+            MovementController.Jump();
+        }
+
+        private void HighJump() {
             if (MovementController.HighJump()) {
                 _LastJumpTime = Time.time;
             } else {

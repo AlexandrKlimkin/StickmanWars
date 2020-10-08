@@ -9,6 +9,7 @@ namespace Game.AI.PathFinding {
         public WayPoint Neighbour;
         public float Cost = 1f;
         public bool IsJumpLink;
+        public bool IsLowJumpLink;
 
         public WayPointLink(WayPoint neighbour) {
             this.Neighbour = neighbour;

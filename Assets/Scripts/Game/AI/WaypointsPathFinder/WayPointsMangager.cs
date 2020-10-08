@@ -11,7 +11,8 @@ namespace Game.AI.PathFinding {
         public Color WayPointsColor;
         public Color WayPointsSelectedColor;
         public Color UsualLinkColor;
-        public Color JumpLinkColor;
+        public Color HighJumpLinkColor;
+        public Color LowJumpLinkColor;
         public float WayPointRadius;
         public bool ShowCostText;
         public int CostTextSize;
@@ -128,7 +129,7 @@ namespace Game.AI.PathFinding {
                         continue;
                     foreach (var link in point.Links) {
                         if (link.Neighbour != null) {
-                            Handles.color = link.IsJumpLink ? JumpLinkColor : UsualLinkColor;
+                            Handles.color = link.IsJumpLink ? HighJumpLinkColor : link.IsLowJumpLink ? LowJumpLinkColor : UsualLinkColor;
                             Handles.DrawLine(point.Position, link.Neighbour.Position);
                             var middle = (point.Position + link.Neighbour.Position) / 2f;
                             var dir = (link.Neighbour.Position - point.Position).normalized;
