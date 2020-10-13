@@ -15,15 +15,19 @@ MonoBehaviour:
   Range: 300
   ReloadingTime: 2
   ProjectileSpeed: 0
-  Damage: 100
+  Damage: 80
   HitForce: 10
   RecoilForce: 0
-  MagazineLimited: 1
-  Magazine: 0
-  ProjectilesInShot: 1
   RateOfFire: 0
   ReloadTime: 0
   DispersionAngle: 0
   MinThrowStartSpeed: 100
   MaxThrowStartSpeed: 400
   MaxForceTime: 2
+  Magazine: 0
+  ProjectilesInShot: 1
+  MagazineLimited: 1
+  CanPickedUp: 0
+  TensionDamage: 0
+  MinTensionDamage: 0
+  MaxTensionDamage: 0
