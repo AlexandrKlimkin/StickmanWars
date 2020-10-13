@@ -19,8 +19,12 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     [Dependency]
     private readonly AudioService _AudioService;
 
+    public Transform Target;
+
     public MovementController MovementController { get; private set; }
     public WeaponController WeaponController { get; private set; }
+
+    public DamageBuffer DamageBuffer { get; private set; }
 
     public static List<CharacterUnit> Characters = new List<CharacterUnit>();
 
@@ -43,13 +47,18 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         ContainerHolder.Container.BuildUp(this);
         MovementController = GetComponent<MovementController>();
         WeaponController = GetComponent<WeaponController>();
+        DamageBuffer = GetComponent<DamageBuffer>();
         Collider = GetComponent<Collider2D>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
         Characters.Add(this);
         OwnerId = _OwnerId;
-        MaxHealth = 100f;
         Health = MaxHealth;
     }
+
+    //private void Update() {
+    //    if(DamageBuffer != null && IsBot == true)
+    //        Debug.LogError(DamageBuffer.SummaryBufferedDamage);
+    //}
 
     public Collider2D Collider { get; set; }
     public Rigidbody2D Rigidbody2D { get; set; }
@@ -77,9 +86,10 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         ContainerHolder.Container.BuildUp(this);
         OwnerId = ownerId;
         CharacterId = characterId;
-        MaxHealth = 100f; //Todo: Config
+        MaxHealth = 130f; //Todo: Config
         Health = MaxHealth;
         IsBot = isBot;
+        DamageBuffer?.Initialize(this, 3f);
     }
 
     private void OnDestroy() {

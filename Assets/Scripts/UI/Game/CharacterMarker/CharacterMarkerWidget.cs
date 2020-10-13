@@ -10,6 +10,9 @@ namespace UI.Game.Markers {
         [SerializeField] private Slider _VehicleSlider;
         [SerializeField] private Text _AmmoText;
         [SerializeField] private Image _ThrowForceWidget;
+        [SerializeField] private Image _HPSliderImage;
+        [SerializeField] private Color _PlayerColor;
+        [SerializeField] private Color _BotColor;
 
         protected override void HandleData(CharacterMarkerData data) {
             _HPSlider.value = data.NormilizedHealth;
@@ -22,6 +25,7 @@ namespace UI.Game.Markers {
                 _VehicleSlider.value = (float)data.VehicleAmmo / data.VehicleMaxAmmo;
             }
             _ThrowForceWidget.fillAmount = data.NormilizedStartVelocity;
+            _HPSliderImage.color = data.IsBot ? _BotColor : _PlayerColor;
         }
     }
 }

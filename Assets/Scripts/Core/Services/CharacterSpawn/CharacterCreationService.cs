@@ -31,7 +31,7 @@ namespace Core.Services.Game {
             if (isLocalPlayer) {
                 SetupLocalPlayerComponents(unit, playerData, deviceId);
             }
-            unit.Initialize(playerData.PlayerId, playerData.CharacterId, false);
+            unit.Initialize(playerData.PlayerId, playerData.CharacterId, playerData.IsBot);
             _SignalBus.FireSignal(new CharacterSpawnedSignal(unit));
             if(Camera2D != null) {
                 Camera2D.AddCameraTarget(unit.transform);

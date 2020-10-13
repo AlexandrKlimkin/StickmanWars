@@ -53,6 +53,7 @@ namespace Core.Services.Game {
                 FillDeviceIndexForce(playerController.Id, player);
                 _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, playerController.Id));
             }
+            AddBots();
         }
 
         public void Unload() {
@@ -96,6 +97,19 @@ namespace Core.Services.Game {
             _MatchService.AddPlayer(player);
             Debug.Log($"player {player.PlayerId} connected");
             _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, deviceId));
+        }
+
+        private void AddBots() {
+            if (RespawnModeConfig.Instance.UseBots) {
+                var playersDontPlay = 4 - _MatchData.Players.Count;
+                var botsNeedToSpawn = Mathf.Min(playersDontPlay, RespawnModeConfig.Instance.MaxBotsCount);
+                byte maxIndex = _MatchData.Players.Count > 0 ? _MatchData.Players.Max(_ => _.PlayerId) : (byte)0;
+                maxIndex++;
+                for (byte index = maxIndex; index < maxIndex + botsNeedToSpawn; index++) {
+                    var player = new PlayerData(index, index.ToString(), true, index, "Robot");
+                    _MatchService.AddPlayer(player);
+                }
+            }
         }
 
         private byte AllocatePlayerId() {

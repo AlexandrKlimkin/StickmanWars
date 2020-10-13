@@ -60,8 +60,12 @@ namespace Items
             }
             yield return new WaitForSeconds(1f);
             foreach (var col in _Colliders) {
-                foreach (var throwerCol in throwerColliders) {
-                    Physics2D.IgnoreCollision(throwerCol, col, false);
+                if (col) {
+                    foreach (var throwerCol in throwerColliders) {
+                        if (throwerCol) {
+                            Physics2D.IgnoreCollision(throwerCol, col, false);
+                        }
+                    }
                 }
             }
         }

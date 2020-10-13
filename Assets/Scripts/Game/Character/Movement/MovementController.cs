@@ -133,6 +133,7 @@ namespace Character.Movement {
             _WalkModule.SetHorizontal(hor);
         }
         private bool _Jumping = false;
+
         public bool Jump() {
             if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return false;
@@ -146,22 +147,28 @@ namespace Character.Movement {
         public bool HighJump() {
             var jumped = false;
              jumped = Jump();
-            if(jumped)
-                StartCoroutine(HighJumpRoutine());
+            if (!jumped)
+                jumped = WallJump();
+            //Debug.LogError($"Jumped {jumped}");
+            if (jumped) {
+                StopCoroutine(ContinueJumpRoutine());
+                StartCoroutine(ContinueJumpRoutine());
+            }
             return jumped;
         }
 
-        private IEnumerator HighJumpRoutine() {
-            bool jumped = false;
-            while (!jumped) {
+        private IEnumerator ContinueJumpRoutine() {
+            var continueJump = false;
+            while (!continueJump) {
+                continueJump = ProcessHoldJump();
                 yield return null;
-                jumped = ProcessHoldJump();
             }
         }
 
-        public void ContinueJump() {
+        private void ContinueJump() {
             if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return;
+            //Debug.LogError("Continue jump");
             _JumpModule.ContinueJump();
             _Jumping = false;
         }

@@ -9,6 +9,7 @@ namespace UI.Game.Markers {
         public bool HasWeapon;
         public int Ammo;
         public int MaxAmmo;
+        public bool IsBot;
 
         public bool HasVehicle;
         public int VehicleAmmo;
