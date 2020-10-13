@@ -19,7 +19,7 @@ namespace Game.AI {
             set {
                 if (value != _DestinationType) {
                     this._DestinationType = value;
-                    Debug.LogError(_DestinationType);
+                    //Debug.LogError(_DestinationType);
                 }
             }
         }
