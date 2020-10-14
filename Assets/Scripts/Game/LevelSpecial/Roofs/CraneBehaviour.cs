@@ -25,8 +25,11 @@ namespace Game.LevelSpecial.Roofs {
 
         private IEnumerator CraneRoutine() {
             while (true) {
-                yield return SwitchCraneRoutine();
-                yield return new WaitForSeconds(Random.Range(DelayTimeRandom.x, DelayTimeRandom.y));
+                if (Platform) {
+                    yield return SwitchCraneRoutine();
+                    yield return new WaitForSeconds(Random.Range(DelayTimeRandom.x, DelayTimeRandom.y));
+                } else
+                    break;
             }
         }
 

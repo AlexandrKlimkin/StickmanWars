@@ -11,6 +11,7 @@ public static class Layers {
         public const string Character = "Character";
         public const string Abyss = "Abyss";
         public const string FallingDownObject = "FallingDownObject";
+        public const string Weapon = "Weapon";
         public const string MovingPlatform = "MovingPlatform";
     }
 
@@ -18,10 +19,12 @@ public static class Layers {
 
         public static int Bone { get; private set; }
         public static int Walkable { get; private set; }
+        public static int Box { get; private set; }
         public static int Damageable { get; private set; }
         public static int NoCharacter { get; private set; }
         public static int Character { get; private set; }
         public static int BotVisionMask { get; private set; }
+        public static int Obstacle { get; private set; }
         public static int GroundAndPlatform { get; private set; }
 
         static Masks() {
@@ -32,6 +35,8 @@ public static class Layers {
             Character = LayerMask.GetMask(Names.Character);
             BotVisionMask = LayerMask.GetMask(Names.Ground, Names.Platform, Names.MovingPlatform);
             GroundAndPlatform = LayerMask.GetMask(Names.Ground, Names.Platform);
+            Box = LayerMask.GetMask(Names.Box);
+            Obstacle = LayerMask.GetMask(Names.Box, Names.Weapon);
         }
 
         public static int CreateLayerMask(bool aExclude, params int[] aLayers) {

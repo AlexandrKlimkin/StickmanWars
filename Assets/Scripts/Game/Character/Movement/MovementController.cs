@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Character.Control;
 using Character.Movement.Modules;
 using Character.Shooting;
 using Tools.BehaviourTree;
@@ -34,6 +35,7 @@ namespace Character.Movement {
         private LedgeHangModule _LedgeHangModule;
         private PushingModule _PushingModule;
         private Blackboard _Blackboard;
+
 
         private WalkData _WalkData;
         private List<SimpleCCD> _SimpleCcds = new List<SimpleCCD>();
@@ -152,6 +154,7 @@ namespace Character.Movement {
             _WalkModule.SetHorizontal(hor);
         }
         private bool _Jumping = false;
+
         public bool Jump() {
             if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return false;
@@ -165,22 +168,28 @@ namespace Character.Movement {
         public bool HighJump() {
             var jumped = false;
              jumped = Jump();
-            if(jumped)
-                StartCoroutine(HighJumpRoutine());
+            if (!jumped)
+                jumped = WallJump();
+            //Debug.LogError($"Jumped {jumped}");
+            if (jumped) {
+                StopCoroutine(ContinueJumpRoutine());
+                StartCoroutine(ContinueJumpRoutine());
+            }
             return jumped;
         }
 
-        private IEnumerator HighJumpRoutine() {
-            bool jumped = false;
-            while (!jumped) {
+        private IEnumerator ContinueJumpRoutine() {
+            var continueJump = false;
+            while (!continueJump) {
+                continueJump = ProcessHoldJump();
                 yield return null;
-                jumped = ProcessHoldJump();
             }
         }
 
-        public void ContinueJump() {
+        private void ContinueJump() {
             if (Owner.WeaponController.HasVehicle && Owner.WeaponController.Vehicle.InputProcessor.CurrentMagazine != 0)
                 return;
+            //Debug.LogError("Continue jump");
             _JumpModule.ContinueJump();
             _Jumping = false;
         }
@@ -196,7 +205,7 @@ namespace Character.Movement {
         }
 
         public void ChangeDirection(int newDir) {
-            if (_WalkData.Direction == newDir)
+            if (_WalkData.Direction == newDir) //_WalkData.Direction == newDir
                 return;
             _WalkData.Direction = newDir;
             var localScale = WalkParameters.IkTransform.localScale;

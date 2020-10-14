@@ -10,6 +10,8 @@ namespace Core.Services {
         private List<CharacterData> _Characters;
 
         public IReadOnlyList<CharacterData> Characters => _Characters;
+        public IReadOnlyList<CharacterData> AvailableCharacters => _AvailableCharacters;
+        private List<CharacterData> _AvailableCharacters;
 
         private Dictionary<string, CharacterData> _CharactersDict;
         private bool _Initialized;
@@ -24,6 +26,7 @@ namespace Core.Services {
                 return;
             _Initialized = true;
             _CharactersDict = _Characters.ToDictionary(_ => _.Id);
+            _AvailableCharacters = _Characters.Where(_ => _.Available).ToList();
         }
 
         public CharacterData GetCharacterData(string name) {
@@ -37,5 +40,6 @@ namespace Core.Services {
         public string Id;
         public string Name;
         public string AvatarPath;
+        public bool Available;
     }
 }

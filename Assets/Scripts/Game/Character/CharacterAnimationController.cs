@@ -18,17 +18,19 @@ public class CharacterAnimationController : MonoBehaviour {
     }
 
     private void Update() {
-        Animator.SetFloat("Horizontal", Mathf.Abs(_MovementController.Horizontal));
-        Animator.SetBool("Grounded", _MovementController.IsMainGrounded);
-        Animator.SetFloat("DistanseToGround", _MovementController.MinDistanceToGround);
-        Animator.SetBool("FallingDown", _MovementController.FallingDown);
-        Animator.SetBool("WallRun", _MovementController.WallRun);
-        Animator.SetBool("WallSliding", _MovementController.WallSliding);
-        Animator.SetBool("LedgeHang", _MovementController.LedgeHang);
-        Animator.SetFloat("Speed", Mathf.Abs(_MovementController.LocalVelocity.x / 50f));
-        Animator.SetBool("Pushing", _MovementController.Pushing);
-        Animator.SetFloat("TimeFallingDown", _MovementController.TimeFallingDown);
-        Animator.SetFloat("TimeNotFallingDown", _MovementController.TimeNotFallingDown);
+        if (_MovementController != null) {
+            Animator.SetFloat("Horizontal", Mathf.Abs(_MovementController.Horizontal));
+            Animator.SetBool("Grounded", _MovementController.IsMainGrounded);
+            Animator.SetFloat("DistanseToGround", _MovementController.MinDistanceToGround);
+            Animator.SetBool("FallingDown", _MovementController.FallingDown);
+            Animator.SetBool("WallRun", _MovementController.WallRun);
+            Animator.SetBool("WallSliding", _MovementController.WallSliding);
+            Animator.SetBool("LedgeHang", _MovementController.LedgeHang);
+            Animator.SetFloat("Speed", Mathf.Abs(_MovementController.LocalVelocity.x / 50f));
+            Animator.SetBool("Pushing", _MovementController.Pushing);
+            Animator.SetFloat("TimeFallingDown", _MovementController.TimeFallingDown);
+            Animator.SetFloat("TimeNotFallingDown", _MovementController.TimeNotFallingDown);
+        }
         Animator.SetBool("FirstAttack", _WeaponController.MeleeAttacking);
     }
 }

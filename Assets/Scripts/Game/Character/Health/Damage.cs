@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Character.Health {
             this.Amount = amount;
             this.InstantKill = instantKill;
         }
+
     }
 
 }

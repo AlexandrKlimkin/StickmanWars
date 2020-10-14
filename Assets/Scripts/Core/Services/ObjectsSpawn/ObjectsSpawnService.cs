@@ -16,11 +16,10 @@ namespace Core.Services.Game {
         [Dependency]
         private readonly GameManagerService _GameManagerService;
 
-
-
         public void Load() {
             _SignalBus.Subscribe<MatchEndSignal>(OnMatchEnd, this);
             StartSpawn();
+            ContainerHolder.Container.BuildUp(this);
         }
 
         private IEnumerator ObjectsSpawnRoutine() {

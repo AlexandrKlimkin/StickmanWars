@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Tools;
+using Character.Shooting;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,13 +13,21 @@ namespace Game.AI {
         private Transform _Target;
         private bool _TargetIsVisible;
         private float _TargetVisibleTimer;
+        private float _WeaponHoldTimer;
         private int _CharacterLayer = LayerMask.NameToLayer(Layers.Names.Character);
+        private float _TargetVisibleTime;
+
 
         private ContactFilter2D _ContactViewFilter = new ContactFilter2D() {
             useTriggers = false,
             useLayerMask = true,
             layerMask = Layers.Masks.NoCharacter,
         };
+
+        public ShootTask(float TargetVisibleTime) {
+            this._TargetVisibleTime = TargetVisibleTime;
+        }
+
         public override void Init() {
             base.Init();
             UpdatedTask = true;
@@ -27,6 +36,7 @@ namespace Game.AI {
         public override TaskStatus Run() {
             if (WeaponController.MainWeapon == null) {
                 _Pressed = false;
+                _WeaponHoldTimer = 0;
                 return TaskStatus.Failure;
             }
             FindTarget();
@@ -79,13 +89,22 @@ namespace Game.AI {
         }
 
         private void Fire() {
-            if (_TargetIsVisible && _TargetVisibleTimer > 0.5f) {
+            var processorType = WeaponController.MainWeapon.InputProcessor.GetType();
+
+            if (_TargetIsVisible && _TargetVisibleTimer > _TargetVisibleTime) {
                 if (!_Pressed)
                     WeaponController.PressFire();
                 WeaponController.HoldFire();
+                _WeaponHoldTimer += Time.deltaTime;
                 _Pressed = true;
-            } else {
-
+            }
+            if (processorType == typeof(SingleShotProcessor)) {
+                _Pressed = false;
+            } else if (processorType == typeof(FireForceProcessor)) {
+                if(_WeaponHoldTimer > 1f) {
+                    WeaponController.ReleaseFire();
+                    _WeaponHoldTimer = 0f;
+                }
             }
         }
 

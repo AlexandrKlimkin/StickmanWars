@@ -156,7 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5527185548296348971}
   - component: {fileID: 8704210502404028112}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8417509533305290549}
   - component: {fileID: 7920620939479569574}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 2201153136931582844}
   - component: {fileID: 1343324804}
   - component: {fileID: 2094482739}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,6 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PickupType: 0
+  _CanPickUp: 1
 --- !u!114 &2201153136931582844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,7 +533,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2082481628266163460}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: ShootTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +564,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3382629339872275931}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: MuzzleFlashPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2045092268275970114}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: ShellEffectPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,6 +696,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pistolet
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 28c39750a1742cd4aa747901e669a2cb,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28c39750a1742cd4aa747901e669a2cb, type: 3}

@@ -212,6 +212,9 @@ MonoBehaviour:
   _VehicleSlider: {fileID: 1058374675106644202}
   _AmmoText: {fileID: 2558081050887831725}
   _ThrowForceWidget: {fileID: 5114206187203303470}
+  _HPSliderImage: {fileID: 2378326874051419441}
+  _PlayerColor: {r: 0, g: 0.6901961, b: 0.078431375, a: 1}
+  _BotColor: {r: 0.8301887, g: 0.14936188, b: 0.011747932, a: 1}
 --- !u!1 &4535292780083479574
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.6886792, b: 0.07755158, a: 1}
+  m_Color: {r: 0.83137256, g: 0.14901961, b: 0.011764706, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -417,7 +420,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -10}
-  m_SizeDelta: {x: 60, y: 6}
+  m_SizeDelta: {x: 50, y: 6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1058374675106644202
 MonoBehaviour:
@@ -613,7 +616,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70, y: 10}
+  m_SizeDelta: {x: 60, y: 8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2403464003960018490
 MonoBehaviour:
@@ -808,7 +811,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.341
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 2
   m_UseSpriteMesh: 0

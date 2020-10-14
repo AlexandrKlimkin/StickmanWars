@@ -78,7 +78,7 @@ namespace MapSelection.UI {
                 return;
             if (Input.GetKeyDown(_InputKit.Select)) {
                 _CharacterSelected = true;
-                CharacterSelectionService.SelectCharacter(_CachedPlayerConnected.PlayerData.PlayerId, _CharacterConfig.Characters[_LeafIndex].Id);
+                CharacterSelectionService.SelectCharacter(_CachedPlayerConnected.PlayerData.PlayerId, _CharacterConfig.AvailableCharacters[_LeafIndex].Id);
             }
             _Horizontal = Input.GetAxis(_InputKit.Horizontal);
             _HasHorizontal = Mathf.Abs(_Horizontal) > 0.1f;
@@ -111,7 +111,7 @@ namespace MapSelection.UI {
 
         private void Leaf(int count) {
             _LeafIndex += count;
-            var charactersCount = _CharacterConfig.Characters.Count;
+            var charactersCount = _CharacterConfig.AvailableCharacters.Count;
             if (_LeafIndex >= charactersCount) {
                 _LeafIndex = _LeafIndex % charactersCount;
             } else if (_LeafIndex < 0) {
@@ -127,7 +127,7 @@ namespace MapSelection.UI {
             base.RefreshData(data);
             data.PlayerConnected = _PlayerConnected;
             data.ChangePreview = _ChangePreview;
-            data.PreviewPath = _CharacterConfig?.Characters[_LeafIndex].AvatarPath;
+            data.PreviewPath = _CharacterConfig?.AvailableCharacters[_LeafIndex].AvatarPath;
             data.Right = _Horizontal > 0;
             data.Left = _Horizontal < 0;
         }

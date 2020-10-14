@@ -214,7 +214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5527185548296348971}
   - component: {fileID: 8704210502404028112}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 1844138444}
   - component: {fileID: 907604388}
   - component: {fileID: 907604389}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: Bazooka
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,6 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PickupType: 0
+  _CanPickUp: 1
 --- !u!114 &1844138444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,7 +536,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2082481628266163460}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: ShootTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5262251295035870090}
   - component: {fileID: 969161203}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -616,7 +617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1621562587866599769}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: ShellEffectSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,6 +654,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5259225927154676129, guid: 0d172be897ceec1429b2aed51f82899f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0d172be897ceec1429b2aed51f82899f,
         type: 3}
@@ -729,6 +735,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: bazuka
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 0d172be897ceec1429b2aed51f82899f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 916180263409181725, guid: 0d172be897ceec1429b2aed51f82899f,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -738,6 +749,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3028042972331259927, guid: 0d172be897ceec1429b2aed51f82899f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d172be897ceec1429b2aed51f82899f, type: 3}

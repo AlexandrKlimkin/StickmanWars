@@ -18,6 +18,7 @@ namespace Core.Services.SceneManagement {
             { SceneType.MapSelection, new MapSelectionLoadingParameters() },
             { SceneType.CityCrane, new GameLoadingParameters() },
             { SceneType.MapTemplate, new GameLoadingParameters() },
+            { SceneType.SewerBranch, new GameLoadingParameters() },
             { SceneType.RailWay, new GameLoadingParameters() },
         };
 
@@ -88,6 +89,7 @@ namespace Core.Services.SceneManagement {
         MapSelection,
         CityCrane,
         MapTemplate,
+        SewerBranch,
         RailWay,
     }
 }

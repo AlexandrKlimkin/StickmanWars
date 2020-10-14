@@ -26,6 +26,7 @@ public class JoystickAim : IAimProvider
     {
         var hor = Input.GetAxis(_HorAxisName);
         var vert = Input.GetAxis(_VertAxisName);
+        //Debug.LogError($"{_HorAxisName} - {hor},{_VertAxisName} - {vert}");
         Vector2 vector;
         if(Mathf.Abs(hor) < 0.1f && Mathf.Abs(vert) < 0.1f)
             vector = _HandTransform.transform.position + new Vector3(_MovementController.Direction * 200f, 0.7f, 0);
