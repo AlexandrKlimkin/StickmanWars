@@ -37,7 +37,10 @@ namespace UI.Game {
             var characterData = CharacterConfig.Instance.GetCharacterData(playerData.CharacterId);
             var playerCharacterPreviewPath = characterData.AvatarPath;
             PreviewImage.sprite = _ResourceLoader.LoadResource<Sprite>(playerCharacterPreviewPath);
-
+            if (!_BattleStatisticsService.KillsDict.ContainsKey(playerId)) {
+                Debug.LogError($"No player with id {playerId}");
+                return;
+            }
             var killsData = _BattleStatisticsService.KillsDict[playerId];
             for(int i = 0; i < KillsPreviewContainer.childCount; i++) {
                 var child = KillsPreviewContainer.GetChild(i);

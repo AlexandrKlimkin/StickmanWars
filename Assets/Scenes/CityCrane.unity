@@ -24582,9 +24582,6 @@ MonoBehaviour:
   - Prefab: {fileID: 6726360523302912758, guid: 600f74f5f22e045429ae1b446d132ab0,
       type: 3}
     MaxAmount: 0
-  - Prefab: {fileID: 2888260986880051133, guid: 95670b504ae43354a855358a8c2a9258,
-      type: 3}
-    MaxAmount: 0
   SpawnPoints:
   - {fileID: 121035647}
   - {fileID: 650804979}
@@ -30145,11 +30142,11 @@ GameObject:
   - component: {fileID: 1524233706}
   m_Layer: 0
   m_Name: Barrells
-  m_TagString: Untagged
+  m_TagString: DisableIfBots
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1524233706
 Transform:
   m_ObjectHideFlags: 0
@@ -36478,11 +36475,11 @@ GameObject:
   - component: {fileID: 1751875228}
   m_Layer: 0
   m_Name: Boxes
-  m_TagString: Untagged
+  m_TagString: DisableIfBots
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1751875228
 Transform:
   m_ObjectHideFlags: 0
