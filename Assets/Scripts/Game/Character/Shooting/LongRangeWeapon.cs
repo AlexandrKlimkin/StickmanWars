@@ -39,7 +39,7 @@ namespace Character.Shooting {
         }
 
         private void AddRecoil(Vector2 direction) {
-            direction.y *= 0.45f;
+            direction.y *= 0.6f;
             PickableItem.Owner.Rigidbody2D.AddForce(direction * Stats.RecoilForce);
         }
     }

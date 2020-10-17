@@ -27,15 +27,15 @@ namespace Game.AI {
                     var mainTree = root.AddChild<ParallelTask>();
                         var movement = mainTree.AddChild<ParallelTask>();
                             var combatDestination = movement.AddChild(new SelectorTask());
-                                //var scarySequence = combatDestination.AddChild(new SequenceTask());
-                                //    scarySequence.AddChild(new CheckBurstDamageTask(2f, 20f, true));
-                                //    scarySequence.AddChild(new EscapeDestinationTask(EscapeTimeRandomVector));
-                                //combatDestination.AddChild(new WeaponDestinationTask());
-                                //combatDestination.AddChild(new RandomPointDestinationTask());
-                                combatDestination.AddChild(new TransformDestinationTask());
+                                var scarySequence = combatDestination.AddChild(new SequenceTask());
+                                    scarySequence.AddChild(new CheckBurstDamageTask(2f, 20f, true));
+                                    scarySequence.AddChild(new EscapeDestinationTask(EscapeTimeRandomVector));
+                                combatDestination.AddChild(new WeaponDestinationTask());
+                                combatDestination.AddChild(new RandomPointDestinationTask());
+                                //combatDestination.AddChild(new TransformDestinationTask());
                             movement.AddChild(new MoveToPointTask());
                         var shooting = mainTree.AddChild<ParallelTask>();
-                            //shooting.AddChild(new ShootTask(TargetVisibleTimeToShoot));
+                            shooting.AddChild(new ShootTask(TargetVisibleTimeToShoot));
             return behaviourTree;
         }
 
@@ -47,7 +47,7 @@ namespace Game.AI {
         protected override void Awake() {
             base.Awake();
             ContainerHolder.Container.BuildUp(this);
-            _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeathSignal, this);
+            //_SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeathSignal, this);
             _MovementData = BehaviourTree.Blackboard.Get<MovementData>();
             CharacterUnit.WeaponController.OnWeaponEquiped += OnWeaponEquip;
             CharacterUnit.WeaponController.OnVehicleEquiped += OnVehicleEquiped;
@@ -68,19 +68,23 @@ namespace Game.AI {
 
         }
 
-        private void OnCharacterDeathSignal(CharacterDeathSignal signal) {
-            if (signal.Damage.Receiver != CharacterUnit as IDamageable)
-                return;
+        //private void OnCharacterDeathSignal(CharacterDeathSignal signal) {
+        //    if (signal.Damage.Receiver != CharacterUnit as IDamageable)
+        //        return;
+        //    foreach (var task in BehaviourTree.Tasks) {
+        //        if (task is BuildedTask)
+        //            ((BuildedTask)task).UpdatedTask = false;
+        //    }
+        //}
+
+        protected virtual void OnDestroy() {
+            CharacterUnit.WeaponController.OnWeaponEquiped -= OnWeaponEquip;
+            CharacterUnit.WeaponController.OnVehicleEquiped -= OnVehicleEquiped;
+            _SignalBus.UnSubscribeFromAll(this);
             foreach (var task in BehaviourTree.Tasks) {
                 if (task is BuildedTask)
                     ((BuildedTask)task).UpdatedTask = false;
             }
-        }
-
-        protected virtual void OnDestoy() {
-            CharacterUnit.WeaponController.OnWeaponEquiped -= OnWeaponEquip;
-            CharacterUnit.WeaponController.OnVehicleEquiped -= OnVehicleEquiped;
-            _SignalBus.UnSubscribeFromAll(this);
         }
 
         private void Update() {

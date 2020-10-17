@@ -35,7 +35,7 @@ namespace Core.Services.Game {
 
         public IReadOnlyDictionary<byte, int> PlayersLifesDict => _PlayersLifesDict;
 
-        public const int PlayerLifes = 5;
+        public const int PlayerLifes = 2;
         private const float _RespawnDelay = 2f;
 
 
@@ -44,27 +44,13 @@ namespace Core.Services.Game {
             _SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
             //_SignalBus.Subscribe<PlayerAddedSignal>(OnPlayerAdded, this);
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
-            //AddBots();
+            _PlayersConnectionService.AddBots();
             InitializeNewMatch();
         }
 
         public void Unload() {
             _SignalBus.UnSubscribeFromAll(this);
         }
-
-
-        //private void AddBots() {
-        //    if (RespawnModeConfig.Instance.UseBots) {
-        //        var playersDontPlay = 4 - _MatchData.Players.Count;
-        //        var botsNeedToSpawn = Mathf.Min(playersDontPlay, RespawnModeConfig.Instance.MaxBotsCount);
-        //        var maxIndex = _MatchData.Players.Max(_ => _.PlayerId);
-        //        maxIndex++;
-        //        for (byte index = maxIndex; index < maxIndex + botsNeedToSpawn; index++) {
-        //            var player = new PlayerData(index, index.ToString(), true, index, "Robot");
-        //            _MatchService.AddPlayer(player);
-        //        }
-        //    }
-        //}
 
         private void InitializeNewMatch() {
             _PlayersLifesDict = new Dictionary<byte, int>();
@@ -74,7 +60,6 @@ namespace Core.Services.Game {
         }
 
         private void OnMatchStart(MatchStartSignal signal) {
-            //SpawnAllAtTheBegining();
             _EventProvider.StartCoroutine(SpawnAllAtTheBeginingRoutine()); //ToDo: Fix this shit
         }
 

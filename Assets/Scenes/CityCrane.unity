@@ -949,7 +949,7 @@ GameObject:
   - component: {fileID: 92025319}
   - component: {fileID: 92025320}
   - component: {fileID: 92025321}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Abyss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30142,11 +30142,11 @@ GameObject:
   - component: {fileID: 1524233706}
   m_Layer: 0
   m_Name: Barrells
-  m_TagString: Untagged
+  m_TagString: DisableIfBots
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1524233706
 Transform:
   m_ObjectHideFlags: 0
@@ -36475,7 +36475,7 @@ GameObject:
   - component: {fileID: 1751875228}
   m_Layer: 0
   m_Name: Boxes
-  m_TagString: Untagged
+  m_TagString: DisableIfBots
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

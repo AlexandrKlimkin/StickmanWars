@@ -40,10 +40,13 @@ namespace Core.Services.Game {
 
         public const int MaxPlayerCount = 4;
 
+        public int MaxBotsCount { get; set; } = MaxPlayerCount - 1;
+
         public void Load() {
             if (!_SceneManagerService.IsGameScene)
                 _EventProvider.OnUpdate += ProcessPlayersConnect;
             _SignalBus.Subscribe<GamepadStatusChangedSignal>(OnGamepadStatusChanged, this);
+            //_SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
 
             foreach (var player in _MatchData.Players) {
                 var unit = CharacterUnit.Characters.FirstOrDefault(_ => _.OwnerId == player.PlayerId);
@@ -53,7 +56,6 @@ namespace Core.Services.Game {
                 FillDeviceIndexForce(playerController.Id, player);
                 _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, playerController.Id));
             }
-            AddBots();
         }
 
         public void Unload() {
@@ -69,6 +71,10 @@ namespace Core.Services.Game {
             deviceIndex = GetDeviceIndex(playerId);
             return deviceIndex != null;
         }
+
+        //private void OnMatchStart(MatchStartSignal signal) {
+        //    AddBots();
+        //}
 
         private void FillDeviceIndexForce(int deviceId, PlayerData player) {
             _DeviceLocalPlayerDict.Add(deviceId, player);
@@ -99,16 +105,14 @@ namespace Core.Services.Game {
             _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, deviceId));
         }
 
-        private void AddBots() {
-            if (RespawnModeConfig.Instance.UseBots) {
-                var playersDontPlay = 4 - _MatchData.Players.Count;
-                var botsNeedToSpawn = Mathf.Min(playersDontPlay, RespawnModeConfig.Instance.MaxBotsCount);
-                byte maxIndex = _MatchData.Players.Count > 0 ? _MatchData.Players.Max(_ => _.PlayerId) : (byte)0;
-                maxIndex++;
-                for (byte index = maxIndex; index < maxIndex + botsNeedToSpawn; index++) {
-                    var player = new PlayerData(index, index.ToString(), true, index, "Robot");
-                    _MatchService.AddPlayer(player);
-                }
+        public void AddBots() {
+            var playersDontPlay = 4 - _MatchData.Players.Count;
+            var botsNeedToSpawn = Mathf.Min(playersDontPlay, MaxBotsCount);
+            byte maxIndex = _MatchData.Players.Count > 0 ? _MatchData.Players.Max(_ => _.PlayerId) : (byte)0;
+            maxIndex++;
+            for (byte index = maxIndex; index < maxIndex + botsNeedToSpawn; index++) {
+                var player = new PlayerData(AllocatePlayerId(), index.ToString(), true, index, "Robot");
+                _MatchService.AddPlayer(player);
             }
         }
 

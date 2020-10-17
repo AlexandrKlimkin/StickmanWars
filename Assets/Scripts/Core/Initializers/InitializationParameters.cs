@@ -40,6 +40,7 @@ namespace Core.Initialization {
             .ToList();
 
         public static List<Task> MapSelectionUnloadTasks => new List<Task>() {
+            //new UnregisterAndUnloadServiceTask<PlayersConnectionService>(),
             new UnregisterAndUnloadServiceTask<GameLevelLoadService>(),
             //new UnregisterAndUnloadServiceTask<MarkerService>(),
             new UnregisterAndUnloadServiceTask<CharacterSelectionService>(),
@@ -62,6 +63,7 @@ namespace Core.Initialization {
             new GameUISpawnTask(),
             new GameCameraSpawnTask(),
             new RegisterAndLoadServiceTask<RespawnModeService>(),
+            new DisableObjectsIfGameWithBotsTask(), //ToDo: Remove
             new RegisterAndLoadServiceTask<ObjectsSpawnService>(),
             new StartMatchTask(),
         };

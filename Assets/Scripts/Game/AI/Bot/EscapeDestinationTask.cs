@@ -102,8 +102,8 @@ namespace Game.AI {
                     closestWayPoint = wayPoint;
                 }
             }
-            if (closestPointsList.Count > 1)
-                Debug.LogError(closestPointsList.Count);
+            //if (closestPointsList.Count > 1)
+            //    Debug.LogError(closestPointsList.Count);
             _MovementData.TargetPos = closestWayPoint.Position;
             _MovementData.DestinationType = DestinationType.Escape;
         }
