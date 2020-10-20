@@ -1,4 +1,5 @@
-﻿using Character.Health;
+﻿using Assets.Scripts.Game.Character.Health;
+using Character.Health;
 using Core.Services;
 using Core.Services.Game;
 using KlimLib.ResourceLoader;
@@ -62,10 +63,10 @@ namespace UI.Game {
         public void AssignToPlayer(byte playerId) {
             Initialize();
             _AssignedPlayerId = playerId;
-            _SignalBus.UnSubscribe<CharacterSpawnedSignal>(this);
+            _SignalBus.UnSubscribeFromAll(this);
             _SignalBus.Subscribe<CharacterSpawnedSignal>(OnCharacterSpawned, this);
-            _SignalBus.UnSubscribe<CharacterDeathSignal>(this);
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
+            _SignalBus.Subscribe<PlayersLifesChangedSignal>(OnPlayersLifesChangedSignal, this);
         }
 
         private void OnCharacterSpawned(CharacterSpawnedSignal signal) {
@@ -82,12 +83,15 @@ namespace UI.Game {
             RefreshHealthAmount(dmg.Receiver.NormilizedHealth);
         }
 
-        private void OnCharacterDeath(CharacterDeathSignal signal) {
-            var playerId = signal.Damage.Receiver.OwnerId.Value;
-            if (playerId == _AssignedPlayerId) {
-                RefreshLifesCount(PlayerLifesCounter.PlayersLifesDict[playerId]);
+        private void OnPlayersLifesChangedSignal(PlayersLifesChangedSignal signal) {
+            if (signal.PlayerId == _AssignedPlayerId) {
+                var lifesCount = PlayerLifesCounter.PlayersLifesDict[signal.PlayerId];
+                RefreshLifesCount(lifesCount);
                 RefreshHealthAmount(0);
             }
+        }
+
+        private void OnCharacterDeath(CharacterDeathSignal signal) {
             if(_AssignedPlayerId == signal.Damage.InstigatorId) {
                 KillsCountText.text = _BattleStatisticsService.KillsDict[_AssignedPlayerId.Value].Count.ToString();
             }

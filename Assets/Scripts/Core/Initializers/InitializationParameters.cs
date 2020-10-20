@@ -60,9 +60,9 @@ namespace Core.Initialization {
             new RegisterAndLoadServiceTask<GameManagerService>(),
             new WaitForAwakesTask(),
             new RegisterAndLoadServiceTask<BattleStatisticsService>(),
+            new RegisterAndLoadServiceTask<RespawnModeService>(),
             new GameUISpawnTask(),
             new GameCameraSpawnTask(),
-            new RegisterAndLoadServiceTask<RespawnModeService>(),
             new DisableObjectsIfGameWithBotsTask(), //ToDo: Remove
             new RegisterAndLoadServiceTask<ObjectsSpawnService>(),
             new StartMatchTask(),

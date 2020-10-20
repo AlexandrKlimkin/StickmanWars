@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Game.Character.Health;
 using Character.Health;
 using Game.Match;
 using KlimLib.SignalBus;
@@ -35,7 +36,7 @@ namespace Core.Services.Game {
 
         public IReadOnlyDictionary<byte, int> PlayersLifesDict => _PlayersLifesDict;
 
-        public const int PlayerLifes = 2;
+        public const int PlayerLifes = 3;
         private const float _RespawnDelay = 2f;
 
 
@@ -50,6 +51,7 @@ namespace Core.Services.Game {
 
         public void Unload() {
             _SignalBus.UnSubscribeFromAll(this);
+            ContainerHolder.Container.Unregister<IPlayerLifesCounter>();
         }
 
         private void InitializeNewMatch() {
@@ -104,6 +106,7 @@ namespace Core.Services.Game {
             else {
                 PlayerDefeated(playerId);
             }
+            _SignalBus.FireSignal(new PlayersLifesChangedSignal(playerId)); // Todo: Remove
         }
 
         private IEnumerator RespawnRoutine(byte playerId) {
