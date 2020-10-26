@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 6726360523302912760}
   - component: {fileID: 3017729108957783455}
   - component: {fileID: -2876185567439430661}
+  - component: {fileID: 7553224156018521725}
   - component: {fileID: 5911491089988973796}
   - component: {fileID: 8444042851038254120}
   - component: {fileID: 3204002030724636861}
@@ -221,6 +222,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollidersContainer: {fileID: 4158809811156441188}
   ShootTransform: {fileID: 2686587726837220741}
+--- !u!114 &7553224156018521725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6726360523302912758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e5ceab6515f114a881829636116954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5911491089988973796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,15 +243,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 6726360523302912758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9273c4c2d1f64e4498f69ba3fd489fd9, type: 3}
+  m_Script: {fileID: 11500000, guid: c855cf34fcd20e44082b1044300e9859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _Stats: {fileID: 11400000, guid: 46e617a3f12ad4b4595795a9ce0adbb8, type: 2}
   PickupType: 0
   _Id: Grenade
-  ShotSoundEffects: []
-  ProjectileName: 
+  ShotSoundEffects:
+  - Throwing
   ShotCameraShakePresetName: 
+  _ShellEffectPoint: {fileID: 0}
+  _ShellEffectName: 
+  _MuzzleFlashEffectPoints: []
+  _MuzzleFlashEffectNames: []
+  ProjectileName: 
 --- !u!114 &8444042851038254120
 MonoBehaviour:
   m_ObjectHideFlags: 0

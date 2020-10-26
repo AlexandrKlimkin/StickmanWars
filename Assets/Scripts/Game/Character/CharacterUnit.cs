@@ -86,7 +86,7 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         ContainerHolder.Container.BuildUp(this);
         OwnerId = ownerId;
         CharacterId = characterId;
-        MaxHealth = 130f; //Todo: Config
+        MaxHealth = 130000f; //Todo: Config
         Health = MaxHealth;
         IsBot = isBot;
         DamageBuffer?.Initialize(this, 3f);

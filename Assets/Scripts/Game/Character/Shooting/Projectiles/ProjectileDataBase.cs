@@ -10,5 +10,8 @@ namespace Character.Shooting
         public float LifeTime;
         public float BirthTime;
         public Damage Damage;
+        public float Force;
+        public float Speed;
+        public byte OwnerId;
     }
 }

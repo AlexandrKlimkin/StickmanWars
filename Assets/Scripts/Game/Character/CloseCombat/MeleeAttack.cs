@@ -13,7 +13,6 @@ namespace Character.CloseCombat {
     public class MeleeAttack : Weapon {
         public override ItemType ItemType => ItemType.MeleeAttack;
 
-        public override WeaponInputProcessor InputProcessor => _SingleAttackProcessor ?? (_SingleAttackProcessor = new SingleShotProcessor(this));
         private SingleShotProcessor _SingleAttackProcessor;
 
         private Coroutine _MeleeAttackRoutine = null;

@@ -529,6 +529,7 @@ GameObject:
   - component: {fileID: 1802286954}
   - component: {fileID: 3689497979007992750}
   - component: {fileID: 6208632951896573471}
+  - component: {fileID: 4742112720420580477}
   - component: {fileID: 1101390317}
   - component: {fileID: 4657001000638088539}
   - component: {fileID: 1477097221565544132}
@@ -614,7 +615,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2888260986880051133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce60157ecd052c0428e577672bf8489b, type: 3}
+  m_Script: {fileID: 11500000, guid: ba567b55b3d8f134986132e9e2f98206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4742112720420580477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888260986880051133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2efcdffcdc07b244b9dac18909598b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _Stats: {fileID: 11400000, guid: fb9725a9a02ff8f4b8a3507a1985b7d4, type: 2}
@@ -622,7 +635,6 @@ MonoBehaviour:
   _Id: Uzi
   ShotSoundEffects:
   - ShotUzi
-  ProjectileName: Projectile_Small
   ShotCameraShakePresetName: 
   _ShellEffectPoint: {fileID: 1621562587866599769}
   _ShellEffectName: ShellEffect_Uzi
@@ -632,6 +644,7 @@ MonoBehaviour:
   - Muzzle_Flash1
   - Muzzle_Flash2
   - Muzzle_Flash3
+  ProjectileName: Projectile_Small
 --- !u!114 &1101390317
 MonoBehaviour:
   m_ObjectHideFlags: 0

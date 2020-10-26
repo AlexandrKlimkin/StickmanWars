@@ -524,6 +524,7 @@ GameObject:
   - component: {fileID: 1802286954}
   - component: {fileID: 3689497979007992750}
   - component: {fileID: 4795353201214904644}
+  - component: {fileID: 6111092504481902028}
   - component: {fileID: 67721363617865379}
   - component: {fileID: 7823251125579098633}
   - component: {fileID: 1030295507717541103}
@@ -612,13 +613,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d8e4be541b1fa468977a116efdbcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6111092504481902028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888260986880051133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2efcdffcdc07b244b9dac18909598b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _Stats: {fileID: 11400000, guid: 705cea8c7fd3f1c45bfa333085632cae, type: 2}
   PickupType: 0
   _Id: Shotgun
   ShotSoundEffects:
   - ShotShotgun
-  ProjectileName: Projectile_Shotgun
   ShotCameraShakePresetName: 
+  ProjectileName: Projectile_Shotgun
   _ShellEffectPoint: {fileID: 2045092268275970114}
   _ShellEffectName: ShellEffect
   _MuzzleFlashEffectPoints:

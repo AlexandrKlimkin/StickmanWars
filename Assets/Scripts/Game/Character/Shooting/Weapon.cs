@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Character.CloseCombat;
 using Character.Health;
+using Com.LuisPedroFonseca.ProCamera2D;
 using Core.Audio;
 using Items;
 using UnityDI;
@@ -16,7 +17,7 @@ namespace Character.Shooting {
         public WeaponView WeaponView { get; protected set; }
         public PickableItem PickableItem { get; protected set; }
 
-        public abstract WeaponInputProcessor InputProcessor { get; }
+        public WeaponInputProcessor InputProcessor { get; private set; }
 
         [SerializeField]
         protected WeaponConfig _Stats;
@@ -31,12 +32,16 @@ namespace Character.Shooting {
 
         public event Action OnNoAmmo;
 
+        public string ShotCameraShakePresetName;
+
         [Dependency]
         protected readonly AudioService _AudioService;
 
         public virtual void PerformShot() {
             if (InputProcessor.CurrentMagazine <= 0)
                 OnNoAmmo?.Invoke();
+            if (ProCamera2DShake.Instance != null && !string.IsNullOrEmpty(ShotCameraShakePresetName))
+                ProCamera2DShake.Instance.Shake(ShotCameraShakePresetName);
             PlayShotSound();
         }
 
@@ -79,6 +84,10 @@ namespace Character.Shooting {
             else if (WeaponReaction == WeaponReactionType.Jump)
                 owner?.MovementController?.UnSubscribeWeaponOnEvents(this);
             PickableItem.ThrowOut(startVelocity, angularVel);
+        }
+
+        public virtual void SetInputProcessor(WeaponInputProcessor inputProcessor) {
+            InputProcessor = inputProcessor;
         }
 
         protected virtual Damage GetDamage() {

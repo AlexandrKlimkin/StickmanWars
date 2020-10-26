@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 1802286954}
   - component: {fileID: 3689497979007992750}
   - component: {fileID: -6823359592472144862}
+  - component: {fileID: 5283210256756666629}
   - component: {fileID: 1101390317}
   - component: {fileID: 6212469348490715252}
   - component: {fileID: 1844138444}
@@ -442,14 +443,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d8e4be541b1fa468977a116efdbcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5283210256756666629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888260986880051133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2efcdffcdc07b244b9dac18909598b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _Stats: {fileID: 11400000, guid: a9bc36bf8deb7aa439f3a266e694f6b7, type: 2}
-  PickupType: 0
+  PickupType: 1
   _Id: Bazooka
   ShotSoundEffects:
   - ShotRocket
-  ProjectileName: Projectile_Bazooka
   ShotCameraShakePresetName: 
-  _ShellEffectPoint: {fileID: 0}
+  ProjectileName: Projectile_Bazooka
+  _ShellEffectPoint: {fileID: 1621562587866599769}
   _ShellEffectName: 
   _MuzzleFlashEffectPoints: []
   _MuzzleFlashEffectNames: []

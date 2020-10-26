@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 6726360523302912760}
   - component: {fileID: 3017729108957783455}
   - component: {fileID: -2876185567439430661}
+  - component: {fileID: 8616403814323768595}
   - component: {fileID: 5911491089988973796}
   - component: {fileID: 4006482121178286764}
   - component: {fileID: 872710027440348436}
@@ -209,6 +210,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollidersContainer: {fileID: 4158809811156441188}
   ShootTransform: {fileID: 2686587726837220741}
+--- !u!114 &8616403814323768595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6726360523302912758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 777c49bb49e037a40a76f4fa73770d7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5911491089988973796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,8 +238,8 @@ MonoBehaviour:
   PickupType: 0
   _Id: Brick
   ShotSoundEffects: []
-  ProjectileName: 
   ShotCameraShakePresetName: 
+  ProjectileName: 
 --- !u!114 &4006482121178286764
 MonoBehaviour:
   m_ObjectHideFlags: 0

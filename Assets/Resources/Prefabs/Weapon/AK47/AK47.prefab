@@ -560,6 +560,7 @@ GameObject:
   - component: {fileID: 1802286954}
   - component: {fileID: 3689497979007992750}
   - component: {fileID: 6208632951896573471}
+  - component: {fileID: 2511631543706330738}
   - component: {fileID: 1101390317}
   - component: {fileID: 7683704156594050618}
   - component: {fileID: 8190306439696690885}
@@ -645,7 +646,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2888260986880051133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce60157ecd052c0428e577672bf8489b, type: 3}
+  m_Script: {fileID: 11500000, guid: ba567b55b3d8f134986132e9e2f98206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2511631543706330738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888260986880051133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2efcdffcdc07b244b9dac18909598b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _Stats: {fileID: 11400000, guid: b0f83fbaf246838478734824645dfd59, type: 2}
@@ -653,7 +666,6 @@ MonoBehaviour:
   _Id: AK47
   ShotSoundEffects:
   - ShotRiffle
-  ProjectileName: Projectile_Middle
   ShotCameraShakePresetName: 
   _ShellEffectPoint: {fileID: 1621562587866599769}
   _ShellEffectName: ShellEffect
@@ -663,6 +675,7 @@ MonoBehaviour:
   - Muzzle_Flash1
   - Muzzle_Flash2
   - Muzzle_Flash3
+  ProjectileName: Projectile_Middle
 --- !u!114 &1101390317
 MonoBehaviour:
   m_ObjectHideFlags: 0

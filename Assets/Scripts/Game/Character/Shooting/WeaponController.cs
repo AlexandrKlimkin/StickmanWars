@@ -57,12 +57,12 @@ namespace Character.Shooting {
 
         private void Update() {
             if(MainWeapon == null) {
-                MeleeAttack?.InputProcessor.Process();
+                MeleeAttack?.InputProcessor?.Process();
             }
             else  {
-                MainWeapon.InputProcessor.Process();
+                MainWeapon.InputProcessor?.Process();
             }
-            Vehicle?.InputProcessor.Process();
+            Vehicle?.InputProcessor?.Process();
 
         }
 

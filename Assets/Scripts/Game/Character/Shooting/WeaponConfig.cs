@@ -23,21 +23,15 @@ namespace Character.Shooting
         public float MaxThrowStartSpeed;
         public float MaxForceTime;
 
-        [Header("Int")]
         public int Magazine;
         public int ProjectilesInShot = 1;
 
-        [Header ("Bools")]
         public bool MagazineLimited = true;
-
-        [Header("CanPickedUpAfterThrown")]
         public bool CanPickedUp = false;
 
-        [Header("Damage up per time")]
         public bool TensionDamage = false;
-
-        [Header("Min/Max damage under tension")]
         public float MinTensionDamage;
         public float MaxTensionDamage;
+
     }
 }

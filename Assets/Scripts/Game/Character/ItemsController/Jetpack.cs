@@ -10,7 +10,6 @@ namespace Items.Jetpack {
         private Transform _RocketEffectTransform;
         public override ItemType ItemType => ItemType.Vehicle;
         public override WeaponReactionType WeaponReaction => WeaponReactionType.Jump;
-        public override WeaponInputProcessor InputProcessor => _AutoFireProcessor ?? (_AutoFireProcessor = new AutoFireProcessor(this));
         private AutoFireProcessor _AutoFireProcessor;
         private AttachedParticleEffect _RocketEffect;
 

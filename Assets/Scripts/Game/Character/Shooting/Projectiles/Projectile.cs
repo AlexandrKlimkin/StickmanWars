@@ -15,6 +15,11 @@ namespace Character.Shooting {
 
         protected bool _Hit;
 
+        public Transform TrailTransformOverride;
+        public string TrailName;
+
+        protected AttachedParticleEffect _Trail;
+
         public virtual void Setup(D data) {
             Data = data;
             transform.position = data.Position;
@@ -25,6 +30,7 @@ namespace Character.Shooting {
 
         protected virtual void Initialize() {
             Initialized = true;
+            AttachTrail();
         }
 
         protected override IEnumerator PlayTask() {
@@ -42,9 +48,12 @@ namespace Character.Shooting {
         protected virtual void KillProjectile() {
             this.gameObject.SetActive(false);
             Initialized = false;
+            DetachTrail();
         }
 
         protected virtual void PerformHit(IDamageable damageable, bool killProjectile = true) {
+            damageable?.Collider?.attachedRigidbody?.AddForceAtPosition(new Vector2(transform.forward.x, transform.forward.y) * Data.Force, transform.position);
+
             if (killProjectile)
                 KillProjectile();
             _Hit = true;
@@ -61,6 +70,23 @@ namespace Character.Shooting {
                 effect.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360f));
                 effect.Play();
             }
+        }
+
+        protected virtual void AttachTrail() {
+            if (string.IsNullOrEmpty(TrailName))
+                return;
+            _Trail = GetEffect<AttachedParticleEffect>(TrailName);
+            _Trail.gameObject.SetActive(true);
+            var target = TrailTransformOverride ?? this.transform;
+            _Trail.SetTarget(target);
+            _Trail.Play();
+        }
+
+        protected virtual void DetachTrail() {
+            if (_Trail == null)
+                return;
+            //_Trail.SetTarget(null);
+            _Trail = null;
         }
 
         protected virtual void ApplyDamage(IDamageable damageable, Damage dmg) {

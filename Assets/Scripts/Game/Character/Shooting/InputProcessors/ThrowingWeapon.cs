@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Character.Shooting {
     public class ThrowingWeapon : LongRangeWeapon<ThrowingProjectile, ThrowingProjectileData> {
-        public override WeaponInputProcessor InputProcessor => _FireForceProcessor ?? (_FireForceProcessor = new FireForceProcessor(this));
+
         public bool CanBePicked { get; private set; }
 
         private FireForceProcessor _FireForceProcessor;
@@ -33,6 +33,11 @@ namespace Character.Shooting {
             }
 
             return data;
+        }
+
+        public override void SetInputProcessor(WeaponInputProcessor inputProcessor) {
+            base.SetInputProcessor(inputProcessor);
+            _FireForceProcessor = (FireForceProcessor)inputProcessor;
         }
 
         public override bool PickUp(CharacterUnit owner) {
