@@ -11,26 +11,42 @@ namespace Character.Shooting {
         public float ActivationTime;
         public float GuidanceSmoothness;
         public float TargetSearchRadius;
+        public float StartSpeed;
 
         //private Vector2 _LastTargetPos;
 
+        private Rigidbody2D _Rigidbody;
         private Transform _Target;
         private float _Timer;
 
         private ContactFilter2D _Filter = new ContactFilter2D() { useTriggers = false };
 
+        private void Awake() {
+            _Rigidbody = GetComponent<Rigidbody2D>();
+        }
+
+        private bool _FirstSimulate;
+
         public override void Simulate(float time) {
-            Vector3 nextPos;
+            if (_FirstSimulate) {
+                _FirstSimulate = false;
+                _Rigidbody.velocity = transform.forward * StartSpeed;
+            }
             _Timer += time;
             var activated = _Timer >= ActivationTime;
-            if(activated && !_Target)
-                FindTarget();
-            if (activated && _Target) {
-                var targetVector = (_Target.position - transform.position);
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(targetVector, Vector3.forward), time * GuidanceSmoothness);
+            if (!activated) {
+                transform.rotation = Quaternion.LookRotation(_Rigidbody.velocity);
+                return;
             }
-            nextPos = transform.position + transform.forward * Data.Speed * time;
-
+            if (!_Target)
+                FindTarget();
+            else {
+                var targetVector = (_Target.position - transform.position);
+                var targetRotation = Quaternion.LookRotation(targetVector);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, time * GuidanceSmoothness);
+            }
+            _Rigidbody.simulated = false;
+            var nextPos = transform.position + transform.forward * Data.Speed * time;
             List<RaycastHit2D> results = new List<RaycastHit2D>();
             var hitsCount = Physics2D.Linecast(transform.position, nextPos, _Filter, results);
             var hit = results.FirstOrDefault();
@@ -44,6 +60,8 @@ namespace Character.Shooting {
             base.Setup(data);
             _Timer = 0;
             _Target = null;
+            _Rigidbody.simulated = true;
+            _FirstSimulate = true;
         }
 
         private void FindTarget() {

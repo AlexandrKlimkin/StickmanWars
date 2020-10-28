@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 97854262729347068}
   - component: {fileID: 4457380217127543424}
+  - component: {fileID: 8165478286339491485}
+  - component: {fileID: 4906871418893352100}
   m_Layer: 0
   m_Name: Projectile_Rocket
   m_TagString: Untagged
@@ -48,9 +50,57 @@ MonoBehaviour:
   - ProjectileHitExplosion
   TrailTransformOverride: {fileID: 0}
   TrailName: 
-  ActivationTime: 0.5
+  ActivationTime: 1
   GuidanceSmoothness: 4
   TargetSearchRadius: 1000
+  StartSpeed: 250
+--- !u!50 &8165478286339491485
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2218972483555539818}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 4
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!61 &4906871418893352100
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2218972483555539818}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &2304586069294923877
 GameObject:
   m_ObjectHideFlags: 0
