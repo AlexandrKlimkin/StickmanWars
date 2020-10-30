@@ -16,14 +16,12 @@ namespace Core.Services.Game {
         [Dependency]
         private readonly MatchData _MatchData;
 
-        private Dictionary<byte, List<KillData>> _KillsDict = new Dictionary<byte, List<KillData>>();
+        private Dictionary<byte, List<KillData>> _KillsDict;
         public IReadOnlyDictionary<byte, List<KillData>> KillsDict => _KillsDict;
 
         public void Load() {
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
-            foreach(var playerData in _MatchData.Players) {
-                _KillsDict.Add(playerData.PlayerId, new List<KillData>());
-            }
+            _SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
         }
 
         public void Unload() {
@@ -40,6 +38,13 @@ namespace Core.Services.Game {
             if (!_KillsDict.ContainsKey(instigator))
                 _KillsDict.Add(instigator, new List<KillData>());
             _KillsDict[instigator].Add(new KillData(instigator, dmg.Receiver.OwnerId.Value));
+        }
+
+        private void OnMatchStart(MatchStartSignal signal) {
+            _KillsDict = new Dictionary<byte, List<KillData>>();
+            foreach (var playerData in _MatchData.Players) {
+                _KillsDict.Add(playerData.PlayerId, new List<KillData>());
+            }
         }
     }
 }

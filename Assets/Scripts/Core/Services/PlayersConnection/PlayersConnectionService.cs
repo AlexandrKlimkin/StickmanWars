@@ -40,6 +40,8 @@ namespace Core.Services.Game {
 
         public const int MaxPlayerCount = 4;
 
+        public int MaxBotsCount { get; set; } = MaxPlayerCount - 1;
+
         public void Load() {
             if (!_SceneManagerService.IsGameScene)
                 _EventProvider.OnUpdate += ProcessPlayersConnect;
@@ -104,15 +106,13 @@ namespace Core.Services.Game {
         }
 
         public void AddBots() {
-            if (RespawnModeConfig.Instance.UseBots) {
-                var playersDontPlay = 4 - _MatchData.Players.Count;
-                var botsNeedToSpawn = Mathf.Min(playersDontPlay, RespawnModeConfig.Instance.MaxBotsCount);
-                byte maxIndex = _MatchData.Players.Count > 0 ? _MatchData.Players.Max(_ => _.PlayerId) : (byte)0;
-                maxIndex++;
-                for (byte index = maxIndex; index < maxIndex + botsNeedToSpawn; index++) {
-                    var player = new PlayerData(AllocatePlayerId(), index.ToString(), true, index, "Robot");
-                    _MatchService.AddPlayer(player);
-                }
+            var playersDontPlay = 4 - _MatchData.Players.Count;
+            var botsNeedToSpawn = Mathf.Min(playersDontPlay, MaxBotsCount);
+            byte maxIndex = _MatchData.Players.Count > 0 ? _MatchData.Players.Max(_ => _.PlayerId) : (byte)0;
+            maxIndex++;
+            for (byte index = maxIndex; index < maxIndex + botsNeedToSpawn; index++) {
+                var player = new PlayerData(AllocatePlayerId(), index.ToString(), true, index, "Robot");
+                _MatchService.AddPlayer(player);
             }
         }
 

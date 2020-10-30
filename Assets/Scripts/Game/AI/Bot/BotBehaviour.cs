@@ -47,7 +47,7 @@ namespace Game.AI {
         protected override void Awake() {
             base.Awake();
             ContainerHolder.Container.BuildUp(this);
-            _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeathSignal, this);
+            //_SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeathSignal, this);
             _MovementData = BehaviourTree.Blackboard.Get<MovementData>();
             CharacterUnit.WeaponController.OnWeaponEquiped += OnWeaponEquip;
             CharacterUnit.WeaponController.OnVehicleEquiped += OnVehicleEquiped;
@@ -68,19 +68,23 @@ namespace Game.AI {
 
         }
 
-        private void OnCharacterDeathSignal(CharacterDeathSignal signal) {
-            if (signal.Damage.Receiver != CharacterUnit as IDamageable)
-                return;
+        //private void OnCharacterDeathSignal(CharacterDeathSignal signal) {
+        //    if (signal.Damage.Receiver != CharacterUnit as IDamageable)
+        //        return;
+        //    foreach (var task in BehaviourTree.Tasks) {
+        //        if (task is BuildedTask)
+        //            ((BuildedTask)task).UpdatedTask = false;
+        //    }
+        //}
+
+        protected virtual void OnDestroy() {
+            CharacterUnit.WeaponController.OnWeaponEquiped -= OnWeaponEquip;
+            CharacterUnit.WeaponController.OnVehicleEquiped -= OnVehicleEquiped;
+            _SignalBus.UnSubscribeFromAll(this);
             foreach (var task in BehaviourTree.Tasks) {
                 if (task is BuildedTask)
                     ((BuildedTask)task).UpdatedTask = false;
             }
-        }
-
-        protected virtual void OnDestoy() {
-            CharacterUnit.WeaponController.OnWeaponEquiped -= OnWeaponEquip;
-            CharacterUnit.WeaponController.OnVehicleEquiped -= OnVehicleEquiped;
-            _SignalBus.UnSubscribeFromAll(this);
         }
 
         private void Update() {
