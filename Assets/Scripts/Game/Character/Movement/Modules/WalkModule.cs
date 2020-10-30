@@ -61,7 +61,7 @@ namespace Character.Movement.Modules {
                 ProcessRunSound(false);
             }
             if (CommonData.WeaponController.MeleeAttacking) {
-                _TargetXVelocity = 0;
+                _TargetXVelocity *= 0.8f;
             }
         }
 
