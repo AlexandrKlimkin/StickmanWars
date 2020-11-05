@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3194724793190089568}
   - component: {fileID: 481043350901620145}
   - component: {fileID: 369844855067255798}
-  - component: {fileID: 1637644485}
   - component: {fileID: 488752418787073017}
   - component: {fileID: 5207129655611201363}
   m_Layer: 0
@@ -31,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3194724793190089583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 48.6, y: 2.9, z: -100}
+  m_LocalPosition: {x: 0, y: 0, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -131,40 +130,6 @@ MonoBehaviour:
   IsCameraPositionTopBounded: 0
   IsCameraPositionBottomBounded: 0
   GameCamera: {fileID: 3194724793190089569}
---- !u!114 &1637644485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3194724793190089583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6903f12ac8ae44a41ba2a44700ec60ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pc2D: {fileID: 369844855067255798}
-  UseNumericBoundaries: 1
-  UseTopBoundary: 0
-  TopBoundary: 10
-  TargetTopBoundary: 0
-  UseBottomBoundary: 1
-  BottomBoundary: -10
-  TargetBottomBoundary: 0
-  UseLeftBoundary: 0
-  LeftBoundary: -10
-  TargetLeftBoundary: 0
-  UseRightBoundary: 0
-  RightBoundary: 10
-  TargetRightBoundary: 0
-  IsCameraPositionHorizontallyBounded: 0
-  IsCameraPositionVerticallyBounded: 0
-  CurrentBoundariesTrigger: {fileID: 0}
-  HasFiredTransitionStarted: 0
-  HasFiredTransitionFinished: 0
-  UseSoftBoundaries: 1
-  Softness: 0.5
-  SoftAreaSize: 0.1
 --- !u!114 &488752418787073017
 MonoBehaviour:
   m_ObjectHideFlags: 0

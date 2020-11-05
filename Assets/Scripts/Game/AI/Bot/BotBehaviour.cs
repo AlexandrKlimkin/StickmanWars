@@ -52,7 +52,7 @@ namespace Game.AI {
             CharacterUnit.WeaponController.OnWeaponEquiped += OnWeaponEquip;
             CharacterUnit.WeaponController.OnVehicleEquiped += OnVehicleEquiped;
 
-            CharacterUnit.Target = GameObject.FindGameObjectWithTag("AITarget").transform;
+           // CharacterUnit.Target = GameObject.FindGameObjectWithTag("AITarget").transform;
 
         }
 
