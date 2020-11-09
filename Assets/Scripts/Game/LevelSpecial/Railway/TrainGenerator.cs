@@ -5,28 +5,26 @@ using UnityEngine;
 
 namespace Game.LevelSpecial.Railway {
     public class TrainGenerator : MonoBehaviour {
-        public GameObject TrainTemplate;
+        public GameObject Train;
         public Vector2 TrainLengthVector;
-        public GameObject MainVan;
-        public GameObject[] VanPrefabs;
+        public VanMoveController MainVan;
+        public VanMoveController[] VanPrefabs;
         public Vector2 SpaceBetweenVansVector;
+
+        public VanMoveParameters Parameters;
 
         private void Start() {
             GenerateTrain();
         }
 
         private void GenerateTrain() {
-            var trainobj = Instantiate(TrainTemplate, transform);
-            trainobj.transform.localPosition = Vector3.zero;
-            trainobj.transform.localRotation = Quaternion.identity;
-
             var vansCount = UnityEngine.Random.Range(TrainLengthVector.x, TrainLengthVector.y);
 
             var vanXPos = 0f;
             var lastVanWidth = 0f;
             for (var i = 0; i < vansCount; i++) {
                 var vanPrefab = i > 0 ? VanPrefabs[UnityEngine.Random.Range(0, VanPrefabs.Length)] : MainVan;
-                var van = Instantiate(vanPrefab, trainobj.transform);
+                var van = Instantiate(vanPrefab, Train.transform);
                 var vanCollider = van.GetComponentInChildren<Collider2D>();
                 var vanWidth = vanCollider.bounds.size.x;
                 var vanWidthAdd = 0f;
@@ -35,9 +33,10 @@ namespace Game.LevelSpecial.Railway {
                     vanWidthAdd = vanWidth;
                     space = UnityEngine.Random.Range(SpaceBetweenVansVector.x, SpaceBetweenVansVector.y);
                 }
-                vanXPos -= (lastVanWidth / 2 + vanWidthAdd / 2 + space) / trainobj.transform.localScale.x;
+                vanXPos -= (lastVanWidth / 2 + vanWidthAdd / 2 + space) / Train.transform.localScale.x;
                 lastVanWidth = vanWidth;
                 van.transform.localPosition = new Vector3(vanXPos, 0, 0);
+                van.SetParameters(Parameters);
             }
         }
     }

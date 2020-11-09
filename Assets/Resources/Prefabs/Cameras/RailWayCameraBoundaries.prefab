@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 102217279589954615}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.87, y: 0.87, z: 0.87}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -51,13 +51,13 @@ MonoBehaviour:
   NumericBoundaries: {fileID: 0}
   AreBoundariesRelative: 1
   UseTopBoundary: 1
-  TopBoundary: 157.5
+  TopBoundary: 142.06
   UseBottomBoundary: 1
-  BottomBoundary: -165.1
+  BottomBoundary: -227.4
   UseLeftBoundary: 1
-  LeftBoundary: -280
+  LeftBoundary: -160
   UseRightBoundary: 1
-  RightBoundary: 280
+  RightBoundary: 479.39
   TransitionDuration: 1
   TransitionEaseType: 0
   ChangeZoom: 0
