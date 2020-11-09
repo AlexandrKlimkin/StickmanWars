@@ -6,47 +6,41 @@ namespace Game.LevelSpecial.Railway {
     public class VanMoveController : MonoBehaviour {
 
         private VanMoveParameters _Parameters;
-        private Rigidbody2D _Rigidbody;
-        private float _Timer;
-        private TrainState _TrainState = TrainState.NotMoving;
+        public Rigidbody2D Rigidbody { get; private set; }
+        public float Timer { get; private set; }
+        public SimpleDamageable SimpleDamageable { get; private set; }
+        public bool Moving => Timer >= _Parameters.Delay;
 
         void Awake() {
-            _Rigidbody = GetComponent<Rigidbody2D>();
+            Rigidbody = GetComponent<Rigidbody2D>();
+            SimpleDamageable = GetComponent<SimpleDamageable>();
         }
 
         public void SetParameters(VanMoveParameters parameters) {
             _Parameters = parameters;
         }
 
+        public void SetMoving(Vector2 velocity, float timer) {
+            Rigidbody.velocity = velocity;
+            Timer = timer;
+        }
+
         private void FixedUpdate() {
             if(_Parameters == null)
                 return;
-            if (_TrainState == TrainState.NotMoving)
-                NotMovingStateUpdate();
-            else if (_TrainState == TrainState.Accelerating)
-                AcceleratingStateUpdate();
-            else if (_TrainState == TrainState.Moving)
-                MovingStateUpdate();
-            _Timer += Time.fixedDeltaTime;
+            MovingUpdate();
+            Timer += Time.fixedDeltaTime;
         }
 
-        private void NotMovingStateUpdate() {
-            if (_Timer >= _Parameters.Delay)
-                _TrainState = TrainState.Accelerating;
-        }
-
-        private void AcceleratingStateUpdate() {
-            if (_Rigidbody.velocity.x < _Parameters.Velocity.x) {
-                _Rigidbody.velocity += _Parameters.Velocity.normalized * _Parameters.Acceleration * Time.deltaTime;
+        private void MovingUpdate() {
+            if (!Moving)
+                return;
+            if (Rigidbody.velocity.x < _Parameters.Velocity.x) {
+                Rigidbody.velocity += _Parameters.Velocity.normalized * _Parameters.Acceleration * Time.deltaTime;
+            } else {
+                Rigidbody.velocity = Vector2.ClampMagnitude(Rigidbody.velocity, _Parameters.Velocity.magnitude);
             }
-            else {
-                _Rigidbody.velocity = Vector2.ClampMagnitude(_Rigidbody.velocity, _Parameters.Velocity.magnitude);
-                _TrainState = TrainState.Moving;
-            }
-        }
-
-        private void MovingStateUpdate() {
-            if (!_Rotate && _Rigidbody.position.x >= _Parameters.StartRotationTransform.position.x) {
+            if (!_Rotate && Rigidbody.position.x >= _Parameters.StartRotationTransform.position.x) {
                 _StartRotationTime = Time.time;
                 _Rotate = true;
             }
@@ -55,20 +49,15 @@ namespace Game.LevelSpecial.Railway {
                 var normilizedRotateTime = Mathf.Clamp01(rotateTime / _Parameters.RotationTime);
                 var curveValue = _Parameters.FallingRotationCurve.Evaluate(normilizedRotateTime);
                 var angularVelocity = curveValue * _Parameters.MaxAngularSpeed;
-                _Rigidbody.angularVelocity = angularVelocity;
+                Rigidbody.angularVelocity = angularVelocity;
             }
-            if (_Rigidbody.position.x >= _Parameters.StartGravityTransform.position.x) {
-                _Rigidbody.velocity += Vector2.down * _Parameters.GravityAcceleration * Time.fixedDeltaTime;
+            if (Rigidbody.position.x >= _Parameters.StartGravityTransform.position.x) {
+                Rigidbody.velocity += Vector2.down * _Parameters.GravityAcceleration * Time.fixedDeltaTime;
             }
         }
 
         private float _StartRotationTime = 0;
         private bool _Rotate = false;
 
-        private enum TrainState {
-            NotMoving,
-            Accelerating,
-            Moving,
-        }
     }
 }

@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 8326333971089747631}
   - component: {fileID: 6045251619429221443}
   - component: {fileID: 1353210475434936541}
+  - component: {fileID: 6074282757009249939}
   m_Layer: 19
   m_Name: VanSprite3
   m_TagString: Untagged
@@ -189,6 +190,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3d79b08644d1e4bac5fe9d78cbc9f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6074282757009249939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976600354721777595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946ad52d3c4638f4c9173d7b9aa8c691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartHealth: 0
+  UseHealth: 0
 --- !u!1001 &144379947245837589
 PrefabInstance:
   m_ObjectHideFlags: 0
