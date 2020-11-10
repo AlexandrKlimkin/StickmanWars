@@ -17,6 +17,7 @@ namespace Game.Physics {
         public bool PlayButton;
         public bool PlayOnStart;
         public bool PlayOnEnable;
+        public float ExplosionDelay;
         public LayerMask Layers;
         public float Radius;
         public float MaxForce;
@@ -24,7 +25,10 @@ namespace Game.Physics {
         public AnimationCurve StrenghtCurve;
         public float MaxVelocityMagnitude;
         public string CameraShakePresetName;
+        public List<ParticleSystem> VFXEffects;
         public List<string> AudioEffectNames;
+
+        private bool _BuiltUp;
 
         private void OnEnable() {
             if (PlayOnEnable)
@@ -33,17 +37,29 @@ namespace Game.Physics {
 
         protected virtual void Start() {
             if(PlayOnStart)
-                Play();
+                StartCoroutine(ExplosionRoutine());
+        }
+
+        private IEnumerator ExplosionRoutine() {
+            yield return new WaitForSeconds(ExplosionDelay);
+            Play();
         }
 
         private void PlaySound() {
-            ContainerHolder.Container.BuildUp(this);
             if (AudioEffectNames == null || AudioEffectNames.Count == 0)
                 return;
             _AudioService.PlaySound3D(AudioEffectNames[UnityEngine.Random.Range(0, AudioEffectNames.Count)], false, false, transform.position);
         }
 
+        private void PlayEffect() {
+            VFXEffects?.ForEach(_ => _.Play());
+        }
+
         public virtual void Play() {
+            if (!_BuiltUp) {
+                ContainerHolder.Container.BuildUp(this);
+                _BuiltUp = true;
+            }
             var colliders = Physics2D.OverlapCircleAll(transform.position.ToVector2(), Radius, Layers);
             var rigidbodies = new List<Rigidbody2D>();
             var damageables = new List<PartData>();
@@ -82,6 +98,7 @@ namespace Game.Physics {
             StartCoroutine(LimitVelocityAfterFixedUpdate(speedLimitsRbs));
             if(ProCamera2DShake.Instance != null && !string.IsNullOrEmpty(CameraShakePresetName))
                 ProCamera2DShake.Instance.Shake(CameraShakePresetName);
+            PlayEffect();
             PlaySound();
         }
 
@@ -103,9 +120,9 @@ namespace Game.Physics {
             });
         }
 
-        //protected virtual void OnDrawGizmos() {
-        //    Handles.color = Color.red;
-        //    Handles.DrawWireDisc(transform.position, Vector3.back, Radius);
-        //}
+        protected virtual void OnDrawGizmos() {
+            Handles.color = Color.red;
+            Handles.DrawWireDisc(transform.position, Vector3.back, Radius);
+        }
     }
 }

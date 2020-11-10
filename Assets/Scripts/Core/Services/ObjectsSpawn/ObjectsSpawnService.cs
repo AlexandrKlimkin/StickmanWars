@@ -26,6 +26,8 @@ namespace Core.Services.Game {
             while (true) {
                 if(!_GameManagerService.GameInProgress)
                     yield return null;
+                while (_Settings == null)
+                    yield return null;
                 if (WeaponsInfoContainer.AllWeapons.Count < _Settings.MaxCount) {
                     var randomIndex = Random.Range(0, _Settings.ObjectsSpawnData.Count);
                     var randomObjectData = _Settings.ObjectsSpawnData[randomIndex];

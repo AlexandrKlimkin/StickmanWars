@@ -40,7 +40,7 @@ namespace Core.Services.Game {
 
         public const int MaxPlayerCount = 4;
 
-        public int MaxBotsCount { get; set; } = MaxPlayerCount - 1;
+        public int MaxBotsCount { get; set; } = 0;// MaxPlayerCount - 1;
 
         public void Load() {
             if (!_SceneManagerService.IsGameScene)

@@ -822,7 +822,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 4
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 10
@@ -845,8 +845,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WalkParameters:
     Speed: 130
-    GroundAcceleration: 15
-    AirAcceleration: 5
+    GroundAcceleration: 13
+    AirAcceleration: 4.5
     IkTransform: {fileID: 5597976798365144394}
     RunSoundEffectName: 
   GroundCheckParameters:
@@ -1277,8 +1277,8 @@ MonoBehaviour:
   _Id: Attack1
   ShotSoundEffects: []
   RecoilForce:
-  - {x: 20000, y: 0}
-  - {x: 30000, y: 0}
+  - {x: 25000, y: 0}
+  - {x: 50000, y: 0}
   DamageTrigger: {fileID: 1581560736081070979}
   Owner: {fileID: 0}
   AudioEffectNames: []
@@ -3482,7 +3482,7 @@ PrefabInstance:
     - target: {fileID: 504402483389360986, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 819
+      value: 529203
       objectReference: {fileID: 0}
     - target: {fileID: 1179529789131639477, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
@@ -3671,7 +3671,7 @@ PrefabInstance:
     - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 38707
+      value: 562995
       objectReference: {fileID: 0}
     - target: {fileID: 42787406825865337, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
@@ -3763,7 +3763,7 @@ PrefabInstance:
     - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 38707
+      value: 562995
       objectReference: {fileID: 0}
     - target: {fileID: 42787406825865337, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
@@ -3855,7 +3855,7 @@ PrefabInstance:
     - target: {fileID: 504402483389360986, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 819
+      value: 529203
       objectReference: {fileID: 0}
     - target: {fileID: 1179529789131639477, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
@@ -3947,7 +3947,7 @@ PrefabInstance:
     - target: {fileID: 504402483389360986, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 819
+      value: 529203
       objectReference: {fileID: 0}
     - target: {fileID: 1179529789131639477, guid: cb167d1e9bf9b1948bd680ea5de74879,
         type: 3}
@@ -4039,7 +4039,7 @@ PrefabInstance:
     - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 38707
+      value: 562995
       objectReference: {fileID: 0}
     - target: {fileID: 42787406825865337, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
@@ -4191,7 +4191,7 @@ PrefabInstance:
     - target: {fileID: 8774489497689066328, guid: ffa6db22b859c3d4eb2b2037102ef1bd,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 819
+      value: 529203
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa6db22b859c3d4eb2b2037102ef1bd, type: 3}
@@ -4283,7 +4283,7 @@ PrefabInstance:
     - target: {fileID: 8774489497689066328, guid: ffa6db22b859c3d4eb2b2037102ef1bd,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 819
+      value: 529203
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa6db22b859c3d4eb2b2037102ef1bd, type: 3}
@@ -4375,7 +4375,7 @@ PrefabInstance:
     - target: {fileID: 8774489497689066328, guid: ffa6db22b859c3d4eb2b2037102ef1bd,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 819
+      value: 529203
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa6db22b859c3d4eb2b2037102ef1bd, type: 3}

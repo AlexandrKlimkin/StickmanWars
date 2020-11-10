@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2fef07e7f8cc44e96729bdc8a5b040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MaxHealth: 40
+  _MaxHealth: 40000
   _PartPrefabs1:
   - {fileID: 2749896854630615780, guid: 462694e8609afcd439722c25abbd0634, type: 3}
   - {fileID: 1259843051773129081, guid: 58c76082e039ae447a656a488a25747c, type: 3}
@@ -204,5 +204,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.8, y: 12.8}
+  m_Size: {x: 13, y: 13}
   m_EdgeRadius: 0

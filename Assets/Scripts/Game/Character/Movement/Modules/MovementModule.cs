@@ -2,6 +2,7 @@
 using Character.Movement.Modules;
 using Tools.BehaviourTree;
 using UnityDI;
+using UnityEngine;
 
 public abstract class MovementModule : IMovementModule
 {
@@ -18,4 +19,6 @@ public abstract class MovementModule : IMovementModule
     public virtual void Update() { }
     public virtual void LateUpdate() { }
     public virtual void FixedUpdate() { }
+    public virtual void OnCollisionEnter2D(Collision2D collision) { }
+    public virtual void OnCollisionExit2D(Collision2D collision) { }
 }

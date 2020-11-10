@@ -339,6 +339,29 @@ namespace Com.LuisPedroFonseca.ProCamera2D
 
             if (SetAsStartingBoundaries)
                 Gizmos.DrawIcon(VectorHVD(Vector3H(transform.position), Vector3V(transform.position), cameraDepthOffset), "ProCamera2D/gizmo_icon_start.png", false);
+
+            var cameraCenter = VectorHVD(Vector3H(transform.position), Vector3V(transform.position), cameraDepthOffset);
+            var cameraDimensions = Utils.GetScreenSizeInWorldCoords(ProCamera2D.GetComponent<Camera>(), Mathf.Abs(Vector3D(ProCamera2D.transform.localPosition)));
+
+            if (UseTopBoundary) {
+                Gizmos.DrawRay(VectorHVD(Vector3H(transform.position) - cameraDimensions.x / 2, _targetTopBoundary, cameraDepthOffset), ProCamera2D.transform.right * cameraDimensions.x);
+                Utils.DrawArrowForGizmo(cameraCenter, VectorHV(0, _targetTopBoundary - Vector3V(transform.position)));
+            }
+
+            if (UseBottomBoundary) {
+                Gizmos.DrawRay(VectorHVD(Vector3H(transform.position) - cameraDimensions.x / 2, _targetBottomBoundary, cameraDepthOffset), ProCamera2D.transform.right * cameraDimensions.x);
+                Utils.DrawArrowForGizmo(cameraCenter, VectorHV(0, _targetBottomBoundary - Vector3V(transform.position)));
+            }
+
+            if (UseRightBoundary) {
+                Gizmos.DrawRay(VectorHVD(_targetRightBoundary, Vector3V(transform.position) - cameraDimensions.y / 2, cameraDepthOffset), ProCamera2D.transform.up * cameraDimensions.y);
+                Utils.DrawArrowForGizmo(cameraCenter, VectorHV(_targetRightBoundary - Vector3H(transform.position), 0));
+            }
+
+            if (UseLeftBoundary) {
+                Gizmos.DrawRay(VectorHVD(_targetLeftBoundary, Vector3V(transform.position) - cameraDimensions.y / 2, cameraDepthOffset), ProCamera2D.transform.up * cameraDimensions.y);
+                Utils.DrawArrowForGizmo(cameraCenter, VectorHV(_targetLeftBoundary - Vector3H(transform.position), 0));
+            }
         }
 
         void OnDrawGizmosSelected()
@@ -347,35 +370,10 @@ namespace Com.LuisPedroFonseca.ProCamera2D
                 return;
             
             float cameraDepthOffset = Vector3D(ProCamera2D.transform.localPosition) + Mathf.Abs(Vector3D(ProCamera2D.transform.localPosition)) * Vector3D(ProCamera2D.transform.forward);
-            var cameraCenter = VectorHVD(Vector3H(transform.position), Vector3V(transform.position), cameraDepthOffset);
-            var cameraDimensions = Utils.GetScreenSizeInWorldCoords(ProCamera2D.GetComponent<Camera>(), Mathf.Abs(Vector3D(ProCamera2D.transform.localPosition)));
 
             GetTargetBoundaries();
 
             Gizmos.color = EditorPrefsX.GetColor(PrefsData.BoundariesTriggerColorKey, PrefsData.BoundariesTriggerColorValue);
-            if (UseTopBoundary)
-            {
-                Gizmos.DrawRay(VectorHVD(Vector3H(transform.position) - cameraDimensions.x / 2, _targetTopBoundary, cameraDepthOffset), ProCamera2D.transform.right * cameraDimensions.x);
-                Utils.DrawArrowForGizmo(cameraCenter, VectorHV(0, _targetTopBoundary - Vector3V(transform.position)));
-            }
-
-            if (UseBottomBoundary)
-            {
-                Gizmos.DrawRay(VectorHVD(Vector3H(transform.position) - cameraDimensions.x / 2, _targetBottomBoundary, cameraDepthOffset), ProCamera2D.transform.right * cameraDimensions.x);
-                Utils.DrawArrowForGizmo(cameraCenter, VectorHV(0, _targetBottomBoundary - Vector3V(transform.position)));
-            }
-
-            if (UseRightBoundary)
-            {
-                Gizmos.DrawRay(VectorHVD(_targetRightBoundary, Vector3V(transform.position) - cameraDimensions.y / 2, cameraDepthOffset), ProCamera2D.transform.up * cameraDimensions.y);
-                Utils.DrawArrowForGizmo(cameraCenter, VectorHV(_targetRightBoundary - Vector3H(transform.position), 0));
-            }
-
-            if (UseLeftBoundary)
-            {
-                Gizmos.DrawRay(VectorHVD(_targetLeftBoundary, Vector3V(transform.position) - cameraDimensions.y / 2, cameraDepthOffset), ProCamera2D.transform.up * cameraDimensions.y);
-                Utils.DrawArrowForGizmo(cameraCenter, VectorHV(_targetLeftBoundary - Vector3H(transform.position), 0));
-            }
         }
         #endif
     }

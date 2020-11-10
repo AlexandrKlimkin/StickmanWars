@@ -35,8 +35,15 @@ namespace Character.Movement.Modules {
 
         public override void FixedUpdate() {
             var xVelocity = CommonData.ObjRigidbody.velocity.x;
+            var xLocalvelocity = xVelocity;
+            var attachedRb = CommonData.MovementController.AttachedToRB;
+            if (attachedRb != null)
+                xLocalvelocity -= attachedRb.velocity.x;
             var acceleration = _GroundedData.MainGrounded ? _Parameters.GroundAcceleration : _Parameters.AirAcceleration;
-            xVelocity = Mathf.Lerp(xVelocity, _TargetXVelocity, Time.fixedDeltaTime * acceleration);
+            xLocalvelocity = Mathf.Lerp(xLocalvelocity, _TargetXVelocity, Time.fixedDeltaTime * acceleration);
+            xVelocity = xLocalvelocity;
+            if (attachedRb != null)
+                xVelocity += attachedRb.velocity.x;
             CommonData.ObjRigidbody.velocity = new Vector2(xVelocity, CommonData.ObjRigidbody.velocity.y);
         }
 
@@ -54,10 +61,9 @@ namespace Character.Movement.Modules {
                 ProcessRunSound(false);
             }
             if (CommonData.WeaponController.MeleeAttacking) {
-                _TargetXVelocity = 0;
+                _TargetXVelocity *= 0.8f;
             }
         }
-
 
         private AudioEffect _RunSoundEffect;
         private void ProcessRunSound(bool moving) {

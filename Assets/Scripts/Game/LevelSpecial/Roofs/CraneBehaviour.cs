@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.LevelSpecial.Roofs
-{
-    public class CraneBehaviour : MonoBehaviour
-    {
+namespace Game.LevelSpecial.Roofs {
+    public class CraneBehaviour : MonoBehaviour {
         public Vector2 DelayTimeRandom;
         public Vector2 DelayAfterRageRandom;
         public float DelayAfterAnimationStart;
@@ -17,20 +15,16 @@ namespace Game.LevelSpecial.Roofs
 
         private bool _LastIsMoving;
 
-        private void Start()
-        {
+        private void Start() {
             StartCoroutine(CraneRoutine());
         }
 
-        private void Update()
-        {
+        private void Update() {
 
         }
 
-        private IEnumerator CraneRoutine()
-        {
-            while (true)
-            {
+        private IEnumerator CraneRoutine() {
+            while (true) {
                 if (Platform) {
                     yield return SwitchCraneRoutine();
                     yield return new WaitForSeconds(Random.Range(DelayTimeRandom.x, DelayTimeRandom.y));
@@ -39,8 +33,7 @@ namespace Game.LevelSpecial.Roofs
             }
         }
 
-        private IEnumerator SwitchCraneRoutine()
-        {
+        private IEnumerator SwitchCraneRoutine() {
             CraneMan.SetTrigger("Rage");
             yield return new WaitForSeconds(Random.Range(DelayAfterRageRandom.x, DelayAfterRageRandom.y));
             CraneMan.SetTrigger("Change");

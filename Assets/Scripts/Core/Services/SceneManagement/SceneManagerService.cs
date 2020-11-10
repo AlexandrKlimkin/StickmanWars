@@ -19,8 +19,7 @@ namespace Core.Services.SceneManagement {
             { SceneType.CityCrane, new GameLoadingParameters() },
             { SceneType.MapTemplate, new GameLoadingParameters() },
             { SceneType.SewerBranch, new GameLoadingParameters() },
-
-
+            { SceneType.RailWay, new GameLoadingParameters() },
         };
 
         public SceneType ActiveScene {
@@ -91,5 +90,6 @@ namespace Core.Services.SceneManagement {
         CityCrane,
         MapTemplate,
         SewerBranch,
+        RailWay,
     }
 }
