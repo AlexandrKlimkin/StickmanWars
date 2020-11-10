@@ -108,13 +108,23 @@ PrefabInstance:
     - target: {fileID: 6171690667430873974, guid: 2b93e034072b55948b01b122ab4f1651,
         type: 3}
       propertyPath: m_Mass
-      value: 13
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6171690667430873974, guid: 2b93e034072b55948b01b122ab4f1651,
         type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 0e70a54356217eb448e482a36ffc40be, type: 2}
+    - target: {fileID: 6171690667430873974, guid: 2b93e034072b55948b01b122ab4f1651,
+        type: 3}
+      propertyPath: m_SleepingMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171690667430873974, guid: 2b93e034072b55948b01b122ab4f1651,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2168291459828728996, guid: 2b93e034072b55948b01b122ab4f1651, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2b93e034072b55948b01b122ab4f1651, type: 3}

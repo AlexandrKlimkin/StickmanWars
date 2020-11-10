@@ -46,11 +46,12 @@ MonoBehaviour:
   PlayButton: 0
   PlayOnStart: 0
   PlayOnEnable: 1
+  ExplosionDelay: 0
   Layers:
     serializedVersion: 2
     m_Bits: 4294967295
   Radius: 40
-  MaxForce: 75000
+  MaxForce: 120000
   MaxDamage: 70
   StrenghtCurve:
     serializedVersion: 2
@@ -78,5 +79,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   MaxVelocityMagnitude: 150
   CameraShakePresetName: shake_large_explosion
+  VFXEffects: []
   AudioEffectNames:
   - ExplosionBoom

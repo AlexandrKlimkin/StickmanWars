@@ -63,6 +63,10 @@ namespace Game.LevelSpecial.Railway {
                     van.SimpleDamageable.OnKill += OnVanKill;
                     vanIndex++;
                     lastVan = van;
+                    var boxGenerator = van.GetComponentInChildren<VanBoxesGenerator>();
+                    boxGenerator?.GenerateBoxes();
+                    var objectsGenerator = van.GetComponentInChildren<VanObjectsGenerator>();
+                    objectsGenerator?.Generate();
                 }
             }
         }

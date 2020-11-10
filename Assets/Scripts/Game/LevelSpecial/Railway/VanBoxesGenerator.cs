@@ -18,11 +18,11 @@ namespace Game.LevelSpecial.Railway {
         public float MaxHeight;
         public float YAddiction;
 
-        private void Start() {
-            GenerateBoxes();
-        }
+        //private void Start() {
+        //    GenerateBoxes();
+        //}
 
-        private void GenerateBoxes() {
+        public void GenerateBoxes() {
             var startX = StartPoint1.position.x;
             var startY = StartPoint1.position.y;
 
