@@ -35,11 +35,12 @@ namespace Game.LevelSpecial.Railway {
         private void MovingUpdate() {
             if (!Moving)
                 return;
-            if (Rigidbody.velocity.x < _Parameters.Velocity.x) {
-                Rigidbody.velocity += _Parameters.Velocity.normalized * _Parameters.Acceleration * Time.deltaTime;
-            } else {
-                Rigidbody.velocity = Vector2.ClampMagnitude(Rigidbody.velocity, _Parameters.Velocity.magnitude);
-            }
+            //if (Rigidbody.velocity.x < _Parameters.Velocity.x) {
+            //    Rigidbody.velocity = _Parameters.Velocity;
+            //    Rigidbody.velocity += _Parameters.Velocity.normalized * _Parameters.Acceleration * Time.deltaTime;
+            //} else {
+            //    Rigidbody.velocity = Vector2.ClampMagnitude(Rigidbody.velocity, _Parameters.Velocity.magnitude);
+            //}
             if (!_Rotate && Rigidbody.position.x >= _Parameters.StartRotationTransform.position.x) {
                 _StartRotationTime = Time.time;
                 _Rotate = true;
@@ -53,6 +54,9 @@ namespace Game.LevelSpecial.Railway {
             }
             if (Rigidbody.position.x >= _Parameters.StartGravityTransform.position.x) {
                 Rigidbody.velocity += Vector2.down * _Parameters.GravityAcceleration * Time.fixedDeltaTime;
+            }
+            else {
+                Rigidbody.velocity = _Parameters.Velocity;
             }
         }
 

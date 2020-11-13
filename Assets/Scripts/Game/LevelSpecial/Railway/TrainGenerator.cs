@@ -64,9 +64,9 @@ namespace Game.LevelSpecial.Railway {
                     vanIndex++;
                     lastVan = van;
                     var boxGenerator = van.GetComponentInChildren<VanBoxesGenerator>();
-                    boxGenerator?.GenerateBoxes();
+                    boxGenerator?.GenerateBoxes(van.Rigidbody);
                     var objectsGenerator = van.GetComponentInChildren<VanObjectsGenerator>();
-                    objectsGenerator?.Generate();
+                    objectsGenerator?.Generate(van.Rigidbody);
                 }
             }
         }

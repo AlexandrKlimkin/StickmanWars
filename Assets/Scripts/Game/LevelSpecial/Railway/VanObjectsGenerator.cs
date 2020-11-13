@@ -8,7 +8,10 @@ namespace Game.LevelSpecial.Railway {
 
         public List<GeneratedObjectParameters> ObjectsParameters;
 
-        public void Generate() {
+        private Rigidbody2D _Van;
+
+        public void Generate(Rigidbody2D van) {
+            _Van = van;
             ObjectsParameters?.ForEach(GenerateObject);
         }
 
@@ -34,6 +37,7 @@ namespace Game.LevelSpecial.Railway {
                 var obj = Instantiate(objPrefab, ObstaclesContainer.Instance.transform);
                 var offset = Vector3.up * Random.Range(parameters.HeightRandVector.x, parameters.HeightRandVector.y);
                 obj.transform.position = new Vector3(hit.point.x, hit.point.y, transform.position.z) + offset;
+                obj.GetComponent<Rigidbody2D>().velocity = _Van.velocity;
             }
         }
     }

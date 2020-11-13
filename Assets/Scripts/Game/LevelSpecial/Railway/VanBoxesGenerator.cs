@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Game.LevelSpecial.Railway {
     public class VanBoxesGenerator : MonoBehaviour {
 
-        public GameObject BoxPrefab;
+        public Rigidbody2D BoxPrefab;
         public float BoxWidth;
         public float BoxHeight;
         public Transform StartPoint1;
@@ -18,11 +18,10 @@ namespace Game.LevelSpecial.Railway {
         public float MaxHeight;
         public float YAddiction;
 
-        //private void Start() {
-        //    GenerateBoxes();
-        //}
+        private Rigidbody2D _Van;
 
-        public void GenerateBoxes() {
+        public void GenerateBoxes(Rigidbody2D van) {
+            _Van = van;
             var startX = StartPoint1.position.x;
             var startY = StartPoint1.position.y;
 
@@ -44,9 +43,9 @@ namespace Game.LevelSpecial.Railway {
                 for (var j = 0; j < height; j++) {
                     var box = Instantiate(BoxPrefab, ObstaclesContainer.Instance.transform);
                     box.transform.position = new Vector3(xPos, yPos);
+                    box.velocity = _Van.velocity;
                     yPos += BoxHeight;
                 }
-
                 xPerlin += BoxWidth * smoothnes;
                 xPos += BoxWidth;
             }
