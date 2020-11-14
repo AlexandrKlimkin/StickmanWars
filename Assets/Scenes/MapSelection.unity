@@ -1140,6 +1140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa7e04b7e0ed284781da01f2883daf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &103126069
 Transform:
   m_ObjectHideFlags: 0
@@ -7262,7 +7265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45bd956f8ac7fa46b4254c5a4cea3c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SceneType: 4
+  _SceneType: 1
 --- !u!4 &907604396 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2888260986880051130, guid: 8d6f312fe0945a94ea6868059b22e2e1,

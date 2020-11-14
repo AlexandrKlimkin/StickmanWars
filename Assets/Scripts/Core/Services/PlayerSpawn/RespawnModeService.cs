@@ -35,7 +35,7 @@ namespace Core.Services.Game {
 
         public IReadOnlyDictionary<byte, int> PlayersLifesDict => _PlayersLifesDict;
 
-        public const int PlayerLifes = 2;
+        public const int PlayerLifes = 5;
         private const float _RespawnDelay = 2f;
 
 
