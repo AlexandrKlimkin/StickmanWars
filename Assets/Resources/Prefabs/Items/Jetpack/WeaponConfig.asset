@@ -17,13 +17,17 @@ MonoBehaviour:
   ProjectileSpeed: 0
   Damage: 0
   HitForce: 0
-  RecoilForce: 8500
-  MagazineLimited: 1
-  Magazine: 250
-  ProjectilesInShot: 1
+  RecoilForce: 10500
   RateOfFire: 25
   ReloadTime: 0
   DispersionAngle: 0
   MinThrowStartSpeed: 100
   MaxThrowStartSpeed: 200
   MaxForceTime: 0
+  Magazine: 250
+  ProjectilesInShot: 1
+  MagazineLimited: 1
+  CanPickedUp: 0
+  TensionDamage: 0
+  MinTensionDamage: 0
+  MaxTensionDamage: 0

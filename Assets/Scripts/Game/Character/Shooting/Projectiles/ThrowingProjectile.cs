@@ -25,14 +25,14 @@ namespace Character.Shooting {
 
         }
 
-        protected virtual void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.gameObject.GetComponent<IDamageable>() != null)
-            {
-                if (Initialized && !_Hit && collision.collider.gameObject != null)
-                {
-                    PerformHit(collision.collider.gameObject.GetComponent<IDamageable>(), false);
-                }
-            }
-        }
+        //protected virtual void OnCollisionEnter2D(Collision2D collision) {
+        //    if (collision.gameObject.GetComponent<IDamageable>() != null)
+        //    {
+        //        if (Initialized && !_Hit && collision.collider.gameObject != null)
+        //        {
+        //            PerformHit(collision.collider.gameObject.GetComponent<IDamageable>(), false);
+        //        }
+        //    }
+        //}
     }
 }

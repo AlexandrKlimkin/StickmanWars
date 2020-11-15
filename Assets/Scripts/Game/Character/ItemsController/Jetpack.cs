@@ -44,7 +44,7 @@ namespace Items.Jetpack {
 
         public override void ThrowOut(CharacterUnit owner, Vector2? throwForce = null, float? angularVel = null) {
             base.ThrowOut(owner, throwForce, angularVel);
-            _RocketEffect.gameObject.SetActive(false);
+            _RocketEffect?.gameObject.SetActive(false);
         }
 
         protected void OnDestroy() {

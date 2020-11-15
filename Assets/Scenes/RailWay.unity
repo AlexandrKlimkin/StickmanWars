@@ -1178,6 +1178,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AK47
       objectReference: {fileID: 0}
+    - target: {fileID: 2888260986880051133, guid: 9aaec414e5749144e98f82dcece09864,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9aaec414e5749144e98f82dcece09864, type: 3}
 --- !u!1 &164558810 stripped
@@ -1262,7 +1267,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184563461}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -405, y: 44.6, z: 0}
+  m_LocalPosition: {x: -252, y: 44.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1075866954}
@@ -1282,7 +1287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LayerMask:
     serializedVersion: 2
-    m_Bits: 165888
+    m_Bits: 133120
 --- !u!61 &184563464
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7329,6 +7334,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Minigun
       objectReference: {fileID: 0}
+    - target: {fileID: 2888260986880051133, guid: a79588ea83fd7384f9decd1bd118e90a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a79588ea83fd7384f9decd1bd118e90a, type: 3}
 --- !u!1 &307649046
@@ -8845,6 +8855,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bazooka
       objectReference: {fileID: 0}
+    - target: {fileID: 2888260986880051133, guid: 8d6f312fe0945a94ea6868059b22e2e1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d6f312fe0945a94ea6868059b22e2e1, type: 3}
 --- !u!1 &452899473
@@ -8944,6 +8959,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888260986880051133, guid: a850c6859b529354a85562da05f47759,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a850c6859b529354a85562da05f47759, type: 3}
@@ -19287,6 +19307,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Uzi (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2888260986880051133, guid: 9a01d37da39ac274f99e826717e27ced,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a01d37da39ac274f99e826717e27ced, type: 3}
 --- !u!1 &1078511634
@@ -19550,6 +19575,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888260986880051133, guid: b5cab1871ff93d24d9ea324bc2e07313,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5cab1871ff93d24d9ea324bc2e07313, type: 3}
@@ -20443,6 +20473,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AK47 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2888260986880051133, guid: 9aaec414e5749144e98f82dcece09864,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9aaec414e5749144e98f82dcece09864, type: 3}
 --- !u!1 &1188598652
@@ -20558,6 +20593,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shotgun (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888260986880051133, guid: a850c6859b529354a85562da05f47759,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a850c6859b529354a85562da05f47759, type: 3}
@@ -21878,7 +21918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Train: {fileID: 150107603}
-  TrainLengthVector: {x: 20, y: 20}
+  TrainLengthVector: {x: 100, y: 100}
   MainVan: {fileID: 8326333971089747631, guid: 36286aec155882f42acf879a3e7dcd81, type: 3}
   VanPrefabs:
   - {fileID: 701925725943191851, guid: 0811f470d2941154ea55431c7ac67cd7, type: 3}
@@ -22417,7 +22457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386841849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40, y: -52.7, z: 0}
+  m_LocalPosition: {x: 3, y: -52.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1468882998}
@@ -27290,6 +27330,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bazooka (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2888260986880051133, guid: 8d6f312fe0945a94ea6868059b22e2e1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d6f312fe0945a94ea6868059b22e2e1, type: 3}
 --- !u!1 &1442829401
@@ -27505,7 +27550,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468882997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -99.7, y: 0, z: 0}
+  m_LocalPosition: {x: -46, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386841850}
@@ -35470,6 +35515,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Uzi
       objectReference: {fileID: 0}
+    - target: {fileID: 2888260986880051133, guid: 9a01d37da39ac274f99e826717e27ced,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a01d37da39ac274f99e826717e27ced, type: 3}
 --- !u!1 &1968754102
@@ -41251,6 +41301,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Grenade
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726360523302912758, guid: 600f74f5f22e045429ae1b446d132ab0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6726360523302912760, guid: 600f74f5f22e045429ae1b446d132ab0,
         type: 3}

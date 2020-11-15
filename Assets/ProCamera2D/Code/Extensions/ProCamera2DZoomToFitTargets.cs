@@ -23,6 +23,9 @@ namespace Com.LuisPedroFonseca.ProCamera2D
 
 		public bool CompensateForCameraPosition;
 
+	    public float MaxSize = 1000;
+	    public float MinSize = 0;
+
 		float _zoomVelocity;
 
 		float _previousCamSize;
@@ -146,7 +149,13 @@ namespace Com.LuisPedroFonseca.ProCamera2D
 			_minCameraSize = (ProCamera2D.StartScreenSizeInWorldCoordinates.y * .5f) / MaxZoomInAmount;
 			_maxCameraSize = (ProCamera2D.StartScreenSizeInWorldCoordinates.y * .5f) * MaxZoomOutAmount;
 			_targetCamSize = Mathf.Clamp(_targetCamSize, _minCameraSize, _maxCameraSize);
-		}
+
+		    //if (ProCamera2D.GameCamera.orthographicSize * 2 > MaxSize)
+		    //    ProCamera2D.GameCamera.orthographicSize = MaxSize / 2;
+
+		    //if (ProCamera2D.GameCamera.orthographicSize * 2 < MinSize)
+		    //    ProCamera2D.GameCamera.orthographicSize = MinSize / 2;
+        }
 
 #if UNITY_EDITOR
 		override protected void DrawGizmos()

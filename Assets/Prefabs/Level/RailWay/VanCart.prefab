@@ -53,6 +53,20 @@ MonoBehaviour:
     HeightRandVector: {x: 7, y: 7}
     GenerationStart: {fileID: 1820182487}
     GenerationFinish: {fileID: 1521839245}
+  - RandObjectList:
+    - {fileID: 2888260986880051133, guid: 9aaec414e5749144e98f82dcece09864, type: 3}
+    - {fileID: 2888260986880051133, guid: 8d6f312fe0945a94ea6868059b22e2e1, type: 3}
+    - {fileID: 6726360523302912758, guid: 600f74f5f22e045429ae1b446d132ab0, type: 3}
+    - {fileID: 2888260986880051133, guid: b5cab1871ff93d24d9ea324bc2e07313, type: 3}
+    - {fileID: 2888260986880051133, guid: a79588ea83fd7384f9decd1bd118e90a, type: 3}
+    - {fileID: 2888260986880051133, guid: a850c6859b529354a85562da05f47759, type: 3}
+    - {fileID: 2888260986880051133, guid: 9a01d37da39ac274f99e826717e27ced, type: 3}
+    - {fileID: 2888260986880051133, guid: 95670b504ae43354a855358a8c2a9258, type: 3}
+    RandomCount: {x: 0, y: 1}
+    RaycastLocalPosY: 500
+    HeightRandVector: {x: 7, y: 7}
+    GenerationStart: {fileID: 1820182487}
+    GenerationFinish: {fileID: 1521839245}
 --- !u!1 &1521839244
 GameObject:
   m_ObjectHideFlags: 0
