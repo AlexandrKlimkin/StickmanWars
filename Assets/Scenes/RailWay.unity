@@ -16151,7 +16151,7 @@ PrefabInstance:
     - target: {fileID: 5957157953170100654, guid: b28e96083f517b741b045198bd887745,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5957157953171717193, guid: b28e96083f517b741b045198bd887745,
         type: 3}
@@ -21922,7 +21922,8 @@ MonoBehaviour:
   MainVan: {fileID: 8326333971089747631, guid: 36286aec155882f42acf879a3e7dcd81, type: 3}
   VanPrefabs:
   - {fileID: 701925725943191851, guid: 0811f470d2941154ea55431c7ac67cd7, type: 3}
-  SpaceBetweenVansVector: {x: 20, y: 20}
+  - {fileID: 292442399503291422, guid: 9ca757e6b7a789248a414decbd8fe095, type: 3}
+  SpaceBetweenVansVector: {x: 14, y: 14}
   Parameters:
     Velocity: {x: 70, y: 0}
     Acceleration: 10
@@ -21974,7 +21975,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310413362}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -331, y: -75.3, z: 0}
+  m_LocalPosition: {x: -331, y: -80, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 150107604}

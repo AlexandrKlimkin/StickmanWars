@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770736831021263011}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 9.719992, z: 0}
-  m_LocalScale: {x: 16.569916, y: 3.1685698, z: 4}
+  m_LocalPosition: {x: 0, y: 17.9, z: 0}
+  m_LocalScale: {x: 16.65, y: 3.25, z: 4}
   m_Children: []
   m_Father: {fileID: 1976600354721777594}
   m_RootOrder: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1835a8d00b4c80f4aa0d49c371f660d1, type: 3}
-  m_Color: {r: 0.6226415, g: 0.14978638, b: 0.14978638, a: 1}
+  m_Color: {r: 0.4528302, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,7 +95,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -1.4139922}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -106,7 +106,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10, y: 10}
+  m_Size: {x: 10, y: 12.827984}
   m_EdgeRadius: 0
 --- !u!1 &1976600354721777595
 GameObject:
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 1353210475434936541}
   - component: {fileID: 6074282757009249939}
   m_Layer: 19
-  m_Name: VanSprite3
+  m_Name: VanMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,12 +214,12 @@ PrefabInstance:
     - target: {fileID: 3036692001498591897, guid: 105f66eab96b038478b59ac44158bff3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 60.9
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3036692001498591897, guid: 105f66eab96b038478b59ac44158bff3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3036692001498591897, guid: 105f66eab96b038478b59ac44158bff3,
         type: 3}
@@ -289,12 +289,12 @@ PrefabInstance:
     - target: {fileID: 3036692001498591897, guid: 105f66eab96b038478b59ac44158bff3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -63.3
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 3036692001498591897, guid: 105f66eab96b038478b59ac44158bff3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3036692001498591897, guid: 105f66eab96b038478b59ac44158bff3,
         type: 3}
