@@ -229,13 +229,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2751364485580828989}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.11, y: -9.12, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.11, y: -5.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2888260986880051130}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2888260986880051133
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PickupType: 1
+  _CanPickUp: 1
 --- !u!114 &-5909352340586437781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,8 +378,12 @@ MonoBehaviour:
   _Stats: {fileID: 11400000, guid: 0a8a52fe5b4305b43b03d6828d9fe28f, type: 2}
   PickupType: 0
   _Id: Jetpack
+  ShotSoundEffects: []
   _RocketEffectName: Jetpack_Trail
   _RocketEffectTransform: {fileID: 5812281009303176204}
+  _OwnerMaterialWhileUsing: {fileID: 6200000, guid: 8bb4ee966151f1d41824fed767dbd563,
+    type: 2}
+  _OwnerAirAccelerationWhileUsing: 3.2
 --- !u!114 &5273257318641423150
 MonoBehaviour:
   m_ObjectHideFlags: 0

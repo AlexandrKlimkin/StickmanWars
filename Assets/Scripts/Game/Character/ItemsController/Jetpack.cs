@@ -8,6 +8,10 @@ namespace Items.Jetpack {
         private string _RocketEffectName;
         [SerializeField]
         private Transform _RocketEffectTransform;
+        [SerializeField]
+        private PhysicsMaterial2D _OwnerMaterialWhileUsing;
+        [SerializeField] private float _OwnerAirAccelerationWhileUsing;
+
         public override ItemType ItemType => ItemType.Vehicle;
         public override WeaponReactionType WeaponReaction => WeaponReactionType.Jump;
         public override WeaponInputProcessor InputProcessor => _AutoFireProcessor ?? (_AutoFireProcessor = new AutoFireProcessor(this));
@@ -52,5 +56,19 @@ namespace Items.Jetpack {
             _AutoFireProcessor.OnProcessRelease -= OnProcessRelease;
         }
 
+        protected override void OnEquip() {
+            if (PickableItem == null || PickableItem.Owner == null || PickableItem.Owner.MovementController == null)
+                return;
+            PickableItem.Owner.MovementController.BodyCollider.sharedMaterial = _OwnerMaterialWhileUsing;
+            PickableItem.Owner.MovementController.OverrideAirAcceleration = true;
+            PickableItem.Owner.MovementController.OverridedAirAcceleration = _OwnerAirAccelerationWhileUsing;
+        }
+
+        protected override void OnLose() {
+            if (PickableItem == null || PickableItem.Owner == null || PickableItem.Owner.MovementController == null)
+                return;
+            PickableItem.Owner.MovementController.BodyCollider.sharedMaterial = PickableItem.Owner.MovementController.BodyColliderDefaultPhysicsMaterial;
+            PickableItem.Owner.MovementController.OverrideAirAcceleration = false;
+        }
     }
 }

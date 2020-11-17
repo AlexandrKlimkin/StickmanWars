@@ -69,15 +69,21 @@ namespace Character.Shooting {
                     owner?.WeaponController?.SubscribeWeaponOnEvents(this);
                 else if (WeaponReaction == WeaponReactionType.Jump)
                     owner?.MovementController?.SubscribeWeaponOnEvents(this);
+                OnEquip();
             }
             return pickedUp;
         }
 
         public virtual void ThrowOut(CharacterUnit owner, Vector2? startVelocity = null, float? angularVel = null) {
-            if (WeaponReaction == WeaponReactionType.Fire)
-                owner?.WeaponController?.UnSubscribeWeaponOnEvents(this);
-            else if (WeaponReaction == WeaponReactionType.Jump)
-                owner?.MovementController?.UnSubscribeWeaponOnEvents(this);
+            switch (WeaponReaction) {
+                case WeaponReactionType.Fire:
+                    owner?.WeaponController?.UnSubscribeWeaponOnEvents(this);
+                    break;
+                case WeaponReactionType.Jump:
+                    owner?.MovementController?.UnSubscribeWeaponOnEvents(this);
+                    break;
+            }
+            OnLose();
             PickableItem.ThrowOut(startVelocity, angularVel);
         }
 
@@ -91,7 +97,12 @@ namespace Character.Shooting {
 
         protected virtual void OnDisable() {
             WeaponsInfoContainer.RemoveWeapon(this);
+            OnLose();
         }
+
+        protected virtual void OnEquip() { }
+
+        protected virtual void OnLose() { }
     }
 
     public enum ItemType {

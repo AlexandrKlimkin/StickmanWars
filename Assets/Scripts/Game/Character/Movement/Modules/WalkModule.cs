@@ -39,7 +39,10 @@ namespace Character.Movement.Modules {
             var attachedRb = CommonData.MovementController.AttachedToRB;
             if (attachedRb != null)
                 xLocalvelocity -= attachedRb.velocity.x;
-            var acceleration = _GroundedData.MainGrounded ? _Parameters.GroundAcceleration : _Parameters.AirAcceleration;
+            var airAcceleration = CommonData.MovementController.OverrideAirAcceleration
+                ? CommonData.MovementController.OverridedAirAcceleration
+                : _Parameters.AirAcceleration;
+            var acceleration = _GroundedData.MainGrounded ? _Parameters.GroundAcceleration : airAcceleration;
             xLocalvelocity = Mathf.Lerp(xLocalvelocity, _TargetXVelocity, Time.fixedDeltaTime * acceleration);
             xVelocity = xLocalvelocity;
             if (attachedRb != null)

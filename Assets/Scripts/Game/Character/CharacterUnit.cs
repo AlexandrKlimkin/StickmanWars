@@ -55,11 +55,6 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         Health = MaxHealth;
     }
 
-    //private void Update() {
-    //    if(DamageBuffer != null && IsBot == true)
-    //        Debug.LogError(DamageBuffer.SummaryBufferedDamage);
-    //}
-
     public Collider2D Collider { get; set; }
     public Rigidbody2D Rigidbody2D { get; set; }
 

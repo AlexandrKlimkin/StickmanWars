@@ -25,6 +25,8 @@ namespace Character.Movement {
         private PushingParameters PushingParameters;
         [SerializeField]
         private JumpParameters JumpParameters;
+        public Collider2D GroundCollider;
+        public Collider2D BodyCollider;
 
         private List<MovementModule> _MovementModules;
         private WalkModule _WalkModule;
@@ -42,7 +44,7 @@ namespace Character.Movement {
 
         public CharacterUnit Owner { get; private set; }
         public Rigidbody2D Rigidbody { get; private set; }
-        public Collider2D Collider { get; private set; }
+        //public Collider2D Collider { get; private set; }
 
         public Vector2 Velocity => Rigidbody.velocity;
         public Vector2 LocalVelocity { get; private set; }
@@ -60,6 +62,9 @@ namespace Character.Movement {
         public float TimeFallingDown => _GroundCheckModule.TimeFallingDown;
         public float TimeNotFallingDown => _GroundCheckModule.TimeNotFallingDown;
 
+        public float OverridedAirAcceleration { get; set; }
+        public bool OverrideAirAcceleration { get; set; }
+
         public Rigidbody2D AttachedToRB { get; set; }
         public bool CanDetach { get; set; }
 
@@ -67,10 +72,12 @@ namespace Character.Movement {
         public event Action OnHoldJump;
         public event Action OnReleaseJump;
 
+        public PhysicsMaterial2D BodyColliderDefaultPhysicsMaterial { get; private set; }
+
         private void Awake() {
             Owner = GetComponent<CharacterUnit>();
             Rigidbody = GetComponent<Rigidbody2D>();
-            Collider = GetComponent<Collider2D>();
+            BodyColliderDefaultPhysicsMaterial = BodyCollider.sharedMaterial;
         }
 
         private void Start() {
@@ -78,7 +85,7 @@ namespace Character.Movement {
             SetupBlackboard();
             SetupCommon();
             _WalkData = _Blackboard.Get<WalkData>();
-            Collider.gameObject.GetComponentsInChildren(_SimpleCcds);
+            GetComponentsInChildren(_SimpleCcds);
             _MovementModules.ForEach(_ => _.Start());
         }
 
@@ -111,7 +118,7 @@ namespace Character.Movement {
             var commonData = _Blackboard.Get<CommonData>();
             commonData.ObjRigidbody = Rigidbody;
             commonData.ObjTransform = this.transform;
-            commonData.Collider = Collider;
+            //commonData.Collider = Collider;
             commonData.MovementController = this;
             commonData.WeaponController = Owner.WeaponController;
         }
