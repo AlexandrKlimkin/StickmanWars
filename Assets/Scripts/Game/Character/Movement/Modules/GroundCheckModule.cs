@@ -53,6 +53,5 @@ namespace Character.Movement.Modules {
     public class GroundCheckParameters {
         public List<Sensor> GroundSensors;
         public List<Sensor> MainGroundSensors;
-        public Collider2D GroundCollider;
     }
 }

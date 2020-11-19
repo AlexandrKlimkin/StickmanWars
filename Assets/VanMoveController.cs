@@ -7,40 +7,25 @@ namespace Game.LevelSpecial.Railway {
 
         private VanMoveParameters _Parameters;
         public Rigidbody2D Rigidbody { get; private set; }
-        public float Timer { get; private set; }
         public SimpleDamageable SimpleDamageable { get; private set; }
-        public bool Moving => Timer >= _Parameters.Delay;
 
-        void Awake() {
+        private void Awake() {
             Rigidbody = GetComponent<Rigidbody2D>();
             SimpleDamageable = GetComponent<SimpleDamageable>();
         }
 
         public void SetParameters(VanMoveParameters parameters) {
             _Parameters = parameters;
-        }
-
-        public void SetMoving(Vector2 velocity, float timer) {
-            Rigidbody.velocity = velocity;
-            Timer = timer;
+            MovingUpdate();
         }
 
         private void FixedUpdate() {
-            if(_Parameters == null)
-                return;
             MovingUpdate();
-            Timer += Time.fixedDeltaTime;
         }
 
         private void MovingUpdate() {
-            if (!Moving)
+            if (_Parameters == null)
                 return;
-            //if (Rigidbody.velocity.x < _Parameters.Velocity.x) {
-            //    Rigidbody.velocity = _Parameters.Velocity;
-            //    Rigidbody.velocity += _Parameters.Velocity.normalized * _Parameters.Acceleration * Time.deltaTime;
-            //} else {
-            //    Rigidbody.velocity = Vector2.ClampMagnitude(Rigidbody.velocity, _Parameters.Velocity.magnitude);
-            //}
             if (!_Rotate && Rigidbody.position.x >= _Parameters.StartRotationTransform.position.x) {
                 _StartRotationTime = Time.time;
                 _Rotate = true;

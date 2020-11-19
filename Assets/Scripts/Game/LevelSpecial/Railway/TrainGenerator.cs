@@ -57,9 +57,6 @@ namespace Game.LevelSpecial.Railway {
                     van.transform.localPosition = localPos;
                     van.SetParameters(Parameters);
                     _ActiveVans.Add(van);
-                    if (lastVan != null && lastVan.Moving) {
-                        van.SetMoving(lastVan.Rigidbody.velocity, lastVan.Timer);
-                    }
                     van.SimpleDamageable.OnKill += OnVanKill;
                     vanIndex++;
                     lastVan = van;
