@@ -11,46 +11,49 @@ namespace Character.Shooting {
         public float ActivationTime;
         public float GuidanceSmoothness;
         public float TargetSearchRadius;
+        public float Gravity;
         public float StartSpeed;
+        public float TargetAimLerpSmoothness;
+        public float RotationSmoothness;
 
-        //private Vector2 _LastTargetPos;
-
-        private Rigidbody2D _Rigidbody;
         private Transform _Target;
         private float _Timer;
+
+        private Vector3 _Velocity;
 
         private ContactFilter2D _Filter = new ContactFilter2D() { useTriggers = false };
 
         private void Awake() {
-            _Rigidbody = GetComponent<Rigidbody2D>();
+
         }
 
-        private bool _FirstSimulate;
-
         public override void Simulate(float time) {
-            if (_FirstSimulate) {
-                _FirstSimulate = false;
-                _Rigidbody.velocity = transform.forward * StartSpeed;
-            }
             _Timer += time;
             var activated = _Timer >= ActivationTime;
             if (!activated) {
-                transform.rotation = Quaternion.LookRotation(_Rigidbody.velocity);
-                return;
+                _Velocity += Vector3.down * Gravity * time;
+            } else {
+                if (!_Target)
+                    FindTarget();
+                else {
+                    var targetVector = (_Target.position - transform.position);
+                    var velMagnitude = Data.Speed;
+                    var velNormilized = _Velocity.normalized;
+                    var targetNormilized = targetVector.normalized;
+                    velNormilized = Vector3.Lerp(velNormilized, targetNormilized, TargetAimLerpSmoothness);
+                    _Velocity = velNormilized * velMagnitude;
+                }
             }
-            if (!_Target)
-                FindTarget();
-            else {
-                var targetVector = (_Target.position - transform.position);
-                var targetRotation = Quaternion.LookRotation(targetVector);
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, time * GuidanceSmoothness);
-            }
-            _Rigidbody.simulated = false;
-            var nextPos = transform.position + transform.forward * Data.Speed * time;
+            var nextPos = transform.position + _Velocity * time;
             List<RaycastHit2D> results = new List<RaycastHit2D>();
             var hitsCount = Physics2D.Linecast(transform.position, nextPos, _Filter, results);
             var hit = results.FirstOrDefault();
+
             transform.position = (hitsCount > 0 && hit.transform) ? (Vector3) hit.point : nextPos;
+
+            var targetRotation = Quaternion.LookRotation(_Velocity);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, time * RotationSmoothness);
+
             if (hit.transform != null) {
                 PerformHit(hit.transform.GetComponent<IDamageable>());
             }
@@ -60,8 +63,7 @@ namespace Character.Shooting {
             base.Setup(data);
             _Timer = 0;
             _Target = null;
-            _Rigidbody.simulated = true;
-            _FirstSimulate = true;
+            _Velocity = transform.forward * StartSpeed;
         }
 
         private void FindTarget() {
