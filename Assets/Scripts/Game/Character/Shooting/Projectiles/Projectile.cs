@@ -23,6 +23,7 @@ namespace Character.Shooting {
         public virtual void Setup(D data) {
             Data = data;
             transform.position = data.Position;
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
             transform.rotation = data.Rotation;
             _Hit = false;
             Initialize();
