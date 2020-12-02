@@ -27,6 +27,19 @@ namespace KlimLib.Timers {
             callback?.Invoke();
         }
 
+        public void StartAscendingTimer() {
+            StopTimer();
+            StartCoroutine(AscendingTimerRoutine());
+        }
+
+        private IEnumerator AscendingTimerRoutine() {
+            while (true) {
+                _Timer += _UseUnscaledDeltaTime ? Time.unscaledDeltaTime : Time.deltaTime;
+                _TimeText.text = GetTimeText(_Timer);
+                yield return null;
+            }
+        }
+
         public void StopTimer() {
             StopAllCoroutines();
         }

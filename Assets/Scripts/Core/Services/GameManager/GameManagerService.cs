@@ -23,20 +23,22 @@ namespace Core.Services.Game {
         public bool GameInProgress { get; private set; }
 
         public void Load() {
-
+            ContainerHolder.Container.BuildUp(this);
         }
 
         public void Unload() {
-
+            _SignalBus.UnSubscribeFromAll(this);
         }
 
         public void StartMatch() {
+            ContainerHolder.Container.BuildUp(this); //ToDo: remove
             GameInProgress = true;
             _SignalBus.FireSignal(new MatchStartSignal());
+            _UiManager.SetActivePanel<MainPanel>();
         }
 
         public void EndMatch() {
-            ContainerHolder.Container.BuildUp(this);
+            ContainerHolder.Container.BuildUp(this); //ToDo: remove
             GameInProgress = false;
             _SignalBus.FireSignal(new MatchEndSignal());
             _UiManager.SetActivePanel<GameEndPanel>();
