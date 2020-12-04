@@ -13,10 +13,10 @@ namespace UI.Game {
         private void Awake() {
             ContainerHolder.Container.BuildUp(this);
             _SignalBus.Subscribe<AnimationObjectNameSignal>(ActivateNumber, this);
-            _SignalBus.Subscribe<MatchStartSignal>(OnGameStart, this);
+            _SignalBus.Subscribe<MatchReadySignal>(OnMatchReady, this);
         }
 
-        private void OnGameStart(MatchStartSignal signal) {
+        private void OnMatchReady(MatchReadySignal signal) {
             StartCoroutine(WaitRoutine());
         }
 
