@@ -63,12 +63,6 @@ namespace Core.Services.Game {
             _EventProvider.StartCoroutine(SpawnAllAtTheBeginingRoutine()); //ToDo: Fix this shit
         }
 
-        //private void OnPlayerAdded(PlayerAddedSignal signal) {
-        //    _PlayersLifesDict.Add(signal.PlayerData.PlayerId, PlayerLifes);
-        //    if (signal.SpawnOnMap)
-        //        SpawnCharacterInRandomPos(signal.PlayerData.PlayerId);
-        //}
-
         private IEnumerator SpawnAllAtTheBeginingRoutine() {
             yield return new WaitForEndOfFrame(); 
             SpawnAllAtTheBegining();
