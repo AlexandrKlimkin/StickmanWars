@@ -114,7 +114,7 @@ namespace UI.Game {
         }
 
         private void OnDestroy() {
-            _SignalBus.UnSubscribeFromAll(this);
+            _SignalBus?.UnSubscribeFromAll(this);
         }
 
     }
