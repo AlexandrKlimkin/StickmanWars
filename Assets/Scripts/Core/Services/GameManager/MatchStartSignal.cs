@@ -5,6 +5,5 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Game.Match {
-    public struct MatchStartSignal {
-    }
+    public struct MatchStartSignal { }
 }

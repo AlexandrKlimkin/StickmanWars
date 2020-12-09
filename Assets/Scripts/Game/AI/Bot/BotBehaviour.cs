@@ -2,6 +2,7 @@
 using Character.Health;
 using Character.Movement;
 using Character.Shooting;
+using Core.Services.Game;
 using KlimLib.SignalBus;
 using System.Collections.Generic;
 using Tools.BehaviourTree;
@@ -88,6 +89,8 @@ namespace Game.AI {
         }
 
         private void Update() {
+            if (GameManagerService.GameInProgress && !GameManagerService.MatchStarted)
+                return;
             UpdateBT();
         }
 

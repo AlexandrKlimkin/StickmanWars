@@ -38,7 +38,7 @@ namespace Character.Shooting {
                 yield return null;
             }
         }
-
+ 
         protected virtual void KillProjectile() {
             this.gameObject.SetActive(false);
             Initialized = false;

@@ -843,7 +843,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 10
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ad90c64c6dc0ac8449c6821d625501ee, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -875,7 +875,6 @@ MonoBehaviour:
     - {fileID: 5923378598430264412}
     - {fileID: 5576692272598899611}
     - {fileID: 3995176760010755777}
-    GroundCollider: {fileID: 0}
   WallCheckParameters:
     RightSensors:
     - {fileID: 6076460882387642516}

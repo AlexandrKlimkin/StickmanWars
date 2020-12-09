@@ -5,6 +5,7 @@ using System.Linq;
 using Character.Control;
 using Character.Movement.Modules;
 using Character.Shooting;
+using Core.Services.Game;
 using Tools.BehaviourTree;
 using UnityEditor;
 using UnityEngine;

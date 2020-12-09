@@ -21,7 +21,7 @@ namespace Core.Services.Game {
 
         public void Load() {
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
-            _SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
+            _SignalBus.Subscribe<MatchReadySignal>(OnMatchReady, this);
         }
 
         public void Unload() {
@@ -40,7 +40,7 @@ namespace Core.Services.Game {
             _KillsDict[instigator].Add(new KillData(instigator, dmg.Receiver.OwnerId.Value));
         }
 
-        private void OnMatchStart(MatchStartSignal signal) {
+        private void OnMatchReady(MatchReadySignal signal) {
             _KillsDict = new Dictionary<byte, List<KillData>>();
             foreach (var playerData in _MatchData.Players) {
                 _KillsDict.Add(playerData.PlayerId, new List<KillData>());

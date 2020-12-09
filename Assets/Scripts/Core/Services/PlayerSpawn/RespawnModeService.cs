@@ -41,7 +41,7 @@ namespace Core.Services.Game {
 
         public void Load() {
             ContainerHolder.Container.RegisterInstance<IPlayerLifesCounter>(this);
-            _SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
+            _SignalBus.Subscribe<MatchReadySignal>(OnMatchReady, this);
             //_SignalBus.Subscribe<PlayerAddedSignal>(OnPlayerAdded, this);
             _SignalBus.Subscribe<CharacterDeathSignal>(OnCharacterDeath, this);
             _PlayersConnectionService.AddBots();
@@ -59,15 +59,9 @@ namespace Core.Services.Game {
             }
         }
 
-        private void OnMatchStart(MatchStartSignal signal) {
+        private void OnMatchReady(MatchReadySignal signal) {
             _EventProvider.StartCoroutine(SpawnAllAtTheBeginingRoutine()); //ToDo: Fix this shit
         }
-
-        //private void OnPlayerAdded(PlayerAddedSignal signal) {
-        //    _PlayersLifesDict.Add(signal.PlayerData.PlayerId, PlayerLifes);
-        //    if (signal.SpawnOnMap)
-        //        SpawnCharacterInRandomPos(signal.PlayerData.PlayerId);
-        //}
 
         private IEnumerator SpawnAllAtTheBeginingRoutine() {
             yield return new WaitForEndOfFrame(); 

@@ -94,6 +94,8 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     }
 
     public void Kill(Damage damage) {
+        if (Dead)
+            return;
         Dead = true;
         Debug.Log($"Player {OwnerId} character {CharacterId} dead.");
         Destroy(gameObject); //ToDo: something different

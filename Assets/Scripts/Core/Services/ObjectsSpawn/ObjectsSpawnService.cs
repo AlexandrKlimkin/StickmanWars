@@ -24,7 +24,7 @@ namespace Core.Services.Game {
 
         private IEnumerator ObjectsSpawnRoutine() {
             while (true) {
-                if(!_GameManagerService.GameInProgress)
+                if(!GameManagerService.GameInProgress)
                     yield return null;
                 while (_Settings == null)
                     yield return null;

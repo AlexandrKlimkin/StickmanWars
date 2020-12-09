@@ -5,6 +5,7 @@ using Character.MuscleSystem;
 using Character.Shooting;
 using UnityEngine;
 using InputSystem;
+using Core.Services.Game;
 
 namespace Character.Control {
     public class PlayerController : MonoBehaviour {
@@ -35,6 +36,8 @@ namespace Character.Control {
         }
 
         public void Update() {
+            if (GameManagerService.GameInProgress && !GameManagerService.MatchStarted)
+                return;
             Move();
             Jump();
             Attack();
