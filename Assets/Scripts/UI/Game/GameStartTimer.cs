@@ -4,11 +4,14 @@ using Game.Match;
 using KlimLib.SignalBus;
 using UnityEngine;
 using UnityDI;
+using Core.Audio;
 
 namespace UI.Game {
     public class GameStartTimer : MonoBehaviour {
         [Dependency]
         private readonly SignalBus _SignalBus;
+        [Dependency]
+        private readonly AudioService _AudioService;
 
         private void Awake() {
             ContainerHolder.Container.BuildUp(this);
@@ -22,15 +25,22 @@ namespace UI.Game {
 
         private IEnumerator WaitRoutine() {
             yield return new WaitForSeconds(1);
-            transform.GetChild(0).gameObject.GetComponent<Animator>().Play("NumberAppear");
+            PlayBeep(0);
         }
 
         private void ActivateNumber(AnimationObjectNameSignal signal) {
             var index = signal.Index + 1;
             if(transform.childCount <= index)
                 return;
-            var animName = transform.childCount - 1 == index ? "FightAppear" : "NumberAppear";
+            PlayBeep(index);
+        }
+
+        private void PlayBeep(int index) {
+            var isLast = transform.childCount - 1 == index;
+            var animName = isLast ? "FightAppear" : "NumberAppear";
             transform.GetChild(index).gameObject.GetComponent<Animator>().Play(animName);
+            var soundName = isLast ? "CountDownBeepLast" : "CountDownBeep";
+            _AudioService.PlaySound2D(soundName, false, false);
         }
 
         private void OnDestroy() {
