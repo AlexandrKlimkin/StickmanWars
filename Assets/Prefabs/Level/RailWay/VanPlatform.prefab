@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3075096309632927783
+--- !u!1 &98646999152938495
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3821181572292467570}
-  - component: {fileID: 601236355036888336}
-  - component: {fileID: 4183435463042811984}
-  m_Layer: 19
-  m_Name: Sprite
+  - component: {fileID: 5880860442323528384}
+  - component: {fileID: 8416337032029973027}
+  - component: {fileID: 6423104046493418455}
+  - component: {fileID: 4116192534780603327}
+  m_Layer: 0
+  m_Name: vagon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3821181572292467570
+--- !u!4 &5880860442323528384
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3075096309632927783}
+  m_GameObject: {fileID: 98646999152938495}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 27.3, z: 0}
-  m_LocalScale: {x: 2.3, y: 2.3, z: 1}
+  m_LocalPosition: {x: 0.1, y: 25.4, z: 0}
+  m_LocalScale: {x: 2.083478, y: 2.083478, z: 0.90586}
   m_Children: []
   m_Father: {fileID: 4283083025719650110}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &601236355036888336
+--- !u!212 &8416337032029973027
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3075096309632927783}
+  m_GameObject: {fileID: 98646999152938495}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -71,43 +72,62 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea35843face76ec4b82fd844d3ea8142, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ed95e3b071a7f6b48967158d27c95973, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 10, y: 10}
+  m_Size: {x: 69.59, y: 21.169224}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4183435463042811984
+--- !u!61 &6423104046493418455
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3075096309632927783}
+  m_GameObject: {fileID: 98646999152938495}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.8152146}
+  m_Offset: {x: -0.00002670288, y: -9.273958}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 63.755756, y: 17.619999}
-    newSize: {x: 10, y: 10}
+    oldSize: {x: 69.59, y: 21.169224}
+    newSize: {x: 69.59, y: 21.169224}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 58, y: 20.83043}
+  m_Size: {x: 65.69192, y: 6.1460342}
   m_EdgeRadius: 0
+--- !u!251 &4116192534780603327
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98646999152938495}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &4283083025719650111
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +142,7 @@ GameObject:
   - component: {fileID: 1762340466215405861}
   - component: {fileID: 5946679001738214601}
   m_Layer: 19
-  m_Name: VanWood
+  m_Name: VanPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +161,7 @@ Transform:
   m_Children:
   - {fileID: 1301057784641970552}
   - {fileID: 5985173175529180665}
-  - {fileID: 3821181572292467570}
+  - {fileID: 5880860442323528384}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

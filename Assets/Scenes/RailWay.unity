@@ -8689,7 +8689,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429336552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 472.6, y: 0, z: 0}
+  m_LocalPosition: {x: 461.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1310413364}
@@ -21897,6 +21897,7 @@ MonoBehaviour:
   VanPrefabs:
   - {fileID: 701925725943191851, guid: 0811f470d2941154ea55431c7ac67cd7, type: 3}
   - {fileID: 292442399503291422, guid: 9ca757e6b7a789248a414decbd8fe095, type: 3}
+  - {fileID: 292442399503291422, guid: 0d7f853ff38c1004d8622e7ea96511c2, type: 3}
   SpaceBetweenVansVector: {x: 14, y: 14}
   Parameters:
     Velocity: {x: 70, y: 0}
@@ -21947,7 +21948,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310413362}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -331, y: -80, z: 0}
+  m_LocalPosition: {x: -331, y: -79.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7451524428794281995}
@@ -27523,7 +27524,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468882997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -46, y: 0, z: 0}
+  m_LocalPosition: {x: -46, y: 80.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386841850}
@@ -28733,7 +28734,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651851765}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 103.3, y: 0, z: 0}
+  m_LocalPosition: {x: 103.3, y: 80.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386841850}
@@ -34579,6 +34580,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jetpack
       objectReference: {fileID: 0}
+    - target: {fileID: 2888260986880051133, guid: 95670b504ae43354a855358a8c2a9258,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95670b504ae43354a855358a8c2a9258, type: 3}
 --- !u!1 &1845690226
@@ -34902,7 +34908,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859466165}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 504.79996, y: 0, z: 0}
+  m_LocalPosition: {x: 501.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1310413364}
@@ -41722,7 +41728,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7451524428794281997}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -8.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1310413364}
