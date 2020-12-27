@@ -26,6 +26,9 @@ namespace Character.Movement {
         private PushingParameters PushingParameters;
         [SerializeField]
         private JumpParameters JumpParameters;
+        [SerializeField]
+        private OneWayPlatformParameters OneWayPlatformParameters;
+
         public Collider2D GroundCollider;
         public Collider2D BodyCollider;
 
@@ -37,6 +40,8 @@ namespace Character.Movement {
         private JumpModule _JumpModule;
         private LedgeHangModule _LedgeHangModule;
         private PushingModule _PushingModule;
+        private OneWayPlatformModule _OneWayPlatformModule;
+
         private Blackboard _Blackboard;
 
 
@@ -79,6 +84,14 @@ namespace Character.Movement {
             Owner = GetComponent<CharacterUnit>();
             Rigidbody = GetComponent<Rigidbody2D>();
             BodyColliderDefaultPhysicsMaterial = BodyCollider.sharedMaterial;
+            GroundCheckParameters.GroundSensors.ForEach(_ => {
+                _.AddExtentionCollider(GroundCollider);
+                _.AddExtentionCollider(BodyCollider);
+            });
+            GroundCheckParameters.MainGroundSensors.ForEach(_ => {
+                _.AddExtentionCollider(GroundCollider);
+                _.AddExtentionCollider(BodyCollider);
+            });
         }
 
         private void Start() {
@@ -100,6 +113,7 @@ namespace Character.Movement {
             _JumpModule = new JumpModule(JumpParameters);
             _LedgeHangModule = new LedgeHangModule(LedgeHangParameters);
             _PushingModule = new PushingModule(PushingParameters);
+            _OneWayPlatformModule = new OneWayPlatformModule(OneWayPlatformParameters);
 
             _MovementModules.Add(_GroundCheckModule);
             _MovementModules.Add(_WallsCheckModule);
@@ -108,6 +122,7 @@ namespace Character.Movement {
             _MovementModules.Add(_WallsSlideModule);
             _MovementModules.Add(_JumpModule);
             _MovementModules.Add(_PushingModule);
+            _MovementModules.Add(_OneWayPlatformModule);
         }
 
         private void SetupBlackboard() {
@@ -119,7 +134,8 @@ namespace Character.Movement {
             var commonData = _Blackboard.Get<CommonData>();
             commonData.ObjRigidbody = Rigidbody;
             commonData.ObjTransform = this.transform;
-            //commonData.Collider = Collider;
+            commonData.BodyCollider = BodyCollider;
+            commonData.GroundCollider = GroundCollider;
             commonData.MovementController = this;
             commonData.WeaponController = Owner.WeaponController;
         }
@@ -161,6 +177,11 @@ namespace Character.Movement {
         public void SetHorizontal(float hor) {
             _WalkModule.SetHorizontal(hor);
         }
+
+        public void SetVertical(float vertical) {
+            _WalkModule.SetVertical(vertical);
+        }
+
         private bool _Jumping = false;
 
         public bool Jump() {
@@ -220,6 +241,10 @@ namespace Character.Movement {
             var newLocalScale = new Vector3(newDir * Mathf.Abs(localScale.x), localScale.y, localScale.z);
             WalkParameters.IkTransform.localScale = newLocalScale;
             _SimpleCcds.ForEach(_ => _.ReflectNodes());
+        }
+
+        public bool FallDownPlatform() {
+            return _OneWayPlatformModule.FallDownPlatform();
         }
 
         public void SubscribeWeaponOnEvents(Weapon weapon) {

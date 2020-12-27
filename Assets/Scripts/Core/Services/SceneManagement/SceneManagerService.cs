@@ -32,7 +32,7 @@ namespace Core.Services.SceneManagement {
         public bool IsGameScene {
             get {
                 var scene = ActiveScene;
-                return ActiveScene == SceneType.CityCrane;
+                return ActiveScene == SceneType.CityCrane || ActiveScene == SceneType.RailWay;
             }
         }
 

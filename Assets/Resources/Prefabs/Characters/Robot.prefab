@@ -901,6 +901,8 @@ MonoBehaviour:
     JumpEffectNames:
     - JumpEffect
     JumpAudioEffectNames: []
+  OneWayPlatformParameters:
+    PlatformIgnoreCollisionTime: 1
   GroundCollider: {fileID: 1095359876352918254}
   BodyCollider: {fileID: 5957157953170100642}
 --- !u!114 &5957157953170100645
@@ -3317,7 +3319,12 @@ PrefabInstance:
     - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 38707
+      value: 1613619
+      objectReference: {fileID: 0}
+    - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
+        type: 3}
+      propertyPath: _InteractEffectorColliders
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 42787406825865337, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
@@ -3409,7 +3416,12 @@ PrefabInstance:
     - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 38707
+      value: 1613619
+      objectReference: {fileID: 0}
+    - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
+        type: 3}
+      propertyPath: _InteractEffectorColliders
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 42787406825865337, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
@@ -3690,7 +3702,12 @@ PrefabInstance:
     - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 562995
+      value: 1613619
+      objectReference: {fileID: 0}
+    - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
+        type: 3}
+      propertyPath: _InteractEffectorColliders
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 42787406825865337, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
@@ -3782,7 +3799,12 @@ PrefabInstance:
     - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 562995
+      value: 1613619
+      objectReference: {fileID: 0}
+    - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
+        type: 3}
+      propertyPath: _InteractEffectorColliders
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 42787406825865337, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
@@ -4058,7 +4080,12 @@ PrefabInstance:
     - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}
       propertyPath: _LayerMask.m_Bits
-      value: 562995
+      value: 1613619
+      objectReference: {fileID: 0}
+    - target: {fileID: 42787406825865336, guid: 742580ef30ff9784eaaa15af01ce1d1d,
+        type: 3}
+      propertyPath: _InteractEffectorColliders
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 42787406825865337, guid: 742580ef30ff9784eaaa15af01ce1d1d,
         type: 3}

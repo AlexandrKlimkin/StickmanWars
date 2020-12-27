@@ -18,6 +18,7 @@ namespace Character.Movement.Modules {
         private WalkParameters _Parameters;
         private float _TargetXVelocity = 0f;
         public float Horizontal => _WalkData.Horizontal;
+        public float Vertical => _WalkData.Vertical;
         private List<SimpleCCD> _SimpleCcds = new List<SimpleCCD>();
 
         public WalkModule(WalkParameters parameters) : base() {
@@ -90,6 +91,11 @@ namespace Character.Movement.Modules {
         public void SetHorizontal(float hor) {
             _WalkData.Horizontal = hor;
             Mathf.Clamp(_WalkData.Horizontal, -1f, 1f);
+        }
+
+        public void SetVertical(float vert) {
+            _WalkData.Vertical = vert;
+            Mathf.Clamp(_WalkData.Vertical, -1f, 1f);
         }
 
         private void SetDirection() {

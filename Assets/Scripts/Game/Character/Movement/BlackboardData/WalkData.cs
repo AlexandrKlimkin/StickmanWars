@@ -4,5 +4,6 @@
     {
         public int Direction;
         public float Horizontal;
+        public float Vertical;
     }
 }

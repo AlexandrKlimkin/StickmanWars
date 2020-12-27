@@ -47,17 +47,22 @@ namespace Character.Control {
 
         private void Move() {
              var hor = Input.GetAxis(_InputKit.Horizontal);
+            var vert = Input.GetAxis(_InputKit.Vertical);
             _MovementController.SetHorizontal(hor);
+            _MovementController.SetVertical(vert);
         }
 
         private void Jump() {
             if (Input.GetKeyDown(_InputKit.Jump)) {
-                _IsJumping = _MovementController.Jump();
-                if (!_IsJumping) {
-                    _IsJumping = _MovementController.WallJump();
-                    _WallJump = _IsJumping;
+                var fallDown = _MovementController.FallDownPlatform();
+                if (!fallDown) {
+                    _IsJumping = _MovementController.Jump();
+                    if (!_IsJumping) {
+                        _IsJumping = _MovementController.WallJump();
+                        _WallJump = _IsJumping;
+                    }
+                    _MovementController.PressJump();
                 }
-                _MovementController.PressJump();
             }
 
             if (Input.GetKey(_InputKit.Jump)) {

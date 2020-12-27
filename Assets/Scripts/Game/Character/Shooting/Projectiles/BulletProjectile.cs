@@ -7,13 +7,12 @@ using System.Linq;
 
 namespace Character.Shooting {
     public class BulletProjectile : Projectile<BulletProjectileData> {
-        //public List<string> HitEffectNames;
         public Transform TrailTransformOverride;
         public string TrailName;
 
         protected AttachedParticleEffect _Trail;
 
-        private ContactFilter2D _Filter = new ContactFilter2D() { useTriggers = false };
+        private ContactFilter2D _Filter;
 
         public override void Simulate(float time) {
             var targetPos = transform.position + transform.forward * Data.Speed * time;
@@ -29,6 +28,11 @@ namespace Character.Shooting {
         protected override void Initialize() {
             base.Initialize();
             AttachTrail();
+            _Filter = new ContactFilter2D() {
+                useTriggers = false,
+                layerMask = Layers.Masks.ForProjectiles,
+                useLayerMask = true
+            };
         }
 
         protected override void PerformHit(IDamageable damageable, bool killProjectile = true) {
