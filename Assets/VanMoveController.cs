@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Game.LevelSpecial.Railway {
     public class VanMoveController : MonoBehaviour {
-
         private VanMoveParameters _Parameters;
         public Rigidbody2D Rigidbody { get; private set; }
         public SimpleDamageable SimpleDamageable { get; private set; }

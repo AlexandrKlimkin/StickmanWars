@@ -17,10 +17,13 @@ namespace Game.LevelSpecial.Railway {
         public Vector2 SmoothnessRandVector;
         public float MaxHeight;
         public float YAddiction;
+        public float HasObjectsChance = 1;
 
         private Rigidbody2D _Van;
 
         public void GenerateBoxes(Rigidbody2D van) {
+            if (Random.value > HasObjectsChance)
+                return;
             _Van = van;
             var startX = StartPoint1.position.x;
             var startY = StartPoint1.position.y;

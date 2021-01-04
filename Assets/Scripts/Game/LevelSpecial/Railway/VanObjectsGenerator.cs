@@ -7,6 +7,7 @@ namespace Game.LevelSpecial.Railway {
     public class VanObjectsGenerator : MonoBehaviour {
 
         public List<GeneratedObjectParameters> ObjectsParameters;
+        public float HasObjectsChance = 1;
 
         private Rigidbody2D _Van;
 
@@ -16,6 +17,8 @@ namespace Game.LevelSpecial.Railway {
         }
 
         private void GenerateObject(GeneratedObjectParameters parameters) {
+            if (Random.value > HasObjectsChance)
+                return;
             var randCount = Random.Range(parameters.RandomCount.x, parameters.RandomCount.y);
             for (var i = 0; i < randCount; i++) {
                 if (parameters.RandObjectList == null)

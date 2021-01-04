@@ -67,6 +67,7 @@ MonoBehaviour:
     HeightRandVector: {x: 7, y: 7}
     GenerationStart: {fileID: 1820182487}
     GenerationFinish: {fileID: 1521839245}
+  HasObjectsChance: 1
 --- !u!1 &1521839244
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,9 +479,10 @@ MonoBehaviour:
   StartPoint2: {fileID: 4595566206668698439}
   FinishPoint1: {fileID: 6867843910170137395}
   FinishPoint2: {fileID: 7055368029614942310}
-  SmoothnessRandVector: {x: 0.01, y: 0.04}
+  SmoothnessRandVector: {x: 0.001, y: 0.03}
   MaxHeight: 6
-  YAddiction: -1
+  YAddiction: -2
+  HasObjectsChance: 0.85
 --- !u!1 &8080097266829751270
 GameObject:
   m_ObjectHideFlags: 0

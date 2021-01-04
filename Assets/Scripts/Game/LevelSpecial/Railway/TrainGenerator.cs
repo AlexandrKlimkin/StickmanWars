@@ -16,10 +16,11 @@ namespace Game.LevelSpecial.Railway {
         public GameObject Train;
         public Vector2 TrainLengthVector;
         public VanMoveController MainVan;
-        public VanMoveController[] VanPrefabs;
+        public VanQueue[] VanQueues;
         public Vector2 SpaceBetweenVansVector;
         public VanMoveParameters Parameters;
         public int MaxVansAtTime = 8;
+        public float TrainDelay;
 
         private List<VanMoveController> _ActiveVans = new List<VanMoveController>();
 
@@ -33,19 +34,47 @@ namespace Game.LevelSpecial.Railway {
         }
 
         private IEnumerator GenerateTrainRoutine() {
+            yield return new WaitForSeconds(TrainDelay);
+            _SignalBus.FireSignal(new TrainMovementSignal(true));
             var vansCount = UnityEngine.Random.Range(TrainLengthVector.x, TrainLengthVector.y);
-
             var vanXPos = 0f;
             var lastVanWidth = 0f;
             VanMoveController lastVan = null;
             var vanIndex = 0;
+            VanQueue vanQueue = null;
+            var vanQueueCount = 0;
+            var queueVans = 0;
             while (vanIndex < vansCount) {
                 var activeVansCount = _ActiveVans.Count;
                 if (activeVansCount >= MaxVansAtTime) {
                     yield return null;
                 }
                 else {
-                    var vanPrefab = vanIndex > 0 ? VanPrefabs[UnityEngine.Random.Range(0, VanPrefabs.Length)] : MainVan;
+                    var availableVans = VanQueues.Where(_ => _.VanStartIndex <= vanIndex);
+                    VanMoveController vanPrefab = null;
+                    if(vanIndex > 0) {
+                        if(vanQueue == null) {
+                            var availableQueues = VanQueues.Where(_ => _.VanStartIndex <= vanIndex).ToList();
+                            var index = 0;
+                            var availableCount = availableQueues.Count();
+                            if (availableCount > 0) {
+                                index = UnityEngine.Random.Range(0, availableCount);
+                                vanQueue = availableQueues[index];
+                                vanQueueCount = UnityEngine.Random.Range(vanQueue.QueueCount.x, vanQueue.QueueCount.y);
+                            } else {
+                                vanQueue = VanQueues[0];
+                            }
+                        }
+                        vanPrefab = vanQueue.VanMoveController;
+                        queueVans++;
+                        if (queueVans >= vanQueueCount) {
+                            vanQueue = null;
+                            queueVans = 0;
+                            vanQueueCount = 0;
+                        }
+                    } else {
+                        vanPrefab = MainVan;
+                    }
                     var van = Instantiate(vanPrefab, Train.transform);
                     var vanCollider = van.GetComponentInChildren<Collider2D>();
                     var vanWidth = vanCollider.bounds.size.x;
@@ -71,8 +100,8 @@ namespace Game.LevelSpecial.Railway {
                     van.SimpleDamageable.OnKill += OnVanKill;
                     vanIndex++;
                     lastVan = van;
-                    var boxGenerator = van.GetComponentInChildren<VanBoxesGenerator>();
-                    boxGenerator?.GenerateBoxes(van.Rigidbody);
+                    var boxGenerators = van.GetComponentsInChildren<VanBoxesGenerator>();
+                    boxGenerators.ForEach(_=>_?.GenerateBoxes(van.Rigidbody));
                     var objectsGenerator = van.GetComponentInChildren<VanObjectsGenerator>();
                     objectsGenerator?.Generate(van.Rigidbody);
                 }
