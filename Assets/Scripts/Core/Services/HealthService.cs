@@ -30,7 +30,7 @@ namespace Character.Health {
             damage.Receiver.Health -= damage.Amount;
             damage.Receiver.Health = Mathf.Clamp(damage.Receiver.Health, 0, damage.Receiver.MaxHealth);
             if(damage.Receiver.Health <= 0) {
-                damage.Receiver.Dead = true;
+                //damage.Receiver.Dead = true;
                 damage.Receiver.Kill(damage);
                 _SignalBus?.FireSignal(new DamageableDeathSignal(damage));
             }
