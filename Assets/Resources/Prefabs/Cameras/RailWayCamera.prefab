@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 488752418787073017}
   - component: {fileID: 5207129655611201363}
   - component: {fileID: 2051588562}
-  - component: {fileID: 2051588557}
   m_Layer: 0
   m_Name: RailWayCamera
   m_TagString: MainCamera
@@ -65,7 +64,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 100
+  orthographic size: 140
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -209,22 +208,3 @@ MonoBehaviour:
   UseSoftBoundaries: 1
   Softness: 0.5
   SoftAreaSize: 0.1
---- !u!95 &2051588557
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3194724793190089583}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7ba87e383b14ffb4d8c08fda95239996, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
