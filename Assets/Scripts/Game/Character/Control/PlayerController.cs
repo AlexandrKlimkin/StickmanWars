@@ -4,7 +4,7 @@ using Character.Movement;
 using Character.MuscleSystem;
 using Character.Shooting;
 using UnityEngine;
-using InputSystem;
+using InputSystemSpace;
 using Core.Services.Game;
 
 namespace Character.Control {
@@ -28,7 +28,7 @@ namespace Character.Control {
         }
 
         private void Start() {
-            _InputKit = InputConfig.Instance.GetSettings(Id);
+            //_InputKit = InputConfig.Instance.GetSettings(Id);
             _Camera = Camera.main;
             _AimProvider = _InputKit.Id == 0
                 ? (IAimProvider) new MouseAim(_Camera)

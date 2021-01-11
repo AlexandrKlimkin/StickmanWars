@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace InputSystem {
+namespace InputSystemSpace {
     [Serializable]
     public class InputKit {
         public int Id;

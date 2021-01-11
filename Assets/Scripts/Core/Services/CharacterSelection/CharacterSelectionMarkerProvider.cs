@@ -2,7 +2,7 @@
 using System.Collections;
 using Core.Services;
 using Core.Services.Game;
-using InputSystem;
+using InputSystemSpace;
 using KlimLib.SignalBus;
 using UI.Markers;
 using UnityDI;

@@ -19,9 +19,9 @@ namespace Core.Services.Controllers {
         private string[] _TempGamepads;
 
         public void Load() {
-            _EventProvider.OnUpdate += CheckJoysticks;
+            //_EventProvider.OnUpdate += CheckJoysticks;
             _TempGamepads = new string[0];
-            CheckJoysticks();
+            //CheckJoysticks();
         }
 
         public void Unload() { }

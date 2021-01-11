@@ -2,9 +2,11 @@
 using System.Linq;
 using Tools;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace InputSystem {
-    class InputConfig : SingletonScriptableObject<InputConfig> {
+namespace InputSystemSpace {
+    public class InputConfig : SingletonScriptableObject<InputConfig> {
+        public InputActionAsset InputActionAsset;
         [SerializeField]
         private List<InputKit> _InputKits;
         private Dictionary<int, InputKit> _InputKitsDict;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Tools;
 
-namespace InputSystem {
+namespace InputSystemSpace {
     public class InputSystem : SingletonBehaviour<InputSystem> {
         private void Start() {
 

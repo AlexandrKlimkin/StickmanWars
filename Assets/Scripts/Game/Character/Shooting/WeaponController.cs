@@ -5,7 +5,7 @@ using System.Linq;
 using Assets.Scripts.Tools;
 using Character.CloseCombat;
 using Core.Audio;
-using InputSystem;
+using InputSystemSpace;
 using UnityDI;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿using InputSystem;
+﻿using InputSystemSpace;
 using UnityEngine;
 
 namespace Character.Shooting {

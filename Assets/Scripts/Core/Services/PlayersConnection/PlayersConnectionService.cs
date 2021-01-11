@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Tools;
 using Character.Control;
 using Core.Services;
 using Core.Services.Controllers;
 using Core.Services.SceneManagement;
 using Game.Match;
-using InputSystem;
+using InputSystemSpace;
 using KlimLib.SignalBus;
 using Tools.Unity;
 using UnityDI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Core.Services.Game {
     public class PlayersConnectionService : ILoadableService, IUnloadableService {
@@ -46,7 +48,7 @@ namespace Core.Services.Game {
             if (!_SceneManagerService.IsGameScene)
                 _EventProvider.OnUpdate += ProcessPlayersConnect;
             _SignalBus.Subscribe<GamepadStatusChangedSignal>(OnGamepadStatusChanged, this);
-            //_SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
+            _SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
 
             foreach (var player in _MatchData.Players) {
                 var unit = CharacterUnit.Characters.FirstOrDefault(_ => _.OwnerId == player.PlayerId);
@@ -59,7 +61,7 @@ namespace Core.Services.Game {
         }
 
         public void Unload() {
-            _EventProvider.OnUpdate -= ProcessPlayersConnect;
+            //_EventProvider.OnUpdate -= ProcessPlayersConnect;
             _SignalBus.UnSubscribeFromAll(this);
         }
 
@@ -72,9 +74,9 @@ namespace Core.Services.Game {
             return deviceIndex != null;
         }
 
-        //private void OnMatchStart(MatchStartSignal signal) {
-        //    AddBots();
-        //}
+        private void OnMatchStart(MatchStartSignal signal) {
+            AddBots();
+        }
 
         private void FillDeviceIndexForce(int deviceId, PlayerData player) {
             _DeviceLocalPlayerDict.Add(deviceId, player);
@@ -85,9 +87,16 @@ namespace Core.Services.Game {
         private void ProcessPlayersConnect() {
             if (_PlayersLimitReached)
                 return;
-            foreach (var input in _InputConfig.InputKitsDict) {
-                TryToAddPlayer(input.Value.Select, input.Key);
-            }
+            var inputDevices = UnityEngine.InputSystem.InputSystem.devices;
+            var first = inputDevices.First();
+
+            var keyboard = Keyboard.current;
+            var gamepads = Gamepad.all;
+
+            Debug.LogError($"{gamepads.Select(_=>_.deviceId).ToList().ToStringInternal()}");
+            //foreach (var input in _InputConfig.InputKitsDict) {
+            //    TryToAddPlayer(input.Value.Select, input.Key);
+            //}
         }
 
         private void TryToAddPlayer(KeyCode keyCode, int deviceId) {
