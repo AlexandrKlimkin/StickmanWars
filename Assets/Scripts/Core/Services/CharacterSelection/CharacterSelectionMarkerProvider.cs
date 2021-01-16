@@ -2,7 +2,7 @@
 using System.Collections;
 using Core.Services;
 using Core.Services.Game;
-using InputSystem;
+using InControl;
 using KlimLib.SignalBus;
 using UI.Markers;
 using UnityDI;
@@ -20,7 +20,8 @@ namespace MapSelection.UI {
 
         public byte PlayerId;
 
-        private InputKit _InputKit;
+        //private InputKit _InputKit;
+        private PlayerActions _PlayerActions;
         private CharacterConfig _CharacterConfig;
         private PlayerConnectedSignal _CachedPlayerConnected;
         private bool _PlayerConnected = false;
@@ -42,12 +43,13 @@ namespace MapSelection.UI {
         }
 
         private void OnPlayerConnected(PlayerConnectedSignal signal) {
-            var deviceIndex = PlayersConnectionService.GetDeviceIndex(PlayerId);
-            if(deviceIndex == null)
+            var inputDevice = PlayersConnectionService.GetPlayerActions(PlayerId);
+            if(inputDevice == null)
                 return;
             if (signal.PlayerData.PlayerId != PlayerId)
                 return;
-            _InputKit = InputConfig.Instance.GetSettings(deviceIndex.Value);
+            _PlayerActions = signal.PlayerActions;
+            //_InputKit = InputConfig.Instance.GetSettings(deviceIndex.Value);
             _PlayerConnected = true;
             StartCoroutine(AllowSpawnRoutine());
             _CachedPlayerConnected = signal;
@@ -76,11 +78,11 @@ namespace MapSelection.UI {
                 return;
             if (_CharacterSelected)
                 return;
-            if (Input.GetKeyDown(_InputKit.Select)) {
+            if (_PlayerActions.Confirm.WasPressed) {
                 _CharacterSelected = true;
                 CharacterSelectionService.SelectCharacter(_CachedPlayerConnected.PlayerData.PlayerId, _CharacterConfig.AvailableCharacters[_LeafIndex].Id);
             }
-            _Horizontal = Input.GetAxis(_InputKit.Horizontal);
+            _Horizontal = _PlayerActions.Move.Value.x;
             _HasHorizontal = Mathf.Abs(_Horizontal) > 0.1f;
             _Leaf = _HasHorizontal && !_LastFrameHasHorizontal;
             var leafWithTimer = false;

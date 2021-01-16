@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Tools;
 using Core.Services;
+using InControl;
 using KlimLib.SignalBus;
 using Tools.Unity;
 using UnityDI;
@@ -15,39 +16,47 @@ namespace Core.Services.Controllers {
         [Dependency]
         private readonly UnityEventProvider _EventProvider;
 
-        public string[] Gamepads { get; private set; }
-        private string[] _TempGamepads;
+        private List<InputDevice> _InputDevices = new List<InputDevice>();
+        public IReadOnlyList<InputDevice> InputDevices => _InputDevices;
+        public InputDevice InputDevice => InputManager.ActiveDevice;
+
+        private string _SaveData;
+        //private PlayerActions _PlayerActions;
 
         public void Load() {
-            _EventProvider.OnUpdate += CheckJoysticks;
-            _TempGamepads = new string[0];
-            CheckJoysticks();
+            _EventProvider.OnUpdate += CheckInputDevices;
+            CheckInputDevices();
+            //CreateInputBindings();
         }
 
-        public void Unload() { }
+        public void Unload() {
+            //SaveBindings();
+            //_PlayerActions.Destroy();
+        }
 
-        private void CheckJoysticks() {
-            Gamepads = Input.GetJoystickNames();
-            var count = Gamepads.Length;
-            var tempCount = _TempGamepads.Length;
-            for (var i = 0; i < Gamepads.Length; i++) {
-                var gamepad = Gamepads[i];
-                if (tempCount - i > 0) {
-                    var temp = _TempGamepads[i];
-                    if (string.IsNullOrEmpty(temp)) {
-                        if (!string.IsNullOrEmpty(gamepad))
-                            _SignalBus.FireSignal(new GamepadStatusChangedSignal(gamepad, GamepadStatus.Reconnected, i + 1));
-                    }
-                    else {
-                        if(string.IsNullOrEmpty(gamepad))
-                            _SignalBus.FireSignal(new GamepadStatusChangedSignal(temp, GamepadStatus.Disconnected, i + 1));
-                    }
-                }
-                else {
-                    _SignalBus.FireSignal(new GamepadStatusChangedSignal(gamepad, GamepadStatus.Connected, i + 1));
-                }
+        //private void CreateInputBindings() {
+        //    _PlayerActions = PlayerActions.CreateWithDefaultBindings();
+        //    LoadBindings();
+        //}
+
+        //private void SaveBindings() {
+        //    _SaveData = _PlayerActions.Save();
+        //    PlayerPrefs.SetString("Bindings", _SaveData);
+        //}
+
+        //private void LoadBindings() {
+        //    if (PlayerPrefs.HasKey("Bindings")) {
+        //        _SaveData = PlayerPrefs.GetString("Bindings");
+        //        _PlayerActions.Load(_SaveData);
+        //    }
+        //}
+
+        private void CheckInputDevices() {
+            var inputDevice = InputManager.ActiveDevice;
+            if (!_InputDevices.Contains(inputDevice)) {
+                _InputDevices.Add(inputDevice);
+                Debug.Log($"Input device added {inputDevice.Name}, All devices count = {_InputDevices.Count})");
             }
-            _TempGamepads = Gamepads.ToArray();
         }
     }
 }

@@ -4,17 +4,17 @@ using Character.Movement;
 using Character.MuscleSystem;
 using Character.Shooting;
 using UnityEngine;
-using InputSystem;
 using Core.Services.Game;
+using InControl;
 
 namespace Character.Control {
     public class PlayerController : MonoBehaviour {
-
         public int Id;
+        //public InputDevice InputDevice;
+        public PlayerActions PlayerActions;
         //public const float PressTime2HighJump = 0.12f;
         private WeaponController _WeaponController;
         private MovementController _MovementController;
-        private InputKit _InputKit;
         private IAimProvider _AimProvider;
 
         private Camera _Camera;
@@ -28,11 +28,11 @@ namespace Character.Control {
         }
 
         private void Start() {
-            _InputKit = InputConfig.Instance.GetSettings(Id);
             _Camera = Camera.main;
-            _AimProvider = _InputKit.Id == 0
+            _AimProvider = PlayerActions.Device == null
                 ? (IAimProvider) new MouseAim(_Camera)
-                : new JoystickAim(_WeaponController.NearArmShoulder, _MovementController, _InputKit.HorizontalRight, _InputKit.VerticalRight);
+                : new JoystickAim(_WeaponController.NearArmShoulder, _MovementController, PlayerActions);
+            //_AimProvider = new JoystickAim(_WeaponController.NearArmShoulder, _MovementController, PlayerActions);
         }
 
         public void Update() {
@@ -46,14 +46,14 @@ namespace Character.Control {
         }
 
         private void Move() {
-             var hor = Input.GetAxis(_InputKit.Horizontal);
-            var vert = Input.GetAxis(_InputKit.Vertical);
+             var hor = PlayerActions.Move.Value.x;
+            var vert = PlayerActions.Move.Value.y;
             _MovementController.SetHorizontal(hor);
             _MovementController.SetVertical(vert);
         }
 
         private void Jump() {
-            if (Input.GetKeyDown(_InputKit.Jump)) {
+            if (PlayerActions.Jump.WasPressed) {
                 var fallDown = _MovementController.FallDownPlatform();
                 if (!fallDown) {
                     _IsJumping = _MovementController.Jump();
@@ -65,11 +65,11 @@ namespace Character.Control {
                 }
             }
 
-            if (Input.GetKey(_InputKit.Jump)) {
+            if (PlayerActions.Jump) {
                 _MovementController.ProcessHoldJump();
             }
 
-            if (Input.GetKeyUp(_InputKit.Jump)) {
+            if (PlayerActions.Jump.WasReleased) {
                 _IsJumping = false;
                 _WallJump = false;
                 _MovementController.ReleaseJump();
@@ -77,27 +77,27 @@ namespace Character.Control {
         }
 
         private void Attack() {
-            if (Input.GetKeyDown(_InputKit.Attack1))
+            if (PlayerActions.Fire.WasPressed)
             {
                 _WeaponController.PressFire();
             }
-            if (Input.GetKey(_InputKit.Attack1)) {
+            if (PlayerActions.Fire) {
                 _WeaponController.HoldFire();
             }
-            if (Input.GetKeyUp(_InputKit.Attack1)) {
+            if (PlayerActions.Fire.WasReleased) {
                 _WeaponController.ReleaseFire();
             }
         }
 
         private void ThrowWeapon() {
-            if (Input.GetKeyDown(_InputKit.ThrowOutWeapon)) {
+            if (PlayerActions.ThrowOutWeapon.WasPressed) {
                 _WeaponController.ThrowOutMainWeapon();
             }
         }
 
         private void ThrowVehicle()
         {
-            if (Input.GetKeyDown(_InputKit.ThrowOutVehicle)) {
+            if (PlayerActions.ThrowOutVehicle.WasPressed) {
                 _WeaponController.ThrowOutVehicle();
             }
         }

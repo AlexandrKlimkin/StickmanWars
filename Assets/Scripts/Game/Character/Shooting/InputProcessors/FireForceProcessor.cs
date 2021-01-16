@@ -1,5 +1,4 @@
-﻿using InputSystem;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Character.Shooting {
     public class FireForceProcessor : WeaponInputProcessor {
