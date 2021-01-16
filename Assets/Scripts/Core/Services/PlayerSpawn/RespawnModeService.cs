@@ -79,8 +79,8 @@ namespace Core.Services.Game {
         }
 
         private void SpawnPlayerCharacter(PlayerData playerData, Vector3 position) {
-            var deviceIndex = _PlayersConnectionService.GetDeviceIndex(playerData.PlayerId).Value;
-            _CharacterCreationService.CreateCharacter(playerData, true, deviceIndex, position);
+            var inputDevice = _PlayersConnectionService.GetPlayerActions(playerData.PlayerId);
+            _CharacterCreationService.CreateCharacter(playerData, true, inputDevice, position);
         }
 
         private void SpawnPlayerCharacter(byte playerId, Vector3 position) {

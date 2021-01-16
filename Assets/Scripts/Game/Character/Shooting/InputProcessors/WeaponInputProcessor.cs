@@ -1,5 +1,4 @@
-﻿using InputSystem;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Character.Shooting {

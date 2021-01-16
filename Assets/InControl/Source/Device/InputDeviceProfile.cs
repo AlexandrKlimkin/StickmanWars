@@ -270,10 +270,11 @@ namespace InControl
 
 		#endregion
 
+        protected static readonly InputControlSource Space = new InputControlSource(KeyCode.Space);
 
-		#region InputDeviceMapping helpers
+        #region InputDeviceMapping helpers
 
-		protected static InputControlMapping LeftStickLeftMapping( int analog )
+        protected static InputControlMapping LeftStickLeftMapping( int analog )
 		{
 			return new InputControlMapping
 			{

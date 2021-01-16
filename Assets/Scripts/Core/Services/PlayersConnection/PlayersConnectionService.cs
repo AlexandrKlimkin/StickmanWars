@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Tools;
 using Character.Control;
 using Core.Services;
 using Core.Services.Controllers;
 using Core.Services.SceneManagement;
 using Game.Match;
-using InputSystem;
+using InControl;
 using KlimLib.SignalBus;
 using Tools.Unity;
 using UnityDI;
@@ -31,10 +32,9 @@ namespace Core.Services.Game {
         [Dependency]
         private readonly SceneManagerService _SceneManagerService;
 
-        private InputConfig _InputConfig => InputConfig.Instance;
         private byte _AllocatedId;
 
-        private Dictionary<int, PlayerData> _DeviceLocalPlayerDict = new Dictionary<int, PlayerData>();
+        private Dictionary<PlayerActions, PlayerData> _DeviceLocalPlayerDict = new Dictionary<PlayerActions, PlayerData>();
 
         private bool _PlayersLimitReached => _MatchData.Players.Count >= MatchService.MaxPlayerCount;
 
@@ -42,10 +42,16 @@ namespace Core.Services.Game {
 
         public int MaxBotsCount { get; set; } = 0;// MaxPlayerCount - 1;
 
+        PlayerActions _KeyboardListener;
+        PlayerActions _JoystickListener;
+
         public void Load() {
             if (!_SceneManagerService.IsGameScene)
                 _EventProvider.OnUpdate += ProcessPlayersConnect;
-            _SignalBus.Subscribe<GamepadStatusChangedSignal>(OnGamepadStatusChanged, this);
+
+            _KeyboardListener = PlayerActions.CreateWithKeyboardBindings();
+            _JoystickListener = PlayerActions.CreateWithJoystickBindings();
+            //_SignalBus.Subscribe<GamepadStatusChangedSignal>(OnGamepadStatusChanged, this);
             //_SignalBus.Subscribe<MatchStartSignal>(OnMatchStart, this);
 
             foreach (var player in _MatchData.Players) {
@@ -53,8 +59,8 @@ namespace Core.Services.Game {
                 if(unit == null)
                     continue;
                 var playerController = unit.GetComponent<PlayerController>();
-                FillDeviceIndexForce(playerController.Id, player);
-                _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, playerController.Id));
+                FillDeviceIndexForce(playerController.PlayerActions, player);
+                _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, playerController.PlayerActions));
             }
         }
 
@@ -63,47 +69,111 @@ namespace Core.Services.Game {
             _SignalBus.UnSubscribeFromAll(this);
         }
 
-        public int? GetDeviceIndex(byte playerId) {
+        public PlayerActions GetPlayerActions(byte playerId) {
             return _DeviceLocalPlayerDict.FirstOrDefault(_ => _.Value.PlayerId == playerId).Key;
         }
 
-        public bool PlayerConnected(byte playerId, out int? deviceIndex) {
-            deviceIndex = GetDeviceIndex(playerId);
-            return deviceIndex != null;
+        public bool PlayerConnected(byte playerId, out PlayerActions playerActions) {
+            playerActions = GetPlayerActions(playerId);
+            return playerActions != null;
         }
 
-        //private void OnMatchStart(MatchStartSignal signal) {
-        //    AddBots();
-        //}
-
-        private void FillDeviceIndexForce(int deviceId, PlayerData player) {
-            _DeviceLocalPlayerDict.Add(deviceId, player);
+        private void FillDeviceIndexForce(PlayerActions playerActions, PlayerData player) {
+            _DeviceLocalPlayerDict.Add(playerActions, player);
         }
-
-        private void OnGamepadStatusChanged(GamepadStatusChangedSignal signal) { }
 
         private void ProcessPlayersConnect() {
             if (_PlayersLimitReached)
                 return;
-            foreach (var input in _InputConfig.InputKitsDict) {
-                TryToAddPlayer(input.Value.Select, input.Key);
+            //Debug.LogError(InputManager.Devices.ToStringInternal());
+            //TryToAddPlayer(InputManager.ActiveDevice);
+            if (JoinButtonWasPressedOnListener(_JoystickListener)) {
+                var inputDevice = InputManager.ActiveDevice;
+
+                if (ThereIsNoPlayerUsingJoystick(inputDevice)) {
+                    CreatePlayer(inputDevice);
+                }
+            }
+
+            if (JoinButtonWasPressedOnListener(_KeyboardListener)) {
+                if (ThereIsNoPlayerUsingKeyboard()) {
+                    CreatePlayer(null);
+                }
             }
         }
 
-        private void TryToAddPlayer(KeyCode keyCode, int deviceId) {
-            if (!Input.GetKeyDown(keyCode))
-                return;
-            if (_DeviceLocalPlayerDict.ContainsKey(deviceId))
-                return;
+
+        bool JoinButtonWasPressedOnListener(PlayerActions actions) {
+            return actions.Confirm.WasPressed;
+        }
+
+        private PlayerData FindPlayerUsingJoystick(InputDevice inputDevice) {
+            foreach (var pair in _DeviceLocalPlayerDict) {
+                var player = pair.Value;
+                if (pair.Key.Device == inputDevice) {
+                    return player;
+                }
+            }
+            return null;
+        }
+
+        private bool ThereIsNoPlayerUsingJoystick(InputDevice inputDevice) {
+            return FindPlayerUsingJoystick(inputDevice) == null;
+        }
+
+
+        private PlayerData FindPlayerUsingKeyboard() {
+            foreach (var pair in _DeviceLocalPlayerDict) {
+                var player = pair.Value;
+                if (pair.Key == _KeyboardListener) {
+                    return player;
+                }
+            }
+            return null;
+        }
+
+
+        private bool ThereIsNoPlayerUsingKeyboard() {
+            return FindPlayerUsingKeyboard() == null;
+        }
+
+        private void CreatePlayer(InputDevice inputDevice) {
             if (_PlayersLimitReached)
+                return;
+            if (_DeviceLocalPlayerDict.Any(_ => _.Key.Device == inputDevice))
                 return;
             var id = AllocatePlayerId();
             var player = new PlayerData(id, id.ToString(), false, id, null);
-            _DeviceLocalPlayerDict.Add(deviceId, player);
+            PlayerActions actions;
+            if (inputDevice == null) {
+                actions = _KeyboardListener;
+            } else {
+                actions = PlayerActions.CreateWithJoystickBindings();
+                actions.Device = inputDevice;
+            }
+            _DeviceLocalPlayerDict.Add(actions, player);
             _MatchService.AddPlayer(player);
             Debug.Log($"player {player.PlayerId} connected");
-            _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, deviceId));
+            _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, actions));
         }
+
+
+        //private void TryToAddPlayer(InputDevice inputDevice) {
+        //    if (!inputDevice.AnyButtonIsPressed)
+        //        return;
+        //    if (_DeviceLocalPlayerDict.Any(_=>_.Key.Device == inputDevice))
+        //        return;
+        //    if (_PlayersLimitReached)
+        //        return;
+        //    var id = AllocatePlayerId();
+        //    var player = new PlayerData(id, id.ToString(), false, id, null);
+        //    //var playerActions = PlayerActions.CreateWithDefaultBindings();
+        //    //playerActions.Device = inputDevice;
+        //    _DeviceLocalPlayerDict.Add(playerActions, player);
+        //    _MatchService.AddPlayer(player);
+        //    Debug.Log($"player {player.PlayerId} connected");
+        //    _SignalBus.FireSignal(new PlayerConnectedSignal(player, true, playerActions));
+        //}
 
         public void AddBots() {
             var playersDontPlay = 4 - _MatchData.Players.Count;

@@ -1,15 +1,16 @@
 ﻿using Game.Match;
+using InControl;
 
 namespace Core.Services.Game {
     public struct PlayerConnectedSignal {
         public PlayerData PlayerData;
         public bool IsLocalplayer;
-        public int DeviceId;
+        public PlayerActions PlayerActions;
 
-        public PlayerConnectedSignal(PlayerData playerData, bool isLocalplayer, int deviceId) {
+        public PlayerConnectedSignal(PlayerData playerData, bool isLocalplayer, PlayerActions playerActions) {
             this.PlayerData = playerData;
             this.IsLocalplayer = isLocalplayer;
-            this.DeviceId = deviceId;
+            this.PlayerActions = playerActions;
         }
     }
 }

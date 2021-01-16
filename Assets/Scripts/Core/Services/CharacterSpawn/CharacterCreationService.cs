@@ -3,6 +3,7 @@ using Com.LuisPedroFonseca.ProCamera2D;
 using Game.AI;
 using Game.CameraTools;
 using Game.Match;
+using InControl;
 using KlimLib.ResourceLoader;
 using KlimLib.SignalBus;
 using UI.Game.Markers;
@@ -25,11 +26,11 @@ namespace Core.Services.Game {
             _SignalBus.UnSubscribeFromAll(this);
         }
 
-        public CharacterUnit CreateCharacter(PlayerData playerData, bool isLocalPlayer, int deviceId, Vector3 pos) {
+        public CharacterUnit CreateCharacter(PlayerData playerData, bool isLocalPlayer, PlayerActions playerActions, Vector3 pos) {
             var path = Path.Resources.CharacterPath(playerData.CharacterId);
             var unit = _ResourceLoader.LoadResourceOnScene<CharacterUnit>(path, pos, Quaternion.identity);
             if (isLocalPlayer) {
-                SetupLocalPlayerComponents(unit, playerData, deviceId);
+                SetupLocalPlayerComponents(unit, playerData, playerActions);
             }
             unit.Initialize(playerData.PlayerId, playerData.CharacterId, playerData.IsBot);
             _SignalBus.FireSignal(new CharacterSpawnedSignal(unit));
@@ -39,12 +40,12 @@ namespace Core.Services.Game {
             return unit;
         }
 
-        private void SetupLocalPlayerComponents(CharacterUnit character, PlayerData playerData, int deviceId) {
+        private void SetupLocalPlayerComponents(CharacterUnit character, PlayerData playerData, PlayerActions playerActions) {
             if (playerData.IsBot) {
                 var bot = character.gameObject.AddComponent<BotBehaviour>();
             } else {
                 var playerController = character.gameObject.AddComponent<PlayerController>();
-                playerController.Id = deviceId;
+                playerController.PlayerActions = playerActions;
             }
         }
     }

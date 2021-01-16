@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Tools;
 using Character.Control;
 using Character.Movement;
+using InControl;
 using UnityEngine;
 
 public class JoystickAim : IAimProvider
@@ -11,21 +12,20 @@ public class JoystickAim : IAimProvider
 
     private readonly Transform _HandTransform;
     private readonly MovementController _MovementController;
-    private readonly string _HorAxisName;
-    private readonly string _VertAxisName;
 
-    public JoystickAim(Transform handTransform, MovementController movementController, string horAxisName, string vertAxisName)
+    private readonly PlayerActions _PlayerActions;
+
+    public JoystickAim(Transform handTransform, MovementController movementController, PlayerActions playerActions)
     {
         _HandTransform = handTransform;
         _MovementController = movementController;
-        _HorAxisName = horAxisName;
-        _VertAxisName = vertAxisName;
+        _PlayerActions = playerActions;
     }
 
     private Vector2 CalculateAimPoint()
     {
-        var hor = Input.GetAxis(_HorAxisName);
-        var vert = Input.GetAxis(_VertAxisName);
+        var hor = _PlayerActions.Aim.Value.x;
+        var vert = -_PlayerActions.Aim.Value.y;
         //Debug.LogError($"{_HorAxisName} - {hor},{_VertAxisName} - {vert}");
         Vector2 vector;
         if(Mathf.Abs(hor) < 0.1f && Mathf.Abs(vert) < 0.1f)
