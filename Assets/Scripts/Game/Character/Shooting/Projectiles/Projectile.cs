@@ -7,6 +7,7 @@ using UnityEngine;
 namespace Character.Shooting {
     public abstract class Projectile<D> : VisualEffect where D : ProjectileDataBase {
         public List<string> HitEffectNames;
+        public List<string> DintEffectNames;
         public D Data { get; private set; }
         public bool Initialized { get; private set; }
         public float NormalizedLifeTime => (Time.time - Data.BirthTime) / Data.LifeTime;
@@ -50,17 +51,33 @@ namespace Character.Shooting {
             _Hit = true;
             Data.Damage.Receiver = damageable;
             ApplyDamage(damageable, Data.Damage);
-            PlayHitEffect();
+            HitEffect();
+            PlayRandomEffect(DintEffectNames);
         }
 
-        protected virtual void PlayHitEffect() {
-            if (HitEffectNames != null && HitEffectNames.Count > 0) {
+        private void HitEffect() {
+            var hitEffect = PlayRandomEffect(HitEffectNames);
+            hitEffect.transform.position = transform.position;
+            hitEffect.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360f));
+        }
+
+        protected virtual VisualEffect DintEffect(Vector3 position, Vector2 normal) {
+            var dintEffect = PlayRandomEffect(DintEffectNames);
+            if (dintEffect == null)
+                return null;
+            dintEffect.transform.position = position;
+            dintEffect.transform.rotation = Quaternion.LookRotation(Vector3.forward, Quaternion.Euler(0, 0, 90) * normal);
+            return dintEffect;
+        }
+
+        private VisualEffect PlayRandomEffect(List<string> list) {
+            VisualEffect effect = null;
+            if (list != null && list.Count > 0) {
                 var randIndex = Random.Range(0, HitEffectNames.Count);
-                var effect = GetEffect<ParticleEffect>(HitEffectNames[randIndex]);
-                effect.transform.position = transform.position;
-                effect.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360f));
+                effect = GetEffect<VisualEffect>(list[randIndex]);
                 effect.Play();
             }
+            return effect;
         }
 
         protected virtual void ApplyDamage(IDamageable damageable, Damage dmg) {

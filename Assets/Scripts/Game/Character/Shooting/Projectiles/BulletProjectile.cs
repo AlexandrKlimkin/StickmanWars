@@ -21,7 +21,10 @@ namespace Character.Shooting {
             var hit = results.FirstOrDefault();
             transform.position = (hitsCount > 0 && hit.transform) ? (Vector3)hit.point : targetPos;
             if (hit.transform != null) {
-                PerformHit(hit.transform.GetComponent<IDamageable>());
+                var damageable = hit.transform.GetComponent<IDamageable>();
+                PerformHit(damageable);
+                var effect = DintEffect(hit.point, hit.normal);
+                effect.transform.SetParent(hit.transform);
             }
         }
 
