@@ -23,8 +23,8 @@ namespace Character.Shooting {
             if (hit.transform != null) {
                 var damageable = hit.transform.GetComponent<IDamageable>();
                 PerformHit(damageable);
-                var effect = DintEffect(hit.point, hit.normal);
-                effect.transform.SetParent(hit.transform);
+                //var effect = DintEffect(hit.point, hit.normal);
+                //effect.transform.SetParent(hit.transform);
             }
         }
 
@@ -39,7 +39,8 @@ namespace Character.Shooting {
         }
 
         protected override void PerformHit(IDamageable damageable, bool killProjectile = true) {
-            damageable?.Collider?.attachedRigidbody?.AddForceAtPosition(new Vector2(transform.forward.x, transform.forward.y) * Data.Force, transform.position);
+            var force = new Vector2(transform.forward.x, transform.forward.y) * Data.Force;
+            damageable?.Collider?.attachedRigidbody?.AddForceAtPosition(force, transform.position);
             //if (damageable == null)
             //    return;
             //var collider = damageable.Collider;
@@ -47,6 +48,8 @@ namespace Character.Shooting {
             //var force = Data.Force;
             //attachedRb.AddForceAtPosition(new Vector2(transform.forward.x, transform.forward.y) * force, transform.position);
             //PlayHitEffect();
+            Data.Damage.DamagePos = transform.position;
+            Data.Damage.DamageForce = force * 10f;
             base.PerformHit(damageable, killProjectile);
         }
 

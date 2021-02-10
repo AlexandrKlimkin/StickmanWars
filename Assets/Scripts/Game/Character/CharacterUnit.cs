@@ -12,14 +12,20 @@ using UnityDI;
 using Core.Services.Game;
 using System;
 using Core.Audio;
+using KlimLib.ResourceLoader;
+using Tools.VisualEffects;
 
 public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
     [Dependency]
     private readonly SignalBus _SignalBus;
     [Dependency]
     private readonly AudioService _AudioService;
+    [Dependency]
+    private readonly IResourceLoaderService _ResourceLoader;
 
-    public Transform Target;
+    [SerializeField]
+    private CharacterBodyParts _CharacterBodyParts;
+    public CharacterBodyParts CharacterBodyParts => _CharacterBodyParts;
 
     public MovementController MovementController { get; private set; }
     public WeaponController WeaponController { get; private set; }
@@ -98,6 +104,20 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
             return;
         Dead = true;
         Debug.Log($"Player {OwnerId} character {CharacterId} dead.");
+        var ragdoll = _ResourceLoader.LoadResourceOnScene<RagdollController>(Path.Resources.RagdollPath(CharacterId));
+        ragdoll.transform.position = transform.position;
+        ragdoll.transform.rotation = transform.rotation;
+        ragdoll.CopyTransforms(CharacterBodyParts);
+        ragdoll.Play();
+        if (damage.DamageForce.HasValue) {
+            ragdoll.CharacterBodyParts.Chest.GetComponent<Rigidbody2D>().AddForce(damage.DamageForce.Value);
+        }
+        if (WeaponController.HasMainWeapon) {
+            WeaponController.MainWeapon.WeaponView.IgnoreCollisionForTime(ragdoll.gameObject, 0.5f);
+        }
+        if (WeaponController.HasVehicle) {
+            WeaponController.Vehicle.WeaponView.IgnoreCollisionForTime(ragdoll.gameObject, 0.5f);
+        }
         Destroy(gameObject); //ToDo: something different
         _SignalBus?.FireSignal(new CharacterDeathSignal(damage));
         PlayeHitSound(DeathAudioEffects);

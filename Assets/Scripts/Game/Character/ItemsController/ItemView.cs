@@ -43,7 +43,7 @@ namespace Items
             CollidersContainer.SetActive(true);
             transform.SetParent(null);
             StopAllCoroutines();
-            StartCoroutine(IgnorThrowerCollisionRoutine(thrower));
+            StartCoroutine(IgnorCollisionForTimeRoutine(thrower, 1f));
         }
 
         public void MakeFallingDown() {
@@ -51,14 +51,18 @@ namespace Items
             FallingDown = true;
         }
 
-        private IEnumerator IgnorThrowerCollisionRoutine(GameObject thrower) {
+        public void IgnoreCollisionForTime(GameObject ignoredObject, float time) {
+            StartCoroutine(IgnorCollisionForTimeRoutine(ignoredObject, time));
+        }
+
+        private IEnumerator IgnorCollisionForTimeRoutine(GameObject thrower, float time) {
             var throwerColliders = thrower.GetComponentsInChildren<Collider2D>();
             foreach (var col in _Colliders) {
                 foreach (var throwerCol in throwerColliders) {
                     Physics2D.IgnoreCollision(throwerCol, col);
                 }
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(time);
             foreach (var col in _Colliders) {
                 if (col) {
                     foreach (var throwerCol in throwerColliders) {

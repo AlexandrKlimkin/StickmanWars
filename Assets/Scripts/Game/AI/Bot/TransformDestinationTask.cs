@@ -15,9 +15,9 @@ namespace Game.AI {
         }
 
         public override Tools.BehaviourTree.TaskStatus Run() {
-            if(CharacterUnit.Target != null) {
-                _MovementData.TargetPos = CharacterUnit.Target.position;
-            }
+            //if(CharacterUnit.Target != null) {
+            //    _MovementData.TargetPos = CharacterUnit.Target.position;
+            //}
             return Tools.BehaviourTree.TaskStatus.Success;
         }
     }

@@ -23,7 +23,6 @@ namespace Game.Physics {
         public float MaxForce;
         public float MaxDamage;
         public AnimationCurve StrenghtCurve;
-        public float MaxVelocityMagnitude;
         public string CameraShakePresetName;
         public List<ParticleSystem> VFXEffects;
         public List<string> AudioEffectNames;
@@ -36,7 +35,7 @@ namespace Game.Physics {
         }
 
         protected virtual void Start() {
-            if(PlayOnStart)
+            if (PlayOnStart)
                 StartCoroutine(ExplosionRoutine());
         }
 
@@ -56,6 +55,7 @@ namespace Game.Physics {
         }
 
         public virtual void Play() {
+            Debug.LogError(transform.position);
             if (!_BuiltUp) {
                 ContainerHolder.Container.BuildUp(this);
                 _BuiltUp = true;
@@ -63,11 +63,10 @@ namespace Game.Physics {
             var colliders = Physics2D.OverlapCircleAll(transform.position.ToVector2(), Radius, Layers);
             var rigidbodies = new List<Rigidbody2D>();
             var damageables = new List<PartData>();
-            var speedLimitsRbs = new List<Rigidbody2D>();
             foreach (var col in colliders) {
-                if(col.attachedRigidbody == null)
+                if (col.attachedRigidbody == null)
                     continue;
-                if(rigidbodies.Contains(col.attachedRigidbody))
+                if (rigidbodies.Contains(col.attachedRigidbody))
                     continue;
                 rigidbodies.Add(col.attachedRigidbody);
             }
@@ -82,21 +81,13 @@ namespace Game.Physics {
                 var normilizedVector = vector / dist;
                 var percentForce = StrenghtCurve.Evaluate(dist / Radius);
                 var totalForce = percentForce * MaxForce;
-                //Debug.LogError(totalForce);
-                var levitation = rb.GetComponent<Levitation>();
-                if (levitation != null)
-                    levitation.DisableOnTime(6f);
                 rb.AddForceAtPosition(totalForce * normilizedVector, closestPoint);
                 var damageable = rb.GetComponent<IDamageable>();
-                damageables.Add(new PartData { Damageable = damageable, Damage = percentForce * MaxDamage });
-
+                damageables.Add(new PartData { Damageable = damageable, Damage = new Damage(null, damageable, percentForce * MaxDamage, closestPoint, totalForce * normilizedVector * 10f) });
                 var velMagnitude = rb.velocity.magnitude;
-                if (velMagnitude > MaxVelocityMagnitude)
-                    speedLimitsRbs.Add(rb);
             }
-            StartCoroutine(ApplyDamageAfteFixedUpdate(damageables));
-            StartCoroutine(LimitVelocityAfterFixedUpdate(speedLimitsRbs));
-            if(ProCamera2DShake.Instance != null && !string.IsNullOrEmpty(CameraShakePresetName))
+            StartCoroutine(ApplyDamageRoutine(damageables));
+            if (ProCamera2DShake.Instance != null && !string.IsNullOrEmpty(CameraShakePresetName))
                 ProCamera2DShake.Instance.Shake(CameraShakePresetName);
             PlayEffect();
             PlaySound();
@@ -104,19 +95,14 @@ namespace Game.Physics {
 
         private struct PartData {
             public IDamageable Damageable;
-            public float Damage;
+            public Damage Damage;
         }
 
-        private IEnumerator ApplyDamageAfteFixedUpdate(List<PartData> parts) {
-            yield return new WaitForFixedUpdate();
-            parts.ForEach(_=>_.Damageable.ApplyDamage(new Damage(null, _.Damageable, _.Damage)));
-        }
-
-        private IEnumerator LimitVelocityAfterFixedUpdate(List<Rigidbody2D> rbs) {
-            yield return new WaitForFixedUpdate();
-            rbs.ForEach(_ => {
-                if (_)
-                    _.velocity = _.velocity.normalized * MaxVelocityMagnitude;
+        private IEnumerator ApplyDamageRoutine(List<PartData> parts) {
+            yield return null;
+            parts.ForEach(_ => {
+                if(_.Damageable != null)
+                    _.Damageable.ApplyDamage(_.Damage);
             });
         }
 
