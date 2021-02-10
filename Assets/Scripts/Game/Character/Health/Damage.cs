@@ -9,6 +9,8 @@ namespace Character.Health {
         public byte? InstigatorId;
         public IDamageable Receiver;
         public bool InstantKill;
+        public Vector2? DamagePos;
+        public Vector2? DamageForce;
 
         public Damage(byte? instigator, IDamageable receiver, float amount, bool instantKill = false) {
             this.InstigatorId = instigator;

@@ -13,6 +13,7 @@ public static class Layers {
         public const string Weapon = "Weapon";
         public const string MovingPlatform = "MovingPlatform";
         public const string OneWayPlatform = "OneWayPlatform";
+        public const string Corpse = "Corpse";
     }
 
     public static class Masks {
@@ -30,7 +31,7 @@ public static class Layers {
 
         static Masks() {
             Damageable = LayerMask.GetMask(Names.Damageable);
-            Walkable = LayerMask.GetMask(Names.Ground, Names.Platform, Names.Box, Names.MovingPlatform, Names.OneWayPlatform);
+            Walkable = LayerMask.GetMask(Names.Ground, Names.Platform, Names.Box, Names.MovingPlatform, Names.OneWayPlatform, Names.Corpse);
             NoCharacter = CreateLayerMask(true, LayerMask.NameToLayer(Names.Character));
             Character = LayerMask.GetMask(Names.Character);
             BotVisionMask = LayerMask.GetMask(Names.Ground, Names.Platform, Names.MovingPlatform);

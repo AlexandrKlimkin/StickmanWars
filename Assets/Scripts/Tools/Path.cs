@@ -19,6 +19,10 @@ public static class Path {
             return $"Prefabs/Characters/{characterId}";
         }
 
+        public static string RagdollPath(string characterId) {
+            return $"Prefabs/Characters/Ragdolls/{characterId}_ragdoll";
+        }
+
         public static string Bone(string unitId, MuscleType type) {
             return $"Characters/{unitId}/{type}";
         }

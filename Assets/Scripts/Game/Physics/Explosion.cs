@@ -56,13 +56,13 @@ namespace Game.Physics {
         }
 
         public virtual void Play() {
+            //Debug.LogError(transform.position);
             if (!_BuiltUp) {
                 ContainerHolder.Container.BuildUp(this);
                 _BuiltUp = true;
             }
             var colliders = Physics2D.OverlapCircleAll(transform.position.ToVector2(), Radius, Layers);
             var rigidbodies = new List<Rigidbody2D>();
-            var damageables = new List<PartData>();
             var speedLimitsRbs = new List<Rigidbody2D>();
             foreach (var col in colliders) {
                 if(col.attachedRigidbody == null)
@@ -82,34 +82,24 @@ namespace Game.Physics {
                 var normilizedVector = vector / dist;
                 var percentForce = StrenghtCurve.Evaluate(dist / Radius);
                 var totalForce = percentForce * MaxForce;
-                //Debug.LogError(totalForce);
-                var levitation = rb.GetComponent<Levitation>();
-                if (levitation != null)
-                    levitation.DisableOnTime(6f);
                 rb.AddForceAtPosition(totalForce * normilizedVector, closestPoint);
                 var damageable = rb.GetComponent<IDamageable>();
-                damageables.Add(new PartData { Damageable = damageable, Damage = percentForce * MaxDamage });
 
+                if (damageable != null) {
+                    var dmg = new Damage(null, damageable, percentForce * MaxDamage) {
+                        DamagePos = closestPoint,
+                        DamageForce = totalForce * normilizedVector * 10f
+                    };
+                    damageable.ApplyDamage(dmg);
+                }
                 var velMagnitude = rb.velocity.magnitude;
                 if (velMagnitude > MaxVelocityMagnitude)
                     speedLimitsRbs.Add(rb);
             }
-            StartCoroutine(ApplyDamageAfteFixedUpdate(damageables));
-            StartCoroutine(LimitVelocityAfterFixedUpdate(speedLimitsRbs));
             if(ProCamera2DShake.Instance != null && !string.IsNullOrEmpty(CameraShakePresetName))
                 ProCamera2DShake.Instance.Shake(CameraShakePresetName);
             PlayEffect();
             PlaySound();
-        }
-
-        private struct PartData {
-            public IDamageable Damageable;
-            public float Damage;
-        }
-
-        private IEnumerator ApplyDamageAfteFixedUpdate(List<PartData> parts) {
-            yield return new WaitForFixedUpdate();
-            parts.ForEach(_=>_.Damageable.ApplyDamage(new Damage(null, _.Damageable, _.Damage)));
         }
 
         private IEnumerator LimitVelocityAfterFixedUpdate(List<Rigidbody2D> rbs) {

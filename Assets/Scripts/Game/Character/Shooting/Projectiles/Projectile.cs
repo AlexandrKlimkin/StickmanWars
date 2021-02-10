@@ -50,32 +50,34 @@ namespace Character.Shooting {
                 KillProjectile();
             _Hit = true;
             Data.Damage.Receiver = damageable;
-            ApplyDamage(damageable, Data.Damage);
             HitEffect();
-            PlayRandomEffect(DintEffectNames);
+            //DintEffect();
+            ApplyDamage(damageable, Data.Damage);
         }
 
         private void HitEffect() {
-            var hitEffect = PlayRandomEffect(HitEffectNames);
+            var hitEffect = GetRandomEffect(HitEffectNames);
+            if (hitEffect == null)
+                return;
             hitEffect.transform.position = transform.position;
             hitEffect.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360f));
+            hitEffect.Play();
         }
 
-        protected virtual VisualEffect DintEffect(Vector3 position, Vector2 normal) {
-            var dintEffect = PlayRandomEffect(DintEffectNames);
+        private void DintEffect() {
+            var dintEffect = GetRandomEffect(DintEffectNames);
             if (dintEffect == null)
-                return null;
-            dintEffect.transform.position = position;
-            dintEffect.transform.rotation = Quaternion.LookRotation(Vector3.forward, Quaternion.Euler(0, 0, 90) * normal);
-            return dintEffect;
+                return;
+            dintEffect.transform.position = transform.position;
+            dintEffect.transform.rotation = Quaternion.LookRotation(Vector3.forward, Quaternion.Euler(0, 0, 90) * transform.forward);
+            dintEffect.Play();
         }
 
-        private VisualEffect PlayRandomEffect(List<string> list) {
+        private VisualEffect GetRandomEffect(List<string> list) {
             VisualEffect effect = null;
             if (list != null && list.Count > 0) {
                 var randIndex = Random.Range(0, HitEffectNames.Count);
                 effect = GetEffect<VisualEffect>(list[randIndex]);
-                effect.Play();
             }
             return effect;
         }

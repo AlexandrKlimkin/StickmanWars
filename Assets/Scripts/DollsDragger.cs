@@ -10,8 +10,10 @@ public class DollsDragger : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (Camera.main == null)
+            return;
         var mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetMouseButtonDown(0)) {
             _DraggedCollider = Physics2D.OverlapPoint(mousePos);
             if (_DraggedCollider != null && _DraggedCollider.attachedRigidbody) {
                 var rb = _DraggedCollider.attachedRigidbody;
@@ -21,7 +23,7 @@ public class DollsDragger : MonoBehaviour
                 _DragOffset = Vector2.zero;
             }
         }
-        if (Input.GetMouseButtonUp(1)) {
+        if (Input.GetMouseButtonUp(0)) {
             _DraggedCollider = null;
             _DragOffset = Vector2.zero;
         }
