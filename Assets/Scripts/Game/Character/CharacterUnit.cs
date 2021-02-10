@@ -112,6 +112,12 @@ public class CharacterUnit : MonoBehaviour, IDamageable, ICameraTarget {
         if (damage.DamageForce.HasValue) {
             ragdoll.CharacterBodyParts.Chest.GetComponent<Rigidbody2D>().AddForce(damage.DamageForce.Value);
         }
+        if (WeaponController.HasMainWeapon) {
+            WeaponController.MainWeapon.WeaponView.IgnoreCollisionForTime(ragdoll.gameObject, 0.5f);
+        }
+        if (WeaponController.HasVehicle) {
+            WeaponController.Vehicle.WeaponView.IgnoreCollisionForTime(ragdoll.gameObject, 0.5f);
+        }
         Destroy(gameObject); //ToDo: something different
         _SignalBus?.FireSignal(new CharacterDeathSignal(damage));
         PlayeHitSound(DeathAudioEffects);
