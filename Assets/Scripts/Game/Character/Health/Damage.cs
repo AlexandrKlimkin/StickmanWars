@@ -19,6 +19,15 @@ namespace Character.Health {
             this.InstantKill = instantKill;
         }
 
+        public Damage(byte? instigator, IDamageable receiver, float amount, Vector2 DamagePos, Vector2 DamageForce, bool instantKill = false) {
+            this.InstigatorId = instigator;
+            this.Receiver = receiver;
+            this.Amount = amount;
+            this.InstantKill = instantKill;
+            this.DamagePos = DamagePos;
+            this.DamageForce = DamageForce;
+        }
+
     }
 
 }
