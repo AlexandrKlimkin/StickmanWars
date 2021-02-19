@@ -6,6 +6,7 @@ using Core.Initialization.Base;
 using Core.Initialization.Game;
 using Core.Initialization.MapSelection;
 using Core.Services;
+using Core.Services.Application;
 using Core.Services.Controllers;
 using Core.Services.Game;
 using Core.Services.SceneManagement;
@@ -23,6 +24,7 @@ namespace Core.Initialization {
                 new ContainerInitializationTask(),
                 new BaseServiceInitializationTask<SignalBus, SignalBus>(),
                 new BaseServiceInitializationTask<IResourceLoaderService, ResourceLoaderService>(),
+                new RegisterAndLoadServiceTask<ApplicationService>(),
                 new UnityEventProviderRegisterTask(),
                 new RegisterAndLoadServiceTask<SceneManagerService>(),
                 new RegisterAndLoadServiceTask<ControllersStatusService>(),

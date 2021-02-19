@@ -14,6 +14,7 @@ namespace Character.Shooting {
         private readonly AudioService _AudioService;
 
         public Transform NearArmTransform;
+        public Transform NearArmEndTransform;
         public Transform NearArmShoulder;
         public Transform NearArmWeaponTransform;
         public Transform NeckWeaponTransform;
@@ -42,9 +43,12 @@ namespace Character.Shooting {
 
         public bool MeleeAttacking => MeleeAttack.Attacking && MainWeapon == null;
 
+        private Vector3 _NearArmEndLocalPos;
+
         private void Awake() {
             Owner = GetComponent<CharacterUnit>();
             WeaponPicker = GetComponentInChildren<WeaponPicker>();
+            _NearArmEndLocalPos = NearArmEndTransform.localPosition;
         }
 
         private void Start() {
@@ -55,11 +59,12 @@ namespace Character.Shooting {
         }
 
         private void Update() {
-            if(MainWeapon == null) {
+            if(!HasMainWeapon) {
                 MeleeAttack?.InputProcessor.Process();
             }
             else  {
                 MainWeapon.InputProcessor.Process();
+                //NearArmEndTransform.position = MainWeapon.WeaponView.ShootTransform.position;
             }
             Vehicle?.InputProcessor.Process();
 
@@ -104,6 +109,7 @@ namespace Character.Shooting {
             var weapon = MainWeapon;
             MainWeapon = null;
             PlaySound(ThrowSound);
+            NearArmEndTransform.localPosition = _NearArmEndLocalPos;
             OnWeaponThrowed?.Invoke(weapon);
         }
 

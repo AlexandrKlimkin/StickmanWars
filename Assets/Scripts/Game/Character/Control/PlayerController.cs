@@ -30,8 +30,8 @@ namespace Character.Control {
         private void Start() {
             _Camera = Camera.main;
             _AimProvider = PlayerActions.Device == null
-                ? (IAimProvider) new MouseAim(_Camera)
-                : new JoystickAim(_WeaponController.NearArmShoulder, _MovementController, PlayerActions);
+                ? (IAimProvider)new MouseAimProvider(_Camera, transform)
+                : new JoystickAimProvider(_WeaponController.NearArmShoulder, _MovementController, PlayerActions);
             //_AimProvider = new JoystickAim(_WeaponController.NearArmShoulder, _MovementController, PlayerActions);
         }
 
@@ -46,7 +46,7 @@ namespace Character.Control {
         }
 
         private void Move() {
-             var hor = PlayerActions.Move.Value.x;
+            var hor = PlayerActions.Move.Value.x;
             var vert = PlayerActions.Move.Value.y;
             _MovementController.SetHorizontal(hor);
             _MovementController.SetVertical(vert);
@@ -77,8 +77,7 @@ namespace Character.Control {
         }
 
         private void Attack() {
-            if (PlayerActions.Fire.WasPressed)
-            {
+            if (PlayerActions.Fire.WasPressed) {
                 _WeaponController.PressFire();
             }
             if (PlayerActions.Fire) {
@@ -95,8 +94,7 @@ namespace Character.Control {
             }
         }
 
-        private void ThrowVehicle()
-        {
+        private void ThrowVehicle() {
             if (PlayerActions.ThrowOutVehicle.WasPressed) {
                 _WeaponController.ThrowOutVehicle();
             }
@@ -107,12 +105,12 @@ namespace Character.Control {
                 _WeaponController.SetAimPosition(_AimProvider.AimPoint);
         }
 
-        private void OnDrawGizmosSelected() {
+        private void OnDrawGizmos() {
             if (!Application.isPlaying)
                 return;
-            Gizmos.color = _AimProvider is MouseAim ? Color.red : Color.yellow;
+            Gizmos.color = _AimProvider is MouseAimProvider ? Color.red : Color.yellow;
             Gizmos.DrawWireSphere(_AimProvider.AimPoint, 1f);
-            Gizmos.DrawLine(_AimProvider.AimPoint, _WeaponController.NearArmShoulder.position);
+            Gizmos.DrawLine(_AimProvider.AimPoint, transform.position + new Vector3(0,13f,0));
         }
     }
 }

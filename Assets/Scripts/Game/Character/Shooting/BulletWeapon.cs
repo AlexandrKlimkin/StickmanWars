@@ -23,15 +23,15 @@ namespace Character.Shooting
             data.LifeTime = Stats.Range / Stats.ProjectileSpeed;
             data.Position = WeaponView.ShootTransform.position;
 
-            Vector3 shootRotEuler;
-            var directionVector = PickableItem.Owner.WeaponController.AimPosition - WeaponView.ShootTransform.position.ToVector2();
-            shootRotEuler = Quaternion.LookRotation(directionVector).eulerAngles;
-            if (_Stats.DispersionAngle != 0) {
-                shootRotEuler = new Vector3(shootRotEuler.x + RandomDispersionAngle, shootRotEuler.y, shootRotEuler.z);
-            }
-            data.Rotation = Quaternion.Euler(shootRotEuler);
-
-           Debug.DrawLine(WeaponView.ShootTransform.position, WeaponView.ShootTransform.position + WeaponView.ShootTransform.forward * 10f, Color.green, 3f);
+            //Vector3 shootRotEuler;
+            //var directionVector = PickableItem.Owner.WeaponController.AimPosition - WeaponView.ShootTransform.position.ToVector2();
+            //shootRotEuler = Quaternion.LookRotation(directionVector).eulerAngles;
+            //if (_Stats.DispersionAngle != 0) {
+            //    shootRotEuler = new Vector3(shootRotEuler.x + RandomDispersionAngle, shootRotEuler.y, shootRotEuler.z);
+            //}
+            //data.Rotation = Quaternion.Euler(shootRotEuler);
+            data.Rotation = Quaternion.LookRotation(WeaponView.ShootTransform.forward, Vector3.up);
+            Debug.DrawLine(WeaponView.ShootTransform.position, WeaponView.ShootTransform.position + WeaponView.ShootTransform.forward * 10f, Color.green, 3f);
             data.Speed = Stats.ProjectileSpeed;
             data.Force = Stats.HitForce;
             return data;
