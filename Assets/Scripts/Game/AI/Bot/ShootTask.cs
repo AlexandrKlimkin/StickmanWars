@@ -110,7 +110,7 @@ namespace Game.AI {
 
         private void Aim() {
             if (_Target) {
-                CharacterUnit.WeaponController.SetWeaponedHandPosition(_Target.position.ToVector2() + new Vector2(0, 14f));
+                CharacterUnit.WeaponController.SetAimPosition(_Target.position.ToVector2() + new Vector2(0, 14f));
             } else {
 
             }

@@ -1,16 +1,22 @@
 ﻿using Com.LuisPedroFonseca.ProCamera2D;
 using System.Collections;
 using System.Collections.Generic;
+using Character.Control;
 using Tools.VisualEffects;
 using UnityEngine;
 
 namespace Character.Shooting {
-    public abstract class LongRangeWeapon<P, D> : Weapon where P : Projectile<D> where D : ProjectileDataBase, new() {
+    public abstract class LongRangeWeapon<P, D> : Weapon, IAimViewProvider where P : Projectile<D> where D : ProjectileDataBase, new() {
         public override ItemType ItemType => ItemType.Weapon;
         public string ProjectileName;
         public string ShotCameraShakePresetName;
 
         protected float RandomDispersionAngle => Random.Range(-_Stats.DispersionAngle / 2, _Stats.DispersionAngle / 2);
+
+        [SerializeField]
+        private AimViewBase _AimPrefab;
+        public AimViewBase AimPrefab => _AimPrefab;
+        public virtual Transform AimPositionPoint => WeaponView.ShootTransform;
 
         public virtual P GetProjectile() {
             //return Instantiate(ProjectilePrefab);

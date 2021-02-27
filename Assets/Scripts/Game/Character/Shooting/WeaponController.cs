@@ -71,10 +71,6 @@ namespace Character.Shooting {
         }
 
         public void SetAimPosition(Vector2 position) {
-            SetWeaponedHandPosition(position);
-        }
-
-        public void SetWeaponedHandPosition(Vector2 position) {
             AimPosition = position;
             NearArmTransform.position = AimPosition;
         }

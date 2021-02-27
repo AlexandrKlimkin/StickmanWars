@@ -26,9 +26,9 @@ public class JoystickAimProvider : IAimProvider {
         //Debug.LogError($"{_HorAxisName} - {hor},{_VertAxisName} - {vert}");
         Vector2 vector;
         if (Mathf.Abs(hor) < 0.1f && Mathf.Abs(vert) < 0.1f)
-            vector = _HandTransform.transform.position + new Vector3(_MovementController.Direction * 200f, 0.7f, 0);
+            vector = _HandTransform.transform.position + new Vector3(_MovementController.Direction * 100f, 0.7f, 0);
         else
-            vector = _HandTransform.transform.position + new Vector3(hor, -vert).normalized * 200f + Vector3.up * 0.7f;
+            vector = _HandTransform.transform.position + new Vector3(hor, -vert).normalized * 100f + Vector3.up * 0.7f;
         return vector;
     }
 }

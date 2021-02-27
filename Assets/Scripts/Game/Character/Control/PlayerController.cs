@@ -10,14 +10,10 @@ using InControl;
 namespace Character.Control {
     public class PlayerController : MonoBehaviour {
         public int Id;
-        //public InputDevice InputDevice;
         public PlayerActions PlayerActions;
-        //public const float PressTime2HighJump = 0.12f;
         private WeaponController _WeaponController;
         private MovementController _MovementController;
-        private IAimProvider _AimProvider;
 
-        private Camera _Camera;
         private bool _IsJumping;
         private bool _WallJump;
         private bool _IsWallJumping;
@@ -25,14 +21,6 @@ namespace Character.Control {
         private void Awake() {
             _MovementController = GetComponent<MovementController>();
             _WeaponController = GetComponent<WeaponController>();
-        }
-
-        private void Start() {
-            _Camera = Camera.main;
-            _AimProvider = PlayerActions.Device == null
-                ? (IAimProvider)new MouseAimProvider(_Camera, transform)
-                : new JoystickAimProvider(_WeaponController.NearArmShoulder, _MovementController, PlayerActions);
-            //_AimProvider = new JoystickAim(_WeaponController.NearArmShoulder, _MovementController, PlayerActions);
         }
 
         public void Update() {
@@ -98,19 +86,6 @@ namespace Character.Control {
             if (PlayerActions.ThrowOutVehicle.WasPressed) {
                 _WeaponController.ThrowOutVehicle();
             }
-        }
-
-        public void LateUpdate() {
-            if (_WeaponController.HasMainWeapon)
-                _WeaponController.SetAimPosition(_AimProvider.AimPoint);
-        }
-
-        private void OnDrawGizmos() {
-            if (!Application.isPlaying)
-                return;
-            Gizmos.color = _AimProvider is MouseAimProvider ? Color.red : Color.yellow;
-            Gizmos.DrawWireSphere(_AimProvider.AimPoint, 1f);
-            Gizmos.DrawLine(_AimProvider.AimPoint, transform.position + new Vector3(0,13f,0));
         }
     }
 }

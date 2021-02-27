@@ -24,7 +24,7 @@ public class MouseAimProvider : IAimProvider {
                 var vectorNew = vector / dist * 20f;
                 return _ShoulderPoint + vectorNew;
             } else {
-                return _Camera.ScreenToWorldPoint(Input.mousePosition);
+                return _Camera.ScreenToWorldPoint(Input.mousePosition) + _CharTransform.position;
             }
         }
     }

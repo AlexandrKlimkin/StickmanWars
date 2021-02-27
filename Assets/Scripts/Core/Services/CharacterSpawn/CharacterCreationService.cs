@@ -46,6 +46,8 @@ namespace Core.Services.Game {
             } else {
                 var playerController = character.gameObject.AddComponent<PlayerController>();
                 playerController.PlayerActions = playerActions;
+                var aimController = character.gameObject.AddComponent<AimController>();
+                aimController.PlayerActions = playerActions;
             }
         }
     }
