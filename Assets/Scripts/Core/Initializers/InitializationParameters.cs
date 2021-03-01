@@ -8,6 +8,7 @@ using Core.Initialization.MapSelection;
 using Core.Services;
 using Core.Services.Controllers;
 using Core.Services.Game;
+using Core.Services.Photon;
 using Core.Services.SceneManagement;
 using Game.Match;
 using KlimLib.ResourceLoader;
@@ -42,6 +43,14 @@ namespace Core.Initialization {
         public static List<Task> MapSelectionUnloadTasks => new List<Task>() {
             new UnregisterAndUnloadServiceTask<GameLevelLoadService>(),
             new UnregisterAndUnloadServiceTask<CharacterSelectionService>(),
+        };
+
+        public static List<Task> LobbyLoadTasks => new List<Task>() {
+            new RegisterAndLoadServiceTask<PhotonLobbyService>(),
+        };
+
+        public static List<Task> LobbyUnloadTasks => new List<Task>() {
+
         };
 
         public static List<Task> BaseGameTasks =>

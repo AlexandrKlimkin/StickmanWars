@@ -15,6 +15,7 @@ namespace Core.Services.SceneManagement {
         private readonly UnityEventProvider _EventProvider;
 
         private readonly Dictionary<SceneType, SceneLoadingParameters> _SceneLoadingParametersMap = new Dictionary<SceneType, SceneLoadingParameters>() {
+            { SceneType.Lobby, new LobbyLoadingParameters() },
             { SceneType.MapSelection, new MapSelectionLoadingParameters() },
             { SceneType.CityCrane, new GameLoadingParameters() },
             { SceneType.MapTemplate, new GameLoadingParameters() },
@@ -86,6 +87,7 @@ namespace Core.Services.SceneManagement {
     }
 
     public enum SceneType {
+        Lobby,
         MapSelection,
         CityCrane,
         MapTemplate,
